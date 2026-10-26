@@ -1,0 +1,197 @@
+---
+import AdminLayout from '../../layouts/AdminLayout.astro';
+import { SITE_INFO } from '../../data/defaultContent';
+---
+
+<AdminLayout title="Pengaturan Global">
+  <div class="space-y-8 text-left max-w-4xl">
+    
+    <div class="pb-4 border-b border-rose-900/40">
+      <h1 class="font-heading font-black text-2xl uppercase tracking-wider text-white flex items-center gap-2.5">
+        <i class="fas fa-cog text-amber-400"></i>
+        <span>PENGATURAN GLOBAL WEBSITE</span>
+      </h1>
+      <p class="text-xs text-rose-300/80 mt-1">
+        Atur identitas brand, nomor WhatsApp resmi, pesan otomatis, dan konfigurasi SEO umum (PRD Section 11.14).
+      </p>
+    </div>
+
+    <div id="settings-alert" class="hidden p-3 rounded-lg text-xs font-bold"></div>
+
+    <form id="settings-form" class="space-y-6">
+      
+      <!-- Brand & Kontak Utama -->
+      <div class="rounded-xl bg-[#330206] border border-rose-700/40 p-6 space-y-4">
+        <h2 class="font-heading font-bold text-base uppercase text-amber-400 tracking-wider">
+          Identitas Brand &amp; WhatsApp Resmi
+        </h2>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200 mb-1">
+              Nama Brand
+            </label>
+            <input
+              type="text"
+              id="set-brand"
+              value={SITE_INFO.brandName}
+              required
+              class="w-full px-3.5 py-2.5 rounded-lg bg-stone-950/70 border border-rose-800/60 text-white text-xs focus:outline-none focus:border-amber-400"
+            />
+          </div>
+
+          <div>
+            <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200 mb-1">
+              Nomor WhatsApp Resmi (Internasional)
+            </label>
+            <input
+              type="text"
+              id="set-wa-num"
+              value={SITE_INFO.whatsappNumber}
+              required
+              class="w-full px-3.5 py-2.5 rounded-lg bg-stone-950/70 border border-rose-800/60 text-white text-xs font-mono focus:outline-none focus:border-amber-400"
+            />
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200 mb-1">
+            Display Nomor WhatsApp
+          </label>
+          <input
+            type="text"
+            id="set-wa-disp"
+            value={SITE_INFO.whatsappDisplay}
+            required
+            class="w-full px-3.5 py-2.5 rounded-lg bg-stone-950/70 border border-rose-800/60 text-white text-xs font-mono focus:outline-none focus:border-amber-400"
+          />
+        </div>
+
+        <div>
+          <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200 mb-1">
+            Pesan Otomatis WhatsApp (Default Template)
+          </label>
+          <textarea
+            id="set-wa-msg"
+            rows="2"
+            class="w-full px-3.5 py-2.5 rounded-lg bg-stone-950/70 border border-rose-800/60 text-white text-xs focus:outline-none focus:border-amber-400"
+          >{SITE_INFO.defaultWaMessage}</textarea>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200 mb-1">
+              Area Layanan Utama
+            </label>
+            <input
+              type="text"
+              id="set-areas"
+              value={SITE_INFO.serviceAreas}
+              class="w-full px-3.5 py-2.5 rounded-lg bg-stone-950/70 border border-rose-800/60 text-white text-xs focus:outline-none focus:border-amber-400"
+            />
+          </div>
+
+          <div>
+            <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200 mb-1">
+              Jam Operasional
+            </label>
+            <input
+              type="text"
+              id="set-hours"
+              value={SITE_INFO.operatingHours}
+              class="w-full px-3.5 py-2.5 rounded-lg bg-stone-950/70 border border-rose-800/60 text-white text-xs focus:outline-none focus:border-amber-400"
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- SEO & Meta -->
+      <div class="rounded-xl bg-[#330206] border border-rose-700/40 p-6 space-y-4">
+        <h2 class="font-heading font-bold text-base uppercase text-amber-400 tracking-wider">
+          Pengaturan SEO Default
+        </h2>
+
+        <div>
+          <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200 mb-1">
+            Site Tagline
+          </label>
+          <input
+            type="text"
+            id="set-tagline"
+            value={SITE_INFO.tagline}
+            class="w-full px-3.5 py-2.5 rounded-lg bg-stone-950/70 border border-rose-800/60 text-white text-xs focus:outline-none focus:border-amber-400"
+          />
+        </div>
+
+        <div>
+          <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200 mb-1">
+            Deskripsi Global (Meta Description Suffix)
+          </label>
+          <textarea
+            id="set-desc"
+            rows="2"
+            class="w-full px-3.5 py-2.5 rounded-lg bg-stone-950/70 border border-rose-800/60 text-white text-xs focus:outline-none focus:border-amber-400"
+          >{SITE_INFO.description}</textarea>
+        </div>
+      </div>
+
+      <div class="flex items-center justify-between pt-4 border-t border-rose-900/50">
+        <span class="text-xs text-rose-300/80">
+          Perubahan nomor WhatsApp akan langsung berdampak pada seluruh tombol CTA dan floating action.
+        </span>
+        <button
+          type="submit"
+          class="px-6 py-3 rounded-md bg-amber-500 hover:bg-amber-400 text-stone-950 font-heading font-black text-xs uppercase tracking-wider shadow-md transition-all hover:scale-105"
+        >
+          Simpan Pengaturan
+        </button>
+      </div>
+
+    </form>
+
+  </div>
+
+  <script>
+    const form = document.getElementById('settings-form') as HTMLFormElement | null;
+    const alertBox = document.getElementById('settings-alert');
+
+    const stored = localStorage.getItem('vo_settings');
+    if (stored) {
+      try {
+        const s = JSON.parse(stored);
+        if (s.brandName) (document.getElementById('set-brand') as HTMLInputElement).value = s.brandName;
+        if (s.whatsappNumber) (document.getElementById('set-wa-num') as HTMLInputElement).value = s.whatsappNumber;
+        if (s.whatsappDisplay) (document.getElementById('set-wa-disp') as HTMLInputElement).value = s.whatsappDisplay;
+        if (s.defaultWaMessage) (document.getElementById('set-wa-msg') as HTMLTextAreaElement).value = s.defaultWaMessage;
+        if (s.serviceAreas) (document.getElementById('set-areas') as HTMLInputElement).value = s.serviceAreas;
+        if (s.operatingHours) (document.getElementById('set-hours') as HTMLInputElement).value = s.operatingHours;
+        if (s.tagline) (document.getElementById('set-tagline') as HTMLInputElement).value = s.tagline;
+        if (s.description) (document.getElementById('set-desc') as HTMLTextAreaElement).value = s.description;
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    if (form && alertBox) {
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const settings = {
+          brandName: (document.getElementById('set-brand') as HTMLInputElement).value,
+          whatsappNumber: (document.getElementById('set-wa-num') as HTMLInputElement).value,
+          whatsappDisplay: (document.getElementById('set-wa-disp') as HTMLInputElement).value,
+          defaultWaMessage: (document.getElementById('set-wa-msg') as HTMLTextAreaElement).value,
+          serviceAreas: (document.getElementById('set-areas') as HTMLInputElement).value,
+          operatingHours: (document.getElementById('set-hours') as HTMLInputElement).value,
+          tagline: (document.getElementById('set-tagline') as HTMLInputElement).value,
+          description: (document.getElementById('set-desc') as HTMLTextAreaElement).value,
+        };
+
+        localStorage.setItem('vo_settings', JSON.stringify(settings));
+
+        alertBox.className = 'p-3 rounded-lg text-xs font-bold bg-emerald-950 text-emerald-200 border border-emerald-500 block';
+        alertBox.textContent = '✓ Pengaturan global berhasil disimpan!';
+        setTimeout(() => alertBox.classList.add('hidden'), 2500);
+      });
+    }
+  </script>
+</AdminLayout>

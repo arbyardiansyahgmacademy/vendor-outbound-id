@@ -1,0 +1,308 @@
+---
+import AdminLayout from '../../../layouts/AdminLayout.astro';
+import { SITE_INFO } from '../../../data/defaultContent';
+---
+
+<AdminLayout title="Editor Halaman Tentang Kami">
+  <div class="space-y-8 text-left max-w-4xl">
+    
+    <!-- Header -->
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-rose-900/40">
+      <div>
+        <div class="flex items-center gap-2 mb-1">
+          <a href="/admin/halaman" class="text-xs text-amber-400 hover:underline">← Master Halaman</a>
+          <span class="text-xs text-rose-400">/</span>
+          <span class="text-xs text-rose-300">Editor Tentang Kami</span>
+        </div>
+        <h1 class="font-heading font-black text-2xl uppercase tracking-wider text-white flex items-center gap-2">
+          <i class="fas fa-users text-amber-400"></i>
+          <span>EDITOR HALAMAN TENTANG KAMI</span>
+        </h1>
+        <p class="text-xs text-rose-300/80 mt-1">
+          Kelola profil brand, kisah dedikasi, foto tim fasilitator resmi, pilar komitmen kerja, dan SEO halaman Tentang Kami.
+        </p>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <a
+          href="/tentang-kami"
+          target="_blank"
+          class="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg bg-brand-900/70 hover:bg-brand-800 text-rose-200 hover:text-white text-xs font-bold border border-rose-700/50"
+        >
+          <i class="fas fa-external-link-alt"></i>
+          <span>Lihat Halaman</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Alert Box -->
+    <div id="tentang-alert" class="hidden p-3 rounded-lg text-xs font-bold transition-all"></div>
+
+    <form id="tentang-editor-form" class="space-y-8">
+      
+      <!-- Section 1: Hero Tentang Kami -->
+      <div class="rounded-xl bg-[#330206] border border-rose-700/40 p-6 space-y-4 shadow-xl">
+        <div class="flex items-center justify-between border-b border-rose-900/50 pb-2">
+          <h2 class="font-heading font-bold text-base uppercase text-amber-400 tracking-wider flex items-center gap-2">
+            <span>01.</span>
+            <span>Header &amp; Pengantar Profil</span>
+          </h2>
+          <span class="text-[10px] uppercase font-bold text-rose-400/80 tracking-widest">Bagian Atas</span>
+        </div>
+
+        <div>
+          <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200 mb-1">
+            Eyebrow Badge
+          </label>
+          <input
+            type="text"
+            id="t-eyebrow"
+            class="w-full px-3.5 py-2.5 rounded-lg bg-stone-950/70 border border-rose-800/60 text-white text-xs focus:outline-none focus:border-amber-400"
+            value="Profil & Dedikasi Kami"
+          />
+        </div>
+
+        <div>
+          <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200 mb-1">
+            Judul Utama Halaman (H1)
+          </label>
+          <input
+            type="text"
+            id="t-h1"
+            class="w-full px-3.5 py-2.5 rounded-lg bg-stone-950/70 border border-rose-800/60 text-white text-xs focus:outline-none focus:border-amber-400 font-bold"
+            value="TENTANG VENDOR OUTBOUND"
+          />
+        </div>
+
+        <div>
+          <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200 mb-1">
+            Subjudul / Ringkasan Singkat
+          </label>
+          <textarea
+            id="t-subheading"
+            rows="2"
+            class="w-full px-3.5 py-2.5 rounded-lg bg-stone-950/70 border border-rose-800/60 text-white text-xs focus:outline-none focus:border-amber-400"
+          >Penyedia jasa outbound dan fasilitator kegiatan luar ruang yang berakar di kawasan pegunungan sejuk Kota Batu dan Malang, Jawa Timur.</textarea>
+        </div>
+      </div>
+
+      <!-- Section 2: Cerita & Pendekatan Kerja -->
+      <div class="rounded-xl bg-[#330206] border border-rose-700/40 p-6 space-y-4 shadow-xl">
+        <div class="flex items-center justify-between border-b border-rose-900/50 pb-2">
+          <h2 class="font-heading font-bold text-base uppercase text-amber-400 tracking-wider flex items-center gap-2">
+            <span>02.</span>
+            <span>Narasi Pendekatan &amp; Foto Fasilitator</span>
+          </h2>
+          <span class="text-[10px] uppercase font-bold text-rose-400/80 tracking-widest">Kisah Brand</span>
+        </div>
+
+        <div>
+          <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200 mb-1">
+            Heading Narasi
+          </label>
+          <input
+            type="text"
+            id="t-narrative-title"
+            class="w-full px-3.5 py-2.5 rounded-lg bg-stone-950/70 border border-rose-800/60 text-white text-xs focus:outline-none focus:border-amber-400 font-bold"
+            value="Fokus Layanan & Pendekatan Kerja"
+          />
+        </div>
+
+        <div>
+          <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200 mb-1">
+            Paragraf 1: Nilai & Misi Outbound
+          </label>
+          <textarea
+            id="t-narrative-p1"
+            rows="3"
+            class="w-full px-3.5 py-2.5 rounded-lg bg-stone-950/70 border border-rose-800/60 text-white text-xs focus:outline-none focus:border-amber-400"
+          >Kami berfokus pada penyelenggaraan kegiatan luar ruang yang tidak hanya seru dan menyenangkan, tetapi juga memberikan dampak nyata bagi kekompakan tim, penyegaran mental, dan penguatan nilai-nilai positif organisasi.</textarea>
+        </div>
+
+        <div>
+          <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200 mb-1">
+            Paragraf 2: Pemanfaatan Alam Pegunungan Batu Malang
+          </label>
+          <textarea
+            id="t-narrative-p2"
+            rows="3"
+            class="w-full px-3.5 py-2.5 rounded-lg bg-stone-950/70 border border-rose-800/60 text-white text-xs focus:outline-none focus:border-amber-400"
+          >Dengan memanfaatkan kekayaan alam pegunungan Kota Batu dan Malang—mulai dari teduhnya hutan pinus, hamparan rumput resort hijau, hingga aliran deras sungai arung jeram—setiap program dirancang secara adaptif dan terstruktur sesuai dengan profil peserta.</textarea>
+        </div>
+
+        <div>
+          <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200 mb-1">
+            Foto Tim Fasilitator Resmi (Folder kebutuhan-gambar)
+          </label>
+          <div class="flex gap-2">
+            <input
+              type="text"
+              id="t-team-img"
+              class="flex-1 px-3.5 py-2.5 rounded-lg bg-stone-950/70 border border-rose-800/60 text-white text-xs font-mono focus:outline-none focus:border-amber-400"
+              value="/images/about/team-fasilitator.webp"
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 3: Pilar Nilai Kerja -->
+      <div class="rounded-xl bg-[#330206] border border-rose-700/40 p-6 space-y-4 shadow-xl">
+        <div class="flex items-center justify-between border-b border-rose-900/50 pb-2">
+          <h2 class="font-heading font-bold text-base uppercase text-amber-400 tracking-wider flex items-center gap-2">
+            <span>03.</span>
+            <span>2 Pilar Pendekatan Kerja</span>
+          </h2>
+          <span class="text-[10px] uppercase font-bold text-rose-400/80 tracking-widest">Pilar Utama</span>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div class="space-y-2 p-3.5 rounded-lg bg-stone-950/50 border border-rose-900/50">
+            <label class="block text-[11px] font-bold uppercase tracking-wider text-amber-300">
+              Pilar 1: Judul
+            </label>
+            <input
+              type="text"
+              id="t-pilar1-title"
+              class="w-full px-3 py-2 rounded bg-stone-950/70 border border-rose-800 text-white text-xs focus:outline-none focus:border-amber-400"
+              value="Keamanan Terpantau"
+            />
+            <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200">
+              Pilar 1: Deskripsi
+            </label>
+            <textarea
+              id="t-pilar1-desc"
+              rows="3"
+              class="w-full px-3 py-2 rounded bg-stone-950/70 border border-rose-800 text-white text-xs focus:outline-none focus:border-amber-400"
+            >Peralatan safety standar, briefing keselamatan sebelum kegiatan, serta persiapan jalur alternatif saat kondisi cuaca pegunungan berubah.</textarea>
+          </div>
+
+          <div class="space-y-2 p-3.5 rounded-lg bg-stone-950/50 border border-rose-900/50">
+            <label class="block text-[11px] font-bold uppercase tracking-wider text-amber-300">
+              Pilar 2: Judul
+            </label>
+            <input
+              type="text"
+              id="t-pilar2-title"
+              class="w-full px-3 py-2 rounded bg-stone-950/70 border border-rose-800 text-white text-xs focus:outline-none focus:border-amber-400"
+              value="Agenda Fleksibel"
+            />
+            <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200">
+              Pilar 2: Deskripsi
+            </label>
+            <textarea
+              id="t-pilar2-desc"
+              rows="3"
+              class="w-full px-3 py-2 rounded bg-stone-950/70 border border-rose-800 text-white text-xs focus:outline-none focus:border-amber-400"
+            >Skenario aktivitas dapat disesuaikan dengan tema internal, kapasitas fisik peserta, serta durasi (half day, full day, atau menginap).</textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 4: SEO Meta -->
+      <div class="rounded-xl bg-[#330206] border border-rose-700/40 p-6 space-y-4 shadow-xl">
+        <div class="flex items-center justify-between border-b border-rose-900/50 pb-2">
+          <h2 class="font-heading font-bold text-base uppercase text-amber-400 tracking-wider flex items-center gap-2">
+            <span>04.</span>
+            <span>Meta SEO Halaman Tentang Kami</span>
+          </h2>
+          <span class="text-[10px] uppercase font-bold text-rose-400/80 tracking-widest">SEO Meta</span>
+        </div>
+
+        <div>
+          <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200 mb-1">
+            SEO Title
+          </label>
+          <input
+            type="text"
+            id="t-seo-title"
+            class="w-full px-3.5 py-2.5 rounded-lg bg-stone-950/70 border border-rose-800/60 text-white text-xs focus:outline-none focus:border-amber-400"
+            value="Tentang Kami | Vendor Outbound Batu Malang"
+          />
+        </div>
+
+        <div>
+          <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200 mb-1">
+            SEO Description
+          </label>
+          <textarea
+            id="t-seo-desc"
+            rows="2"
+            class="w-full px-3.5 py-2.5 rounded-lg bg-stone-950/70 border border-rose-800/60 text-white text-xs focus:outline-none focus:border-amber-400"
+          >Mengenal Vendor Outbound, mitra profesional penyelenggara kegiatan outbound, team building, dan family gathering di area Batu & Malang, Jawa Timur.</textarea>
+        </div>
+      </div>
+
+      <!-- Submit Bar -->
+      <div class="flex items-center justify-between pt-4 border-t border-rose-900/50">
+        <span class="text-xs text-rose-300/80">
+          Status: Perubahan tersimpan secara instan
+        </span>
+        <button
+          type="submit"
+          class="px-6 py-3 rounded-lg bg-amber-500 hover:bg-amber-400 text-stone-950 font-heading font-black text-xs uppercase tracking-wider shadow-lg transition-all hover:scale-105 flex items-center gap-2"
+        >
+          <i class="fas fa-save"></i>
+          <span>Simpan Perubahan Tentang Kami</span>
+        </button>
+      </div>
+
+    </form>
+
+  </div>
+
+  <script>
+    const form = document.getElementById('tentang-editor-form') as HTMLFormElement | null;
+    const alertBox = document.getElementById('tentang-alert');
+    const STORAGE_KEY = 'vo_page_tentang_kami';
+
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved) {
+      try {
+        const d = JSON.parse(saved);
+        if (d.eyebrow) (document.getElementById('t-eyebrow') as HTMLInputElement).value = d.eyebrow;
+        if (d.h1) (document.getElementById('t-h1') as HTMLInputElement).value = d.h1;
+        if (d.subheading) (document.getElementById('t-subheading') as HTMLTextAreaElement).value = d.subheading;
+        if (d.narrativeTitle) (document.getElementById('t-narrative-title') as HTMLInputElement).value = d.narrativeTitle;
+        if (d.narrativeP1) (document.getElementById('t-narrative-p1') as HTMLTextAreaElement).value = d.narrativeP1;
+        if (d.narrativeP2) (document.getElementById('t-narrative-p2') as HTMLTextAreaElement).value = d.narrativeP2;
+        if (d.teamImg) (document.getElementById('t-team-img') as HTMLInputElement).value = d.teamImg;
+        if (d.pilar1Title) (document.getElementById('t-pilar1-title') as HTMLInputElement).value = d.pilar1Title;
+        if (d.pilar1Desc) (document.getElementById('t-pilar1-desc') as HTMLTextAreaElement).value = d.pilar1Desc;
+        if (d.pilar2Title) (document.getElementById('t-pilar2-title') as HTMLInputElement).value = d.pilar2Title;
+        if (d.pilar2Desc) (document.getElementById('t-pilar2-desc') as HTMLTextAreaElement).value = d.pilar2Desc;
+        if (d.seoTitle) (document.getElementById('t-seo-title') as HTMLInputElement).value = d.seoTitle;
+        if (d.seoDesc) (document.getElementById('t-seo-desc') as HTMLTextAreaElement).value = d.seoDesc;
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    form?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const payload = {
+        eyebrow: (document.getElementById('t-eyebrow') as HTMLInputElement).value,
+        h1: (document.getElementById('t-h1') as HTMLInputElement).value,
+        subheading: (document.getElementById('t-subheading') as HTMLTextAreaElement).value,
+        narrativeTitle: (document.getElementById('t-narrative-title') as HTMLInputElement).value,
+        narrativeP1: (document.getElementById('t-narrative-p1') as HTMLTextAreaElement).value,
+        narrativeP2: (document.getElementById('t-narrative-p2') as HTMLTextAreaElement).value,
+        teamImg: (document.getElementById('t-team-img') as HTMLInputElement).value,
+        pilar1Title: (document.getElementById('t-pilar1-title') as HTMLInputElement).value,
+        pilar1Desc: (document.getElementById('t-pilar1-desc') as HTMLTextAreaElement).value,
+        pilar2Title: (document.getElementById('t-pilar2-title') as HTMLInputElement).value,
+        pilar2Desc: (document.getElementById('t-pilar2-desc') as HTMLTextAreaElement).value,
+        seoTitle: (document.getElementById('t-seo-title') as HTMLInputElement).value,
+        seoDesc: (document.getElementById('t-seo-desc') as HTMLTextAreaElement).value,
+        updatedAt: new Date().toISOString()
+      };
+
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+
+      if (alertBox) {
+        alertBox.className = 'p-3 rounded-lg text-xs font-bold bg-emerald-950 text-emerald-200 border border-emerald-500 block';
+        alertBox.textContent = '✓ Seluruh perubahan konten Halaman Tentang Kami berhasil disimpan!';
+        setTimeout(() => alertBox.classList.add('hidden'), 3500);
+      }
+    });
+  </script>
+</AdminLayout>

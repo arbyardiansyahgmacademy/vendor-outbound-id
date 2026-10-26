@@ -1,0 +1,157 @@
+---
+import { SITE_INFO } from '../../data/defaultContent';
+import { getWhatsAppUrl } from '../../lib/utils';
+
+interface Props {
+  currentPath?: string;
+}
+
+const { currentPath = '/' } = Astro.props;
+
+const navItems = [
+  { label: 'Beranda', url: '/' },
+  { label: 'Tentang Kami', url: '/tentang-kami' },
+  { label: 'Layanan', url: '/layanan' },
+  { label: 'Paket', url: '/paket' },
+  { label: 'Galeri', url: '/galeri' },
+  { label: 'Blog', url: '/blog' },
+  { label: 'Kontak', url: '/kontak' },
+];
+
+const waUrl = getWhatsAppUrl('Halo Vendor Outbound, saya ingin tanya paket kegiatan outbound & gathering di Batu Malang.');
+---
+
+<!-- TOP NAVBAR (NAVBAR-NAVY REFERENCE STYLE) -->
+<nav class="navbar navbar-navy fixed-top w-full z-50 sticky top-0" id="mainNavbar">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16 sm:h-20">
+      
+      <!-- Brand Logo & Typography -->
+      <a class="navbar-brand" href="/" aria-label="Vendor Outbound Beranda">
+        <img
+          alt="Logo Vendor Outbound"
+          class="brand-logo-img"
+          height="44"
+          width="44"
+          src="/images/logo/logo-fix.webp"
+        />
+        <div class="brand-text">
+          <span class="brand-name">VENDOR OUTBOUND</span>
+          <span class="brand-tagline">Outbound & Gathering Batu Malang</span>
+        </div>
+      </a>
+
+      <!-- Desktop Navigation Menu (Pill Links) -->
+      <div class="hidden lg:flex items-center mx-auto navbar-nav gap-1">
+        {navItems.map((item) => {
+          const isActive = currentPath === item.url || (item.url !== '/' && currentPath.startsWith(item.url));
+          return (
+            <a
+              class={`nav-link ${isActive ? 'active' : ''}`}
+              href={item.url}
+              aria-current={isActive ? 'page' : undefined}
+            >
+              {item.label}
+            </a>
+          );
+        })}
+      </div>
+
+      <!-- Nav WhatsApp CTA & Mobile Toggle -->
+      <div class="flex items-center gap-3">
+        <a
+          class="btn-wa-nav hidden sm:inline-flex"
+          href={waUrl}
+          rel="noopener noreferrer"
+          target="_blank"
+          aria-label="Chat WhatsApp Vendor Outbound"
+        >
+          <i class="fab fa-whatsapp text-lg"></i>
+          <span>Chat WhatsApp</span>
+        </a>
+
+        <!-- Mobile Toggler -->
+        <button
+          id="navbarToggler"
+          aria-label="Toggle navigation"
+          class="lg:hidden p-2 rounded-lg text-white hover:bg-white/10 transition-colors focus:outline-none"
+          type="button"
+        >
+          <i id="navToggleIcon" class="fas fa-bars text-xl"></i>
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Mobile Collapsible Menu -->
+  <div
+    id="navbarMainMobile"
+    class="hidden lg:hidden border-t border-white/10 bg-[#350206] px-4 py-4 space-y-1 shadow-2xl transition-all"
+  >
+    <div class="flex flex-col gap-1">
+      {navItems.map((item) => {
+        const isActive = currentPath === item.url || (item.url !== '/' && currentPath.startsWith(item.url));
+        return (
+          <a
+            class={`nav-link text-left block w-full py-2.5 px-4 rounded-lg font-semibold ${
+              isActive ? 'active text-white' : 'text-white/80 hover:text-white hover:bg-white/10'
+            }`}
+            href={item.url}
+          >
+            {item.label}
+          </a>
+        );
+      })}
+    </div>
+
+    <div class="pt-3 mt-3 border-t border-white/10">
+      <a
+        class="btn-wa-nav w-full justify-center py-3 text-center"
+        href={waUrl}
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        <i class="fab fa-whatsapp text-lg"></i>
+        <span>Chat WhatsApp Resmi</span>
+      </a>
+    </div>
+  </div>
+</nav>
+
+<script>
+  // Sticky Navbar Scroll Effect
+  const navbar = document.getElementById('mainNavbar');
+  if (navbar) {
+    const handleScroll = () => {
+      if (window.scrollY > 40) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+  }
+
+  // Mobile Toggler
+  const toggler = document.getElementById('navbarToggler');
+  const mobileMenu = document.getElementById('navbarMainMobile');
+  const toggleIcon = document.getElementById('navToggleIcon');
+
+  if (toggler && mobileMenu && toggleIcon) {
+    toggler.addEventListener('click', () => {
+      const isHidden = mobileMenu.classList.contains('hidden');
+      if (isHidden) {
+        mobileMenu.classList.remove('hidden');
+        toggleIcon.classList.remove('fa-bars');
+        toggleIcon.classList.add('fa-xmark');
+      } else {
+        mobileMenu.classList.add('hidden');
+        toggleIcon.classList.remove('fa-xmark');
+        toggleIcon.classList.add('fa-bars');
+      }
+    });
+  }
+</script>
+

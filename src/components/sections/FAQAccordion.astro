@@ -1,0 +1,67 @@
+---
+import { FAQS } from '../../data/defaultContent';
+import type { FAQItem } from '../../data/defaultContent';
+import { generateFAQSchema } from '../../lib/seo';
+
+interface Props {
+  items?: FAQItem[];
+  title?: string;
+  subtitle?: string;
+}
+
+const {
+  items = FAQS,
+  title = 'PERTANYAAN SERING DIAJUKAN (FAQ)',
+  subtitle = 'Jawaban seputar lokasi, penyesuaian agenda, dan keselamatan outbound di Batu - Malang'
+} = Astro.props;
+
+const faqSchema = generateFAQSchema(items);
+---
+
+<section class="py-16 sm:py-20 relative">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6">
+    
+    <div class="text-center mb-10">
+      <span class="text-xs font-bold uppercase tracking-widest text-amber-400">
+        Informasi Praktis
+      </span>
+      <h2 class="font-heading font-black text-2xl sm:text-3xl lg:text-4xl uppercase tracking-[0.16em] text-white mt-1">
+        {title}
+      </h2>
+      {subtitle && (
+        <p class="text-xs sm:text-sm text-rose-200/75 mt-2 max-w-xl mx-auto">
+          {subtitle}
+        </p>
+      )}
+    </div>
+
+    <!-- Exclusive Native Accordion (using details name="faq" as per modern web guidelines) -->
+    <div class="space-y-3.5">
+      {items.map((faq, index) => (
+        <details
+          name="faq"
+          class="group rounded-xl bg-[#480308]/60 border border-rose-700/35 p-5 transition-colors open:bg-[#5C060E]/80 open:border-amber-400/50"
+          open={index === 0}
+        >
+          <summary class="flex items-center justify-between gap-4 font-heading font-bold text-base sm:text-lg text-white cursor-pointer select-none list-none group-open:text-amber-300">
+            <span>{faq.question}</span>
+            <div class="w-7 h-7 rounded-full bg-rose-950/80 border border-rose-700/50 flex items-center justify-center text-amber-400 flex-shrink-0 group-open:rotate-180 transition-transform duration-200">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7" />
+              </svg>
+            </div>
+          </summary>
+
+          <div class="pt-4 mt-3 border-t border-rose-800/40 text-xs sm:text-sm text-rose-100/85 leading-relaxed">
+            <p>{faq.answer}</p>
+          </div>
+        </details>
+      ))}
+    </div>
+
+  </div>
+</section>
+
+{faqSchema && (
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+)}

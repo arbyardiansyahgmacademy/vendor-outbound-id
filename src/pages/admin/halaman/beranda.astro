@@ -1,0 +1,392 @@
+---
+import AdminLayout from '../../../layouts/AdminLayout.astro';
+import { SITE_INFO } from '../../../data/defaultContent';
+---
+
+<AdminLayout title="Editor Halaman Beranda">
+  <div class="space-y-8 text-left max-w-4xl">
+    
+    <!-- Header -->
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-rose-900/40">
+      <div>
+        <div class="flex items-center gap-2 mb-1">
+          <a href="/admin/halaman" class="text-xs text-amber-400 hover:underline">← Master Halaman</a>
+          <span class="text-xs text-rose-400">/</span>
+          <span class="text-xs text-rose-300">Editor Beranda</span>
+        </div>
+        <h1 class="font-heading font-black text-2xl uppercase tracking-wider text-white flex items-center gap-2">
+          <i class="fas fa-home text-amber-400"></i>
+          <span>EDITOR KONTEN BERANDA (HOME)</span>
+        </h1>
+        <p class="text-xs text-rose-300/80 mt-1">
+          Kelola teks Hero, section OUR SERVICES, Mengapa Memilih Kami, PAKET PILIHAN, About Us, dan konfigurasi SEO Beranda.
+        </p>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <a
+          href="/"
+          target="_blank"
+          class="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg bg-brand-900/70 hover:bg-brand-800 text-rose-200 hover:text-white text-xs font-bold border border-rose-700/50"
+        >
+          <i class="fas fa-external-link-alt"></i>
+          <span>Lihat Beranda</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Alert Box -->
+    <div id="beranda-alert" class="hidden p-3 rounded-lg text-xs font-bold transition-all"></div>
+
+    <form id="beranda-editor-form" class="space-y-8">
+      
+      <!-- Section 1: Hero Banner -->
+      <div class="rounded-xl bg-[#330206] border border-rose-700/40 p-6 space-y-4 shadow-xl">
+        <div class="flex items-center justify-between border-b border-rose-900/50 pb-2">
+          <h2 class="font-heading font-bold text-base uppercase text-amber-400 tracking-wider flex items-center gap-2">
+            <span>01.</span>
+            <span>Section Hero Banner</span>
+          </h2>
+          <span class="text-[10px] uppercase font-bold text-rose-400/80 tracking-widest">Tampilan Pertama</span>
+        </div>
+
+        <div>
+          <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200 mb-1">
+            Eyebrow Badge (Teks Di Atas Judul Utama)
+          </label>
+          <input
+            type="text"
+            id="hero-eyebrow"
+            class="w-full px-3.5 py-2.5 rounded-lg bg-stone-950/70 border border-rose-800/60 text-white text-xs focus:outline-none focus:border-amber-400"
+            value="Rekomendasi Utama Outbound Batu & Malang"
+          />
+        </div>
+
+        <div>
+          <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200 mb-1">
+            Judul Utama Hero (H1)
+          </label>
+          <input
+            type="text"
+            id="hero-h1"
+            class="w-full px-3.5 py-2.5 rounded-lg bg-stone-950/70 border border-rose-800/60 text-white text-xs focus:outline-none focus:border-amber-400 font-bold"
+            value="OUTBOUND & TEAM BUILDING BATU MALANG"
+          />
+        </div>
+
+        <div>
+          <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200 mb-1">
+            Paragraf Deskripsi Hero
+          </label>
+          <textarea
+            id="hero-desc"
+            rows="3"
+            class="w-full px-3.5 py-2.5 rounded-lg bg-stone-950/70 border border-rose-800/60 text-white text-xs focus:outline-none focus:border-amber-400 leading-relaxed"
+          >Wujudkan kekompakan tim, kehangatan family gathering, serta petualangan seru rafting dan offroad 4x4 di kawasan pegunungan sejuk Kota Batu & Malang bersama fasilitator tersertifikasi.</textarea>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200 mb-1">
+              Label Tombol CTA Utama
+            </label>
+            <input
+              type="text"
+              id="hero-cta-main"
+              class="w-full px-3.5 py-2.5 rounded-lg bg-stone-950/70 border border-rose-800/60 text-white text-xs focus:outline-none focus:border-amber-400"
+              value="Pilihan Paket Acara"
+            />
+          </div>
+          <div>
+            <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200 mb-1">
+              Subteks Tombol CTA Utama
+            </label>
+            <input
+              type="text"
+              id="hero-cta-sub"
+              class="w-full px-3.5 py-2.5 rounded-lg bg-stone-950/70 border border-rose-800/60 text-white text-xs focus:outline-none focus:border-amber-400"
+              value="Corporate, Gathering & Adventure"
+            />
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200 mb-1">
+            Gambar Hero (Format WebP)
+          </label>
+          <input
+            type="text"
+            id="hero-image"
+            class="w-full px-3.5 py-2.5 rounded-lg bg-stone-950/70 border border-rose-800/60 text-white text-xs font-mono focus:outline-none focus:border-amber-400"
+            value="/images/hero/hero-outbound.webp"
+          />
+        </div>
+      </div>
+
+      <!-- Section 2: OUR SERVICES -->
+      <div class="rounded-xl bg-[#330206] border border-rose-700/40 p-6 space-y-4 shadow-xl">
+        <div class="flex items-center justify-between border-b border-rose-900/50 pb-2">
+          <h2 class="font-heading font-bold text-base uppercase text-amber-400 tracking-wider flex items-center gap-2">
+            <span>02.</span>
+            <span>Section OUR SERVICES (List Bar Interaktif)</span>
+          </h2>
+          <span class="text-[10px] uppercase font-bold text-rose-400/80 tracking-widest">Jasa Outbound</span>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200 mb-1">
+              Heading Section
+            </label>
+            <input
+              type="text"
+              id="services-heading"
+              class="w-full px-3.5 py-2.5 rounded-lg bg-stone-950/70 border border-rose-800/60 text-white text-xs focus:outline-none focus:border-amber-400 font-bold"
+              value="OUR SERVICES"
+            />
+          </div>
+          <div>
+            <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200 mb-1">
+              Teks Tombol Aksi
+            </label>
+            <input
+              type="text"
+              id="services-btn-text"
+              class="w-full px-3.5 py-2.5 rounded-lg bg-stone-950/70 border border-rose-800/60 text-white text-xs focus:outline-none focus:border-amber-400 font-bold"
+              value="Pesan Layanan"
+            />
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200 mb-1">
+            Sub-Heading Penjelasan
+          </label>
+          <input
+            type="text"
+            id="services-subheading"
+            class="w-full px-3.5 py-2.5 rounded-lg bg-stone-950/70 border border-rose-800/60 text-white text-xs focus:outline-none focus:border-amber-400"
+            value="Pilihan paket outbound dan petualangan terfavorit di Kota Batu & Malang"
+          />
+        </div>
+      </div>
+
+      <!-- Section 3: PAKET PILIHAN -->
+      <div class="rounded-xl bg-[#330206] border border-rose-700/40 p-6 space-y-4 shadow-xl">
+        <div class="flex items-center justify-between border-b border-rose-900/50 pb-2">
+          <h2 class="font-heading font-bold text-base uppercase text-amber-400 tracking-wider flex items-center gap-2">
+            <span>03.</span>
+            <span>Section PAKET PILIHAN (4 Kartu Vertikal)</span>
+          </h2>
+          <span class="text-[10px] uppercase font-bold text-rose-400/80 tracking-widest">Katalog Paket</span>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200 mb-1">
+              Heading Section
+            </label>
+            <input
+              type="text"
+              id="pkg-heading"
+              class="w-full px-3.5 py-2.5 rounded-lg bg-stone-950/70 border border-rose-800/60 text-white text-xs focus:outline-none focus:border-amber-400 font-bold"
+              value="PAKET PILIHAN"
+            />
+          </div>
+          <div>
+            <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200 mb-1">
+              Sub-Heading Paket
+            </label>
+            <input
+              type="text"
+              id="pkg-subheading"
+              class="w-full px-3.5 py-2.5 rounded-lg bg-stone-950/70 border border-rose-800/60 text-white text-xs focus:outline-none focus:border-amber-400"
+              value="Pilihan Paket Outbound & Petualangan Paling Diminati di Batu Malang"
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 4: About Us Preview -->
+      <div class="rounded-xl bg-[#330206] border border-rose-700/40 p-6 space-y-4 shadow-xl">
+        <div class="flex items-center justify-between border-b border-rose-900/50 pb-2">
+          <h2 class="font-heading font-bold text-base uppercase text-amber-400 tracking-wider flex items-center gap-2">
+            <span>04.</span>
+            <span>Section ABOUT US (Ringkasan Profil di Beranda)</span>
+          </h2>
+          <span class="text-[10px] uppercase font-bold text-rose-400/80 tracking-widest">Profil Singkat</span>
+        </div>
+
+        <div>
+          <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200 mb-1">
+            Heading About Us
+          </label>
+          <input
+            type="text"
+            id="about-heading"
+            class="w-full px-3.5 py-2.5 rounded-lg bg-stone-950/70 border border-rose-800/60 text-white text-xs focus:outline-none focus:border-amber-400 font-bold"
+            value="ABOUT US"
+          />
+        </div>
+
+        <div>
+          <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200 mb-1">
+            Paragraf 1
+          </label>
+          <textarea
+            id="about-p1"
+            rows="2"
+            class="w-full px-3.5 py-2.5 rounded-lg bg-stone-950/70 border border-rose-800/60 text-white text-xs focus:outline-none focus:border-amber-400"
+          >{SITE_INFO.brandName} berdedikasi menghadirkan jamuan aktivitas outbound, corporate team building, dan family gathering yang dirancang terstruktur dengan nilai edukasi, kehangatan, serta keselamatan terbaik di alam terbuka Kota Batu dan Malang.</textarea>
+        </div>
+
+        <div>
+          <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200 mb-1">
+            Paragraf 2
+          </label>
+          <textarea
+            id="about-p2"
+            rows="2"
+            class="w-full px-3.5 py-2.5 rounded-lg bg-stone-950/70 border border-rose-800/60 text-white text-xs focus:outline-none focus:border-amber-400"
+          >Setiap modul simulasi dipandu oleh fasilitator lapangan tersertifikasi dan berpengalaman, memastikan pengalaman kebersamaan yang berkesan mendalam bagi rekan kerja kantor, keluarga besar, maupun institusi pendidikan Anda.</textarea>
+        </div>
+
+        <div>
+          <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200 mb-1">
+            Foto Tim Fasilitator Lapangan
+          </label>
+          <input
+            type="text"
+            id="about-image"
+            class="w-full px-3.5 py-2.5 rounded-lg bg-stone-950/70 border border-rose-800/60 text-white text-xs font-mono focus:outline-none focus:border-amber-400"
+            value="/images/about/team-fasilitator.webp"
+          />
+        </div>
+      </div>
+
+      <!-- Section 5: Meta SEO Beranda -->
+      <div class="rounded-xl bg-[#330206] border border-rose-700/40 p-6 space-y-4 shadow-xl">
+        <div class="flex items-center justify-between border-b border-rose-900/50 pb-2">
+          <h2 class="font-heading font-bold text-base uppercase text-amber-400 tracking-wider flex items-center gap-2">
+            <span>05.</span>
+            <span>Pengaturan SEO Beranda (Google &amp; Social Share)</span>
+          </h2>
+          <span class="text-[10px] uppercase font-bold text-rose-400/80 tracking-widest">SEO Meta</span>
+        </div>
+
+        <div>
+          <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200 mb-1">
+            SEO Title
+          </label>
+          <input
+            type="text"
+            id="seo-title"
+            class="w-full px-3.5 py-2.5 rounded-lg bg-stone-950/70 border border-rose-800/60 text-white text-xs focus:outline-none focus:border-amber-400"
+            value="Vendor Outbound Batu Malang | Spesialis Team Building & Gathering"
+          />
+        </div>
+
+        <div>
+          <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200 mb-1">
+            SEO Meta Description
+          </label>
+          <textarea
+            id="seo-desc"
+            rows="2"
+            class="w-full px-3.5 py-2.5 rounded-lg bg-stone-950/70 border border-rose-800/60 text-white text-xs focus:outline-none focus:border-amber-400"
+          >Penyedia kegiatan outbound, corporate team building, family gathering, outbound edukasi sekolah, dan petualangan rafting offroad di Batu & Malang.</textarea>
+        </div>
+      </div>
+
+      <!-- Submit Bar -->
+      <div class="flex items-center justify-between pt-4 border-t border-rose-900/50">
+        <span class="text-xs text-rose-300/80">
+          Status: Sinkronisasi instan ke basis data lokal &amp; cloud
+        </span>
+        <button
+          type="submit"
+          class="px-6 py-3 rounded-lg bg-amber-500 hover:bg-amber-400 text-stone-950 font-heading font-black text-xs uppercase tracking-wider shadow-lg transition-all hover:scale-105 flex items-center gap-2"
+        >
+          <i class="fas fa-save"></i>
+          <span>Simpan Perubahan Beranda</span>
+        </button>
+      </div>
+
+    </form>
+
+  </div>
+
+  <script>
+    const form = document.getElementById('beranda-editor-form') as HTMLFormElement | null;
+    const alertBox = document.getElementById('beranda-alert');
+
+    const STORAGE_KEY = 'vo_page_beranda';
+
+    // Load saved data
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved) {
+      try {
+        const d = JSON.parse(saved);
+        if (d.heroEyebrow) (document.getElementById('hero-eyebrow') as HTMLInputElement).value = d.heroEyebrow;
+        if (d.heroH1) (document.getElementById('hero-h1') as HTMLInputElement).value = d.heroH1;
+        if (d.heroDesc) (document.getElementById('hero-desc') as HTMLTextAreaElement).value = d.heroDesc;
+        if (d.heroCtaMain) (document.getElementById('hero-cta-main') as HTMLInputElement).value = d.heroCtaMain;
+        if (d.heroCtaSub) (document.getElementById('hero-cta-sub') as HTMLInputElement).value = d.heroCtaSub;
+        if (d.heroImage) (document.getElementById('hero-image') as HTMLInputElement).value = d.heroImage;
+
+        if (d.servicesHeading) (document.getElementById('services-heading') as HTMLInputElement).value = d.servicesHeading;
+        if (d.servicesBtnText) (document.getElementById('services-btn-text') as HTMLInputElement).value = d.servicesBtnText;
+        if (d.servicesSubheading) (document.getElementById('services-subheading') as HTMLInputElement).value = d.servicesSubheading;
+
+        if (d.pkgHeading) (document.getElementById('pkg-heading') as HTMLInputElement).value = d.pkgHeading;
+        if (d.pkgSubheading) (document.getElementById('pkg-subheading') as HTMLInputElement).value = d.pkgSubheading;
+
+        if (d.aboutHeading) (document.getElementById('about-heading') as HTMLInputElement).value = d.aboutHeading;
+        if (d.aboutP1) (document.getElementById('about-p1') as HTMLTextAreaElement).value = d.aboutP1;
+        if (d.aboutP2) (document.getElementById('about-p2') as HTMLTextAreaElement).value = d.aboutP2;
+        if (d.aboutImage) (document.getElementById('about-image') as HTMLInputElement).value = d.aboutImage;
+
+        if (d.seoTitle) (document.getElementById('seo-title') as HTMLInputElement).value = d.seoTitle;
+        if (d.seoDesc) (document.getElementById('seo-desc') as HTMLTextAreaElement).value = d.seoDesc;
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    form?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const payload = {
+        heroEyebrow: (document.getElementById('hero-eyebrow') as HTMLInputElement).value,
+        heroH1: (document.getElementById('hero-h1') as HTMLInputElement).value,
+        heroDesc: (document.getElementById('hero-desc') as HTMLTextAreaElement).value,
+        heroCtaMain: (document.getElementById('hero-cta-main') as HTMLInputElement).value,
+        heroCtaSub: (document.getElementById('hero-cta-sub') as HTMLInputElement).value,
+        heroImage: (document.getElementById('hero-image') as HTMLInputElement).value,
+
+        servicesHeading: (document.getElementById('services-heading') as HTMLInputElement).value,
+        servicesBtnText: (document.getElementById('services-btn-text') as HTMLInputElement).value,
+        servicesSubheading: (document.getElementById('services-subheading') as HTMLInputElement).value,
+
+        pkgHeading: (document.getElementById('pkg-heading') as HTMLInputElement).value,
+        pkgSubheading: (document.getElementById('pkg-subheading') as HTMLInputElement).value,
+
+        aboutHeading: (document.getElementById('about-heading') as HTMLInputElement).value,
+        aboutP1: (document.getElementById('about-p1') as HTMLTextAreaElement).value,
+        aboutP2: (document.getElementById('about-p2') as HTMLTextAreaElement).value,
+        aboutImage: (document.getElementById('about-image') as HTMLInputElement).value,
+
+        seoTitle: (document.getElementById('seo-title') as HTMLInputElement).value,
+        seoDesc: (document.getElementById('seo-desc') as HTMLTextAreaElement).value,
+        updatedAt: new Date().toISOString()
+      };
+
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+
+      if (alertBox) {
+        alertBox.className = 'p-3 rounded-lg text-xs font-bold bg-emerald-950 text-emerald-200 border border-emerald-500 block';
+        alertBox.textContent = '✓ Seluruh perubahan konten Halaman Beranda berhasil disimpan!';
+        setTimeout(() => alertBox.classList.add('hidden'), 3500);
+      }
+    });
+  </script>
+</AdminLayout>

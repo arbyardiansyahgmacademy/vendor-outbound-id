@@ -1,0 +1,279 @@
+---
+import AdminLayout from '../../../layouts/AdminLayout.astro';
+import { SITE_INFO } from '../../../data/defaultContent';
+---
+
+<AdminLayout title="Editor Halaman Kontak">
+  <div class="space-y-8 text-left max-w-4xl">
+    
+    <!-- Header -->
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-rose-900/40">
+      <div>
+        <div class="flex items-center gap-2 mb-1">
+          <a href="/admin/halaman" class="text-xs text-amber-400 hover:underline">← Master Halaman</a>
+          <span class="text-xs text-rose-400">/</span>
+          <span class="text-xs text-rose-300">Editor Kontak</span>
+        </div>
+        <h1 class="font-heading font-black text-2xl uppercase tracking-wider text-white flex items-center gap-2">
+          <i class="fas fa-phone-alt text-amber-400"></i>
+          <span>EDITOR HALAMAN KONTAK &amp; LOKASI</span>
+        </h1>
+        <p class="text-xs text-rose-300/80 mt-1">
+          Kelola nomor WhatsApp konsultasi, jam operasional, alamat kantor Batu Malang, email resmi, dan link Google Maps.
+        </p>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <a
+          href="/kontak"
+          target="_blank"
+          class="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg bg-brand-900/70 hover:bg-brand-800 text-rose-200 hover:text-white text-xs font-bold border border-rose-700/50"
+        >
+          <i class="fas fa-external-link-alt"></i>
+          <span>Lihat Halaman</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Alert Box -->
+    <div id="kontak-alert" class="hidden p-3 rounded-lg text-xs font-bold transition-all"></div>
+
+    <form id="kontak-editor-form" class="space-y-8">
+      
+      <!-- Section 1: Header Halaman Kontak -->
+      <div class="rounded-xl bg-[#330206] border border-rose-700/40 p-6 space-y-4 shadow-xl">
+        <div class="flex items-center justify-between border-b border-rose-900/50 pb-2">
+          <h2 class="font-heading font-bold text-base uppercase text-amber-400 tracking-wider flex items-center gap-2">
+            <span>01.</span>
+            <span>Header Halaman Kontak</span>
+          </h2>
+          <span class="text-[10px] uppercase font-bold text-rose-400/80 tracking-widest">Judul Utama</span>
+        </div>
+
+        <div>
+          <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200 mb-1">
+            Eyebrow Badge
+          </label>
+          <input
+            type="text"
+            id="k-eyebrow"
+            class="w-full px-3.5 py-2.5 rounded-lg bg-stone-950/70 border border-rose-800/60 text-white text-xs focus:outline-none focus:border-amber-400"
+            value="Hubungi Kami"
+          />
+        </div>
+
+        <div>
+          <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200 mb-1">
+            Judul Utama (H1)
+          </label>
+          <input
+            type="text"
+            id="k-h1"
+            class="w-full px-3.5 py-2.5 rounded-lg bg-stone-950/70 border border-rose-800/60 text-white text-xs focus:outline-none focus:border-amber-400 font-bold"
+            value="KONSULTASI KEGIATAN OUTBOUND"
+          />
+        </div>
+
+        <div>
+          <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200 mb-1">
+            Subjudul / Keterangan
+          </label>
+          <textarea
+            id="k-desc"
+            rows="2"
+            class="w-full px-3.5 py-2.5 rounded-lg bg-stone-950/70 border border-rose-800/60 text-white text-xs focus:outline-none focus:border-amber-400"
+          >Diskusikan rencana kegiatan corporate outbound, family gathering, maupun petualangan rafting & offroad di kawasan sejuk Batu dan Malang.</textarea>
+        </div>
+      </div>
+
+      <!-- Section 2: Saluran Kontak Langsung -->
+      <div class="rounded-xl bg-[#330206] border border-rose-700/40 p-6 space-y-4 shadow-xl">
+        <div class="flex items-center justify-between border-b border-rose-900/50 pb-2">
+          <h2 class="font-heading font-bold text-base uppercase text-amber-400 tracking-wider flex items-center gap-2">
+            <span>02.</span>
+            <span>Saluran Komunikasi Langsung</span>
+          </h2>
+          <span class="text-[10px] uppercase font-bold text-rose-400/80 tracking-widest">Kontak Resmi</span>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200 mb-1">
+              Nomor WhatsApp (Format 628...)
+            </label>
+            <input
+              type="text"
+              id="k-wa-number"
+              class="w-full px-3.5 py-2.5 rounded-lg bg-stone-950/70 border border-rose-800/60 text-white text-xs font-mono focus:outline-none focus:border-amber-400"
+              value={SITE_INFO.whatsappNumber}
+            />
+          </div>
+
+          <div>
+            <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200 mb-1">
+              Tampilan Nomor WhatsApp (Display)
+            </label>
+            <input
+              type="text"
+              id="k-wa-display"
+              class="w-full px-3.5 py-2.5 rounded-lg bg-stone-950/70 border border-rose-800/60 text-white text-xs font-mono focus:outline-none focus:border-amber-400"
+              value={SITE_INFO.whatsappDisplay}
+            />
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200 mb-1">
+              Email Resmi Informasi
+            </label>
+            <input
+              type="email"
+              id="k-email"
+              class="w-full px-3.5 py-2.5 rounded-lg bg-stone-950/70 border border-rose-800/60 text-white text-xs focus:outline-none focus:border-amber-400"
+              value="info@vendoroutbound.id"
+            />
+          </div>
+
+          <div>
+            <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200 mb-1">
+              Jam Operasional Layanan
+            </label>
+            <input
+              type="text"
+              id="k-hours"
+              class="w-full px-3.5 py-2.5 rounded-lg bg-stone-950/70 border border-rose-800/60 text-white text-xs focus:outline-none focus:border-amber-400"
+              value="Senin – Minggu: 08.00 – 21.00 WIB"
+            />
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200 mb-1">
+            Alamat Kantor / Basecamp Outbound
+          </label>
+          <input
+            type="text"
+            id="k-address"
+            class="w-full px-3.5 py-2.5 rounded-lg bg-stone-950/70 border border-rose-800/60 text-white text-xs focus:outline-none focus:border-amber-400"
+            value="Kawasan Wisata Kota Batu & Malang Raya, Jawa Timur"
+          />
+        </div>
+
+        <div>
+          <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200 mb-1">
+            Google Maps Embed / Link Lokasi
+          </label>
+          <input
+            type="text"
+            id="k-maps-link"
+            class="w-full px-3.5 py-2.5 rounded-lg bg-stone-950/70 border border-rose-800/60 text-white text-xs font-mono focus:outline-none focus:border-amber-400"
+            value="https://maps.google.com/?q=Kota+Batu+Malang"
+          />
+        </div>
+      </div>
+
+      <!-- Section 3: SEO Meta -->
+      <div class="rounded-xl bg-[#330206] border border-rose-700/40 p-6 space-y-4 shadow-xl">
+        <div class="flex items-center justify-between border-b border-rose-900/50 pb-2">
+          <h2 class="font-heading font-bold text-base uppercase text-amber-400 tracking-wider flex items-center gap-2">
+            <span>03.</span>
+            <span>Meta SEO Halaman Kontak</span>
+          </h2>
+          <span class="text-[10px] uppercase font-bold text-rose-400/80 tracking-widest">SEO Meta</span>
+        </div>
+
+        <div>
+          <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200 mb-1">
+            SEO Title
+          </label>
+          <input
+            type="text"
+            id="k-seo-title"
+            class="w-full px-3.5 py-2.5 rounded-lg bg-stone-950/70 border border-rose-800/60 text-white text-xs focus:outline-none focus:border-amber-400"
+            value="Kontak & Konsultasi Outbound Batu Malang | Vendor Outbound"
+          />
+        </div>
+
+        <div>
+          <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200 mb-1">
+            SEO Description
+          </label>
+          <textarea
+            id="k-seo-desc"
+            rows="2"
+            class="w-full px-3.5 py-2.5 rounded-lg bg-stone-950/70 border border-rose-800/60 text-white text-xs focus:outline-none focus:border-amber-400"
+          >Hubungi tim Vendor Outbound via WhatsApp atau formulir untuk konsultasi kebutuhan outbound perusahaan, family gathering, dan wisata petualangan di Batu Malang.</textarea>
+        </div>
+      </div>
+
+      <!-- Submit Bar -->
+      <div class="flex items-center justify-between pt-4 border-t border-rose-900/50">
+        <span class="text-xs text-rose-300/80">
+          Status: Sinkronisasi instan ke basis data
+        </span>
+        <button
+          type="submit"
+          class="px-6 py-3 rounded-lg bg-amber-500 hover:bg-amber-400 text-stone-950 font-heading font-black text-xs uppercase tracking-wider shadow-lg transition-all hover:scale-105 flex items-center gap-2"
+        >
+          <i class="fas fa-save"></i>
+          <span>Simpan Perubahan Kontak</span>
+        </button>
+      </div>
+
+    </form>
+
+  </div>
+
+  <script>
+    const form = document.getElementById('kontak-editor-form') as HTMLFormElement | null;
+    const alertBox = document.getElementById('kontak-alert');
+    const STORAGE_KEY = 'vo_page_kontak';
+
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved) {
+      try {
+        const d = JSON.parse(saved);
+        if (d.eyebrow) (document.getElementById('k-eyebrow') as HTMLInputElement).value = d.eyebrow;
+        if (d.h1) (document.getElementById('k-h1') as HTMLInputElement).value = d.h1;
+        if (d.desc) (document.getElementById('k-desc') as HTMLTextAreaElement).value = d.desc;
+        if (d.waNumber) (document.getElementById('k-wa-number') as HTMLInputElement).value = d.waNumber;
+        if (d.waDisplay) (document.getElementById('k-wa-display') as HTMLInputElement).value = d.waDisplay;
+        if (d.email) (document.getElementById('k-email') as HTMLInputElement).value = d.email;
+        if (d.hours) (document.getElementById('k-hours') as HTMLInputElement).value = d.hours;
+        if (d.address) (document.getElementById('k-address') as HTMLInputElement).value = d.address;
+        if (d.mapsLink) (document.getElementById('k-maps-link') as HTMLInputElement).value = d.mapsLink;
+        if (d.seoTitle) (document.getElementById('k-seo-title') as HTMLInputElement).value = d.seoTitle;
+        if (d.seoDesc) (document.getElementById('k-seo-desc') as HTMLTextAreaElement).value = d.seoDesc;
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    form?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const payload = {
+        eyebrow: (document.getElementById('k-eyebrow') as HTMLInputElement).value,
+        h1: (document.getElementById('k-h1') as HTMLInputElement).value,
+        desc: (document.getElementById('k-desc') as HTMLTextAreaElement).value,
+        waNumber: (document.getElementById('k-wa-number') as HTMLInputElement).value,
+        waDisplay: (document.getElementById('k-wa-display') as HTMLInputElement).value,
+        email: (document.getElementById('k-email') as HTMLInputElement).value,
+        hours: (document.getElementById('k-hours') as HTMLInputElement).value,
+        address: (document.getElementById('k-address') as HTMLInputElement).value,
+        mapsLink: (document.getElementById('k-maps-link') as HTMLInputElement).value,
+        seoTitle: (document.getElementById('k-seo-title') as HTMLInputElement).value,
+        seoDesc: (document.getElementById('k-seo-desc') as HTMLTextAreaElement).value,
+        updatedAt: new Date().toISOString()
+      };
+
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+
+      if (alertBox) {
+        alertBox.className = 'p-3 rounded-lg text-xs font-bold bg-emerald-950 text-emerald-200 border border-emerald-500 block';
+        alertBox.textContent = '✓ Seluruh data informasi Halaman Kontak berhasil disimpan!';
+        setTimeout(() => alertBox.classList.add('hidden'), 3500);
+      }
+    });
+  </script>
+</AdminLayout>

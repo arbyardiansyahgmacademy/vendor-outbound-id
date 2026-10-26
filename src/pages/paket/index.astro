@@ -1,0 +1,152 @@
+---
+import PublicLayout from '../../layouts/PublicLayout.astro';
+import ProductGrid from '../../components/sections/ProductGrid.astro';
+import FAQAccordion from '../../components/sections/FAQAccordion.astro';
+import CTASection from '../../components/sections/CTASection.astro';
+import { PACKAGE_CATEGORIES, PACKAGES } from '../../data/defaultContent';
+import { getWhatsAppUrl } from '../../lib/utils';
+
+const breadcrumbs = [
+  { name: 'Paket' }
+];
+---
+
+<PublicLayout
+  title="Katalog Paket Outbound Batu Malang | Vendor Outbound"
+  description="Katalog lengkap paket outbound di Batu dan Malang: Perusahaan, Family Gathering, Sekolah, dan Wisata Adventure."
+  breadcrumbs={breadcrumbs}
+>
+  <!-- Hero Section -->
+  <section class="py-16 sm:py-24 relative overflow-hidden">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
+      <span class="text-xs font-bold uppercase tracking-widest text-amber-400">
+        Pilihan Paket Fleksibel
+      </span>
+      <h1 class="font-heading font-black text-3xl sm:text-5xl uppercase tracking-[0.14em] text-white">
+        KATALOG PAKET OUTBOUND
+      </h1>
+      <p class="text-base sm:text-lg text-rose-100/85 max-w-3xl mx-auto leading-relaxed">
+        Pilihan paket terstruktur yang dapat disesuaikan sepenuhnya dengan anggaran, durasi, dan tujuan instansi Anda di kawasan sejuk Batu dan Malang.
+      </p>
+
+      <!-- Category Filter Shortcuts -->
+      <div class="flex flex-wrap items-center justify-center gap-3 pt-4">
+        {PACKAGE_CATEGORIES.map((cat) => (
+          <a
+            href={`/paket/${cat.slug}`}
+            class="px-4 py-2 rounded-lg bg-[#450308]/70 hover:bg-amber-500 hover:text-stone-950 text-rose-200 border border-rose-800/40 text-xs font-bold uppercase tracking-wider transition-all"
+          >
+            {cat.name}
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Paket Pilihan Grid matching reference image section -->
+  <ProductGrid />
+
+  <!-- All Categories Detailed Sections -->
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-20 py-12 border-t border-rose-900/40">
+    {PACKAGE_CATEGORIES.map((cat, catIdx) => {
+      const categoryPackages = PACKAGES.filter((p) => p.categorySlug === cat.slug);
+
+      return (
+        <section id={cat.slug} class="space-y-8 scroll-mt-24">
+          <div class="flex flex-col sm:flex-row items-center justify-between gap-4 border-b border-rose-900/40 pb-4 text-center sm:text-left">
+            <div>
+              <span class="text-xs font-bold uppercase tracking-widest text-amber-400">
+                Kategori 0{catIdx + 1}
+              </span>
+              <h2 class="font-heading font-black text-2xl sm:text-3xl uppercase tracking-wider text-white mt-1">
+                {cat.name}
+              </h2>
+              <p class="text-xs sm:text-sm text-rose-200/75 mt-1">
+                {cat.description}
+              </p>
+            </div>
+
+            <a
+              href={`/paket/${cat.slug}`}
+              class="inline-flex items-center gap-2 px-4 py-2 rounded-md bg-brand-900/60 hover:bg-brand-800 text-amber-400 font-bold text-xs uppercase tracking-wider border border-amber-500/30 transition-all hover:scale-105"
+            >
+              <span>Halaman Kategori</span>
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7" />
+              </svg>
+            </a>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {categoryPackages.map((pkg) => {
+              const waUrl = getWhatsAppUrl(`Halo Vendor Outbound, saya ingin konsultasi detail paket ${pkg.title} (${cat.name}).`);
+
+              return (
+                <div class="rounded-xl bg-[#480308]/60 border border-rose-700/35 overflow-hidden flex flex-col justify-between hover:border-amber-400/50 transition-all duration-300 hover:-translate-y-1 shadow-card group">
+                  <div>
+                    <div class="aspect-16/10 w-full overflow-hidden bg-brand-950">
+                      <img
+                        src={pkg.imageUrl}
+                        alt={pkg.title}
+                        width="400"
+                        height="250"
+                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        loading="lazy"
+                      />
+                    </div>
+
+                    <div class="p-5 space-y-3">
+                      <h3 class="font-heading font-black text-base uppercase tracking-wider text-white group-hover:text-amber-400 transition-colors">
+                        {pkg.title}
+                      </h3>
+                      <p class="text-xs text-rose-200/75 line-clamp-2">
+                        {pkg.excerpt}
+                      </p>
+
+                      <div class="pt-2 border-t border-rose-900/30 text-xs text-rose-300/80">
+                        <span class="font-bold text-amber-400">Durasi:</span> {pkg.duration}
+                      </div>
+
+                      <div class="space-y-1 pt-1">
+                        <span class="text-[10px] font-bold uppercase tracking-wider text-rose-400">Fasilitas Inti:</span>
+                        <ul class="text-[11px] text-rose-200/80 space-y-1">
+                          {pkg.features.slice(0, 3).map((f) => (
+                            <li class="flex items-center gap-1.5">
+                              <span class="text-amber-400">✓</span>
+                              <span class="truncate">{f}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="p-5 pt-0 mt-4">
+                    <a
+                      href={waUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="w-full inline-flex items-center justify-center gap-2 py-2.5 rounded-md bg-amber-500 hover:bg-amber-400 text-stone-950 font-heading font-black text-xs uppercase tracking-wider shadow-md hover:scale-[1.02] transition-all"
+                    >
+                      <span>Konsultasi Paket</span>
+                      <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                      </svg>
+                    </a>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </section>
+      );
+    })}
+  </div>
+
+  <!-- FAQ Section -->
+  <FAQAccordion title="FAQ SEPUTAR PAKET OUTBOUND" />
+
+  <!-- CTA Section -->
+  <CTASection />
+
+</PublicLayout>

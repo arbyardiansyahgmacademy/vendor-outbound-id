@@ -1,0 +1,66 @@
+---
+import PublicLayout from '../layouts/PublicLayout.astro';
+import { SITE_INFO } from '../data/defaultContent';
+
+const breadcrumbs = [
+  { name: 'Kebijakan Privasi' }
+];
+---
+
+<PublicLayout
+  title="Kebijakan Privasi | Vendor Outbound"
+  description="Kebijakan privasi Vendor Outbound mengenai pengelolaan data informasi pemesanan dan konsultasi."
+  breadcrumbs={breadcrumbs}
+>
+  <div class="py-16 sm:py-20 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-left text-rose-100/90 leading-relaxed space-y-8">
+    <div class="space-y-2 border-b border-rose-900/40 pb-6">
+      <span class="text-xs font-bold uppercase tracking-widest text-amber-400">Ketentuan Hukum &amp; Privasi</span>
+      <h1 class="font-heading font-black text-3xl sm:text-4xl uppercase tracking-wider text-white">
+        KEBIJAKAN PRIVASI
+      </h1>
+      <p class="text-xs text-rose-300/70">Terakhir diperbarui: 25 Oktober 2026</p>
+    </div>
+
+    <section class="space-y-4">
+      <h2 class="font-heading font-bold text-xl uppercase tracking-wider text-white">
+        1. Informasi yang Kami Kumpulkan
+      </h2>
+      <p class="text-sm">
+        Saat Anda menghubungi kami melalui formulir konsultasi atau tombol WhatsApp resmi di situs {SITE_INFO.brandName} ({SITE_INFO.domain}), kami dapat mencatat informasi kontak yang Anda sediakan secara sukarela, meliputi:
+      </p>
+      <ul class="list-disc pl-5 space-y-1 text-sm text-rose-200/80">
+        <li>Nama lengkap dan/atau nama perwakilan instansi.</li>
+        <li>Nomor kontak aktif (termasuk nomor WhatsApp).</li>
+        <li>Alamat email (jika dicantumkan).</li>
+        <li>Perkiraan jumlah peserta, rencana tanggal kegiatan, dan preferensi venue di Batu - Malang.</li>
+        <li>Catatan kebutuhan khusus yang Anda sertakan dalam pesan formulir.</li>
+      </ul>
+    </section>
+
+    <section class="space-y-4">
+      <h2 class="font-heading font-bold text-xl uppercase tracking-wider text-white">
+        2. Tujuan Penggunaan Data
+      </h2>
+      <p class="text-sm">
+        Informasi yang kami kumpulkan digunakan semata-mata untuk:
+      </p>
+      <ul class="list-disc pl-5 space-y-1 text-sm text-rose-200/80">
+        <li>Merancang proposal penawaran, rundown kegiatan, dan estimasi biaya program outbound.</li>
+        <li>Menghubungi Anda kembali untuk konfirmasi jadwal, ketersediaan venue, dan teknis lapangan.</li>
+        <li>Memastikan persiapan standar keselamatan dan logistik sesuai jumlah peserta.</li>
+      </ul>
+      <p class="text-sm text-amber-300/90 font-medium">
+        Kami tidak pernah menjual, menyewakan, atau menyebarkan data pribadi Anda kepada pihak ketiga untuk kepentingan periklanan di luar kegiatan yang disepakati.
+      </p>
+    </section>
+
+    <section class="space-y-4">
+      <h2 class="font-heading font-bold text-xl uppercase tracking-wider text-white">
+        3. Keamanan &amp; Hak Anda
+      </h2>
+      <p class="text-sm">
+        Data formulir disimpan dalam basis data yang dilindungi Row Level Security (RLS) dan hanya dapat diakses oleh admin pengelola resmi. Anda berhak meminta pembaruan, klarifikasi, atau penghapusan data kontak Anda kapan saja dengan menghubungi kami melalui WhatsApp resmi di {SITE_INFO.whatsappDisplay}.
+      </p>
+    </section>
+  </div>
+</PublicLayout>

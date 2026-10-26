@@ -1,0 +1,906 @@
+// Default and seed content strictly adhering to PRD specifications for vendoroutbound.id
+
+export interface ServiceItem {
+  id: string;
+  title: string;
+  slug: string;
+  excerpt: string;
+  overview: string;
+  targetAudience: string;
+  benefits: string[];
+  activities: string[];
+  locationNote: string;
+  imageUrl: string;
+  featured: boolean;
+  sortOrder: number;
+}
+
+export interface PackageItem {
+  id: string;
+  categorySlug: string;
+  categoryName: string;
+  title: string;
+  slug: string;
+  excerpt: string;
+  imageUrl: string;
+  activities: string[];
+  features: string[];
+  duration: string;
+  priceLabel: string;
+  priceAmount?: number | null;
+  featured: boolean;
+  sortOrder: number;
+}
+
+export interface GalleryItem {
+  id: string;
+  title: string;
+  caption: string;
+  altText: string;
+  category: string;
+  imageUrl: string;
+  width: number;
+  height: number;
+}
+
+export interface FAQItem {
+  id: string;
+  pageSlug: string;
+  question: string;
+  answer: string;
+  sortOrder: number;
+}
+
+export interface BlogPostItem {
+  id: string;
+  title: string;
+  slug: string;
+  excerpt: string;
+  body: string;
+  category: string;
+  authorName: string;
+  authorRole?: string;
+  authorAvatar?: string;
+  authorBio: string;
+  thumbnailUrl: string;
+  imageAlt: string;
+  seoTitle: string;
+  seoDescription: string;
+  canonicalUrl: string;
+  publishedAt: string;
+  readingTimeMinutes: number;
+  answerFirst: string;
+  summaryPoints?: string[];
+  faqs?: { question: string; answer: string }[];
+}
+
+export const SITE_INFO = {
+  brandName: 'Vendor Outbound',
+  domain: 'https://vendoroutbound.id',
+  tagline: 'Penyedia Outbound, Gathering & Adventure Profesional Batu - Malang',
+  whatsappNumber: '6282211221909',
+  whatsappDisplay: '+62 822-1122-1909',
+  defaultWaMessage: 'Halo Vendor Outbound, saya ingin konsultasi kegiatan outbound/gathering di area Batu - Malang.',
+  serviceAreas: 'Batu dan Malang, Jawa Timur',
+  operatingHours: '08:00 - 21:00 WIB',
+  description: 'Penyedia program outbound, team building korporat, family gathering, outbound edukasi sekolah, dan wisata petualangan di area Batu dan Malang, Jawa Timur.',
+};
+
+export const SERVICES: ServiceItem[] = [
+  {
+    id: 'srv-1',
+    title: 'Outbound Perusahaan',
+    slug: 'outbound-perusahaan',
+    excerpt: 'Program penguatan sinergi tim, kepemimpinan, dan komunikasi efektif untuk perusahaan dan institusi di kawasan sejuk Batu - Malang.',
+    overview: 'Program outbound korporat dirancang khusus untuk membangun kekompakan tim kerja lintas divisi, mengasah daya adaptasi dan kolaborasi pemecahan masalah (problem solving), serta menyegarkan kembali semangat kerja di tengah panorama alami pegunungan Batu Malang.',
+    targetAudience: 'Perusahaan, BUMN, Instansi Pemerintah, Startup, Korporasi, & Divisi Kerja',
+    benefits: [
+      'Meningkatkan rasa saling percaya dan kekompakan tim kerja',
+      'Mengasah komunikasi terbuka dan sinergi pemecahan masalah',
+      'Mengurangi kejenuhan kerja dengan suasana alam pegunungan yang segar',
+      'Membangun komitmen bersama untuk mencapai target organisasi'
+    ],
+    activities: [
+      'Ice Breaking & Team Energizer',
+      'Team Dynamic & Synergy Simulation',
+      'Strategic Problem Solving Games',
+      'Trust & Leadership Challenges',
+      'Debrief & Evaluasi Nilai Organisasi'
+    ],
+    locationNote: 'Tersedia di venue hutan pinus, resort outbound, dan area terbuka alami di Batu dan Malang.',
+    imageUrl: '/images/services/outbound-perusahaan.webp',
+    featured: true,
+    sortOrder: 1,
+  },
+  {
+    id: 'srv-2',
+    title: 'Family Gathering',
+    slug: 'family-gathering',
+    excerpt: 'Kegiatan rekreasi santai dan hangat yang mempererat hubungan keluarga besar karyawan atau komunitas di alam terbuka.',
+    overview: 'Family gathering memadukan suasana riang gembira, aneka permainan interaktif untuk segala kelompok usia (anak-anak hingga kakek-nenek), dan kehangatan silaturahmi tanpa tekanan kompetisi yang berat.',
+    targetAudience: 'Keluarga Besar Karyawan, Paguyuban, Komunitas Warga, & Ikatan Alumni',
+    benefits: [
+      'Mempererat tali silaturahmi dan keharmonisan antar keluarga',
+      'Permainan ramah anak dan lansia yang menyenangkan dan aman',
+      'Suasana rileks untuk melepas penat rutinitas sehari-hari',
+      'Momen kebersamaan berharga dengan dokumentasi foto lengkap'
+    ],
+    activities: [
+      'Fun Games Keluarga & Pasangan',
+      'Kids Corner & Aktivitas Edukasi Anak',
+      'Lomba Kekompakan Antar Keluarga',
+      'Panggung Doorprize & Kebersamaan',
+      'Piknik Santai di Hamparan Rumput'
+    ],
+    locationNote: 'Dilaksanakan di venue taman terbuka hijau dan resort ramah keluarga di Kota Batu.',
+    imageUrl: '/images/services/family-gathering.webp',
+    featured: true,
+    sortOrder: 2,
+  },
+  {
+    id: 'srv-3',
+    title: 'Outbound Sekolah',
+    slug: 'outbound-sekolah',
+    excerpt: 'Pembentukan karakter mandiri, kepemimpinan pelajar, dan edukasi alam untuk SD, SMP, SMA hingga perguruan tinggi.',
+    overview: 'Program edukatif luar ruang yang menitikberatkan pada penanaman kemandirian, kepemimpinan dasar (LDKS), kerja sama kawan sebaya, dan apresiasi terhadap kelestarian lingkungan hidup.',
+    targetAudience: 'Siswa SD, Pelajar SMP/SMA/SMK, Pengurus OSIS/MPK, & Mahasiswa',
+    benefits: [
+      'Menanamkan nilai budi pekerti, disiplin, dan rasa tanggung jawab',
+      'Melatih jiwa kepemimpinan dini dan toleransi kawan',
+      'Belajar langsung mengenai ekosistem dan keanekaragaman alam',
+      'Membangun keakraban positif antar siswa satu angkatan'
+    ],
+    activities: [
+      'Permainan Pembangunan Karakter (Character Building)',
+      'Simulasi Kepemimpinan Siswa (LDKS)',
+      'Jelajah Alam & Observasi Lingkungan Hidup',
+      'Edukasi Pertanian & Konservasi Alam Batu',
+      'Sesi Refleksi & Ikrar Integritas Pelajar'
+    ],
+    locationNote: 'Bumi perkemahan aman dan area edukasi alam terkelola di Batu Malang.',
+    imageUrl: '/images/services/outbound-sekolah.webp',
+    featured: true,
+    sortOrder: 3,
+  },
+  {
+    id: 'srv-4',
+    title: 'Wisata & Adventure',
+    slug: 'wisata-adventure',
+    excerpt: 'Petualangan pemacu adrenalin mulai dari rafting arus deras, offroad jeep 4x4 lereng pegunungan, hingga camping seru.',
+    overview: 'Rangkaian petualangan seru yang menantang namun tetap aman. Didampingi instruktur profesional bersertifikat dengan standar perlengkapan keselamatan internasional.',
+    targetAudience: 'Komunitas Pecinta Alam, Perusahaan Petualang, Wisatawan Komunitas, & Kelompok Hobi',
+    benefits: [
+      'Sensasi petualangan berkesan di alam terbuka Batu Malang',
+      'Instruktur dan tim rescue profesional siaga di setiap jalur',
+      'Peralatan standar safety lengkap (helm, pelampung, roll bar jeep)',
+      'Pelepasan stres kerja yang maksimal dengan adrenalin positif'
+    ],
+    activities: [
+      'Rafting Arus Deras Seru (Kaliwatu / Kasembon)',
+      'Offroad Jeep 4x4 Melintasi Hutan Pinus & Lumpur',
+      'Camping Ground di Bawah Taburan Bintang',
+      'Simulasi Taktis Paintball War Games'
+    ],
+    locationNote: 'Sungai Kaliwatu, Kasembon Rafting, Lereng Gunung Arjuno, dan Coban Talun.',
+    imageUrl: '/images/services/wisata-adventure.webp',
+    featured: true,
+    sortOrder: 4,
+  }
+];
+
+export const PACKAGE_CATEGORIES = [
+  { name: 'Perusahaan', slug: 'perusahaan', description: 'Program outbound dan gathering korporat penguat sinergi organisasi' },
+  { name: 'Family Gathering', slug: 'family-gathering', description: 'Paket santai dan ceria untuk keluarga karyawan dan komunitas' },
+  { name: 'Sekolah', slug: 'sekolah', description: 'Program pembentukan karakter, LDKS, dan edukasi alam luar ruang' },
+  { name: 'Wisata & Adventure', slug: 'wisata-adventure', description: 'Petualangan rafting, jeep offroad 4x4, camping, dan paintball' },
+];
+
+export const PACKAGES: PackageItem[] = [
+  // Perusahaan
+  {
+    id: 'pkg-1',
+    categorySlug: 'perusahaan',
+    categoryName: 'Perusahaan',
+    title: 'Team Building',
+    slug: 'team-building',
+    excerpt: 'Penguatan kerja sama, komunikasi efektif, dan rasa saling percaya antar rekan kerja.',
+    imageUrl: '/images/packages/team-building.webp',
+    activities: ['Ice Breaking & Energizer', 'Group Dynamic Games', 'Effective Communication', 'Synergy Challenge'],
+    features: ['Instruktur Berpengalaman', 'Peralatan Games Lengkap', 'Sound System Outdoor', 'Air Mineral Selama Acara'],
+    duration: '1 Hari (Full Day / Half Day)',
+    priceLabel: 'Konsultasikan kebutuhan paket',
+    featured: true,
+    sortOrder: 1,
+  },
+  {
+    id: 'pkg-2',
+    categorySlug: 'perusahaan',
+    categoryName: 'Perusahaan',
+    title: 'Fun Games',
+    slug: 'fun-games',
+    excerpt: 'Aktivitas outbound ringan dan ceria untuk penyegaran suasana tanpa tekanan fisik berat.',
+    imageUrl: '/images/packages/fun-games.webp',
+    activities: ['Cheerful Ice Breaking', 'Fun Relay Challenges', 'Water Splash Ceria', 'Panggung Yel-yel'],
+    features: ['Fasilitator Ramah & Enerjik', 'Property Games Kreatif', 'Standar P3K', 'Dokumentasi Foto'],
+    duration: 'Setengah Hari (Half Day)',
+    priceLabel: 'Konsultasikan kebutuhan paket',
+    featured: true,
+    sortOrder: 2,
+  },
+  {
+    id: 'pkg-3',
+    categorySlug: 'perusahaan',
+    categoryName: 'Perusahaan',
+    title: 'Leadership Camp',
+    slug: 'leadership-camp',
+    excerpt: 'Program intensif pembentukan jiwa kepemimpinan strategis, adaptasi, dan ketahanan mental.',
+    imageUrl: '/images/packages/leadership-camp.webp',
+    activities: ['Night Leadership Journey', 'Survival Simulation', 'Crisis Decision Making', 'Action Plan Workshop'],
+    features: ['Trainer Dedikatif', 'Akomodasi Tenda/Villa', 'Modul Leadership Khusus', 'Konsumsi Lengkap'],
+    duration: '2 Hari 1 Malam',
+    priceLabel: 'Konsultasikan kebutuhan paket',
+    featured: false,
+    sortOrder: 3,
+  },
+  {
+    id: 'pkg-4',
+    categorySlug: 'perusahaan',
+    categoryName: 'Perusahaan',
+    title: 'Corporate Gathering',
+    slug: 'corporate-gathering',
+    excerpt: 'Temu tahunan perusahaan berpadu outbound seru, malam keakraban, dan hiburan panggung.',
+    imageUrl: '/images/packages/corporate-gathering.webp',
+    activities: ['Outbound Team Building', 'Gala Dinner Kebersamaan', 'Live Music & Doorprize', 'Penganugerahan Karyawan'],
+    features: ['Event Organizer Lapangan', 'Pilihan Venue Resort Batu', 'Dekorasi & Sound Panggung', 'Dokumentasi Foto & Video'],
+    duration: '2 Hari 1 Malam / 1 Hari',
+    priceLabel: 'Konsultasikan kebutuhan paket',
+    featured: true,
+    sortOrder: 4,
+  },
+
+  // Family Gathering
+  {
+    id: 'pkg-5',
+    categorySlug: 'family-gathering',
+    categoryName: 'Family Gathering',
+    title: 'Paket Hemat',
+    slug: 'paket-hemat',
+    excerpt: 'Pilihan efisien dan hangat untuk gathering keluarga dengan fasilitas inti lengkap.',
+    imageUrl: '/images/packages/paket-hemat.webp',
+    activities: ['Fun Games Ringan', 'Senam Bersama Ceria', 'Permainan Anak', 'Foto Kebersamaan'],
+    features: ['Fasilitator Games', 'Peralatan Games Standar', 'Air Mineral', 'Sound Standar'],
+    duration: 'Half Day',
+    priceLabel: 'Konsultasikan kebutuhan paket',
+    featured: false,
+    sortOrder: 5,
+  },
+  {
+    id: 'pkg-6',
+    categorySlug: 'family-gathering',
+    categoryName: 'Family Gathering',
+    title: 'Paket Standard',
+    slug: 'paket-standard',
+    excerpt: 'Paket favorit dengan rangkaian aktivitas beragam dan makan siang prasmanan nusantara.',
+    imageUrl: '/images/packages/paket-standard.webp',
+    activities: ['Ice Breaking Hangat', 'Family Synergy Games', 'Kids Corner Berhadiah', 'Doorprize Support'],
+    features: ['Fasilitator & Tim Lapangan', 'Makan Siang & Snack Prasmanan', 'Banner Acara Cetak', 'Dokumentasi Foto'],
+    duration: 'Full Day',
+    priceLabel: 'Konsultasikan kebutuhan paket',
+    featured: true,
+    sortOrder: 6,
+  },
+  {
+    id: 'pkg-7',
+    categorySlug: 'family-gathering',
+    categoryName: 'Family Gathering',
+    title: 'Paket Premium',
+    slug: 'paket-premium',
+    excerpt: 'Fasilitas premium dengan venue eksklusif resort Batu dan suguhan hiburan lengkap.',
+    imageUrl: '/images/packages/paket-premium.webp',
+    activities: ['Fun Games Komprehensif', 'Kids Edukasi Khusus', 'Live Acoustic Music', 'Makan Siang Spesial'],
+    features: ['Venue Pilihan Terbaik', 'Konsumsi Menu Istimewa', 'Dokumentasi Foto & Video', 'Souvenir Opsional'],
+    duration: 'Full Day / Menginap',
+    priceLabel: 'Konsultasikan kebutuhan paket',
+    featured: false,
+    sortOrder: 7,
+  },
+  {
+    id: 'pkg-8',
+    categorySlug: 'family-gathering',
+    categoryName: 'Family Gathering',
+    title: 'Paket Custom',
+    slug: 'paket-custom',
+    excerpt: 'Disesuaikan sepenuhnya dengan rancangan kebutuhan, anggaran, dan tema keluarga Anda.',
+    imageUrl: '/images/packages/paket-custom.webp',
+    activities: ['Agenda Menyesuaikan Permintaan', 'Aktivitas Fleksibel Sesuai Usia Peserta'],
+    features: ['Konsultasi Rencana Acara Gratis', 'Pilihan Lokasi Sesuai Keinginan', 'Fasilitas Sesuai Budget'],
+    duration: 'Fleksibel',
+    priceLabel: 'Konsultasikan kebutuhan paket',
+    featured: false,
+    sortOrder: 8,
+  },
+
+  // Sekolah
+  {
+    id: 'pkg-9',
+    categorySlug: 'sekolah',
+    categoryName: 'Sekolah',
+    title: 'Outbound Pelajar',
+    slug: 'outbound-pelajar',
+    excerpt: 'Membangun keakraban kelas, sportivitas, dan kegembiraan belajar di luar ruang kelas.',
+    imageUrl: '/images/packages/outbound-pelajar.webp',
+    activities: ['Yel-yel Kreatif Kelas', 'Kerja Sama Regu Siswa', 'Water Splash Ceria', 'Refleksi Pelajar'],
+    features: ['Instruktur Ramah Siswa', 'Peralatan Edukatif', 'Snack & Air Mineral', 'P3K Standar'],
+    duration: 'Half Day / Full Day',
+    priceLabel: 'Konsultasikan kebutuhan paket',
+    featured: false,
+    sortOrder: 9,
+  },
+  {
+    id: 'pkg-10',
+    categorySlug: 'sekolah',
+    categoryName: 'Sekolah',
+    title: 'Character Building',
+    slug: 'character-building',
+    excerpt: 'Menanamkan kedisiplinan, integritas pribadi, dan ketangguhan mental siswa.',
+    imageUrl: '/images/packages/character-building.webp',
+    activities: ['Simulasi Kemandirian', 'Tantangan Ketahanan Mental', 'Problem Solving Siswa', 'Refleksi Nilai Diri'],
+    features: ['Fasilitator Berpengalaman', 'Lembar Kerja Refleksi', 'Area Lapangan Terpilih'],
+    duration: '1 Hari / 2 Hari',
+    priceLabel: 'Konsultasikan kebutuhan paket',
+    featured: true,
+    sortOrder: 10,
+  },
+  {
+    id: 'pkg-11',
+    categorySlug: 'sekolah',
+    categoryName: 'Sekolah',
+    title: 'LDKS Leadership',
+    slug: 'ldks-leadership',
+    excerpt: 'Latihan Dasar Kepemimpinan Siswa untuk pengurus OSIS, MPK, dan ekstrakurikuler.',
+    imageUrl: '/images/packages/ldks-leadership.webp',
+    activities: ['Materi Kepemimpinan Lapangan', 'Simulasi Manajemen Organisasi', 'Caraka Malam', 'Penyusunan Rencana Kerja'],
+    features: ['Narasumber & Instruktur', 'Area Perkemahan Aman', 'Perlengkapan Simulasi', 'Sertifikat Partisipasi'],
+    duration: '2 Hari 1 Malam',
+    priceLabel: 'Konsultasikan kebutuhan paket',
+    featured: false,
+    sortOrder: 11,
+  },
+  {
+    id: 'pkg-12',
+    categorySlug: 'sekolah',
+    categoryName: 'Sekolah',
+    title: 'Edukasi Alam',
+    slug: 'edukasi-alam',
+    excerpt: 'Mengenalkan kelestarian lingkungan hidup, keanekaragaman flora fauna, dan pertanian Batu.',
+    imageUrl: '/images/packages/edukasi-alam.webp',
+    activities: ['Petik Buah & Sayur Batu', 'Edukasi Pupuk Organik', 'Trekking Alam Terbimbing', 'Kuis Cinta Lingkungan'],
+    features: ['Pemandu Edukasi', 'Bibit Tanaman untuk Praktek', 'Snack Sehat', 'Tempat Nyaman'],
+    duration: 'Half Day',
+    priceLabel: 'Konsultasikan kebutuhan paket',
+    featured: false,
+    sortOrder: 12,
+  },
+
+  // Wisata & Adventure
+  {
+    id: 'pkg-13',
+    categorySlug: 'wisata-adventure',
+    categoryName: 'Wisata & Adventure',
+    title: 'Outbound Wisata',
+    slug: 'outbound-wisata',
+    excerpt: 'Perpaduan outbound menyenangkan dengan kunjungan ke destinasi wisata populer Batu Malang.',
+    imageUrl: '/images/packages/outbound-wisata.webp',
+    activities: ['Fun Games Pagi', 'Kunjungan Wisata Populer', 'Wisata Belanja Oleh-oleh Khas'],
+    features: ['Pemandu Wisata Lapangan', 'Tiket Destinasi Rekomendasi', 'Makan Siang', 'Dokumentasi'],
+    duration: '1 Hari',
+    priceLabel: 'Konsultasikan kebutuhan paket',
+    featured: false,
+    sortOrder: 13,
+  },
+  {
+    id: 'pkg-14',
+    categorySlug: 'wisata-adventure',
+    categoryName: 'Wisata & Adventure',
+    title: 'Rafting',
+    slug: 'rafting',
+    excerpt: 'Arung jeram seru di sungai alami dengan pemandangan tebing dan persawahan Batu - Pujon.',
+    imageUrl: '/images/packages/rafting.webp',
+    activities: ['Safety Briefing Arung Jeram', 'Pengarungan Sungai 7-12 KM', 'Rescue Team Siaga', 'Kelapa Muda di Garis Finish'],
+    features: ['Perahu Karet & Dayung', 'Helm & Pelampung Standar', 'Guide & Rescue Team', 'Asuransi & Makan Siang'],
+    duration: '±2 Jam Pengarungan',
+    priceLabel: 'Konsultasikan kebutuhan paket',
+    featured: true,
+    sortOrder: 14,
+  },
+  {
+    id: 'pkg-15',
+    categorySlug: 'wisata-adventure',
+    categoryName: 'Wisata & Adventure',
+    title: 'Offroad 4x4',
+    slug: 'offroad-4x4',
+    excerpt: 'Jelajah jalur ekstrem berlumpur dan perbukitan pinus menggunakan kendaraan Jeep 4x4.',
+    imageUrl: '/images/packages/offroad-4x4.webp',
+    activities: ['Konvoi Jeep 4x4 Terbuka', 'Melintasi Jalur Lumpur & Sungai', 'Stop Foto Panorama Gunung', 'Finish Basecamp Outbound'],
+    features: ['Armada Jeep 4x4 Prima', 'Driver Offroad Berpengalaman', 'Bahan Bakar & Tiket Jalur', 'Dokumentasi Aksi'],
+    duration: '±3 - 4 Jam Jelajah',
+    priceLabel: 'Konsultasikan kebutuhan paket',
+    featured: true,
+    sortOrder: 15,
+  },
+  {
+    id: 'pkg-16',
+    categorySlug: 'wisata-adventure',
+    categoryName: 'Wisata & Adventure',
+    title: 'Camping',
+    slug: 'camping',
+    excerpt: 'Bermalam di alam bebas dengan tenda nyaman, api unggun, dan udara dingin khas Batu.',
+    imageUrl: '/images/packages/camping.webp',
+    activities: ['Mendirikan Tenda Bersama', 'Api Unggun & BBQ Malam', 'Sunrise Trekking Pagi', 'Fun Games Ringan'],
+    features: ['Tenda Dome & Matras Bersih', 'Kayu Api Unggun & Lampu', 'Fasilitas Sanitasi Bersih', 'Makan Malam & Sarapan'],
+    duration: '2 Hari 1 Malam',
+    priceLabel: 'Konsultasikan kebutuhan paket',
+    featured: false,
+    sortOrder: 16,
+  }
+];
+
+export const GALLERY_ITEMS: GalleryItem[] = [
+  {
+    id: 'gal-act-1',
+    title: 'Outbound & Team Building Dinamis',
+    caption: 'Aktivitas kolaboratif pemecahan masalah dan sinergi tim di hamparan rumput pinus Kota Batu.',
+    altText: 'Peserta outbound bersemangat dalam simulasi kerja sama tim',
+    category: 'Perusahaan',
+    imageUrl: '/images/activities/outbound-team-building.webp',
+    width: 1000,
+    height: 667,
+  },
+  {
+    id: 'gal-act-2',
+    title: 'Petualangan Rafting Arung Jeram',
+    caption: 'Sensasi menaklukkan arus deras dan jeram sungai alami Batu - Pujon dengan standar keselamatan tinggi.',
+    altText: 'Rombongan rafting mendayung melewati jeram sungai dengan pelampung dan helm',
+    category: 'Wisata & Adventure',
+    imageUrl: '/images/activities/rafting-arung-jeram.webp',
+    width: 1000,
+    height: 667,
+  },
+  {
+    id: 'gal-act-3',
+    title: 'Berkemah di Bawah Rimbun Pinus',
+    caption: 'Suasana berkemah nyaman dengan api unggun, udara sejuk pegunungan, dan gemerlap bintang.',
+    altText: 'Deretan tenda perkemahan di antara pepohonan pinus alami Batu',
+    category: 'Wisata & Adventure',
+    imageUrl: '/images/activities/berkemah-camping-ground.webp',
+    width: 1000,
+    height: 667,
+  },
+  {
+    id: 'gal-act-4',
+    title: 'Jelajah Jalur Offroad Jeep 4x4',
+    caption: 'Pacu adrenalin menembus rute ekstrem berbatu, lumpur, dan hutan dengan armada Jeep 4x4 prima.',
+    altText: 'Konvoi mobil Jeep 4x4 melintasi jalur offroad menantang',
+    category: 'Wisata & Adventure',
+    imageUrl: '/images/activities/offroad-jeep-4x4.webp',
+    width: 1000,
+    height: 667,
+  },
+  {
+    id: 'gal-act-5',
+    title: 'Pesona Keindahan Alam & Air Terjun Batu',
+    caption: 'Panorama alam pegunungan yang asri dan air terjun alami penyegar jiwa dan raga peserta.',
+    altText: 'Panorama air terjun alami dan pepohonan hijau asri di kawasan Batu Malang',
+    category: 'Wisata & Adventure',
+    imageUrl: '/images/activities/keindahan-alam-batu.webp',
+    width: 1000,
+    height: 667,
+  },
+  {
+    id: 'gal-1',
+    title: 'Ice Breaking Team Korporat',
+    caption: 'Keseruan peserta dalam sesi ice breaking pembuka di hamparan rumput pinus Kota Batu.',
+    altText: 'Peserta outbound perusahaan bergandengan tangan dalam lingkaran ice breaking',
+    category: 'Perusahaan',
+    imageUrl: '/images/gallery/gallery-1.webp',
+    width: 800,
+    height: 600,
+  },
+  {
+    id: 'gal-2',
+    title: 'Simulasi Jembatan Tali Bambu',
+    caption: 'Ujian kerja sama dan koordinasi tim membangun jembatan darurat.',
+    altText: 'Karyawan bekerja sama menyusun bilah bambu sebagai lintasan jembatan tali',
+    category: 'Perusahaan',
+    imageUrl: '/images/gallery/gallery-2.webp',
+    width: 800,
+    height: 600,
+  },
+  {
+    id: 'gal-3',
+    title: 'Keceriaan Family Gathering',
+    caption: 'Senyum riang keluarga besar dan anak-anak saat mengikuti game balon estafet.',
+    altText: 'Anak-anak dan orang tua tertawa riang bermain game balon di taman terbuka',
+    category: 'Family Gathering',
+    imageUrl: '/images/gallery/gallery-3.webp',
+    width: 800,
+    height: 600,
+  },
+  {
+    id: 'gal-4',
+    title: 'LDKS Kepemimpinan Siswa',
+    caption: 'Peserta LDKS mendengarkan instruksi kedisiplinan dan kepemimpinan di alam terbuka.',
+    altText: 'Siswa berseragam olahraga berbaris rapi di bumi perkemahan pegunungan',
+    category: 'Sekolah',
+    imageUrl: '/images/gallery/gallery-4.webp',
+    width: 800,
+    height: 600,
+  },
+  {
+    id: 'gal-5',
+    title: 'Arung Jeram Sungai Batu',
+    caption: 'Momen seru melintasi jeram berbatu dengan pengawasan pemandu profesional.',
+    altText: 'Perahu karet oranye meluncur di arus jeram sungai dengan peserta berhelm pelindung',
+    category: 'Wisata & Adventure',
+    imageUrl: '/images/gallery/gallery-5.webp',
+    width: 800,
+    height: 600,
+  },
+  {
+    id: 'gal-6',
+    title: 'Aksi Jeep Offroad 4x4',
+    caption: 'Konvoi armada jeep melintasi medan berlumpur di tengah hutan pinus lereng pegunungan.',
+    altText: 'Jeep 4x4 hijau melintasi genangan lumpur dengan latar belakang hutan pinus rindang',
+    category: 'Wisata & Adventure',
+    imageUrl: '/images/gallery/gallery-6.webp',
+    width: 800,
+    height: 600,
+  }
+];
+
+export const FAQS: FAQItem[] = [
+  {
+    id: 'faq-1',
+    pageSlug: '/',
+    question: 'Bagaimana alur pemesanan dan konsultasi kegiatan di Vendor Outbound?',
+    answer: 'Anda dapat menghubungi tim kami melalui tombol WhatsApp resmi (+62 822-1122-1909) atau melalui formulir konsultasi di halaman Kontak. Sampaikan perkiraan jumlah peserta, jenis kegiatan yang diminati, rencana tanggal, serta kebutuhan khusus. Kami akan menyusun rancangan program dan rekomendasi venue terbaik di Batu - Malang.',
+    sortOrder: 1,
+  },
+  {
+    id: 'faq-2',
+    pageSlug: '/',
+    question: 'Apakah agenda kegiatan dapat disesuaikan dengan kebutuhan internal kami?',
+    answer: 'Ya, seluruh program baik team building perusahaan, family gathering, maupun outbound sekolah dapat disesuaikan (customized) dengan tema internal, nilai budaya organisasi, serta alokasi durasi yang Anda inginkan.',
+    sortOrder: 2,
+  },
+  {
+    id: 'faq-3',
+    pageSlug: '/',
+    question: 'Bagaimana kesiapan keamanan dan penanganan cuaca di lapangan?',
+    answer: 'Setiap kegiatan outbound didampingi fasilitator dan instruktur lapangan yang terlatih dalam prosedur keselamatan. Kami selalu menyiapkan opsi rencana cadangan (plan B) di area semi-indoor jika cuaca hujan turun, serta kotak P3K standar di lokasi.',
+    sortOrder: 3,
+  },
+  {
+    id: 'faq-4',
+    pageSlug: '/',
+    question: 'Di mana saja lokasi kegiatan outbound yang disediakan di area Batu dan Malang?',
+    answer: 'Kami memiliki rekomendasi lokasi beragam di Kota Batu, Pujon, Kasembon, dan Malang Raya, mulai dari bumi perkemahan hutan pinus, resort berfasilitas outbound, hingga sungai arung jeram dan jalur offroad.',
+    sortOrder: 4,
+  },
+  {
+    id: 'faq-5',
+    pageSlug: '/',
+    question: 'Berapa jumlah peserta minimal untuk menyelenggarakan outbound?',
+    answer: 'Secara umum kegiatan dapat diselenggarakan untuk kelompok kecil (mulai dari 20 orang) hingga kelompok besar ratusan peserta. Konsultasikan jumlah peserta Anda kepada kami untuk pemilihan program dan venue yang paling proporsional.',
+    sortOrder: 5,
+  }
+];
+
+export const BLOG_POSTS: BlogPostItem[] = [
+  {
+    id: 'post-0',
+    title: 'Panduan Lengkap Mempersiapkan Corporate Gathering & Outbound di Malang Raya 2026',
+    slug: 'panduan-lengkap-corporate-gathering-malang',
+    excerpt: 'Panduan komprehensif persiapan corporate gathering dan outbound kantor di Malang Raya 2026. Mulai dari timeline H-60, pemilihan zona venue Batu & Bromo, desain rundown seimbang, hingga tips efisiensi anggaran.',
+    category: 'PANDUAN LENGKAP • CORPORATE GATHERING 2026',
+    authorName: 'Arby Ardiansyah',
+    authorRole: 'LEAD OUTBOUND CONSULTANT • CERTIFIED BNSP FACILITATOR',
+    authorAvatar: '/images/author-artikel/author-artikel-arby-ardiansyah.webp',
+    authorBio: 'Praktisi pengembangan SDM dan perancang program experiential learning dengan pengalaman lebih dari 8 tahun memfasilitasi ratusan kegiatan outbound korporat, BUMN, dan acara kebersamaan keluarga di seluruh Jawa Timur.',
+    thumbnailUrl: '/images/hero-bromo-sunrise.webp',
+    imageAlt: 'Corporate Gathering dan Outbound di Malang Raya 2026',
+    seoTitle: 'Panduan Lengkap Mempersiapkan Corporate Gathering & Outbound di Malang Raya 2026 | Vendor Outbound',
+    seoDescription: 'Panduan komprehensif persiapan corporate gathering dan outbound kantor di Malang Raya 2026. Mulai dari timeline H-60, pemilihan zona venue Batu & Bromo, desain rundown seimbang, hingga tips efisiensi anggaran.',
+    canonicalUrl: 'https://vendoroutbound.id/blog/panduan-lengkap-corporate-gathering-malang',
+    publishedAt: '18 Sep 2026',
+    readingTimeMinutes: 6,
+    answerFirst: 'Corporate gathering di Malang Raya menawarkan kombinasi terbaik antara udara sejuk pegunungan (18°C - 24°C), ratusan pilihan resort dan lapangan outbound hijau, serta aksesibilitas cepat via Tol Trans Jawa dan Bandara Abdulrachman Saleh. Ini adalah solusi tuntas menyegarkan motivasi kerja dan mengikis sekat komunikasi antar divisi.',
+    summaryPoints: [
+      'Mengapa Malang Raya No. 1: Kombinasi hawa sejuk pegunungan, akses jalan tol terpadu, dan fasilitas resort kelas dunia menjadikannya magnet gathering korporat no. 1 di Jawa Timur.',
+      'Timeline Eksekusi Terstruktur: Tahapan persiapan dari H-60 hingga Hari H agar panitia internal bebas stres dan program berjalan presisi.',
+      'Kombinasi Modul Efektif: Memadukan team building experiential learning, fun games pemecah kejenuhan, refreshing alam, dan gala dinner awarding night.',
+      'Efisiensi Anggaran & Venue: Kiat praktis negosiasi skema all-in terpadu guna memaksimalkan ROI kegiatan pengembangan SDM tanpa memangkas kualitas fasilitas.'
+    ],
+    faqs: [
+      {
+        question: 'Berapa jumlah minimum dan maksimum peserta untuk gathering di Vendor Outbound?',
+        answer: 'Layanan kami fleksibel mulai dari rombongan skala kecil 20 peserta, medium 50-100 orang, hingga mega-gathering korporasi di atas 500 orang dengan manajemen logistik profesional.'
+      },
+      {
+        question: 'Apakah paket outbound Vendor Outbound sudah mencakup transportasi dan akomodasi all-in?',
+        answer: 'Ya, kami menyediakan paket lengkap All-In mulai dari bus pariwisata eksekutif, rekomendasi hotel/resort/glamping, katering prasmanan, fasilitator berlisensi BNSP, sound system, perizinan, hingga dokumentasi foto dan video drone.'
+      },
+      {
+        question: 'Bagaimana rencana cadangan jika cuaca mendadak hujan saat sesi outdoor?',
+        answer: 'Seluruh venue rekanan kami memiliki pendopo atau ballroom semi-indoor. Fasilitator kami telah tersertifikasi untuk menjalankan contingency plan berupa indoor dynamic games berenergi tinggi tanpa mengurangi esensi pembelajaran.'
+      }
+    ],
+    body: `
+<h2 id="mengapa-malang-raya">1. Mengapa Malang Raya Jadi Destinasi Pilihan Utama Corporate Gathering 2026?</h2>
+<p>Memasuki tahun 2026, dinamika dunia industri bergerak semakin cepat dan menuntut ketahanan mental serta kecepatan adaptasi tinggi. Tekanan target tahunan, rutinitas kerja hibrida, serta interaksi serba digital kerap melahirkan fenomena <em>silo mentality</em> dan keletihan kerja (<em>work burnout</em>). Oleh karena itu, agenda tahunan corporate gathering bukan lagi sekadar agenda jalan-jalan biasa, melainkan investasi strategis manajemen untuk merekatkan kembali tali sinergi, menumbuhkan rasa kepemilikan (<em>sense of belonging</em>), dan menyelaraskan visi korporasi.</p>
+<p>Malang Raya—yang mencakup Kota Malang, Kota Wisata Batu, dan Kabupaten Malang—terus menempati urutan teratas destinasi favorit perusahaan nasional maupun BUMN. Ketinggian wilayah yang berada di lereng Gunung Arjuno, Panderman, dan Semeru menghadirkan atmosfer sejuk alami yang secara ilmiah terbukti menurunkan hormon kortisol penyebab stres. Peserta dapat bernapas lega, melepaskan kepenatan rutinitas kota metropolitan, dan membuka diri dalam setiap sesi kebersamaan.</p>
+
+<!-- BACA JUGA BOX 1 -->
+<div class="baca-juga-box">
+<div class="icon"><i class="fas fa-book-open"></i></div>
+<div class="thumb">
+<img src="/images/dest-batu-malang.webp" alt="10 Tips Menentukan Lokasi Outbound" loading="lazy">
+</div>
+<div class="content">
+<div class="label">Tips HRD &amp; Panitia</div>
+<h4><a href="/blog/panduan-memilih-lokasi-outbound-batu-malang">10 Tips Krusial Menentukan Lokasi Outbound yang Nyaman &amp; Aman untuk Karyawan</a></h4>
+<p>Ketahui kriteria kelayakan kontur lapangan rumput, akses bus besar, dan rasio toilet sebelum mengunci lokasi acara kantor.</p>
+</div>
+</div>
+
+<h2 id="timeline-persiapan-h60">2. Timeline Terstruktur Persiapan Gathering Perusahaan (H-60 Hingga Hari H)</h2>
+<p>Keberhasilan gathering perusahaan berskala besar ditentukan oleh perencanaan yang matang sejak jauh hari. Sering kali panitia internal kewalahan karena menunda koordinasi vendor hingga mendekati hari pelaksanaan. Berikut adalah alur kerja profesional yang terbukti menjaga kelancaran persiapan:</p>
+
+<div style="display:flex;flex-direction:column;gap:18px;margin:24px 0;">
+<div style="background:#FFFFFF;border:1px solid #E5E7EB;border-left:5px solid var(--primary);padding:22px;border-radius:10px;box-shadow:0 4px 12px rgba(0,0,0,0.03);">
+<h3 style="margin:0 0 8px 0;color:var(--text-dark);font-size:1.15rem;"><i class="fas fa-calendar-check" style="color:var(--primary);margin-right:8px;"></i> A. Fase H-60: Pembentukan Panitia &amp; Penentuan Objective Acara</h3>
+<p style="margin:0 0 10px 0;color:var(--text-muted);font-size:0.94rem;">
+Bentuk panitia kecil lintas departemen (Ketua, Acara, Logistik, Akomodasi, Konsumsi). Rumuskan target inti: apakah fokus pada rekonsiliasi tim (team building intensif), apresiasi kinerja (leisure &amp; rewarding), atau peluncuran target kuartal baru.
+</p>
+<p style="margin:0;color:var(--text-dark);font-size:0.92rem;font-weight:600;">
+Output: Dokumen Project Charter dan estimasi plafon anggaran per peserta.
+</p>
+</div>
+<div style="background:#FFFFFF;border:1px solid #E5E7EB;border-left:5px solid var(--secondary);padding:22px;border-radius:10px;box-shadow:0 4px 12px rgba(0,0,0,0.03);">
+<h3 style="margin:0 0 8px 0;color:var(--text-dark);font-size:1.15rem;"><i class="fas fa-map-marked-alt" style="color:var(--secondary);margin-right:8px;"></i> B. Fase H-45: Penetapan Tanggal &amp; Survei Lokasi / Venue</h3>
+<p style="margin:0 0 10px 0;color:var(--text-muted);font-size:0.94rem;">
+Lakukan survei fisik atau virtual terhadap calon venue. Pastikan kapasitas ballroom sesuai jumlah audiens saat gala dinner dan lapangan outdoor memiliki drainase yang baik saat terjadi hujan mendadak.
+</p>
+<p style="margin:0;color:var(--text-dark);font-size:0.92rem;font-weight:600;">
+Output: Rekomendasi 2 alternatif venue dan pemesanan slot tanggal (blocking date).
+</p>
+</div>
+<div style="background:#FFFFFF;border:1px solid #E5E7EB;border-left:5px solid #059669;padding:22px;border-radius:10px;box-shadow:0 4px 12px rgba(0,0,0,0.03);">
+<h3 style="margin:0 0 8px 0;color:#065F46;font-size:1.15rem;"><i class="fas fa-handshake" style="color:#059669;margin-right:8px;"></i> C. Fase H-30: Pemilihan Provider Outbound Berlisensi &amp; Finalisasi Rundown</h3>
+<p style="margin:0 0 10px 0;color:var(--text-muted);font-size:0.94rem;">
+Pilihlah event organizer lokal yang memiliki trainer berlisensi BNSP. Diskusikan skema simulasi game agar relevan dengan budaya kerja perusahaan Anda dan tidak bersifat kekanak-kanakan.
+</p>
+<p style="margin:0;color:var(--text-dark);font-size:0.92rem;font-weight:600;">
+Output: Perjanjian kerja sama vendor (MOU) dan rundown kegiatan menit-demi-menit.
+</p>
+</div>
+<div style="background:#FFFFFF;border:1px solid #E5E7EB;border-left:5px solid #2563EB;padding:22px;border-radius:10px;box-shadow:0 4px 12px rgba(0,0,0,0.03);">
+<h3 style="margin:0 0 8px 0;color:#1E40AF;font-size:1.15rem;"><i class="fas fa-tshirt" style="color:#2563EB;margin-right:8px;"></i> D. Fase H-14: Konfirmasi Peserta, Pembuatan Seragam &amp; Logistik</h3>
+<p style="margin:0 0 10px 0;color:var(--text-muted);font-size:0.94rem;">
+Kunci daftar peserta (<em>rooming list</em> hotel, seating plan bus), produksi kaos gathering, cetak merchandise, serta siapkan data alergi makanan atau riwayat medis khusus dari karyawan.
+</p>
+<p style="margin:0;color:var(--text-dark);font-size:0.92rem;font-weight:600;">
+Output: Data final peserta dan checklist perlengkapan medis.
+</p>
+</div>
+<div style="background:#FFFFFF;border:1px solid #E5E7EB;border-left:5px solid #7C3AED;padding:22px;border-radius:10px;box-shadow:0 4px 12px rgba(0,0,0,0.03);">
+<h3 style="margin:0 0 8px 0;color:#5B21B6;font-size:1.15rem;"><i class="fas fa-flag-checkered" style="color:#7C3AED;margin-right:8px;"></i> E. Fase H-1 s/d Hari H: Technical Meeting &amp; Eksekusi Acara</h3>
+<p style="margin:0 0 10px 0;color:var(--text-muted);font-size:0.94rem;">
+Briefing akhir antara panitia internal dengan tim fasilitator Vendor Outbound di lokasi. Pastikan seluruh sound system, peralatan simulasi, dan konsumsi siap tepat waktu.
+</p>
+<p style="margin:0;color:var(--text-dark);font-size:0.92rem;font-weight:600;">
+Output: Acara berjalan mulus, panitia dapat ikut bersenang-senang tanpa terbebani teknis.
+</p>
+</div>
+</div>
+
+<!-- SUPPORTING IMAGE 1 -->
+<figure class="article-support-image">
+<img
+src="/images/team-about-malang.webp"
+alt="Simulasi Team Building Outbound Kolaboratif Vendor Outbound"
+width="1600"
+height="900"
+loading="lazy"
+>
+<figcaption>Simulasi outbound interaktif di lapangan hijau Kota Batu yang menekankan komunikasi dua arah dan pemecahan masalah bersama.</figcaption>
+</figure>
+
+<h2 id="rekomendasi-zona-venue">3. Tiga Zona Venue Gathering Terbaik di Malang Raya</h2>
+<p>Setiap zona di Malang Raya menyuguhkan karakteristik unik yang dapat disesuaikan dengan profil karyawan perusahaan Anda:</p>
+<ul>
+<li><strong>Zona 1: Kota Wisata Batu (The Resort &amp; Conference Hub):</strong> Cocok untuk perusahaan yang menginginkan fasilitas lengkap hotel bintang empat/lima, ballroom megah untuk rapat kerja, serta lapangan rumput private di dalam area resort. Suasana malam hari dimeriahkan oleh udara dingin dan pemandangan gemerlap lampu kota (<em>city lights</em>).</li>
+<li><strong>Zona 2: Coban Rondo, Pujon &amp; Trawas (The Pure Nature &amp; Pine Forest):</strong> Sangat pas bagi perusahaan berjiwa dinamis yang menghendaki konsep menyatu dengan alam. Dikelilingi rimbunnya hutan pinus yang teduh, kawasan ini menawarkan sensasi outbound alam, fun offroad jeep, river rafting, hingga konsep camping/glamping premium.</li>
+<li><strong>Zona 3: Kawasan Eksotis Bromo Tengger (The Ultimate Adventure Retreat):</strong> Dirancang bagi manajemen dan tim yang mendambakan pengalaman legendaris tak terlupakan. Menikmati fajar emas (<em>golden sunrise</em>) di atas ketinggian 2.300 mdpl, menjelajahi lautan pasir dengan konvoi jeep 4x4, dan melangsungkan sesi refleksi tim di tengah megahnya kaldera Bromo.</li>
+</ul>
+
+<h2 id="merancang-rundown-seimbang">4. Seni Merancang Rundown: Tidak Melelahkan Namun Penuh Makna</h2>
+<p>Kesalahan fatal yang sering dilakukan panitia pemula adalah menyusun jadwal kegiatan yang terlalu padat tanpa jeda istirahat yang cukup. Akibatnya, pada malam hari peserta sudah kelelahan saat sesi gala dinner berlangsung. Terapkan prinsip proporsi seimbang <strong>40-30-30</strong>:</p>
+<ol>
+<li><strong>40% Sesi Kolaborasi &amp; Experiential Learning:</strong> Dilaksanakan di pagi hari (pukul 08.00 - 11.30) saat energi peserta berada pada titik puncak dan paparan sinar matahari pagi masih menyegarkan. Sesi ini diisi dengan ice breaking, energizer, dan simulasi tim strategis.</li>
+<li><strong>30% Sesi Leisure, Relaksasi &amp; Kuliner:</strong> Memberikan waktu luang (<em>free time</em>) bagi peserta untuk menikmati fasilitas hotel, berenang, berfoto, atau sekadar beristirahat santai tanpa intervensi tugas kelompok.</li>
+<li><strong>30% Sesi Apresiasi &amp; Celebration:</strong> Diselenggarakan pada malam hari melalui agenda Gala Dinner, live music akustik, pengumuman pemenang award departemen, dan refleksi komitmen bersama menuju target perusahaan berikutnya.</li>
+</ol>
+
+<!-- BACA JUGA BOX 2 -->
+<div class="baca-juga-box">
+<div class="icon"><i class="fas fa-book-open"></i></div>
+<div class="thumb">
+<img src="/images/prog-glamping.webp" alt="Glamping vs Hotel Resort" loading="lazy">
+</div>
+<div class="content">
+<div class="label">Hospitality Trends</div>
+<h4><a href="/layanan/family-gathering">Glamping vs Hotel Resort: Tren Mengakrabkan Manajemen dengan Konsep Nature Retreat</a></h4>
+<p>Ketahui bagaimana konsep glamorous camping berhasil meruntuhkan sekat hierarki antara pimpinan dan staf secara alami.</p>
+</div>
+</div>
+
+<h2 id="tips-efisiensi-anggaran">5. Kunci Efisiensi Anggaran Corporate Gathering Tanpa Memangkas Kualitas</h2>
+<p>Mendapatkan persetujuan bujet dari bagian Finance / Direksi sering kali menjadi tantangan terbesar panitia. Terapkan strategi efisiensi berikut agar kegiatan tetap prestisius dengan biaya terkontrol:</p>
+<ul>
+<li><strong>Pilih Pelaksanaan di Hari Kerja (Weekday):</strong> Harga sewa ballroom resort, kamar hotel, dan armada bus pariwisata pada hari Selasa hingga Kamis umumnya lebih hemat 20% hingga 35% dibandingkan akhir pekan, sekaligus memberikan privasi venue yang jauh lebih lengang.</li>
+<li><strong>Gunakan Skema Paket Terpadu (All-In):</strong> Mengontrak satu vendor lokal terpercaya seperti Vendor Outbound untuk mengelola akomodasi, katering, transportasi, perizinan, dan instruktur jauh lebih hemat dibandingkan panitia mengurus puluhan vendor terpisah yang sarat biaya tersembunyi.</li>
+<li><strong>Optimasi Rasio Kapasitas Transportasi:</strong> Sesuaikan pemilihan jenis armada (Big Bus 50 seat, Medium Bus 31 seat, atau HiAce 14 seat) dengan jumlah peserta pasti guna menghindari membayar kursi kosong.</li>
+<li><strong>Kombinasikan Menu Khas Nusantara:</strong> Menu prasmanan tradisional Jawa Timur yang disajikan secara higienis dan hangat sering kali lebih disukai peserta serta jauh lebih bersahabat dari segi biaya dibandingkan menu internasional.</li>
+</ul>
+
+<h2 id="checklist-panitia-gathering">6. Checklist Praktis Panitia Corporate Gathering 2026</h2>
+<p>Gunakan daftar periksa cepat berikut untuk memverifikasi kesiapan operasional tim Anda:</p>
+<ul style="list-style:none;padding-left:0;display:flex;flex-direction:column;gap:8px;">
+<li><i class="far fa-square-check text-emerald-600 me-2"></i> Target acara &amp; batasan bujet disetujui pimpinan tertinggi.</li>
+<li><i class="far fa-square-check text-emerald-600 me-2"></i> Kontrak venue utama (hotel/lapangan) terkunci dengan klausul pembatalan yang jelas.</li>
+<li><i class="far fa-square-check text-emerald-600 me-2"></i> Provider outbound lokal berlisensi resmi BNSP telah dipilih.</li>
+<li><i class="far fa-square-check text-emerald-600 me-2"></i> Rundown menit-demi-menit disusun dengan buffer waktu darurat (minimal 30 menit).</li>
+<li><i class="far fa-square-check text-emerald-600 me-2"></i> Data rombongan kamar hotel (<em>rooming list</em>) dan denah tempat duduk bus telah selesai.</li>
+<li><i class="far fa-square-check text-emerald-600 me-2"></i> Seragam acara dan <em>name tag</em> dibagikan selambat-lambatnya H-2.</li>
+<li><i class="far fa-square-check text-emerald-600 me-2"></i> Tim medis, kotak P3K standar outdoor, dan kontak RS rujukan terdekat telah siap siaga.</li>
+</ul>
+
+<h2 id="kesimpulan-gathering">7. Kesimpulan: Melangkah Maju Bersama Tim yang Solid</h2>
+<p>Corporate gathering dan outbound bukan sekadar tentang bersenang-senang di luar ruang kerja. Ini adalah ruang dialog yang jujur, wahana untuk merayakan pencapaian masa lalu, serta landasan untuk mengumpulkan kembali energi juang tim menuju target perusahaan yang lebih gemilang.</p>
+<p>Dengan perencanaan yang terstruktur, pemilihan lokasi yang tepat, serta pemanduan profesional dari fasilitator yang berdedikasi, acara gathering kantor Anda di Malang Raya dijamin akan menjadi pengalaman berkesan yang terus dikenang sepanjang masa.</p>
+`
+  },
+  {
+    id: 'post-1',
+    title: 'Panduan Memilih Lokasi Outbound di Batu dan Malang Sesuai Karakter Tim',
+    slug: 'panduan-memilih-lokasi-outbound-batu-malang',
+    excerpt: 'Memilih lokasi outbound yang tepat di kawasan sejuk Batu dan Malang sangat menentukan kenyamanan peserta dan keberhasilan tujuan kegiatan.',
+    category: 'Panduan Outbound',
+    authorName: 'Arby Ardiansyah',
+    authorRole: 'LEAD OUTBOUND CONSULTANT • CERTIFIED BNSP FACILITATOR',
+    authorAvatar: '/images/author-artikel/author-artikel-arby-ardiansyah.webp',
+    authorBio: 'Praktisi pengembangan SDM dan perancang program experiential learning dengan pengalaman lebih dari 8 tahun memfasilitasi ratusan kegiatan outbound korporat, BUMN, dan acara kebersamaan keluarga di seluruh Jawa Timur.',
+    thumbnailUrl: '/images/blog/panduan-lokasi-outbound.webp',
+    imageAlt: 'Peserta kegiatan outbound berkumpul di area hijau asri pegunungan Batu',
+    seoTitle: 'Panduan Memilih Lokasi Outbound di Batu Malang | Vendor Outbound',
+    seoDescription: 'Simak panduan lengkap memilih venue outbound di Batu dan Malang berdasarkan karakter tim, tujuan kegiatan, dan fasilitas yang dibutuhkan.',
+    canonicalUrl: 'https://vendoroutbound.id/blog/panduan-memilih-lokasi-outbound-batu-malang',
+    publishedAt: '25 Oktober 2026',
+    readingTimeMinutes: 5,
+    answerFirst: 'Lokasi outbound terbaik di Batu Malang bergantung pada target kegiatan: pilih area hutan pinus untuk konsentrasi team building, resort berfasilitas lengkap untuk kenyamanan family gathering, atau aliran sungai dan jalur offroad untuk petualangan pemacu adrenalin.',
+    body: `
+## Mengapa Lokasi Sangat Berpengaruh Terhadap Keberhasilan Outbound?
+
+Kawasan Batu dan Malang memiliki topografi pegunungan dengan variasi venue yang sangat luas. Memilih lokasi yang tepat bukan sekadar mencari tempat yang indah, melainkan menyesuaikan karakteristik fisik dan tujuan kegiatan tim Anda.
+
+### 1. Karakteristik Kawasan Hutan Pinus
+Kawasan dengan pepohonan pinus rindang memberikan keteduhan alami, suasana tenang, dan udara yang sangat sejuk. Karakter venue ini sangat ideal untuk:
+- Program team building yang membutuhkan fokus dan konsentrasi tinggi.
+- Kegiatan perkemahan (camping) santai dan leadership camp.
+- Fun games tanpa terik matahari berlebihan di siang hari.
+
+### 2. Kawasan Resort Outbound Berfasilitas Lengkap
+Jika kegiatan melibatkan keluarga, anak-anak, atau eksekutif yang membutuhkan akses kenyamanan prima, resort dengan lapangan rumput luas menjadi pilihan tepat. Fasilitas pendukung seperti toilet bersih representatif, aula indoor untuk sesi evaluasi, dan katering siap santap membuat rangkaian acara berlangsung tertib.
+
+### 3. Kawasan Aliran Sungai dan Jalur Adventure
+Untuk kelompok kerja yang membutuhkan penyegaran ekstrem dan pelepasan stres kerja, area dengan akses sungai arung jeram (seperti Kaliwatu atau Kasembon) serta lintasan jeep 4x4 memberikan tantangan fisik yang memacu adrenalin positif.
+
+## Checklist Persiapan Sebelum Menentukan Lokasi
+Sebelum mengonfirmasi venue di Batu atau Malang, pastikan Anda telah mengecek hal-hal berikut:
+1. Akses jalan dan kapasitas parkir untuk ukuran bus atau kendaraan rombongan Anda.
+2. Ketersediaan ruang berteduh atau aula alternatif jika hujan tiba-tiba turun.
+3. Kecukupan fasilitas sanitasi (toilet/kamar bilas) proporsional dengan jumlah peserta.
+4. Suhu udara malam hari jika program mencakup agenda menginap di tenda.
+`
+  },
+  {
+    id: 'post-2',
+    title: '5 Kunci Sukses Membangun Komunikasi Tim Melalui Aktivitas Luar Ruang',
+    slug: 'kunci-sukses-membangun-komunikasi-tim-outbound',
+    excerpt: 'Bagaimana simulasi permainan outbound dapat membongkar sekat komunikasi antar departemen di lingkungan kerja.',
+    category: 'Panduan Outbound',
+    authorName: 'Arby Ardiansyah',
+    authorRole: 'LEAD OUTBOUND CONSULTANT • CERTIFIED BNSP FACILITATOR',
+    authorAvatar: '/images/author-artikel/author-artikel-arby-ardiansyah.webp',
+    authorBio: 'Praktisi pengembangan SDM dan perancang program experiential learning dengan pengalaman lebih dari 8 tahun memfasilitasi ratusan kegiatan outbound korporat, BUMN, dan acara kebersamaan keluarga di seluruh Jawa Timur.',
+    thumbnailUrl: '/images/blog/kunci-sukses-komunikasi.webp',
+    imageAlt: 'Tim kerja saling berdiskusi menyelesaikan tantangan outbound di alam terbuka',
+    seoTitle: '5 Kunci Sukses Komunikasi Tim Lewat Outbound | Vendor Outbound',
+    seoDescription: 'Pelajari bagaimana kegiatan outbound di alam terbuka efektif membongkar silo komunikasi dan memperkuat sinergi organisasi.',
+    canonicalUrl: 'https://vendoroutbound.id/blog/kunci-sukses-membangun-komunikasi-tim-outbound',
+    publishedAt: '25 Oktober 2026',
+    readingTimeMinutes: 4,
+    answerFirst: 'Kunci keberhasilan outbound dalam memperbaiki komunikasi kerja adalah menciptakan suasana setara tanpa sekat jabatan, memberikan tantangan yang menuntut koordinasi aktif, serta menyediakan sesi debrief reflektif untuk menghubungkan permainan dengan dunia kerja nyata.',
+    body: `
+## Membongkar Sekat Komunikasi di Tempat Kerja
+
+Di lingkungan kantor modern, sering kali tim terkotak-kotak dalam silo departemen masing-masing. Outbound hadir sebagai jembatan yang meruntuhkan batasan formal tersebut.
+
+### 1. Suasana Setara Tanpa Sekat Hierarki
+Di lapangan outbound, semua orang memakai kaos seragam dan menghadapi rintangan yang sama. Tidak ada meja direksi atau kubikel staf. Kesetaraan ini membuka keran percakapan yang lebih jujur dan cair.
+
+### 2. Ketergantungan Positif dalam Simulasi
+Sebagian besar permainan dirancang sedemikian rupa sehingga tidak ada satu orang pun yang bisa menyelesaikannya sendirian. Dibutuhkan peran aktif setiap anggota kelompok.
+
+### 3. Sesi Refleksi (Debrief) yang Bermakna
+Permainan outbound bukanlah sekadar berbasah-basahan atau tertawa bersama. Nilai sesungguhnya didapat pada sesi debrief saat fasilitator mengajak tim merefleksikan: "Apa yang membuat kita tadi sempat gagal?", "Bagaimana cara kita mendengar masukan rekan tim tadi?".
+`
+  },
+  {
+    id: 'post-3',
+    title: 'Tips Merancang Family Gathering Seru dan Ramah Segala Usia di Kota Batu',
+    slug: 'tips-merancang-family-gathering-batu-malang',
+    excerpt: 'Panduan menyusun rundown acara gathering yang ramah anak, nyaman untuk orang tua, dan menyenangkan bagi semua.',
+    category: 'Tips Gathering',
+    authorName: 'Arby Ardiansyah',
+    authorRole: 'LEAD OUTBOUND CONSULTANT • CERTIFIED BNSP FACILITATOR',
+    authorAvatar: '/images/author-artikel/author-artikel-arby-ardiansyah.webp',
+    authorBio: 'Praktisi pengembangan SDM dan perancang program experiential learning dengan pengalaman lebih dari 8 tahun memfasilitasi ratusan kegiatan outbound korporat, BUMN, dan acara kebersamaan keluarga di seluruh Jawa Timur.',
+    thumbnailUrl: '/images/blog/tips-family-gathering.webp',
+    imageAlt: 'Suasana santai keluarga berkumpul di taman terbuka hijau Kota Batu',
+    seoTitle: 'Tips Merancang Family Gathering di Kota Batu | Vendor Outbound',
+    seoDescription: 'Simak panduan praktis menyusun agenda family gathering yang menyenangkan, ramah anak, dan bebas stres di Kota Batu.',
+    canonicalUrl: 'https://vendoroutbound.id/blog/tips-merancang-family-gathering-batu-malang',
+    publishedAt: '25 Oktober 2026',
+    readingTimeMinutes: 4,
+    answerFirst: 'Rancang family gathering yang sukses dengan membagi aktivitas secara seimbang: sediakan kids corner terpisah untuk anak-anak, permainan kebersamaan berintensitas ringan untuk orang tua, serta venue sejuk dengan akses toilet yang dekat dan mudah dijangkau.',
+    body: `
+## Kebersamaan Hangat Tanpa Kejenuhan
+
+Mengumpulkan keluarga besar karyawan membutuhkan perhatian khusus karena rentang usia peserta sangat lebar, mulai dari balita hingga lansia.
+
+### 1. Pisahkan Area Permainan Berdasarkan Kelompok Usia
+Anak-anak membutuhkan permainan yang penuh warna, aman, dan eksploratif. Sementara para orang tua menyukai kompetisi ringan yang santai dan sarat tawa.
+
+### 2. Hindari Jadwal yang Terlalu Padat
+Berikan waktu luang yang cukup bagi keluarga untuk sekadar duduk bercengkerama, berfoto di spot panorama indah, dan menikmati hidangan khas Batu.
+
+### 3. Pastikan Akses Sanitasi dan Tempat Beristirahat Nyaman
+Pilihlah venue yang memiliki toilet bersih dalam jarak dekat dan area semi-indoor untuk beristirahat saat terik siang atau ketika gerimis turun.
+`
+  }
+];
+
+export const WHY_CHOOSE_US = [
+  {
+    title: 'Fokus Wilayah Batu & Malang',
+    description: 'Pemahaman mendalam terhadap kondisi geografis, karakter venue, akses jalan, dan pola cuaca lokal pegunungan Jawa Timur.',
+    icon: 'map-pin'
+  },
+  {
+    title: 'Program Terarah & Fleksibel',
+    description: 'Setiap skenario kegiatan disesuaikan dengan tujuan khusus instansi Anda, baik team building, rekonsiliasi, maupun rekreasi santai.',
+    icon: 'target'
+  },
+  {
+    title: 'Prioritas Standar Keselamatan',
+    description: 'Fasilitator lapangan terlatih, peralatan standar keamanan tinggi, serta persiapan plan B cuaca untuk kenyamanan peserta.',
+    icon: 'shield-check'
+  },
+  {
+    title: 'Konsultasi Responsif & Transparan',
+    description: 'Komunikasi langsung via WhatsApp dengan tim kami untuk perencanaan agenda yang sesuai dengan kapasitas dan anggaran Anda.',
+    icon: 'message-circle'
+  }
+];

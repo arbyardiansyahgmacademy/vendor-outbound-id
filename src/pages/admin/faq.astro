@@ -1,0 +1,184 @@
+---
+import AdminLayout from '../../layouts/AdminLayout.astro';
+import { FAQS } from '../../data/defaultContent';
+---
+
+<AdminLayout title="Kelola FAQ">
+  <div class="space-y-6 text-left">
+    
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-rose-900/40">
+      <div>
+        <h1 class="font-heading font-black text-2xl uppercase tracking-wider text-white flex items-center gap-2.5">
+          <i class="fas fa-question-circle text-amber-400"></i>
+          <span>KELOLA PERTANYAAN (FAQ)</span>
+        </h1>
+        <p class="text-xs text-rose-300/80 mt-1">
+          Pertanyaan dan jawaban resmi seputar layanan outbound di Batu & Malang (PRD Section 11.12).
+        </p>
+      </div>
+
+      <button
+        id="add-faq-btn"
+        type="button"
+        class="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-stone-950 font-bold text-xs uppercase tracking-wider shadow"
+      >
+        <span>+ Tambah FAQ</span>
+      </button>
+    </div>
+
+    <div id="faq-alert" class="hidden p-3 rounded-lg text-xs font-bold"></div>
+
+    <div class="rounded-2xl bg-[#300205]/90 border border-rose-700/40 overflow-hidden shadow-2xl">
+      <div class="overflow-x-auto">
+        <table class="w-full text-xs text-left">
+          <thead class="bg-[#240104] text-[10px] uppercase font-bold text-rose-300/80 border-b border-rose-900/60">
+            <tr>
+              <th class="py-3 px-4">No</th>
+              <th class="py-3 px-4">Pertanyaan</th>
+              <th class="py-3 px-4">Jawaban Resmi</th>
+              <th class="py-3 px-4 text-right">Tindakan</th>
+            </tr>
+          </thead>
+          <tbody id="faq-tbody" class="divide-y divide-rose-900/30 text-rose-100">
+            <!-- Populated via script -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Modal Form -->
+    <dialog id="faq-modal" class="backdrop:bg-stone-950/80 bg-transparent p-4 max-w-lg w-full mx-auto my-auto text-white focus:outline-none">
+      <div class="rounded-2xl bg-[#330206] border border-rose-600/50 p-6 shadow-2xl space-y-4 text-left">
+        <div class="flex items-center justify-between border-b border-rose-900/50 pb-3">
+          <h3 class="font-heading font-black text-lg text-white uppercase tracking-wider">
+            Tambah / Edit FAQ
+          </h3>
+          <button id="close-faq-modal-btn" type="button" class="text-rose-300 hover:text-white text-lg font-bold">✕</button>
+        </div>
+
+        <form id="faq-form" class="space-y-3.5">
+          <input type="hidden" id="faq-idx" />
+
+          <div>
+            <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200 mb-1">Pertanyaan</label>
+            <input type="text" id="f-question" required class="w-full px-3 py-2 rounded bg-stone-950/70 border border-rose-800 text-white text-xs focus:outline-none focus:border-amber-400" />
+          </div>
+
+          <div>
+            <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200 mb-1">Jawaban</label>
+            <textarea id="f-answer" rows="4" required class="w-full px-3 py-2 rounded bg-stone-950/70 border border-rose-800 text-white text-xs focus:outline-none focus:border-amber-400"></textarea>
+          </div>
+
+          <div class="flex items-center justify-end gap-3 pt-3 border-t border-rose-900/50">
+            <button type="button" id="cancel-faq-btn" class="px-4 py-2 rounded bg-stone-900 text-rose-300 text-xs font-bold">Batal</button>
+            <button type="submit" class="px-5 py-2 rounded bg-amber-500 hover:bg-amber-400 text-stone-950 font-bold text-xs uppercase">Simpan FAQ</button>
+          </div>
+        </form>
+      </div>
+    </dialog>
+
+  </div>
+
+  <script>
+    import { FAQS } from '../../data/defaultContent';
+
+    const tbody = document.getElementById('faq-tbody');
+    const modal = document.getElementById('faq-modal') as HTMLDialogElement | null;
+    const form = document.getElementById('faq-form') as HTMLFormElement | null;
+    const alertBox = document.getElementById('faq-alert');
+
+    function getFaqs() {
+      const stored = localStorage.getItem('vo_faqs');
+      return stored ? JSON.parse(stored) : FAQS;
+    }
+
+    function saveFaqs(list: any[]) {
+      localStorage.setItem('vo_faqs', JSON.stringify(list));
+      renderTable();
+    }
+
+    function renderTable() {
+      if (!tbody) return;
+      const list = getFaqs();
+
+      tbody.innerHTML = list.map((item: any, idx: number) => `
+        <tr class="hover:bg-rose-950/40 transition-colors">
+          <td class="py-3 px-4 font-bold text-amber-400">${idx + 1}</td>
+          <td class="py-3 px-4 font-bold text-white max-w-xs">${item.question}</td>
+          <td class="py-3 px-4 text-rose-200/80 leading-relaxed max-w-md">${item.answer}</td>
+          <td class="py-3 px-4 text-right space-x-2 whitespace-nowrap">
+            <button class="edit-f-btn px-2.5 py-1 rounded bg-amber-500/20 hover:bg-amber-500 hover:text-stone-950 text-amber-300 text-[10px] font-bold border border-amber-500/40" data-idx="${idx}">
+              Edit
+            </button>
+            <button class="del-f-btn px-2.5 py-1 rounded bg-rose-950 hover:bg-rose-900 text-rose-300 text-[10px] border border-rose-800/40" data-idx="${idx}">
+              Hapus
+            </button>
+          </td>
+        </tr>
+      `).join('');
+
+      document.querySelectorAll<HTMLButtonElement>('.edit-f-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const idx = Number(btn.dataset.idx);
+          const item = list[idx];
+          if (item && modal) {
+            (document.getElementById('faq-idx') as HTMLInputElement).value = String(idx);
+            (document.getElementById('f-question') as HTMLInputElement).value = item.question;
+            (document.getElementById('f-answer') as HTMLTextAreaElement).value = item.answer;
+            modal.showModal();
+          }
+        });
+      });
+
+      document.querySelectorAll<HTMLButtonElement>('.del-f-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          if (confirm('Hapus pertanyaan FAQ ini?')) {
+            const idx = Number(btn.dataset.idx);
+            list.splice(idx, 1);
+            saveFaqs(list);
+          }
+        });
+      });
+    }
+
+    renderTable();
+
+    document.getElementById('add-faq-btn')?.addEventListener('click', () => {
+      form?.reset();
+      (document.getElementById('faq-idx') as HTMLInputElement).value = '-1';
+      modal?.showModal();
+    });
+
+    document.getElementById('close-faq-modal-btn')?.addEventListener('click', () => modal?.close());
+    document.getElementById('cancel-faq-btn')?.addEventListener('click', () => modal?.close());
+
+    form?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const list = getFaqs();
+      const idx = Number((document.getElementById('faq-idx') as HTMLInputElement).value);
+      const question = (document.getElementById('f-question') as HTMLInputElement).value;
+      const answer = (document.getElementById('f-answer') as HTMLTextAreaElement).value;
+
+      if (idx >= 0) {
+        list[idx] = { ...list[idx], question, answer };
+      } else {
+        list.push({
+          id: 'faq-' + Date.now(),
+          pageSlug: '/',
+          question,
+          answer,
+          sortOrder: list.length + 1
+        });
+      }
+
+      saveFaqs(list);
+      modal?.close();
+
+      if (alertBox) {
+        alertBox.className = 'p-3 rounded-lg text-xs font-bold bg-emerald-950 text-emerald-200 border border-emerald-500 block';
+        alertBox.textContent = '✓ Data FAQ berhasil disimpan!';
+        setTimeout(() => alertBox.classList.add('hidden'), 2500);
+      }
+    });
+  </script>
+</AdminLayout>

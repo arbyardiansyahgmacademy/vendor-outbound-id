@@ -1,0 +1,118 @@
+---
+interface Props {
+  url: string;
+  title: string;
+}
+
+const { url, title } = Astro.props;
+
+const encodedUrl = encodeURIComponent(url);
+const encodedTitle = encodeURIComponent(title);
+
+const waShare = `https://api.whatsapp.com/send?text=${encodedTitle}%20${encodedUrl}`;
+const fbShare = `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`;
+const xShare = `https://twitter.com/intent/tweet?text=${encodedTitle}&url=${encodedUrl}`;
+const liShare = `https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}`;
+---
+
+<div class="py-6 border-y border-rose-900/40 my-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+  
+  <span class="text-xs font-bold uppercase tracking-wider text-rose-300">
+    Bagikan Artikel Ini:
+  </span>
+
+  <div class="flex items-center flex-wrap gap-2.5">
+    
+    <!-- WhatsApp -->
+    <a
+      href={waShare}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="px-3 py-1.5 rounded-md bg-emerald-600/80 hover:bg-emerald-500 text-white text-xs font-bold flex items-center gap-1.5 transition-colors"
+      aria-label="Bagikan ke WhatsApp"
+    >
+      <span>WhatsApp</span>
+    </a>
+
+    <!-- Facebook -->
+    <a
+      href={fbShare}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="px-3 py-1.5 rounded-md bg-blue-700/80 hover:bg-blue-600 text-white text-xs font-bold flex items-center gap-1.5 transition-colors"
+      aria-label="Bagikan ke Facebook"
+    >
+      <span>Facebook</span>
+    </a>
+
+    <!-- X -->
+    <a
+      href={xShare}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="px-3 py-1.5 rounded-md bg-stone-800 hover:bg-stone-700 text-white text-xs font-bold flex items-center gap-1.5 transition-colors"
+      aria-label="Bagikan ke X"
+    >
+      <span>X</span>
+    </a>
+
+    <!-- LinkedIn -->
+    <a
+      href={liShare}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="px-3 py-1.5 rounded-md bg-sky-700/80 hover:bg-sky-600 text-white text-xs font-bold flex items-center gap-1.5 transition-colors"
+      aria-label="Bagikan ke LinkedIn"
+    >
+      <span>LinkedIn</span>
+    </a>
+
+    <!-- Copy Link with Fallback -->
+    <button
+      id="copy-link-btn"
+      type="button"
+      data-url={url}
+      class="px-3 py-1.5 rounded-md bg-rose-900/60 hover:bg-rose-800 text-amber-300 border border-amber-500/30 text-xs font-bold flex items-center gap-1.5 transition-colors"
+      aria-label="Salin link artikel"
+    >
+      <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+      </svg>
+      <span id="copy-btn-label">Salin Link</span>
+    </button>
+
+  </div>
+
+</div>
+
+<script>
+  const copyBtn = document.getElementById('copy-link-btn');
+  const copyLabel = document.getElementById('copy-btn-label');
+
+  if (copyBtn && copyLabel) {
+    copyBtn.addEventListener('click', async () => {
+      const urlToCopy = copyBtn.dataset.url || window.location.href;
+      try {
+        if (navigator.clipboard && window.isSecureContext) {
+          await navigator.clipboard.writeText(urlToCopy);
+        } else {
+          // Fallback using textarea
+          const textArea = document.createElement('textarea');
+          textArea.value = urlToCopy;
+          textArea.style.position = 'fixed';
+          textArea.style.opacity = '0';
+          document.body.appendChild(textArea);
+          textArea.select();
+          document.execCommand('copy');
+          document.body.removeChild(textArea);
+        }
+        copyLabel.textContent = 'Tersalin!';
+        setTimeout(() => {
+          copyLabel.textContent = 'Salin Link';
+        }, 2500);
+      } catch (err) {
+        console.error('Failed to copy', err);
+      }
+    });
+  }
+</script>

@@ -1,0 +1,48 @@
+---
+import PublicLayout from '../layouts/PublicLayout.astro';
+
+const breadcrumbs = [
+  { name: '404 - Halaman Tidak Ditemukan' }
+];
+---
+
+<PublicLayout
+  title="404 - Halaman Tidak Ditemukan | Vendor Outbound"
+  description="Halaman yang Anda tuju tidak ditemukan atau telah dipindahkan."
+  breadcrumbs={breadcrumbs}
+  noindex={true}
+>
+  <section class="py-24 sm:py-32 text-center relative overflow-hidden">
+    <div class="max-w-2xl mx-auto px-4 space-y-6">
+      
+      <div class="w-24 h-24 rounded-full bg-amber-500/20 border-2 border-amber-400/40 mx-auto flex items-center justify-center font-heading font-black text-4xl text-amber-400 shadow-glow-amber">
+        404
+      </div>
+
+      <h1 class="font-heading font-black text-3xl sm:text-4xl uppercase tracking-wider text-white">
+        HALAMAN TIDAK DITEMUKAN
+      </h1>
+
+      <p class="text-sm sm:text-base text-rose-200/80 leading-relaxed max-w-lg mx-auto">
+        Tautan yang Anda tuju mungkin telah berpindah alamat, diganti dengan URL baru, atau sementara tidak tersedia.
+      </p>
+
+      <div class="pt-4 flex flex-wrap items-center justify-center gap-4">
+        <a
+          href="/"
+          class="px-6 py-3.5 rounded-md bg-amber-500 hover:bg-amber-400 text-stone-950 font-heading font-black text-xs uppercase tracking-wider shadow-md transition-all hover:scale-105"
+        >
+          Kembali ke Beranda
+        </a>
+
+        <a
+          href="/layanan"
+          class="px-6 py-3.5 rounded-md bg-brand-900/60 hover:bg-brand-800 text-white font-heading font-bold text-xs uppercase tracking-wider border border-rose-700/50 transition-all"
+        >
+          Lihat Layanan Outbound
+        </a>
+      </div>
+
+    </div>
+  </section>
+</PublicLayout>

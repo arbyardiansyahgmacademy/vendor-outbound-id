@@ -1,0 +1,188 @@
+---
+import AdminLayout from '../../layouts/AdminLayout.astro';
+---
+
+<AdminLayout title="Kelola Testimoni">
+  <div class="space-y-6 text-left">
+    
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-rose-900/40">
+      <div>
+        <h1 class="font-heading font-black text-2xl uppercase tracking-wider text-white flex items-center gap-2.5">
+          <i class="fas fa-comment-dots text-amber-400"></i>
+          <span>KELOLA TESTIMONI &amp; ULASAN KLIEN</span>
+        </h1>
+        <p class="text-xs text-rose-300/80 mt-1">
+          Hanya testimoni nyata yang telah dikonfirmasi izin publikasinya yang dapat ditampilkan di frontend (PRD Section 1.5 & 12.11).
+        </p>
+      </div>
+
+      <button
+        id="add-testi-btn"
+        type="button"
+        class="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-stone-950 font-bold text-xs uppercase tracking-wider shadow"
+      >
+        <span>+ Tambah Testimoni Resmi</span>
+      </button>
+    </div>
+
+    <div id="testi-alert" class="hidden p-3 rounded-lg text-xs font-bold"></div>
+
+    <div class="rounded-2xl bg-[#300205]/90 border border-rose-700/40 overflow-hidden shadow-2xl">
+      <div class="overflow-x-auto">
+        <table class="w-full text-xs text-left">
+          <thead class="bg-[#240104] text-[10px] uppercase font-bold text-rose-300/80 border-b border-rose-900/60">
+            <tr>
+              <th class="py-3 px-4">Nama Pengirim</th>
+              <th class="py-3 px-4">Instansi / Organisasi</th>
+              <th class="py-3 px-4">Kutipan Testimoni</th>
+              <th class="py-3 px-4">Izin Publikasi</th>
+              <th class="py-3 px-4 text-right">Tindakan</th>
+            </tr>
+          </thead>
+          <tbody id="testi-tbody" class="divide-y divide-rose-900/30 text-rose-100">
+            <!-- Populated via script -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Modal Form -->
+    <dialog id="testi-modal" class="backdrop:bg-stone-950/80 bg-transparent p-4 max-w-lg w-full mx-auto my-auto text-white focus:outline-none">
+      <div class="rounded-2xl bg-[#330206] border border-rose-600/50 p-6 shadow-2xl space-y-4 text-left">
+        <div class="flex items-center justify-between border-b border-rose-900/50 pb-3">
+          <h3 class="font-heading font-black text-lg text-white uppercase tracking-wider">
+            Tambah / Edit Testimoni
+          </h3>
+          <button id="close-testi-modal-btn" type="button" class="text-rose-300 hover:text-white text-lg font-bold">✕</button>
+        </div>
+
+        <form id="testi-form" class="space-y-3.5">
+          <input type="hidden" id="testi-idx" />
+
+          <div>
+            <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200 mb-1">Nama Klien / Perwakilan</label>
+            <input type="text" id="t-name" required class="w-full px-3 py-2 rounded bg-stone-950/70 border border-rose-800 text-white text-xs focus:outline-none focus:border-amber-400" />
+          </div>
+
+          <div>
+            <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200 mb-1">Nama Perusahaan / Komunitas</label>
+            <input type="text" id="t-org" class="w-full px-3 py-2 rounded bg-stone-950/70 border border-rose-800 text-white text-xs focus:outline-none focus:border-amber-400" />
+          </div>
+
+          <div>
+            <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200 mb-1">Kutipan / Ulasan</label>
+            <textarea id="t-quote" rows="3" required class="w-full px-3 py-2 rounded bg-stone-950/70 border border-rose-800 text-white text-xs focus:outline-none focus:border-amber-400"></textarea>
+          </div>
+
+          <div class="flex items-center gap-2 pt-2">
+            <input type="checkbox" id="t-perm" class="w-4 h-4 rounded bg-stone-950 border-rose-800 text-amber-500" />
+            <label for="t-perm" class="text-xs text-rose-200/90 font-medium">
+              Izin publikasi testimoni telah dikonfirmasi oleh pemilik kutipan
+            </label>
+          </div>
+
+          <div class="flex items-center justify-end gap-3 pt-3 border-t border-rose-900/50">
+            <button type="button" id="cancel-testi-btn" class="px-4 py-2 rounded bg-stone-900 text-rose-300 text-xs font-bold">Batal</button>
+            <button type="submit" class="px-5 py-2 rounded bg-amber-500 hover:bg-amber-400 text-stone-950 font-bold text-xs uppercase">Simpan Testimoni</button>
+          </div>
+        </form>
+      </div>
+    </dialog>
+
+  </div>
+
+  <script>
+    const tbody = document.getElementById('testi-tbody');
+    const modal = document.getElementById('testi-modal') as HTMLDialogElement | null;
+    const form = document.getElementById('testi-form') as HTMLFormElement | null;
+    const alertBox = document.getElementById('testi-alert');
+
+    function getTestis() {
+      const stored = localStorage.getItem('vo_testimonials');
+      return stored ? JSON.parse(stored) : [];
+    }
+
+    function saveTestis(list: any[]) {
+      localStorage.setItem('vo_testimonials', JSON.stringify(list));
+      renderTable();
+    }
+
+    function renderTable() {
+      if (!tbody) return;
+      const list = getTestis();
+
+      if (list.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="5" class="py-8 text-center text-rose-400">Belum ada testimoni tersimpan. (Sesuai PRD, testimoni rekaan dilarang ditampilkan).</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = list.map((item: any, idx: number) => `
+        <tr class="hover:bg-rose-950/40 transition-colors">
+          <td class="py-3 px-4 font-bold text-white">${item.display_name}</td>
+          <td class="py-3 px-4 text-amber-300 font-semibold">${item.organization || '-'}</td>
+          <td class="py-3 px-4 text-rose-200/80 leading-relaxed max-w-md">${item.quote}</td>
+          <td class="py-3 px-4">
+            <span class="px-2 py-0.5 rounded text-[10px] font-bold ${
+              item.permission_confirmed ? 'bg-emerald-500/20 text-emerald-300' : 'bg-rose-950 text-rose-400'
+            }">
+              ${item.permission_confirmed ? 'Terkonfirmasi' : 'Belum Izin'}
+            </span>
+          </td>
+          <td class="py-3 px-4 text-right space-x-2 whitespace-nowrap">
+            <button class="del-t-btn px-2.5 py-1 rounded bg-rose-950 hover:bg-rose-900 text-rose-300 text-[10px] border border-rose-800/40" data-idx="${idx}">
+              Hapus
+            </button>
+          </td>
+        </tr>
+      `).join('');
+
+      document.querySelectorAll<HTMLButtonElement>('.del-t-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          if (confirm('Hapus testimoni ini?')) {
+            const idx = Number(btn.dataset.idx);
+            list.splice(idx, 1);
+            saveTestis(list);
+          }
+        });
+      });
+    }
+
+    renderTable();
+
+    document.getElementById('add-testi-btn')?.addEventListener('click', () => {
+      form?.reset();
+      (document.getElementById('testi-idx') as HTMLInputElement).value = '-1';
+      modal?.showModal();
+    });
+
+    document.getElementById('close-testi-modal-btn')?.addEventListener('click', () => modal?.close());
+    document.getElementById('cancel-testi-btn')?.addEventListener('click', () => modal?.close());
+
+    form?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const list = getTestis();
+      const display_name = (document.getElementById('t-name') as HTMLInputElement).value;
+      const organization = (document.getElementById('t-org') as HTMLInputElement).value;
+      const quote = (document.getElementById('t-quote') as HTMLTextAreaElement).value;
+      const permission_confirmed = (document.getElementById('t-perm') as HTMLInputElement).checked;
+
+      list.push({
+        id: 'testi-' + Date.now(),
+        display_name,
+        organization,
+        quote,
+        permission_confirmed,
+        status: 'published'
+      });
+
+      saveTestis(list);
+      modal?.close();
+
+      if (alertBox) {
+        alertBox.className = 'p-3 rounded-lg text-xs font-bold bg-emerald-950 text-emerald-200 border border-emerald-500 block';
+        alertBox.textContent = '✓ Testimoni berhasil disimpan!';
+        setTimeout(() => alertBox.classList.add('hidden'), 2500);
+      }
+    });
+  </script>
+</AdminLayout>

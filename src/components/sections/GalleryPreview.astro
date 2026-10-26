@@ -1,0 +1,129 @@
+---
+import { GALLERY_ITEMS } from '../../data/defaultContent';
+
+// Take 6 items to form the 3x2 grid matching reference
+const previewItems = GALLERY_ITEMS.slice(0, 6);
+---
+
+<!-- "GALLERY & LIGHTBOX" SECTION (MATCHING REFERENCE DESIGN) -->
+<section class="section-crimson" id="galeri-preview">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <div class="section-title-wrap">
+      <span style="color: var(--secondary); font-weight: 800; font-size: 0.85rem; letter-spacing: 1px; text-transform: uppercase;">
+        Dokumentasi Nyata
+      </span>
+      <h2 class="section-main-heading" style="margin-top: 6px;">GALERI KEGIATAN KAMI</h2>
+      <p class="section-sub-heading">Klik pada foto kegiatan untuk melihat tampilan resolusi penuh</p>
+    </div>
+
+    <!-- 3-Column Square Grid -->
+    <div class="gallery-grid">
+      {previewItems.map((item) => (
+        <div
+          aria-label={`Buka foto ${item.title}`}
+          class="gallery-item"
+          data-caption={`${item.title} — ${item.caption}`}
+          role="button"
+          tabindex="0"
+        >
+          <img
+            alt={item.altText}
+            loading="lazy"
+            src={item.imageUrl}
+            width="600"
+            height="600"
+          />
+          <div class="gallery-item-overlay">
+            <span class="gallery-item-caption">
+              <i class="fas fa-search-plus me-1"></i> {item.title}
+            </span>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <div style="text-align: center; margin-top: 36px;">
+      <a class="btn-hero-secondary" href="/galeri" style="margin: 0;">
+        <span>Lihat Semua Foto Galeri</span>
+        <i class="fas fa-arrow-right ms-2"></i>
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<!-- LIGHTBOX MODAL (MATCHING REFERENCE DESIGN) -->
+<div aria-hidden="true" aria-modal="true" class="lightbox-modal" id="galleryLightbox" role="dialog">
+  <div class="lightbox-content-box">
+    <button aria-label="Tutup preview gambar" class="lightbox-close-btn" id="lightboxClose" type="button">
+      &times;
+    </button>
+    <img alt="" class="lightbox-img" id="lightboxImg" src="" />
+    <p class="lightbox-caption" id="lightboxCaption"></p>
+  </div>
+</div>
+
+<script>
+  // Accessible Gallery Lightbox
+  const lightbox = document.getElementById('galleryLightbox');
+  const lightboxImg = document.getElementById('lightboxImg') as HTMLImageElement | null;
+  const lightboxCaption = document.getElementById('lightboxCaption');
+  const lightboxClose = document.getElementById('lightboxClose');
+  const galleryItems = document.querySelectorAll('.gallery-item');
+
+  galleryItems.forEach((card) => {
+    card.addEventListener('click', function () {
+      const img = this.querySelector('img');
+      const caption = this.getAttribute('data-caption') ||
+        (this.querySelector('.gallery-item-caption') ? this.querySelector('.gallery-item-caption')?.textContent?.trim() : '') ||
+        (img ? img.alt : '');
+
+      if (img && lightbox && lightboxImg) {
+        lightboxImg.src = img.src;
+        lightboxImg.alt = img.alt || caption || '';
+        if (lightboxCaption) {
+          lightboxCaption.textContent = caption || '';
+        }
+        lightbox.classList.add('active');
+        lightbox.setAttribute('aria-hidden', 'false');
+      }
+    });
+
+    // Support Enter or Space key for accessibility
+    card.addEventListener('keydown', function (e) {
+      const keyboardEvent = e as KeyboardEvent;
+      if (keyboardEvent.key === 'Enter' || keyboardEvent.key === ' ') {
+        keyboardEvent.preventDefault();
+        (this as HTMLElement).click();
+      }
+    });
+  });
+
+  const closeLightbox = () => {
+    if (lightbox) {
+      lightbox.classList.remove('active');
+      lightbox.setAttribute('aria-hidden', 'true');
+    }
+  };
+
+  if (lightboxClose) {
+    lightboxClose.addEventListener('click', closeLightbox);
+  }
+
+  if (lightbox) {
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) {
+        closeLightbox();
+      }
+    });
+  }
+
+  // Close on Escape key
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && lightbox?.classList.contains('active')) {
+      closeLightbox();
+    }
+  });
+</script>
+

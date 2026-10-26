@@ -1,0 +1,97 @@
+---
+import { PACKAGES } from '../../data/defaultContent';
+import { getWhatsAppUrl } from '../../lib/utils';
+
+// Pick 4 featured packages matching reference image layout (4 vertical cards)
+const featuredPackages = PACKAGES.filter(p => p.featured).slice(0, 4);
+---
+
+<section class="py-16 sm:py-20 relative">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <!-- Title (Uppercase with wide tracking matching reference) -->
+    <div class="text-center mb-10">
+      <h2 class="font-heading font-black text-2xl sm:text-3xl lg:text-4xl uppercase tracking-[0.18em] text-white">
+        PAKET PILIHAN
+      </h2>
+      <p class="text-xs uppercase tracking-widest text-amber-400 mt-2 font-semibold">
+        Pilihan Paket Outbound &amp; Petualangan Paling Diminati di Batu Malang
+      </p>
+    </div>
+
+    <!-- 4 Cards Grid (Matching reference image product layout) -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      {featuredPackages.map((pkg) => {
+        const pkgWaUrl = getWhatsAppUrl(`Halo Vendor Outbound, saya ingin konsultasi paket ${pkg.title} (${pkg.categoryName}).`);
+
+        return (
+          <div class="rounded-xl bg-[#52050B]/70 border border-rose-700/35 hover:border-amber-400/60 p-5 flex flex-col items-center text-center shadow-card transition-all duration-300 hover:-translate-y-1.5 group">
+            
+            <!-- Circular Image Top (Reference dish/photo circle) -->
+            <div class="w-28 h-28 rounded-full p-1 bg-gradient-to-tr from-brand-700 to-amber-500/40 border border-rose-400/30 mb-4 shadow-md group-hover:scale-105 transition-transform">
+              <img
+                src={pkg.imageUrl}
+                alt={pkg.title}
+                width="150"
+                height="150"
+                class="w-full h-full object-cover rounded-full"
+                loading="lazy"
+              />
+            </div>
+
+            <!-- Title (Uppercase) -->
+            <h3 class="font-heading font-black text-sm uppercase tracking-wider text-white group-hover:text-amber-400 transition-colors">
+              {pkg.title}
+            </h3>
+
+            <!-- Category tag -->
+            <span class="text-[10px] uppercase tracking-wider text-rose-300/80 mt-0.5">
+              {pkg.categoryName}
+            </span>
+
+            <!-- Rating Stars (Reference yellow star row) -->
+            <div class="flex items-center gap-1 text-amber-400 text-xs my-2.5" aria-label="Rating 5 bintang">
+              <span>★</span>
+              <span>★</span>
+              <span>★</span>
+              <span>★</span>
+              <span>★</span>
+            </div>
+
+            <!-- Bottom Price / Consultation Row with Amber Square Button -->
+            <div class="w-full pt-3 mt-auto border-t border-rose-800/30 flex items-center justify-between">
+              <div class="text-left">
+                <span class="block text-[10px] uppercase text-rose-300/70">Estimasi</span>
+                <span class="text-xs font-bold text-amber-300">
+                  {pkg.priceLabel}
+                </span>
+              </div>
+
+              <!-- Small Amber Square Action Button with Cart Icon (Reference Match) -->
+              <a
+                href={pkgWaUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="w-8 h-8 rounded bg-amber-500 hover:bg-amber-400 text-stone-950 flex items-center justify-center font-bold shadow-md hover:scale-110 transition-transform"
+                aria-label={`Konsultasi paket ${pkg.title}`}
+              >
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                </svg>
+              </a>
+            </div>
+
+          </div>
+        );
+      })}
+    </div>
+
+    <!-- 3-Dot Indicators (Exact Match with Reference image below product grid) -->
+    <div class="flex items-center justify-center gap-2 mt-8">
+      <span class="w-2 h-2 rounded-full bg-amber-400"></span>
+      <span class="w-2 h-2 rounded-full bg-rose-700/60"></span>
+      <span class="w-2 h-2 rounded-full bg-rose-700/60"></span>
+    </div>
+
+  </div>
+</section>

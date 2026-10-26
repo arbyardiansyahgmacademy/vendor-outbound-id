@@ -1,0 +1,160 @@
+---
+import PublicLayout from '../../layouts/PublicLayout.astro';
+import CTASection from '../../components/sections/CTASection.astro';
+import FAQAccordion from '../../components/sections/FAQAccordion.astro';
+import { SERVICES, PACKAGES } from '../../data/defaultContent';
+import { generateServiceSchema } from '../../lib/seo';
+import { getWhatsAppUrl } from '../../lib/utils';
+
+const service = SERVICES.find(s => s.slug === 'family-gathering')!;
+const relatedPackages = PACKAGES.filter(p => p.categorySlug === 'family-gathering');
+const serviceSchema = generateServiceSchema(service);
+
+const breadcrumbs = [
+  { name: 'Layanan', url: '/layanan' },
+  { name: service.title }
+];
+
+const waConsultUrl = getWhatsAppUrl(`Halo Vendor Outbound, saya ingin konsultasi detail layanan ${service.title} di Batu Malang.`);
+---
+
+<PublicLayout
+  title={`${service.title} Batu Malang | Vendor Outbound`}
+  description={service.excerpt}
+  breadcrumbs={breadcrumbs}
+>
+  <section class="py-16 sm:py-24 relative overflow-hidden">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/15 border border-amber-400/30 text-amber-300 text-xs font-bold uppercase tracking-widest">
+        Program Rekreasi &amp; Komunitas
+      </div>
+      <h1 class="font-heading font-black text-3xl sm:text-5xl uppercase tracking-[0.14em] text-white">
+        {service.title}
+      </h1>
+      <p class="text-base sm:text-lg text-rose-100/85 max-w-3xl mx-auto leading-relaxed">
+        {service.excerpt}
+      </p>
+    </div>
+  </section>
+
+  <section class="py-12 border-t border-rose-900/40">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-12 gap-12">
+      
+      <div class="lg:col-span-8 space-y-8 text-left">
+        <div class="rounded-2xl overflow-hidden aspect-16/10 bg-brand-950 border border-rose-700/40 shadow-card">
+          <img
+            src={service.imageUrl}
+            alt={service.title}
+            width="800"
+            height="500"
+            class="w-full h-full object-cover"
+          />
+        </div>
+
+        <div class="rounded-xl bg-[#450308]/60 border border-rose-700/35 p-6 sm:p-8 space-y-4">
+          <h2 class="font-heading font-black text-2xl uppercase tracking-wider text-white">
+            Gambaran Program
+          </h2>
+          <p class="text-sm sm:text-base text-rose-100/85 leading-relaxed">
+            {service.overview}
+          </p>
+          <div class="p-4 rounded-lg bg-stone-950/40 border border-rose-800/30 text-xs text-amber-300 font-medium">
+            📍 {service.locationNote}
+          </div>
+        </div>
+
+        <div class="rounded-xl bg-[#450308]/60 border border-rose-700/35 p-6 sm:p-8 space-y-4">
+          <h2 class="font-heading font-black text-xl uppercase tracking-wider text-white">
+            Tujuan &amp; Manfaat Program
+          </h2>
+          <ul class="space-y-3 text-sm text-rose-100/85">
+            {service.benefits.map((b) => (
+              <li class="flex items-start gap-3">
+                <span class="w-5 h-5 rounded-full bg-amber-500/20 text-amber-400 font-bold flex items-center justify-center text-xs flex-shrink-0 mt-0.5">✓</span>
+                <span>{b}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div class="rounded-xl bg-[#450308]/60 border border-rose-700/35 p-6 sm:p-8 space-y-4">
+          <h2 class="font-heading font-black text-xl uppercase tracking-wider text-white">
+            Rangkaian Aktivitas Simulasi
+          </h2>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs sm:text-sm text-rose-200/90">
+            {service.activities.map((act, idx) => (
+              <div class="p-3 rounded-lg bg-[#380105]/70 border border-rose-800/30 flex items-center gap-3">
+                <span class="w-6 h-6 rounded bg-brand-800 text-amber-400 font-heading font-bold text-xs flex items-center justify-center flex-shrink-0">
+                  {idx + 1}
+                </span>
+                <span>{act}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <div class="lg:col-span-4 space-y-6">
+        <div class="rounded-2xl bg-gradient-to-br from-[#66050E] to-[#3B0206] border-2 border-amber-500/40 p-6 space-y-5 shadow-2xl">
+          <span class="text-[10px] font-bold uppercase tracking-widest text-amber-400">
+            Konsultasi Langsung
+          </span>
+          <h3 class="font-heading font-black text-xl text-white uppercase tracking-wider">
+            Rencanakan Gathering Keluarga
+          </h3>
+          <p class="text-xs text-rose-100/80 leading-relaxed">
+            Sampaikan perkiraan jumlah keluarga, sebaran usia anak, dan tanggal yang diinginkan kepada tim kami.
+          </p>
+          <a
+            href={waConsultUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="w-full inline-flex items-center justify-center gap-2 py-3.5 rounded-md bg-amber-500 hover:bg-amber-400 text-stone-950 font-heading font-black text-xs uppercase tracking-wider shadow-md hover:scale-105 transition-all"
+          >
+            Konsultasi via WhatsApp
+          </a>
+        </div>
+
+        <div class="rounded-xl bg-[#450308]/60 border border-rose-700/35 p-6 space-y-3 text-left">
+          <h4 class="font-heading font-bold text-sm text-amber-400 uppercase tracking-wider">
+            Sasaran Peserta
+          </h4>
+          <p class="text-xs text-rose-100/80 leading-relaxed">
+            {service.targetAudience}
+          </p>
+        </div>
+
+        <div class="rounded-xl bg-[#450308]/60 border border-rose-700/35 p-6 space-y-4 text-left">
+          <h4 class="font-heading font-bold text-sm text-white uppercase tracking-wider">
+            Pilihan Paket Terkait
+          </h4>
+          <div class="space-y-3">
+            {relatedPackages.map((pkg) => (
+              <a
+                href={`/paket/family-gathering`}
+                class="block p-3 rounded-lg bg-brand-950/60 border border-rose-800/30 hover:border-amber-400/50 transition-colors group"
+              >
+                <div class="text-xs font-bold text-white uppercase group-hover:text-amber-400 transition-colors">
+                  {pkg.title}
+                </div>
+                <div class="text-[11px] text-rose-300/70 mt-0.5">
+                  Durasi: {pkg.duration}
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <FAQAccordion title={`FAQ SEPUTAR ${service.title.toUpperCase()}`} />
+
+  <CTASection
+    title={`KONSULTASIKAN ACARA ${service.title.toUpperCase()} SEKARANG`}
+    customMessage={`Halo Vendor Outbound, saya ingin konsultasi kebutuhan ${service.title} untuk keluarga besar kami.`}
+  />
+
+  <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+</PublicLayout>

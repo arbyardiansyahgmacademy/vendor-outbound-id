@@ -1,0 +1,62 @@
+---
+import PublicLayout from '../layouts/PublicLayout.astro';
+import { SITE_INFO } from '../data/defaultContent';
+
+const breadcrumbs = [
+  { name: 'Syarat & Ketentuan' }
+];
+---
+
+<PublicLayout
+  title="Syarat & Ketentuan | Vendor Outbound"
+  description="Ketentuan layanan dan konsultasi program outbound di Vendor Outbound."
+  breadcrumbs={breadcrumbs}
+>
+  <div class="py-16 sm:py-20 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-left text-rose-100/90 leading-relaxed space-y-8">
+    <div class="space-y-2 border-b border-rose-900/40 pb-6">
+      <span class="text-xs font-bold uppercase tracking-widest text-amber-400">Ketentuan Layanan</span>
+      <h1 class="font-heading font-black text-3xl sm:text-4xl uppercase tracking-wider text-white">
+        SYARAT &amp; KETENTUAN
+      </h1>
+      <p class="text-xs text-rose-300/70">Terakhir diperbarui: 25 Oktober 2026</p>
+    </div>
+
+    <section class="space-y-4">
+      <h2 class="font-heading font-bold text-xl uppercase tracking-wider text-white">
+        1. Ketentuan Umum &amp; Konsultasi
+      </h2>
+      <p class="text-sm">
+        Situs {SITE_INFO.brandName} berfungsi sebagai sarana informasi program outbound, katalog aktivitas, dokumentasi portofolio, dan media komunikasi awal dengan calon pelanggan.
+      </p>
+      <p class="text-sm">
+        Seluruh rincian akhir mengenai fasilitas, durasi terperinci, akomodasi, katering, dan biaya kegiatan ditetapkan melalui kesepakatan tertulis resmi (proposal penawaran / invoice) yang disetujui kedua belah pihak.
+      </p>
+    </section>
+
+    <section class="space-y-4">
+      <h2 class="font-heading font-bold text-xl uppercase tracking-wider text-white">
+        2. Prosedur Keselamatan &amp; Kondisi Lapangan
+      </h2>
+      <p class="text-sm">
+        Kegiatan luar ruang (outbound, rafting, offroad 4x4, camping) memiliki aspek dinamika alam bebas. Peserta diwajibkan:
+      </p>
+      <ul class="list-disc pl-5 space-y-1 text-sm text-rose-200/80">
+        <li>Mengikuti seluruh instruksi keselamatan dan briefing dari fasilitator / instruktur lapangan.</li>
+        <li>Menggunakan perlengkapan keselamatan (helm, pelampung, sabuk pengaman) yang telah disediakan.</li>
+        <li>Menginformasikan riwayat kondisi kesehatan khusus (seperti asma, alergi berat, cedera tulang) sebelum pelaksanaan kegiatan.</li>
+      </ul>
+      <p class="text-sm">
+        Fasilitator lapangan berhak menyesuaikan urutan permainan atau memindahkan aktivitas ke area semi-indoor (Plan B) demi keselamatan peserta jika terjadi cuaca ekstrem pegunungan.
+      </p>
+    </section>
+
+    <section class="space-y-4">
+      <h2 class="font-heading font-bold text-xl uppercase tracking-wider text-white">
+        3. Kontak Resmi
+      </h2>
+      <p class="text-sm">
+        Segala komunikasi pemesanan sah dilakukan melalui nomor WhatsApp resmi <strong class="text-white">{SITE_INFO.whatsappDisplay}</strong>.
+      </p>
+    </section>
+  </div>
+</PublicLayout>

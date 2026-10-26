@@ -1,0 +1,197 @@
+---
+import AdminLayout from '../../layouts/AdminLayout.astro';
+---
+
+<AdminLayout title="Kelola Leads Masuk">
+  <div class="space-y-6 text-left">
+    
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-rose-900/40">
+      <div>
+        <h1 class="font-heading font-black text-2xl uppercase tracking-wider text-white flex items-center gap-2.5">
+          <i class="fas fa-inbox text-amber-400"></i>
+          <span>LEADS &amp; KONSULTASI MASUK</span>
+        </h1>
+        <p class="text-xs text-rose-300/80 mt-1">
+          Daftar seluruh calon pelanggan yang mengisi formulir konsultasi website.
+        </p>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <input
+          type="text"
+          id="lead-search-input"
+          placeholder="Cari nama / WhatsApp..."
+          class="px-3.5 py-2 rounded-lg bg-stone-950/70 border border-rose-800/60 text-white placeholder-rose-400/50 text-xs focus:outline-none focus:border-amber-400"
+        />
+        <select
+          id="lead-status-filter"
+          class="px-3 py-2 rounded-lg bg-[#2D0206] border border-rose-800/60 text-white text-xs focus:outline-none focus:border-amber-400"
+        >
+          <option value="all">Semua Status</option>
+          <option value="Baru">Baru</option>
+          <option value="Dihubungi">Dihubungi</option>
+          <option value="Follow-up">Follow-up</option>
+          <option value="Selesai">Selesai</option>
+          <option value="Spam">Spam</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Leads Table Container -->
+    <div class="rounded-2xl bg-[#300205]/90 border border-rose-700/40 overflow-hidden shadow-2xl">
+      <div class="overflow-x-auto">
+        <table class="w-full text-xs text-left">
+          <thead class="bg-[#240104] text-[10px] uppercase font-bold text-rose-300/80 border-b border-rose-900/60">
+            <tr>
+              <th class="py-3 px-4">Tanggal Masuk</th>
+              <th class="py-3 px-4">Nama &amp; Instansi</th>
+              <th class="py-3 px-4">Kontak WhatsApp</th>
+              <th class="py-3 px-4">Program</th>
+              <th class="py-3 px-4">Est. Peserta &amp; Lokasi</th>
+              <th class="py-3 px-4">Pesan Konsultasi</th>
+              <th class="py-3 px-4">Status</th>
+              <th class="py-3 px-4 text-right">Tindakan</th>
+            </tr>
+          </thead>
+          <tbody id="leads-table-body" class="divide-y divide-rose-900/30 text-rose-100">
+            <!-- Populated via script -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    import { DEFAULT_LEADS } from '../../lib/adminStore';
+
+    const tbody = document.getElementById('leads-table-body');
+    const searchInput = document.getElementById('lead-search-input') as HTMLInputElement | null;
+    const filterSelect = document.getElementById('lead-status-filter') as HTMLSelectElement | null;
+
+    function getLeads() {
+      const stored = localStorage.getItem('vo_leads');
+      return stored ? JSON.parse(stored) : DEFAULT_LEADS;
+    }
+
+    function saveLeads(leads: any[]) {
+      localStorage.setItem('vo_leads', JSON.stringify(leads));
+      renderTable();
+    }
+
+    function renderTable() {
+      if (!tbody) return;
+      let leads = getLeads();
+
+      const query = searchInput?.value.toLowerCase().trim() || '';
+      const statusFilter = filterSelect?.value || 'all';
+
+      if (query) {
+        leads = leads.filter((l: any) => 
+          l.name.toLowerCase().includes(query) ||
+          l.whatsapp.includes(query) ||
+          (l.organization && l.organization.toLowerCase().includes(query))
+        );
+      }
+
+      if (statusFilter !== 'all') {
+        leads = leads.filter((l: any) => l.status === statusFilter);
+      }
+
+      if (leads.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="8" class="py-8 text-center text-rose-400">Tidak ada leads yang sesuai filter.</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = leads.map((l: any, idx: number) => {
+        const waClean = l.whatsapp.replace(/[^0-9]/g, '');
+        const waUrl = `https://wa.me/${waClean}?text=${encodeURIComponent(`Halo ${l.name}, kami dari tim Vendor Outbound Batu Malang ingin mengonfirmasi permintaan konsultasi program ${l.service_type}.`)}`;
+
+        return `
+          <tr class="hover:bg-rose-950/40 transition-colors">
+            <td class="py-3.5 px-4 text-[11px] text-rose-300/70 whitespace-nowrap">
+              ${new Date(l.created_at).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' })}
+            </td>
+            <td class="py-3.5 px-4">
+              <div class="font-bold text-white text-xs">${l.name}</div>
+              <div class="text-[11px] text-rose-300/80">${l.organization || '-'}</div>
+            </td>
+            <td class="py-3.5 px-4 font-mono text-amber-300">
+              ${l.whatsapp}
+            </td>
+            <td class="py-3.5 px-4 font-semibold text-rose-100">
+              ${l.service_type}
+            </td>
+            <td class="py-3.5 px-4 text-[11px]">
+              <div>${l.participant_count ? l.participant_count + ' Peserta' : '-'}</div>
+              <div class="text-rose-300/70">${l.preferred_location || 'Batu/Malang'}</div>
+            </td>
+            <td class="py-3.5 px-4 max-w-xs">
+              <div class="text-xs text-rose-200/90 line-clamp-2" title="${l.message}">
+                ${l.message}
+              </div>
+            </td>
+            <td class="py-3.5 px-4 whitespace-nowrap">
+              <select
+                class="status-changer px-2 py-1 rounded text-[11px] font-bold bg-[#1C0103] border border-rose-700/60 text-amber-300"
+                data-lead-idx="${idx}"
+              >
+                <option value="Baru" ${l.status === 'Baru' ? 'selected' : ''}>Baru</option>
+                <option value="Dihubungi" ${l.status === 'Dihubungi' ? 'selected' : ''}>Dihubungi</option>
+                <option value="Follow-up" ${l.status === 'Follow-up' ? 'selected' : ''}>Follow-up</option>
+                <option value="Selesai" ${l.status === 'Selesai' ? 'selected' : ''}>Selesai</option>
+                <option value="Spam" ${l.status === 'Spam' ? 'selected' : ''}>Spam</option>
+              </select>
+            </td>
+            <td class="py-3.5 px-4 text-right space-x-1.5 whitespace-nowrap">
+              <a
+                href="${waUrl}"
+                target="_blank"
+                class="px-2.5 py-1.5 rounded bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-[10px] inline-flex items-center gap-1 shadow"
+              >
+                <span>Chat WA</span>
+              </a>
+              <button
+                type="button"
+                class="delete-lead-btn px-2 py-1.5 rounded bg-rose-950 hover:bg-rose-900 text-rose-300 text-[10px] border border-rose-800/40"
+                data-lead-idx="${idx}"
+              >
+                Hapus
+              </button>
+            </td>
+          </tr>
+        `;
+      }).join('');
+
+      // Attach event listeners for status change
+      document.querySelectorAll<HTMLSelectElement>('.status-changer').forEach(sel => {
+        sel.addEventListener('change', (e) => {
+          const target = e.target as HTMLSelectElement;
+          const idx = Number(target.dataset.leadIdx);
+          const allLeads = getLeads();
+          if (allLeads[idx]) {
+            allLeads[idx].status = target.value;
+            saveLeads(allLeads);
+          }
+        });
+      });
+
+      // Attach event listeners for delete
+      document.querySelectorAll<HTMLButtonElement>('.delete-lead-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          if (confirm('Hapus data lead ini?')) {
+            const idx = Number(btn.dataset.leadIdx);
+            const allLeads = getLeads();
+            allLeads.splice(idx, 1);
+            saveLeads(allLeads);
+          }
+        });
+      });
+    }
+
+    renderTable();
+
+    searchInput?.addEventListener('input', renderTable);
+    filterSelect?.addEventListener('change', renderTable);
+  </script>
+</AdminLayout>

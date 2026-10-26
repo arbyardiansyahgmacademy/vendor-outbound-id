@@ -1,0 +1,101 @@
+---
+import PublicLayout from '../layouts/PublicLayout.astro';
+import WhyChooseUs from '../components/sections/WhyChooseUs.astro';
+import FAQAccordion from '../components/sections/FAQAccordion.astro';
+import CTASection from '../components/sections/CTASection.astro';
+import { SITE_INFO } from '../data/defaultContent';
+
+const breadcrumbs = [
+  { name: 'Tentang Kami' }
+];
+---
+
+<PublicLayout
+  title="Tentang Kami | Vendor Outbound Batu Malang"
+  description="Mengenal Vendor Outbound, mitra profesional penyelenggara kegiatan outbound, team building, dan family gathering di area Batu & Malang, Jawa Timur."
+  breadcrumbs={breadcrumbs}
+>
+  <!-- Hero Section -->
+  <section class="py-16 sm:py-24 relative overflow-hidden">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
+      <span class="text-xs font-bold uppercase tracking-widest text-amber-400">
+        Profil &amp; Dedikasi Kami
+      </span>
+      <h1 class="font-heading font-black text-3xl sm:text-5xl uppercase tracking-[0.14em] text-white">
+        TENTANG VENDOR OUTBOUND
+      </h1>
+      <p class="text-base sm:text-lg text-rose-100/85 max-w-3xl mx-auto leading-relaxed">
+        Penyedia jasa outbound dan fasilitator kegiatan luar ruang yang berakar di kawasan pegunungan sejuk Kota Batu dan Malang, Jawa Timur.
+      </p>
+    </div>
+  </section>
+
+  <!-- Narrative Section -->
+  <section class="py-12 border-t border-rose-900/40">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8 text-left text-rose-100/85 leading-relaxed text-sm sm:text-base">
+      
+      <div class="rounded-2xl bg-[#480308]/60 border border-rose-700/35 p-8 sm:p-10 space-y-5 shadow-card">
+        <h2 class="font-heading font-black text-2xl uppercase tracking-wider text-white">
+          Fokus Layanan &amp; Pendekatan Kerja
+        </h2>
+        <p>
+          Kami berfokus pada penyelenggaraan kegiatan luar ruang yang tidak hanya seru dan menyenangkan, tetapi juga memberikan dampak nyata bagi kekompakan tim, penyegaran mental, dan penguatan nilai-nilai positif organisasi.
+        </p>
+        <p>
+          Dengan memanfaatkan kekayaan alam pegunungan Kota Batu dan Malang—mulai dari teduhnya hutan pinus, hamparan rumput resort hijau, hingga aliran deras sungai arung jeram—setiap program dirancang secara adaptif dan terstruktur sesuai dengan profil peserta.
+        </p>
+      </div>
+
+      <!-- Team & Facilitator Image Showcase from kebutuhan-gambar -->
+      <div class="rounded-2xl overflow-hidden border border-rose-700/40 shadow-xl bg-black/40">
+        <img
+          src="/images/about/team-fasilitator.webp"
+          alt="Tim Fasilitator dan Instruktur Vendor Outbound Batu Malang"
+          width="1200"
+          height="675"
+          class="w-full h-auto max-h-[420px] object-cover"
+          loading="lazy"
+        />
+        <div class="p-3.5 bg-[#350206] text-center border-t border-rose-800/40">
+          <p class="text-xs text-rose-200/90 font-medium">
+            <i class="fas fa-certificate text-amber-400 me-1.5"></i>
+            Tim Fasilitator Lapangan Bersertifikasi BNSP &amp; Siaga P3K di Kota Batu &amp; Malang
+          </p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        <div class="rounded-xl bg-[#450307]/50 border border-rose-800/30 p-6 space-y-2">
+          <div class="w-8 h-8 rounded bg-amber-500/10 border border-amber-400/30 flex items-center justify-center text-amber-400 font-bold text-sm">
+            01
+          </div>
+          <h3 class="font-heading font-bold text-lg text-white uppercase">Keamanan Terpantau</h3>
+          <p class="text-xs text-rose-200/80 leading-relaxed">
+            Peralatan safety standar, briefing keselamatan sebelum kegiatan, serta persiapan jalur alternatif saat kondisi cuaca pegunungan berubah.
+          </p>
+        </div>
+
+        <div class="rounded-xl bg-[#450307]/50 border border-rose-800/30 p-6 space-y-2">
+          <div class="w-8 h-8 rounded bg-amber-500/10 border border-amber-400/30 flex items-center justify-center text-amber-400 font-bold text-sm">
+            02
+          </div>
+          <h3 class="font-heading font-bold text-lg text-white uppercase">Agenda Fleksibel</h3>
+          <p class="text-xs text-rose-200/80 leading-relaxed">
+            Skenario aktivitas dapat disesuaikan dengan tema internal, kapasitas fisik peserta, serta durasi (half day, full day, atau menginap).
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Mengapa Memilih Kami -->
+  <WhyChooseUs />
+
+  <!-- FAQ Section -->
+  <FAQAccordion title="FAQ SEPUTAR TENTANG KAMI" />
+
+  <!-- CTA Section -->
+  <CTASection />
+
+</PublicLayout>

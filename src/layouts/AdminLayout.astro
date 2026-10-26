@@ -1,0 +1,232 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+const currentPath = Astro.url.pathname;
+
+const navSections = [
+  {
+    heading: 'Ringkasan Utama',
+    items: [
+      { label: 'Dashboard Ringkasan', url: '/admin', icon: 'fas fa-chart-pie' },
+    ]
+  },
+  {
+    heading: 'Kelola Halaman (CRUD)',
+    items: [
+      { label: 'Master Semua Halaman', url: '/admin/halaman', icon: 'fas fa-layer-group', exact: true },
+      { label: 'Halaman Beranda', url: '/admin/halaman/beranda', icon: 'fas fa-home' },
+      { label: 'Halaman Layanan', url: '/admin/layanan', icon: 'fas fa-briefcase' },
+      { label: 'Halaman Paket Pilihan', url: '/admin/paket', icon: 'fas fa-box-open' },
+      { label: 'Halaman Galeri Foto', url: '/admin/galeri', icon: 'fas fa-camera-retro' },
+      { label: 'Halaman Tentang Kami', url: '/admin/halaman/tentang-kami', icon: 'fas fa-users' },
+      { label: 'Halaman Kontak & Lokasi', url: '/admin/halaman/kontak', icon: 'fas fa-phone-alt' },
+      { label: 'Halaman Artikel Blog', url: '/admin/blog', icon: 'fas fa-feather-alt' },
+      { label: 'Halaman Testimoni', url: '/admin/testimoni', icon: 'fas fa-comment-dots' },
+      { label: 'Halaman FAQ', url: '/admin/faq', icon: 'fas fa-question-circle' },
+      { label: 'Halaman Kebijakan & Syarat', url: '/admin/halaman/legal', icon: 'fas fa-balance-scale' },
+    ]
+  },
+  {
+    heading: 'Data Konsultasi',
+    items: [
+      { label: 'Leads Konsultasi', url: '/admin/leads', icon: 'fas fa-inbox' },
+    ]
+  },
+  {
+    heading: 'Pengaturan & Akun',
+    items: [
+      { label: 'Pengaturan Global', url: '/admin/pengaturan', icon: 'fas fa-cog' },
+      { label: 'Profil Administrator', url: '/admin/profil', icon: 'fas fa-user-shield' },
+    ]
+  }
+];
+---
+
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title} | Admin Dashboard Vendor Outbound</title>
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="icon" type="image/webp" href="/images/logo/logo-fix.webp" />
+    <link rel="apple-touch-icon" href="/images/logo/logo-fix.webp" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- FontAwesome 6 Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      crossorigin="anonymous"
+    />
+  </head>
+
+  <body class="bg-[#1C0103] text-rose-50 font-sans min-h-screen flex flex-col antialiased">
+    
+    <!-- Top Admin Bar -->
+    <header class="bg-[#2D0206] border-b border-rose-900/60 sticky top-0 z-40 px-4 sm:px-6 py-2.5 flex items-center justify-between shadow-lg">
+      <div class="flex items-center gap-3">
+        <button
+          id="admin-sidebar-toggle"
+          type="button"
+          class="lg:hidden p-2 rounded text-rose-300 hover:text-white hover:bg-rose-900/50"
+          aria-label="Toggle Sidebar"
+        >
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+
+        <a href="/admin" class="flex items-center gap-2.5 group">
+          <img
+            src="/images/logo/logo-fix.webp"
+            alt="Logo Vendor Outbound"
+            class="w-9 h-9 rounded-full object-cover border-2 border-amber-400 shadow-md group-hover:scale-105 transition-transform"
+          />
+          <div class="flex flex-col">
+            <span class="font-heading font-black text-sm uppercase tracking-wider text-white">
+              CMS VENDOR OUTBOUND
+            </span>
+            <span class="text-[9px] uppercase tracking-widest text-amber-400 font-semibold -mt-0.5">
+              Admin Control Center
+            </span>
+          </div>
+        </a>
+      </div>
+
+      <!-- Right Header Actions (Profile & Quick Links) -->
+      <div class="flex items-center gap-2 sm:gap-4">
+        
+        <!-- Live Admin Profile Shortcut -->
+        <a
+          href="/admin/profil"
+          class="flex items-center gap-2.5 px-3 py-1.5 rounded-xl bg-stone-950/60 hover:bg-rose-950 border border-rose-800/40 hover:border-amber-400/60 transition-all group"
+          title="Pengaturan Profil Admin"
+        >
+          <img
+            id="topbar-admin-avatar"
+            src="/images/author-artikel/author-artikel-arby-ardiansyah.webp"
+            alt="Foto Profil Admin"
+            class="w-7 h-7 rounded-full object-cover border border-amber-400"
+          />
+          <div class="hidden sm:flex flex-col text-left leading-tight">
+            <span id="topbar-admin-name" class="font-bold text-xs text-white group-hover:text-amber-400 transition-colors">
+              Arby Ardiansyah
+            </span>
+            <span class="text-[9px] text-amber-400 font-semibold uppercase tracking-wider">
+              Super Admin
+            </span>
+          </div>
+        </a>
+
+        <!-- Preview Frontend -->
+        <a
+          href="/"
+          target="_blank"
+          class="hidden md:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-brand-900/60 hover:bg-brand-800 text-rose-200 hover:text-white text-xs font-semibold border border-rose-700/50 transition-colors"
+          title="Buka Website Frontend"
+        >
+          <i class="fas fa-external-link-alt text-[10px]"></i>
+          <span>Lihat Web</span>
+        </a>
+
+        <!-- Logout Button -->
+        <a
+          href="/admin/login"
+          id="admin-logout-btn"
+          class="px-3 py-1.5 rounded-lg bg-rose-950 hover:bg-rose-900 text-rose-300 hover:text-rose-100 text-xs font-semibold border border-rose-800/40 transition-colors flex items-center gap-1.5"
+          title="Keluar dari Dashboard"
+        >
+          <i class="fas fa-sign-out-alt text-[11px]"></i>
+          <span class="hidden sm:inline">Keluar</span>
+        </a>
+      </div>
+    </header>
+
+    <div class="flex flex-1">
+      
+      <!-- Sidebar -->
+      <aside
+        id="admin-sidebar"
+        class="w-64 bg-[#260104] border-r border-rose-900/40 p-4 space-y-4 hidden lg:block flex-shrink-0 max-h-[calc(100vh-61px)] overflow-y-auto"
+      >
+        {navSections.map((sec) => (
+          <div class="space-y-1">
+            <div class="text-[10px] uppercase font-bold text-rose-400/60 px-3 py-1 tracking-widest">
+              {sec.heading}
+            </div>
+
+            {sec.items.map((item) => {
+              const isActive = item.exact
+                ? currentPath === item.url
+                : currentPath === item.url || (item.url !== '/admin' && currentPath.startsWith(item.url));
+
+              return (
+                <a
+                  href={item.url}
+                  class={`flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition-all ${
+                    isActive
+                      ? 'bg-amber-500 text-stone-950 shadow-md translate-x-1'
+                      : 'text-rose-200/80 hover:bg-rose-950/60 hover:text-white hover:translate-x-0.5'
+                  }`}
+                >
+                  <i class={`${item.icon} text-xs w-4 text-center ${isActive ? 'text-stone-950' : 'text-amber-400/80'}`}></i>
+                  <span class="truncate">{item.label}</span>
+                </a>
+              );
+            })}
+          </div>
+        ))}
+      </aside>
+
+      <!-- Main Content Area -->
+      <main class="flex-1 p-4 sm:p-6 lg:p-8 max-w-7xl overflow-x-hidden">
+        <slot />
+      </main>
+
+    </div>
+
+    <script>
+      // Sidebar mobile toggle
+      const toggle = document.getElementById('admin-sidebar-toggle');
+      const sidebar = document.getElementById('admin-sidebar');
+      if (toggle && sidebar) {
+        toggle.addEventListener('click', () => {
+          sidebar.classList.toggle('hidden');
+        });
+      }
+
+      // Load admin profile globally across all admin pages
+      function updateTopbarProfile() {
+        const stored = localStorage.getItem('vo_admin_profile');
+        if (stored) {
+          try {
+            const data = JSON.parse(stored);
+            const topbarName = document.getElementById('topbar-admin-name');
+            const topbarAvatar = document.getElementById('topbar-admin-avatar') as HTMLImageElement | null;
+            if (topbarName && data.name) topbarName.textContent = data.name;
+            if (topbarAvatar && data.avatar) topbarAvatar.src = data.avatar;
+          } catch (e) {
+            console.error(e);
+          }
+        }
+      }
+
+      updateTopbarProfile();
+
+      // Logout handler
+      document.getElementById('admin-logout-btn')?.addEventListener('click', () => {
+        sessionStorage.removeItem('vo_admin_logged_in');
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,110 @@
+---
+import Navbar from '../components/layout/Navbar.astro';
+import Breadcrumb from '../components/layout/Breadcrumb.astro';
+import type { BreadcrumbItem } from '../components/layout/Breadcrumb.astro';
+import Footer from '../components/layout/Footer.astro';
+import FloatingActions from '../components/layout/FloatingActions.astro';
+import { SITE_INFO } from '../data/defaultContent';
+import { generateWebSiteSchema, formatSEOTitle } from '../lib/seo';
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  canonicalUrl?: string;
+  ogImage?: string;
+  breadcrumbs?: BreadcrumbItem[];
+  noindex?: boolean;
+}
+
+const {
+  title = SITE_INFO.tagline,
+  description = SITE_INFO.description,
+  canonicalUrl = `${SITE_INFO.domain}${Astro.url.pathname}`,
+  ogImage = `${SITE_INFO.domain}/images/hero/hero-outbound.webp`,
+  breadcrumbs,
+  noindex = false,
+} = Astro.props;
+
+const currentPath = Astro.url.pathname;
+const pageTitle = formatSEOTitle(title);
+const websiteSchema = generateWebSiteSchema();
+---
+
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl} />
+
+    {noindex ? (
+      <meta name="robots" content="noindex, nofollow" />
+    ) : (
+      <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    )}
+
+    <!-- Favicon & Official Logo Icons -->
+    <link rel="icon" type="image/webp" href="/images/logo/logo-fix.webp" />
+    <link rel="apple-touch-icon" href="/images/logo/logo-fix.webp" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={SITE_INFO.brandName} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <!-- Google Fonts: Outfit & Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Font Awesome 6 Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <!-- WebSite Schema JSON-LD -->
+    <script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
+  </head>
+
+  <body class="min-h-screen flex flex-col font-sans antialiased text-white selection:bg-amber-500 selection:text-stone-950">
+    
+    <!-- Global Header & Navbar -->
+    <Navbar currentPath={currentPath} />
+
+    <!-- Breadcrumb (Placed cleanly right below Navbar on all public pages as required by PRD 6, 7.2, 20) -->
+    {breadcrumbs && (
+      <Breadcrumb items={breadcrumbs} />
+    )}
+
+    <!-- Main Content -->
+    <main id="main-content" class="flex-1">
+      <slot />
+    </main>
+
+    <!-- Global Footer -->
+    <Footer />
+
+    <!-- Floating Actions (WhatsApp + Back to top) -->
+    <FloatingActions pageTitle={title} />
+
+  </body>
+</html>

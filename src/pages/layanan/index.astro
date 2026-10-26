@@ -1,0 +1,110 @@
+---
+import PublicLayout from '../../layouts/PublicLayout.astro';
+import CategoryShowcase from '../../components/sections/CategoryShowcase.astro';
+import FAQAccordion from '../../components/sections/FAQAccordion.astro';
+import CTASection from '../../components/sections/CTASection.astro';
+import { SERVICES } from '../../data/defaultContent';
+
+const breadcrumbs = [
+  { name: 'Layanan' }
+];
+---
+
+<PublicLayout
+  title="Layanan Outbound &amp; Gathering | Vendor Outbound Batu Malang"
+  description="Katalog layanan outbound korporat, family gathering, outbound edukasi sekolah, dan wisata petualangan di kawasan Batu & Malang."
+  breadcrumbs={breadcrumbs}
+>
+  <!-- Hero Section -->
+  <section class="py-16 sm:py-24 relative overflow-hidden">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
+      <span class="text-xs font-bold uppercase tracking-widest text-amber-400">
+        Katalog Program
+      </span>
+      <h1 class="font-heading font-black text-3xl sm:text-5xl uppercase tracking-[0.14em] text-white">
+        LAYANAN OUTBOUND UTAMA
+      </h1>
+      <p class="text-base sm:text-lg text-rose-100/85 max-w-3xl mx-auto leading-relaxed">
+        Pilihan program kegiatan luar ruang yang disesuaikan secara profesional untuk kebutuhan korporasi, keluarga besar, instansi pendidikan, dan penikmat petualangan.
+      </p>
+    </div>
+  </section>
+
+  <!-- 4 Main Service Cards Detail View -->
+  <section class="py-12 border-t border-rose-900/40">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
+      
+      {SERVICES.map((service, index) => (
+        <div class={`rounded-2xl bg-[#480308]/60 border border-rose-700/35 overflow-hidden p-6 sm:p-8 flex flex-col lg:flex-row items-center gap-8 shadow-card hover:border-amber-400/50 transition-all ${
+          index % 2 === 1 ? 'lg:flex-row-reverse' : ''
+        }`}>
+          
+          <!-- Image -->
+          <div class="w-full lg:w-1/2 aspect-16/10 rounded-xl overflow-hidden bg-brand-950 flex-shrink-0 relative group">
+            <img
+              src={service.imageUrl}
+              alt={service.title}
+              width="600"
+              height="400"
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              loading="lazy"
+            />
+            <span class="absolute top-3 left-3 px-3 py-1 rounded bg-stone-900/85 backdrop-blur-sm text-xs font-bold uppercase tracking-wider text-amber-400 border border-amber-400/30">
+              0{index + 1} • {service.title}
+            </span>
+          </div>
+
+          <!-- Content -->
+          <div class="w-full lg:w-1/2 space-y-4 text-left">
+            <h2 class="font-heading font-black text-2xl sm:text-3xl uppercase tracking-wider text-white">
+              {service.title}
+            </h2>
+
+            <p class="text-sm text-rose-100/85 leading-relaxed">
+              {service.overview}
+            </p>
+
+            <div class="space-y-1.5 pt-2">
+              <span class="text-xs uppercase font-bold text-amber-400 tracking-wider">
+                Manfaat &amp; Tujuan Utama:
+              </span>
+              <ul class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-rose-200/80">
+                {service.benefits.map((b) => (
+                  <li class="flex items-center gap-2">
+                    <span class="text-amber-400 font-bold">✓</span>
+                    <span>{b}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div class="pt-4 flex items-center gap-4">
+              <a
+                href={`/layanan/${service.slug}`}
+                class="inline-flex items-center gap-2 px-6 py-3 rounded-md bg-amber-500 hover:bg-amber-400 text-stone-950 font-heading font-black text-xs uppercase tracking-wider shadow-md hover:scale-105 transition-all"
+              >
+                <span>Detail Layanan</span>
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7" />
+                </svg>
+              </a>
+            </div>
+
+          </div>
+
+        </div>
+      ))}
+
+    </div>
+  </section>
+
+  <!-- Categories Showcase Reference View -->
+  <CategoryShowcase />
+
+  <!-- FAQ Section -->
+  <FAQAccordion title="FAQ SEPUTAR LAYANAN OUTBOUND" />
+
+  <!-- CTA Section -->
+  <CTASection />
+
+</PublicLayout>

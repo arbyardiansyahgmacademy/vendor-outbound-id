@@ -1,0 +1,271 @@
+---
+import AdminLayout from '../../layouts/AdminLayout.astro';
+import { BLOG_POSTS } from '../../data/defaultContent';
+---
+
+<AdminLayout title="Kelola Artikel Blog">
+  <div class="space-y-6 text-left">
+    
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-rose-900/40">
+      <div>
+        <h1 class="font-heading font-black text-2xl uppercase tracking-wider text-white flex items-center gap-2.5">
+          <i class="fas fa-feather-alt text-amber-400"></i>
+          <span>KELOLA ARTIKEL BLOG &amp; TIPS</span>
+        </h1>
+        <p class="text-xs text-rose-300/80 mt-1">
+          Tulis, edit, pratinjau cuplikan SEO, dan atur status Draft/Published artikel karya Arby Ardiansyah (PRD Section 11.11).
+        </p>
+      </div>
+
+      <button
+        id="add-post-btn"
+        type="button"
+        class="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-stone-950 font-bold text-xs uppercase tracking-wider shadow"
+      >
+        <span>+ Tulis Artikel Baru</span>
+      </button>
+    </div>
+
+    <div id="blog-alert" class="hidden p-3 rounded-lg text-xs font-bold"></div>
+
+    <!-- Table -->
+    <div class="rounded-2xl bg-[#300205]/90 border border-rose-700/40 overflow-hidden shadow-2xl">
+      <div class="overflow-x-auto">
+        <table class="w-full text-xs text-left">
+          <thead class="bg-[#240104] text-[10px] uppercase font-bold text-rose-300/80 border-b border-rose-900/60">
+            <tr>
+              <th class="py-3 px-4">Judul Artikel</th>
+              <th class="py-3 px-4">Kategori</th>
+              <th class="py-3 px-4">Penulis</th>
+              <th class="py-3 px-4">Waktu Baca</th>
+              <th class="py-3 px-4">Status</th>
+              <th class="py-3 px-4 text-right">Tindakan</th>
+            </tr>
+          </thead>
+          <tbody id="blog-tbody" class="divide-y divide-rose-900/30 text-rose-100">
+            <!-- Populated via script -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Modal Form (Blog Editor) -->
+    <dialog id="blog-modal" class="backdrop:bg-stone-950/80 bg-transparent p-4 max-w-2xl w-full mx-auto my-auto text-white focus:outline-none">
+      <div class="rounded-2xl bg-[#330206] border border-rose-600/50 p-6 shadow-2xl space-y-4 text-left">
+        <div class="flex items-center justify-between border-b border-rose-900/50 pb-3">
+          <h3 class="font-heading font-black text-lg text-white uppercase tracking-wider">
+            Editor Artikel Blog
+          </h3>
+          <button id="close-blog-modal-btn" type="button" class="text-rose-300 hover:text-white text-lg font-bold">✕</button>
+        </div>
+
+        <form id="blog-form" class="space-y-3.5">
+          <input type="hidden" id="blog-idx" />
+
+          <div>
+            <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200 mb-1">Judul Artikel</label>
+            <input type="text" id="b-title" required class="w-full px-3 py-2 rounded bg-stone-950/70 border border-rose-800 text-white text-xs focus:outline-none focus:border-amber-400" />
+          </div>
+
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200 mb-1">Slug URL</label>
+              <input type="text" id="b-slug" required class="w-full px-3 py-2 rounded bg-stone-950/70 border border-rose-800 text-white text-xs focus:outline-none focus:border-amber-400" />
+            </div>
+            <div>
+              <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200 mb-1">Kategori</label>
+              <select id="b-category" required class="w-full px-3 py-2 rounded bg-stone-950/70 border border-rose-800 text-white text-xs">
+                <option value="Panduan Outbound">Panduan Outbound</option>
+                <option value="Tips Gathering">Tips Gathering</option>
+                <option value="Info Lokasi">Info Lokasi</option>
+              </select>
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200 mb-1">
+              Answer-First Box (Ringkasan Inti Jawaban Cepat)
+            </label>
+            <textarea id="b-answer-first" rows="2" placeholder="Jawaban langsung terhadap pertanyaan utama (40-80 kata)..." class="w-full px-3 py-2 rounded bg-stone-950/70 border border-rose-800 text-white text-xs focus:outline-none focus:border-amber-400"></textarea>
+          </div>
+
+          <div>
+            <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200 mb-1">Ringkasan / Excerpt</label>
+            <textarea id="b-excerpt" rows="2" required class="w-full px-3 py-2 rounded bg-stone-950/70 border border-rose-800 text-white text-xs focus:outline-none focus:border-amber-400"></textarea>
+          </div>
+
+          <div>
+            <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200 mb-1">Isi Konten (Format Markdown)</label>
+            <textarea id="b-body" rows="6" required class="w-full px-3 py-2 rounded bg-stone-950/70 border border-rose-800 text-white text-xs font-mono focus:outline-none focus:border-amber-400"></textarea>
+          </div>
+
+          <div class="flex items-center justify-between pt-3 border-t border-rose-900/50">
+            <div class="flex items-center gap-2">
+              <label class="text-xs text-rose-300 font-bold">Status Publikasi:</label>
+              <select id="b-status" class="px-2 py-1 rounded bg-stone-950 border border-rose-800 text-amber-300 text-xs font-bold">
+                <option value="published">Published</option>
+                <option value="draft">Draft</option>
+              </select>
+            </div>
+
+            <div class="flex items-center gap-3">
+              <button type="button" id="cancel-blog-btn" class="px-4 py-2 rounded bg-stone-900 text-rose-300 text-xs font-bold">Batal</button>
+              <button type="submit" class="px-5 py-2 rounded bg-amber-500 hover:bg-amber-400 text-stone-950 font-bold text-xs uppercase">Simpan Artikel</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </dialog>
+
+  </div>
+
+  <script>
+    import { BLOG_POSTS } from '../../data/defaultContent';
+
+    const tbody = document.getElementById('blog-tbody');
+    const modal = document.getElementById('blog-modal') as HTMLDialogElement | null;
+    const form = document.getElementById('blog-form') as HTMLFormElement | null;
+    const alertBox = document.getElementById('blog-alert');
+    const titleInput = document.getElementById('b-title') as HTMLInputElement | null;
+    const slugInput = document.getElementById('b-slug') as HTMLInputElement | null;
+
+    function getPosts() {
+      const stored = localStorage.getItem('vo_blog');
+      return stored ? JSON.parse(stored) : BLOG_POSTS;
+    }
+
+    function savePosts(list: any[]) {
+      localStorage.setItem('vo_blog', JSON.stringify(list));
+      renderTable();
+    }
+
+    function renderTable() {
+      if (!tbody) return;
+      const list = getPosts();
+
+      tbody.innerHTML = list.map((post: any, idx: number) => `
+        <tr class="hover:bg-rose-950/40 transition-colors">
+          <td class="py-3 px-4 font-bold text-white max-w-sm">
+            <div class="truncate">${post.title}</div>
+            <div class="text-[10px] text-rose-300/70 font-mono">/blog/${post.slug}</div>
+          </td>
+          <td class="py-3 px-4 text-amber-300 font-semibold">${post.category}</td>
+          <td class="py-3 px-4 text-rose-200/80">${post.authorName}</td>
+          <td class="py-3 px-4 text-rose-300/70">${post.readingTimeMinutes} mnt</td>
+          <td class="py-3 px-4">
+            <span class="px-2 py-0.5 rounded text-[10px] font-bold ${
+              post.status === 'draft' ? 'bg-stone-800 text-rose-300' : 'bg-emerald-500/20 text-emerald-300'
+            }">
+              ${post.status === 'draft' ? 'Draft' : 'Published'}
+            </span>
+          </td>
+          <td class="py-3 px-4 text-right space-x-2">
+            <a href="/blog/${post.slug}" target="_blank" class="px-2 py-1 rounded bg-stone-900 text-rose-200 text-[10px]">
+              Lihat
+            </a>
+            <button class="edit-b-btn px-2.5 py-1 rounded bg-amber-500/20 hover:bg-amber-500 hover:text-stone-950 text-amber-300 text-[10px] font-bold border border-amber-500/40" data-idx="${idx}">
+              Edit
+            </button>
+            <button class="del-b-btn px-2.5 py-1 rounded bg-rose-950 hover:bg-rose-900 text-rose-300 text-[10px] border border-rose-800/40" data-idx="${idx}">
+              Hapus
+            </button>
+          </td>
+        </tr>
+      `).join('');
+
+      document.querySelectorAll<HTMLButtonElement>('.edit-b-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const idx = Number(btn.dataset.idx);
+          const item = list[idx];
+          if (item && modal) {
+            (document.getElementById('blog-idx') as HTMLInputElement).value = String(idx);
+            (document.getElementById('b-title') as HTMLInputElement).value = item.title;
+            (document.getElementById('b-slug') as HTMLInputElement).value = item.slug;
+            (document.getElementById('b-category') as HTMLSelectElement).value = item.category;
+            (document.getElementById('b-answer-first') as HTMLTextAreaElement).value = item.answerFirst || '';
+            (document.getElementById('b-excerpt') as HTMLTextAreaElement).value = item.excerpt;
+            (document.getElementById('b-body') as HTMLTextAreaElement).value = item.body;
+            (document.getElementById('b-status') as HTMLSelectElement).value = item.status || 'published';
+            modal.showModal();
+          }
+        });
+      });
+
+      document.querySelectorAll<HTMLButtonElement>('.del-b-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          if (confirm('Hapus artikel ini?')) {
+            const idx = Number(btn.dataset.idx);
+            list.splice(idx, 1);
+            savePosts(list);
+          }
+        });
+      });
+    }
+
+    renderTable();
+
+    // Auto-generate slug when title typed
+    titleInput?.addEventListener('input', () => {
+      const idx = (document.getElementById('blog-idx') as HTMLInputElement).value;
+      if (idx === '-1' && slugInput) {
+        slugInput.value = titleInput.value.toLowerCase().replace(/[^\w\s-]/g, '').replace(/\s+/g, '-');
+      }
+    });
+
+    document.getElementById('add-post-btn')?.addEventListener('click', () => {
+      form?.reset();
+      (document.getElementById('blog-idx') as HTMLInputElement).value = '-1';
+      modal?.showModal();
+    });
+
+    document.getElementById('close-blog-modal-btn')?.addEventListener('click', () => modal?.close());
+    document.getElementById('cancel-blog-btn')?.addEventListener('click', () => modal?.close());
+
+    form?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const list = getPosts();
+      const idx = Number((document.getElementById('blog-idx') as HTMLInputElement).value);
+      const title = (document.getElementById('b-title') as HTMLInputElement).value;
+      const slug = (document.getElementById('b-slug') as HTMLInputElement).value;
+      const category = (document.getElementById('b-category') as HTMLSelectElement).value;
+      const answerFirst = (document.getElementById('b-answer-first') as HTMLTextAreaElement).value;
+      const excerpt = (document.getElementById('b-excerpt') as HTMLTextAreaElement).value;
+      const body = (document.getElementById('b-body') as HTMLTextAreaElement).value;
+      const status = (document.getElementById('b-status') as HTMLSelectElement).value;
+
+      if (idx >= 0) {
+        list[idx] = { ...list[idx], title, slug, category, answerFirst, excerpt, body, status };
+      } else {
+        list.unshift({
+          id: 'post-' + Date.now(),
+          title,
+          slug,
+          excerpt,
+          body,
+          category,
+          authorName: 'Arby Ardiansyah',
+          authorAvatar: '/images/author-artikel/author-artikel-arby-ardiansyah.webp',
+          authorBio: 'Lead Outbound Consultant & Fasilitator Tersertifikasi BNSP di Batu Malang.',
+          thumbnailUrl: '/images/blog/panduan-lengkap-corporate-gathering-malang.webp',
+          imageAlt: title,
+          seoTitle: `${title} | Vendor Outbound`,
+          seoDescription: excerpt,
+          canonicalUrl: `https://vendoroutbound.id/blog/${slug}`,
+          publishedAt: new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' }),
+          readingTimeMinutes: Math.max(1, Math.ceil(body.split(' ').length / 200)),
+          answerFirst,
+          status
+        });
+      }
+
+      savePosts(list);
+      modal?.close();
+
+      if (alertBox) {
+        alertBox.className = 'p-3 rounded-lg text-xs font-bold bg-emerald-950 text-emerald-200 border border-emerald-500 block';
+        alertBox.textContent = '✓ Artikel berhasil disimpan!';
+        setTimeout(() => alertBox.classList.add('hidden'), 2500);
+      }
+    });
+  </script>
+</AdminLayout>

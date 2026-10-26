@@ -1,0 +1,100 @@
+---
+import { BLOG_POSTS } from '../../data/defaultContent';
+
+const featuredPosts = BLOG_POSTS.slice(0, 3);
+---
+
+<section class="py-16 sm:py-20 relative">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <div class="flex flex-col sm:flex-row items-center justify-between gap-4 mb-10 text-center sm:text-left">
+      <div>
+        <span class="text-xs font-bold uppercase tracking-widest text-amber-400">
+          Artikel &amp; Panduan
+        </span>
+        <h2 class="font-heading font-black text-2xl sm:text-3xl lg:text-4xl uppercase tracking-[0.16em] text-white mt-1">
+          BLOG TERBARU
+        </h2>
+      </div>
+
+      <a
+        href="/blog"
+        class="inline-flex items-center gap-2 px-4 py-2.5 rounded-md bg-brand-900/60 hover:bg-brand-800 text-amber-400 font-heading font-bold text-xs uppercase tracking-wider border border-amber-500/30 transition-all hover:scale-105"
+      >
+        <span>Lihat Semua Artikel</span>
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+        </svg>
+      </a>
+    </div>
+
+    <!-- 3 Article Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {featuredPosts.map((post) => (
+        <article class="rounded-xl bg-[#480308]/60 border border-rose-700/30 overflow-hidden flex flex-col hover:border-amber-400/50 transition-all duration-300 hover:-translate-y-1.5 shadow-card group">
+          
+          <a href={`/blog/${post.slug}`} class="aspect-16/10 w-full overflow-hidden block relative">
+            <img
+              src={post.thumbnailUrl}
+              alt={post.imageAlt}
+              width="500"
+              height="320"
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              loading="lazy"
+            />
+            <span class="absolute top-3 left-3 px-2.5 py-1 rounded bg-stone-900/85 backdrop-blur-sm text-[10px] font-bold uppercase tracking-wider text-amber-400 border border-amber-400/30">
+              {post.category}
+            </span>
+          </a>
+
+          <div class="p-5 flex-1 flex flex-col justify-between space-y-4">
+            <div class="space-y-2">
+              <div class="flex items-center gap-2 text-[11px] text-rose-300/70">
+                <span>{post.publishedAt}</span>
+                <span>•</span>
+                <span>{post.readingTimeMinutes} mnt baca</span>
+              </div>
+
+              <a href={`/blog/${post.slug}`} class="block group-hover:text-amber-400 transition-colors">
+                <h3 class="font-heading font-bold text-base sm:text-lg text-white leading-snug line-clamp-2">
+                  {post.title}
+                </h3>
+              </a>
+
+              <p class="text-xs text-rose-200/75 line-clamp-2 leading-relaxed">
+                {post.excerpt}
+              </p>
+            </div>
+
+            <div class="pt-3 border-t border-rose-900/40 flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <img
+                  src={post.authorAvatar || '/images/author-artikel/author-artikel-arby-ardiansyah.webp'}
+                  alt={post.authorName}
+                  width="22"
+                  height="22"
+                  class="w-5 h-5 rounded-full object-cover border border-amber-400/50"
+                  loading="lazy"
+                />
+                <span class="text-xs text-rose-300/80 font-medium">
+                  {post.authorName}
+                </span>
+              </div>
+              <a
+                href={`/blog/${post.slug}`}
+                class="inline-flex items-center gap-1 text-xs font-bold text-amber-400 group-hover:translate-x-1 transition-transform"
+              >
+                <span>Baca</span>
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7" />
+                </svg>
+              </a>
+            </div>
+          </div>
+
+        </article>
+      ))}
+    </div>
+
+  </div>
+</section>

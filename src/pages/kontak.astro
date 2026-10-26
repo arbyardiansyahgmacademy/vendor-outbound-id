@@ -1,0 +1,377 @@
+---
+import PublicLayout from '../layouts/PublicLayout.astro';
+import FAQAccordion from '../components/sections/FAQAccordion.astro';
+import CTASection from '../components/sections/CTASection.astro';
+import { SITE_INFO } from '../data/defaultContent';
+import { getWhatsAppUrl } from '../lib/utils';
+
+const breadcrumbs = [
+  { name: 'Kontak' }
+];
+
+const waDirectUrl = getWhatsAppUrl('Halo Vendor Outbound, saya ingin konsultasi langsung kebutuhan outbound di Batu Malang.');
+---
+
+<PublicLayout
+  title="Kontak & Konsultasi Outbound Batu Malang | Vendor Outbound"
+  description="Hubungi Vendor Outbound untuk konsultasi dan perencanaan kegiatan outbound korporat, gathering keluarga, dan petualangan di Batu Malang."
+  breadcrumbs={breadcrumbs}
+>
+  <!-- Hero Section -->
+  <section class="py-16 sm:py-24 relative overflow-hidden">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
+      <span class="text-xs font-bold uppercase tracking-widest text-amber-400">
+        Layanan Pelanggan
+      </span>
+      <h1 class="font-heading font-black text-3xl sm:text-5xl uppercase tracking-[0.14em] text-white">
+        KONTAK &amp; KONSULTASI
+      </h1>
+      <p class="text-base sm:text-lg text-rose-100/85 max-w-3xl mx-auto leading-relaxed">
+        Diskusikan rancangan kegiatan, pilihan lokasi pegunungan di Batu & Malang, dan penawaran program yang tepat untuk tim Anda.
+      </p>
+    </div>
+  </section>
+
+  <!-- Contact Form & Info Section -->
+  <section class="py-12 border-t border-rose-900/40">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-12 gap-12">
+      
+      <!-- Left: Form Konsultasi (PRD 8.7) -->
+      <div class="lg:col-span-7">
+        <div class="rounded-2xl bg-[#480308]/70 border border-rose-700/40 p-6 sm:p-10 shadow-2xl space-y-6">
+          <div class="space-y-1 text-left">
+            <h2 class="font-heading font-black text-xl sm:text-2xl uppercase tracking-wider text-white">
+              Formulir Permintaan Konsultasi
+            </h2>
+            <p class="text-xs text-rose-200/80">
+              Isi data di bawah ini. Tim kami akan segera menanggapi melalui WhatsApp resmi.
+            </p>
+          </div>
+
+          <!-- Alert Notification -->
+          <div id="form-alert" class="hidden p-4 rounded-lg text-xs font-bold"></div>
+
+          <form id="lead-form" class="space-y-4 text-left">
+            <!-- Honeypot Field for Spam Protection (PRD 8.7) -->
+            <div class="hidden" aria-hidden="true">
+              <label for="lead_hp">Jangan isi field ini:</label>
+              <input type="text" id="lead_hp" name="website_url_hp" tabindex="-1" autocomplete="off" />
+            </div>
+
+            <!-- Nama Lengkap -->
+            <div>
+              <label for="name" class="block text-xs font-bold uppercase tracking-wider text-rose-200 mb-1.5">
+                Nama Lengkap <span class="text-amber-400">*</span>
+              </label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                required
+                autocomplete="name"
+                placeholder="Contoh: Budi Santoso"
+                class="w-full px-4 py-3 rounded-lg bg-stone-950/60 border border-rose-800/50 text-white placeholder-rose-300/40 text-sm focus:outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400"
+              />
+            </div>
+
+            <!-- Nama Instansi / Perusahaan -->
+            <div>
+              <label for="organization" class="block text-xs font-bold uppercase tracking-wider text-rose-200 mb-1.5">
+                Nama Perusahaan / Komunitas / Sekolah (Opsional)
+              </label>
+              <input
+                type="text"
+                id="organization"
+                name="organization"
+                autocomplete="organization"
+                placeholder="Contoh: PT Nusantara Maju"
+                class="w-full px-4 py-3 rounded-lg bg-stone-950/60 border border-rose-800/50 text-white placeholder-rose-300/40 text-sm focus:outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400"
+              />
+            </div>
+
+            <!-- WhatsApp & Email Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label for="whatsapp" class="block text-xs font-bold uppercase tracking-wider text-rose-200 mb-1.5">
+                  Nomor WhatsApp <span class="text-amber-400">*</span>
+                </label>
+                <input
+                  type="tel"
+                  id="whatsapp"
+                  name="whatsapp"
+                  required
+                  inputmode="tel"
+                  autocomplete="tel"
+                  placeholder="Contoh: 081234567890"
+                  class="w-full px-4 py-3 rounded-lg bg-stone-950/60 border border-rose-800/50 text-white placeholder-rose-300/40 text-sm focus:outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400"
+                />
+              </div>
+
+              <div>
+                <label for="email" class="block text-xs font-bold uppercase tracking-wider text-rose-200 mb-1.5">
+                  Alamat Email (Opsional)
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  inputmode="email"
+                  autocomplete="email"
+                  placeholder="budi@example.com"
+                  class="w-full px-4 py-3 rounded-lg bg-stone-950/60 border border-rose-800/50 text-white placeholder-rose-300/40 text-sm focus:outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400"
+                />
+              </div>
+            </div>
+
+            <!-- Jenis Layanan -->
+            <div>
+              <label for="service_type" class="block text-xs font-bold uppercase tracking-wider text-rose-200 mb-1.5">
+                Kebutuhan Program <span class="text-amber-400">*</span>
+              </label>
+              <select
+                id="service_type"
+                name="service_type"
+                required
+                class="w-full px-4 py-3 rounded-lg bg-[#2B0104] border border-rose-800/50 text-white text-sm focus:outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400"
+              >
+                <option value="Outbound Perusahaan">Outbound Perusahaan & Team Building</option>
+                <option value="Family Gathering">Family Gathering Perusahaan / Komunitas</option>
+                <option value="Outbound Sekolah">Outbound Sekolah & LDKS Pelajar</option>
+                <option value="Wisata & Adventure">Wisata Adventure (Rafting, Offroad 4x4, Camping)</option>
+                <option value="Lainnya">Kebutuhan Program Kustom Lainnya</option>
+              </select>
+            </div>
+
+            <!-- Peserta, Tanggal & Lokasi Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div>
+                <label for="participant_count" class="block text-xs font-bold uppercase tracking-wider text-rose-200 mb-1.5">
+                  Est. Peserta (Orang)
+                </label>
+                <input
+                  type="number"
+                  id="participant_count"
+                  name="participant_count"
+                  min="5"
+                  placeholder="50"
+                  class="w-full px-4 py-3 rounded-lg bg-stone-950/60 border border-rose-800/50 text-white placeholder-rose-300/40 text-sm focus:outline-none focus:border-amber-400"
+                />
+              </div>
+
+              <div>
+                <label for="event_date" class="block text-xs font-bold uppercase tracking-wider text-rose-200 mb-1.5">
+                  Rencana Tanggal
+                </label>
+                <input
+                  type="date"
+                  id="event_date"
+                  name="event_date"
+                  class="w-full px-4 py-3 rounded-lg bg-stone-950/60 border border-rose-800/50 text-white text-sm focus:outline-none focus:border-amber-400"
+                />
+              </div>
+
+              <div>
+                <label for="preferred_location" class="block text-xs font-bold uppercase tracking-wider text-rose-200 mb-1.5">
+                  Area Pilihan
+                </label>
+                <input
+                  type="text"
+                  id="preferred_location"
+                  name="preferred_location"
+                  placeholder="Kota Batu / Malang"
+                  class="w-full px-4 py-3 rounded-lg bg-stone-950/60 border border-rose-800/50 text-white placeholder-rose-300/40 text-sm focus:outline-none focus:border-amber-400"
+                />
+              </div>
+            </div>
+
+            <!-- Pesan / Kebutuhan Khusus -->
+            <div>
+              <label for="message" class="block text-xs font-bold uppercase tracking-wider text-rose-200 mb-1.5">
+                Pesan &amp; Kebutuhan Khusus <span class="text-amber-400">*</span>
+              </label>
+              <textarea
+                id="message"
+                name="message"
+                required
+                rows="4"
+                placeholder="Jelaskan kebutuhan acara, target kegiatan, atau fasilitas khusus yang diharapkan..."
+                class="w-full px-4 py-3 rounded-lg bg-stone-950/60 border border-rose-800/50 text-white placeholder-rose-300/40 text-sm focus:outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400"
+              ></textarea>
+            </div>
+
+            <!-- Privacy Consent Checkbox (PRD 8.7 & 14) -->
+            <div class="flex items-start gap-2.5 pt-2">
+              <input
+                type="checkbox"
+                id="privacy_consent"
+                name="privacy_consent"
+                required
+                checked
+                class="mt-1 w-4 h-4 rounded bg-stone-950 border-rose-700 text-amber-500 focus:ring-amber-400"
+              />
+              <label for="privacy_consent" class="text-xs text-rose-200/80 leading-snug">
+                Saya menyetujui pemrosesan data di atas untuk keperluan komunikasi dan konsultasi program outbound sesuai <a href="/kebijakan-privasi" target="_blank" class="text-amber-400 underline">Kebijakan Privasi</a>.
+              </label>
+            </div>
+
+            <!-- Submit Button -->
+            <button
+              id="submit-lead-btn"
+              type="submit"
+              class="w-full py-4 rounded-md bg-amber-500 hover:bg-amber-400 text-stone-950 font-heading font-black text-xs uppercase tracking-wider shadow-glow-amber transition-all duration-200 flex items-center justify-center gap-2"
+            >
+              <span id="btn-text">Kirim Permintaan Konsultasi</span>
+              <svg id="btn-spinner" class="w-4 h-4 animate-spin hidden" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
+              </svg>
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Right: Official Contact Info -->
+      <div class="lg:col-span-5 space-y-6 text-left">
+        
+        <!-- WhatsApp Callout -->
+        <div class="rounded-2xl bg-gradient-to-br from-emerald-950/70 to-emerald-900/40 border-2 border-emerald-500/40 p-6 sm:p-8 space-y-4 shadow-xl">
+          <div class="w-12 h-12 rounded-xl bg-emerald-500 text-stone-950 flex items-center justify-center font-bold shadow-lg">
+            <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24">
+              <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.669-.699c.969.54 1.772.82 2.791.82 3.181 0 5.767-2.586 5.768-5.766 0-3.18-2.587-5.766-5.768-5.766zm9.969 5.766c0 5.514-4.486 10-10 10-1.823 0-3.539-.493-5.029-1.353l-6.971 1.822 1.854-6.782c-.933-1.536-1.467-3.329-1.467-5.247 0-5.514 4.486-10 10-10s10 4.486 10 10z"/>
+            </svg>
+          </div>
+
+          <h3 class="font-heading font-black text-xl text-white uppercase tracking-wider">
+            WhatsApp Resmi
+          </h3>
+          <p class="text-xs text-emerald-100/80 leading-relaxed">
+            Butuh penawaran kilat atau diskusi langsung via chat? Hubungi fasilitator kami di:
+          </p>
+          <div class="text-2xl font-heading font-black text-amber-300">
+            {SITE_INFO.whatsappDisplay}
+          </div>
+
+          <a
+            href={waDirectUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 px-5 py-3 rounded-md bg-emerald-500 hover:bg-emerald-400 text-stone-950 font-heading font-black text-xs uppercase tracking-wider transition-all"
+          >
+            <span>Buka WhatsApp Sekarang</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+            </svg>
+          </a>
+        </div>
+
+        <!-- Service Area Card -->
+        <div class="rounded-xl bg-[#450308]/60 border border-rose-700/35 p-6 space-y-3">
+          <h4 class="font-heading font-bold text-sm text-amber-400 uppercase tracking-wider">
+            Wilayah Operasional Utama
+          </h4>
+          <p class="text-xs text-rose-100/85 leading-relaxed">
+            {SITE_INFO.serviceAreas}. Kami melayani kegiatan di kawasan hutan pinus, resort outbound, rafting Kaliwatu &amp; Kasembon, serta area camping ground Batu Malang.
+          </p>
+        </div>
+
+        <!-- Operating Hours Card -->
+        <div class="rounded-xl bg-[#450308]/60 border border-rose-700/35 p-6 space-y-3">
+          <h4 class="font-heading font-bold text-sm text-amber-400 uppercase tracking-wider">
+            Jam Layanan Konsultasi
+          </h4>
+          <p class="text-xs text-rose-100/85 leading-relaxed">
+            Setiap hari: <span class="font-bold text-white">{SITE_INFO.operatingHours}</span>. Permintaan yang masuk di luar jam layanan akan ditindaklanjuti pada pagi hari berikutnya.
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <FAQAccordion title="FAQ SEPUTAR KONSULTASI & PEMESANAN" />
+
+  <!-- CTA Section -->
+  <CTASection />
+
+</PublicLayout>
+
+<script>
+  import { isSupabaseConfigured, supabase } from '../lib/supabase';
+
+  const form = document.getElementById('lead-form') as HTMLFormElement | null;
+  const alertBox = document.getElementById('form-alert');
+  const submitBtn = document.getElementById('submit-lead-btn') as HTMLButtonElement | null;
+  const btnText = document.getElementById('btn-text');
+  const btnSpinner = document.getElementById('btn-spinner');
+
+  if (form && alertBox && submitBtn && btnText && btnSpinner) {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      // Check honeypot for spam bot prevention (PRD 8.7)
+      const hp = (document.getElementById('lead_hp') as HTMLInputElement)?.value;
+      if (hp) {
+        console.warn('Spam submission detected');
+        return;
+      }
+
+      // Prevent double submit
+      submitBtn.disabled = true;
+      btnSpinner.classList.remove('hidden');
+      btnText.textContent = 'Menyimpan Permintaan...';
+
+      const formData = new FormData(form);
+      const leadData = {
+        name: formData.get('name')?.toString() || '',
+        organization: formData.get('organization')?.toString() || '',
+        whatsapp: formData.get('whatsapp')?.toString() || '',
+        email: formData.get('email')?.toString() || '',
+        service_type: formData.get('service_type')?.toString() || '',
+        participant_count: formData.get('participant_count') ? Number(formData.get('participant_count')) : null,
+        event_date: formData.get('event_date')?.toString() || null,
+        preferred_location: formData.get('preferred_location')?.toString() || '',
+        message: formData.get('message')?.toString() || '',
+        privacy_consent: formData.get('privacy_consent') === 'on',
+        status: 'Baru',
+        created_at: new Date().toISOString()
+      };
+
+      try {
+        // Save to Supabase if configured
+        if (isSupabaseConfigured && supabase) {
+          const { error } = await supabase.from('leads').insert([leadData]);
+          if (error) console.error('Supabase error:', error);
+        }
+
+        // Also save to LocalStorage leads cache so admin can review in browser right away
+        const localLeads = JSON.parse(localStorage.getItem('vo_leads') || '[]');
+        localLeads.unshift({ id: 'lead-' + Date.now(), ...leadData });
+        localStorage.setItem('vo_leads', JSON.stringify(localLeads));
+
+        // Show Success
+        alertBox.className = 'p-4 rounded-lg text-xs font-bold bg-emerald-950/80 text-emerald-200 border border-emerald-500/50 block';
+        alertBox.innerHTML = `
+          <div class="flex items-center gap-2 mb-1 text-sm font-heading font-black text-emerald-400">
+            ✓ Permintaan Berhasil Dikirim!
+          </div>
+          <p class="font-normal text-emerald-100">
+            Terima kasih, <strong>${leadData.name}</strong>. Data konsultasi Anda telah tersimpan. Ingin terhubung lebih cepat? 
+            <a href="https://wa.me/6282211221909?text=${encodeURIComponent(`Halo saya ${leadData.name}, telah mengisi form konsultasi untuk program ${leadData.service_type}.`)}" target="_blank" class="underline font-bold text-amber-300">Lanjutkan ke WhatsApp Resmi</a>.
+          </p>
+        `;
+
+        form.reset();
+      } catch (err) {
+        console.error('Lead error:', err);
+        alertBox.className = 'p-4 rounded-lg text-xs font-bold bg-rose-950 text-rose-200 border border-rose-600 block';
+        alertBox.textContent = 'Terjadi kendala saat mengirim. Silakan langsung chat via WhatsApp kami: +62 822-1122-1909';
+      } finally {
+        submitBtn.disabled = false;
+        btnSpinner.classList.add('hidden');
+        btnText.textContent = 'Kirim Permintaan Konsultasi';
+      }
+    });
+  }
+</script>

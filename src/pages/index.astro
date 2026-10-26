@@ -1,0 +1,55 @@
+---
+import PublicLayout from '../layouts/PublicLayout.astro';
+import Hero from '../components/sections/Hero.astro';
+import MenuHighlight from '../components/sections/MenuHighlight.astro';
+import CategoryShowcase from '../components/sections/CategoryShowcase.astro';
+import ProductGrid from '../components/sections/ProductGrid.astro';
+import AboutUsPreview from '../components/sections/AboutUsPreview.astro';
+import WhyChooseUs from '../components/sections/WhyChooseUs.astro';
+import GalleryPreview from '../components/sections/GalleryPreview.astro';
+import BlogPreview from '../components/sections/BlogPreview.astro';
+import TakeOutStrip from '../components/sections/TakeOutStrip.astro';
+import TestimonialsSection from '../components/sections/TestimonialsSection.astro';
+import FAQAccordion from '../components/sections/FAQAccordion.astro';
+import CTASection from '../components/sections/CTASection.astro';
+import { SITE_INFO } from '../data/defaultContent';
+---
+
+<PublicLayout
+  title="Vendor Outbound Batu Malang | Spesialis Team Building & Gathering"
+  description="Penyedia kegiatan outbound, corporate team building, family gathering, outbound edukasi sekolah, dan petualangan rafting offroad di Batu & Malang."
+>
+  <!-- 1. Hero Section (Crimson Reference Design with Circular Floating Visual) -->
+  <Hero />
+
+  <!-- 2. Our Services (Interactive highlight list with active white pill row) -->
+  <MenuHighlight />
+
+  <!-- 3. Mengapa Memilih Kami -->
+  <WhyChooseUs />
+
+  <!-- 4. Categories Showcase (Split card layout matching reference CATEGORIES) -->
+  <CategoryShowcase />
+
+  <!-- 5. Paket Pilihan Grid (4 vertical cards with circular photos & ratings matching reference PAKET PILIHAN) -->
+  <ProductGrid />
+
+  <!-- 6. About Us (Circular photo visual on left, content on right, and takeout strip directly underneath) -->
+  <AboutUsPreview />
+
+  <!-- 7. Galeri Preview (3-column square grid with accessible lightbox modal) -->
+  <GalleryPreview />
+
+  <!-- 8. Tiga Card Blog -->
+  <BlogPreview />
+
+  <!-- 9. Testimoni Klien (3 Card Ulasan Nyata) -->
+  <TestimonialsSection />
+
+  <!-- 10. Informasi Praktis (FAQ Section) -->
+  <FAQAccordion />
+
+  <!-- 11. CTA Section (Card CTA Crimson with dual buttons) -->
+  <CTASection />
+
+</PublicLayout>

@@ -1,0 +1,59 @@
+---
+import { SITE_INFO } from '../../data/defaultContent';
+import { getWhatsAppUrl } from '../../lib/utils';
+
+interface Props {
+  title?: string;
+  description?: string;
+  buttonText?: string;
+  customMessage?: string;
+}
+
+const {
+  title = 'Siap Menghadirkan Momen Outbound Terbaik untuk Tim Anda?',
+  description = 'Diskusikan kebutuhan program outbound, family gathering, rafting, dan offroad di Batu & Malang bersama tim Vendor Outbound sekarang juga.',
+  buttonText = 'Konsultasi via WhatsApp',
+  customMessage = 'Halo Vendor Outbound, saya ingin konsultasi pemesanan paket outbound & gathering.',
+} = Astro.props;
+
+const waUrl = getWhatsAppUrl(customMessage);
+---
+
+<!-- CARD CTA SECTION (MATCHING REFERENCE DESIGN) -->
+<section class="section-crimson" style="padding-bottom: 90px;">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+    
+    <div class="card-cta-crimson">
+      <h2 style="font-family: var(--font-heading); font-size: clamp(1.8rem, 3.5vw, 2.5rem); font-weight: 800; color: #ffffff; margin-bottom: 14px;">
+        {title}
+      </h2>
+
+      <p style="font-size: 1.05rem; color: rgba(255,255,255,0.85); max-width: 580px; margin: 0 auto 28px auto; line-height: 1.7;">
+        {description}
+      </p>
+
+      <div class="flex items-center justify-center flex-wrap gap-4">
+        <a
+          class="btn-hero-order"
+          href={waUrl}
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          <span class="btn-icon-box"><i class="fab fa-whatsapp"></i></span>
+          <span class="btn-text-box">
+            <span class="btn-text-main">{buttonText}</span>
+            <span class="btn-text-sub">Bebas Tanya Jadwal &amp; Estimasi Peserta</span>
+          </span>
+        </a>
+
+        <a class="btn-hero-secondary" href="/paket">
+          <i class="fas fa-boxes-packing me-2"></i>
+          <span>Lihat Pilihan Paket</span>
+          <i class="fas fa-arrow-right ms-2"></i>
+        </a>
+      </div>
+    </div>
+
+  </div>
+</section>
+

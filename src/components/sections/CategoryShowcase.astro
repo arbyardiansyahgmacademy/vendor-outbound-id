@@ -1,0 +1,62 @@
+---
+import { SERVICES } from '../../data/defaultContent';
+
+// Use the 4 main services matching PRD Section 8.3
+---
+
+<section class="py-16 sm:py-20 relative">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <!-- Title (Uppercase with wide tracking matching reference) -->
+    <div class="text-center mb-10">
+      <h2 class="font-heading font-black text-2xl sm:text-3xl lg:text-4xl uppercase tracking-[0.18em] text-white">
+        CATEGORIES
+      </h2>
+      <p class="text-xs uppercase tracking-widest text-amber-400 mt-2 font-semibold">
+        4 Pilar Layanan Outbound di Batu &amp; Malang
+      </p>
+    </div>
+
+    <!-- Category Cards (Split layout with title on left and circular dish/photo on right) -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {SERVICES.map((service) => (
+        <a
+          href={`/layanan/${service.slug}`}
+          class="group relative rounded-xl bg-gradient-to-r from-[#4A0308] to-[#69050F] border border-rose-700/40 hover:border-amber-400/60 p-5 sm:p-6 flex items-center justify-between gap-4 overflow-hidden shadow-card transition-all duration-300 hover:scale-[1.02]"
+        >
+          <!-- Left Text Content -->
+          <div class="space-y-2 z-10 max-w-[60%]">
+            <span class="text-[10px] font-bold uppercase tracking-widest text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded border border-amber-400/20">
+              Layanan Utama
+            </span>
+            <h3 class="font-heading font-black text-lg sm:text-xl uppercase tracking-wider text-white group-hover:text-amber-300 transition-colors">
+              {service.title}
+            </h3>
+            <p class="text-xs text-rose-200/75 line-clamp-2">
+              {service.excerpt}
+            </p>
+            <div class="inline-flex items-center gap-1.5 text-xs font-bold text-amber-400 pt-1 group-hover:translate-x-1 transition-transform">
+              <span>Lihat Detail</span>
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7" />
+              </svg>
+            </div>
+          </div>
+
+          <!-- Right Circular Photo Cutout (Matching the dish thumbnail style in reference image) -->
+          <div class="relative w-28 h-28 sm:w-36 sm:h-36 rounded-full p-1.5 bg-gradient-to-tr from-brand-700 to-amber-500/40 border border-rose-400/30 shadow-lg flex-shrink-0 group-hover:rotate-6 transition-transform duration-500">
+            <img
+              src={service.imageUrl}
+              alt={service.title}
+              width="200"
+              height="200"
+              class="w-full h-full object-cover rounded-full shadow-inner"
+              loading="lazy"
+            />
+          </div>
+        </a>
+      ))}
+    </div>
+
+  </div>
+</section>

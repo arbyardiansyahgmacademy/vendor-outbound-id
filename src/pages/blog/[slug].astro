@@ -1,0 +1,59 @@
+---
+import ArticleLayout from '../../layouts/ArticleLayout.astro';
+import { BLOG_POSTS } from '../../data/defaultContent';
+import type { BlogPostItem } from '../../data/defaultContent';
+
+export function getStaticPaths() {
+  return BLOG_POSTS.map((post) => ({
+    params: { slug: post.slug },
+    props: { article: post },
+  }));
+}
+
+interface Props {
+  article: BlogPostItem;
+}
+
+const { article } = Astro.props;
+
+// Render content: if article body contains rich HTML, output directly
+// Otherwise parse markdown cleanly into semantic tags with IDs
+function renderArticleContent(body: string) {
+  if (body.includes('<h2') || body.includes('<div') || body.includes('<figure')) {
+    return body;
+  }
+
+  let html = body;
+  html = html.replace(/^## (.*$)/gim, (match, title) => {
+    const id = title.trim().toLowerCase().replace(/[^\w\s-]/g, '').replace(/\s+/g, '-');
+    return `<h2 id="${id}">${title}</h2>`;
+  });
+  html = html.replace(/^### (.*$)/gim, (match, title) => {
+    const id = title.trim().toLowerCase().replace(/[^\w\s-]/g, '').replace(/\s+/g, '-');
+    return `<h3 id="${id}">${title}</h3>`;
+  });
+  html = html.split('\n\n').map(p => {
+    p = p.trim();
+    if (!p) return '';
+    if (p.startsWith('<h2') || p.startsWith('<h3') || p.startsWith('<div') || p.startsWith('<figure') || p.startsWith('<ul') || p.startsWith('<ol')) {
+      return p;
+    }
+    if (p.startsWith('- ') || p.startsWith('1. ')) {
+      const items = p.split('\n').map(li => {
+        const clean = li.replace(/^[-*]|\d+\.\s*/, '').trim();
+        return `<li>${clean}</li>`;
+      }).join('');
+      return `<ul>${items}</ul>`;
+    }
+    return `<p>${p.replace(/\n/g, '<br />')}</p>`;
+  }).join('\n');
+
+  return html;
+}
+
+const renderedContent = renderArticleContent(article.body);
+---
+
+<ArticleLayout article={article}>
+  <div set:html={renderedContent} />
+</ArticleLayout>

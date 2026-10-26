@@ -1,0 +1,101 @@
+---
+import { getWhatsAppUrl } from '../../lib/utils';
+
+const menuItems = [
+  {
+    id: 1,
+    title: 'OUTBOUND CORPORATE',
+    icons: ['fas fa-users', 'fas fa-trophy'],
+    desc: 'Simulasi team building terstruktur, penguatan kepemimpinan, dan sinergi komunikasi lintas divisi di resort & pinus Batu.',
+    link: '/layanan/outbound-perusahaan',
+    waText: 'Halo Vendor Outbound, saya ingin konsultasi Outbound Corporate Perusahaan.',
+    isActive: false,
+  },
+  {
+    id: 2,
+    title: 'FAMILY GATHERING CERIA',
+    icons: ['fas fa-people-roof', 'fas fa-sun'],
+    desc: 'Rekreasi kebersamaan ceria ramah anak hingga lansia dengan fun games menyenangkan dan jamuan hangat di alam terbuka.',
+    link: '/layanan/family-gathering',
+    waText: 'Halo Vendor Outbound, saya ingin konsultasi Paket Family Gathering.',
+    isActive: true, // Default active white pill card
+  },
+  {
+    id: 3,
+    title: 'OUTBOUND SEKOLAH & LDKS',
+    icons: ['fas fa-graduation-cap', 'fas fa-campground'],
+    desc: 'Character building, kedisiplinan pelajar, kepemimpinan siswa, serta edukasi konservasi lingkungan alam pegunungan.',
+    link: '/layanan/outbound-sekolah',
+    waText: 'Halo Vendor Outbound, saya ingin konsultasi Outbound Sekolah & LDKS.',
+    isActive: false,
+  },
+  {
+    id: 4,
+    title: 'WISATA RAFTING & OFFROAD 4X4',
+    icons: ['fas fa-water', 'fas fa-truck-monster'],
+    desc: 'Pacu adrenalin mengarungi jeram sungai Kasembon/Kaliwatu serta jelajah alam lintasan berlumpur jeep offroad Kota Batu.',
+    link: '/layanan/wisata-adventure',
+    waText: 'Halo Vendor Outbound, saya ingin konsultasi Wisata Rafting & Offroad Batu.',
+    isActive: false,
+  }
+];
+---
+
+<!-- "OUR SERVICES" SECTION (LIST BARS WITH WHITE ACTIVE PILL) -->
+<section class="section-crimson" id="our-services">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <div class="section-title-wrap">
+      <h2 class="section-main-heading">OUR SERVICES</h2>
+      <p class="section-sub-heading">Pilihan paket outbound dan petualangan terfavorit di Kota Batu &amp; Malang</p>
+    </div>
+
+    <div class="menu-rows-container">
+      {menuItems.map((item) => {
+        const itemWaUrl = getWhatsAppUrl(item.waText);
+        return (
+          <div class={`menu-row-item ${item.isActive ? 'active' : ''}`} data-menu-id={item.id}>
+            <div class="menu-row-title-wrap">
+              <span class="menu-row-name">{item.title}</span>
+              <div class="menu-row-icons">
+                {item.icons.map((ic) => (
+                  <i class={ic}></i>
+                ))}
+              </div>
+            </div>
+            
+            <p class="menu-row-desc">{item.desc}</p>
+            
+            <a
+              aria-label={`Pesan ${item.title}`}
+              class="btn-row-action"
+              href={itemWaUrl}
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <i class="fab fa-whatsapp"></i>
+              <span>Pesan Layanan</span>
+            </a>
+          </div>
+        );
+      })}
+    </div>
+
+  </div>
+</section>
+
+<script>
+  // Interactive Active Menu Rows (Hover & Click Switch)
+  const menuRows = document.querySelectorAll('.menu-row-item');
+  menuRows.forEach((row) => {
+    row.addEventListener('mouseenter', () => {
+      menuRows.forEach((r) => r.classList.remove('active'));
+      row.classList.add('active');
+    });
+    row.addEventListener('click', () => {
+      menuRows.forEach((r) => r.classList.remove('active'));
+      row.classList.add('active');
+    });
+  });
+</script>
+

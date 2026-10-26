@@ -1,0 +1,45 @@
+---
+import PublicLayout from '../layouts/PublicLayout.astro';
+import GalleryGrid from '../components/gallery/GalleryGrid.astro';
+import FAQAccordion from '../components/sections/FAQAccordion.astro';
+import CTASection from '../components/sections/CTASection.astro';
+
+const breadcrumbs = [
+  { name: 'Galeri' }
+];
+---
+
+<PublicLayout
+  title="Galeri Dokumentasi Outbound Batu Malang | Vendor Outbound"
+  description="Dokumentasi foto asli kegiatan outbound perusahaan, family gathering, outbound sekolah, dan wisata adventure di kawasan Batu & Malang."
+  breadcrumbs={breadcrumbs}
+>
+  <!-- Hero Section -->
+  <section class="py-16 sm:py-24 relative overflow-hidden">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
+      <span class="text-xs font-bold uppercase tracking-widest text-amber-400">
+        Dokumentasi Lapangan
+      </span>
+      <h1 class="font-heading font-black text-3xl sm:text-5xl uppercase tracking-[0.14em] text-white">
+        GALERI DOKUMENTASI KEGIATAN
+      </h1>
+      <p class="text-base sm:text-lg text-rose-100/85 max-w-3xl mx-auto leading-relaxed">
+        Cuplikan momen kebersamaan, semangat kerja sama, dan keceriaan peserta di aneka venue alam terbuka Kota Batu dan Malang.
+      </p>
+    </div>
+  </section>
+
+  <!-- Interactive Gallery Grid with Lightbox -->
+  <section class="py-12 border-t border-rose-900/40">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <GalleryGrid />
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <FAQAccordion title="FAQ SEPUTAR DOKUMENTASI KEGIATAN" />
+
+  <!-- CTA Section -->
+  <CTASection />
+
+</PublicLayout>

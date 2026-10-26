@@ -1,0 +1,610 @@
+---
+import AdminLayout from '../../../layouts/AdminLayout.astro';
+---
+
+<AdminLayout title="Kelola Semua Halaman">
+  <div class="space-y-6 text-left">
+    
+    <!-- Header -->
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-rose-900/40">
+      <div>
+        <h1 class="font-heading font-black text-2xl uppercase tracking-wider text-white flex items-center gap-2.5">
+          <i class="fas fa-layer-group text-amber-400"></i>
+          <span>MASTER KELOLA SEMUA HALAMAN</span>
+        </h1>
+        <p class="text-xs text-rose-300/80 mt-1">
+          Daftar lengkap seluruh halaman website. Anda dapat mengedit konten setiap halaman spesifik atau membuat halaman kustom baru (PRD Section 11.5 & 12.2).
+        </p>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <button
+          type="button"
+          id="btn-add-custom-page"
+          class="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-stone-950 font-bold text-xs uppercase tracking-wider shadow transition-all hover:scale-105"
+        >
+          <i class="fas fa-plus"></i>
+          <span>+ Buat Halaman Baru</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Alert Box -->
+    <div id="pages-alert" class="hidden p-3 rounded-lg text-xs font-bold transition-all"></div>
+
+    <!-- Filter & Search Bar -->
+    <div class="flex flex-col sm:flex-row items-center justify-between gap-3 bg-[#2D0206] p-3.5 rounded-xl border border-rose-800/40">
+      <div class="relative w-full sm:w-72">
+        <input
+          type="text"
+          id="search-page-input"
+          placeholder="Cari halaman atau URL slug..."
+          class="w-full px-3.5 py-2 pl-9 rounded-lg bg-stone-950/70 border border-rose-800/60 text-white text-xs placeholder-rose-300/40 focus:outline-none focus:border-amber-400"
+        />
+        <i class="fas fa-search absolute left-3 top-2.5 text-rose-400 text-xs"></i>
+      </div>
+
+      <div class="flex items-center gap-2 w-full sm:w-auto">
+        <span class="text-[11px] text-rose-300 font-semibold uppercase tracking-wider">Status:</span>
+        <select
+          id="filter-status-select"
+          class="px-3 py-1.5 rounded-lg bg-stone-950/70 border border-rose-800/60 text-rose-200 text-xs focus:outline-none focus:border-amber-400"
+        >
+          <option value="all">Semua Status</option>
+          <option value="published">Published</option>
+          <option value="draft">Draft</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Table of Pages -->
+    <div class="rounded-2xl bg-[#300205]/90 border border-rose-700/40 overflow-hidden shadow-2xl">
+      <div class="overflow-x-auto">
+        <table class="w-full text-xs text-left">
+          <thead class="bg-[#240104] text-[10px] uppercase font-bold text-rose-300/80 border-b border-rose-900/60">
+            <tr>
+              <th class="py-3 px-4">Nama Halaman</th>
+              <th class="py-3 px-4">URL Slug</th>
+              <th class="py-3 px-4">Tipe / Kategori</th>
+              <th class="py-3 px-4">Status</th>
+              <th class="py-3 px-4">Terakhir Diperbarui</th>
+              <th class="py-3 px-4 text-right">Tindakan</th>
+            </tr>
+          </thead>
+          <tbody id="pages-tbody" class="divide-y divide-rose-900/30 text-rose-100">
+            <!-- Populated via script -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Quick Shortcuts Card Grid -->
+    <div class="space-y-3 pt-4">
+      <h3 class="font-heading font-bold text-xs uppercase tracking-wider text-amber-400">
+        Akses Cepat Editor Halaman Utama:
+      </h3>
+      <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-5 gap-3">
+        <a href="/admin/halaman/beranda" class="p-3 rounded-xl bg-brand-950/70 border border-rose-800/40 hover:border-amber-400/60 text-center hover:bg-rose-950 transition-all group">
+          <i class="fas fa-home text-amber-400 text-base mb-1 block group-hover:scale-110 transition-transform"></i>
+          <span class="text-xs font-bold text-white block">Beranda</span>
+          <span class="text-[10px] text-rose-300/70">Hero, Service, &amp; Paket</span>
+        </a>
+        <a href="/admin/layanan" class="p-3 rounded-xl bg-brand-950/70 border border-rose-800/40 hover:border-amber-400/60 text-center hover:bg-rose-950 transition-all group">
+          <i class="fas fa-briefcase text-amber-400 text-base mb-1 block group-hover:scale-110 transition-transform"></i>
+          <span class="text-xs font-bold text-white block">Layanan</span>
+          <span class="text-[10px] text-rose-300/70">4 Layanan Outbound</span>
+        </a>
+        <a href="/admin/paket" class="p-3 rounded-xl bg-brand-950/70 border border-rose-800/40 hover:border-amber-400/60 text-center hover:bg-rose-950 transition-all group">
+          <i class="fas fa-box-open text-amber-400 text-base mb-1 block group-hover:scale-110 transition-transform"></i>
+          <span class="text-xs font-bold text-white block">Paket Pilihan</span>
+          <span class="text-[10px] text-rose-300/70">16 Paket Outbound</span>
+        </a>
+        <a href="/admin/galeri" class="p-3 rounded-xl bg-brand-950/70 border border-rose-800/40 hover:border-amber-400/60 text-center hover:bg-rose-950 transition-all group">
+          <i class="fas fa-camera-retro text-amber-400 text-base mb-1 block group-hover:scale-110 transition-transform"></i>
+          <span class="text-xs font-bold text-white block">Galeri Foto</span>
+          <span class="text-[10px] text-rose-300/70">Dokumentasi Media</span>
+        </a>
+        <a href="/admin/halaman/tentang-kami" class="p-3 rounded-xl bg-brand-950/70 border border-rose-800/40 hover:border-amber-400/60 text-center hover:bg-rose-950 transition-all group">
+          <i class="fas fa-users text-amber-400 text-base mb-1 block group-hover:scale-110 transition-transform"></i>
+          <span class="text-xs font-bold text-white block">Tentang Kami</span>
+          <span class="text-[10px] text-rose-300/70">Profil &amp; Dedikasi</span>
+        </a>
+        <a href="/admin/halaman/kontak" class="p-3 rounded-xl bg-brand-950/70 border border-rose-800/40 hover:border-amber-400/60 text-center hover:bg-rose-950 transition-all group">
+          <i class="fas fa-phone-alt text-amber-400 text-base mb-1 block group-hover:scale-110 transition-transform"></i>
+          <span class="text-xs font-bold text-white block">Kontak</span>
+          <span class="text-[10px] text-rose-300/70">WhatsApp &amp; Lokasi</span>
+        </a>
+        <a href="/admin/blog" class="p-3 rounded-xl bg-brand-950/70 border border-rose-800/40 hover:border-amber-400/60 text-center hover:bg-rose-950 transition-all group">
+          <i class="fas fa-feather-alt text-amber-400 text-base mb-1 block group-hover:scale-110 transition-transform"></i>
+          <span class="text-xs font-bold text-white block">Blog &amp; Tips</span>
+          <span class="text-[10px] text-rose-300/70">Artikel Arby Ardiansyah</span>
+        </a>
+        <a href="/admin/testimoni" class="p-3 rounded-xl bg-brand-950/70 border border-rose-800/40 hover:border-amber-400/60 text-center hover:bg-rose-950 transition-all group">
+          <i class="fas fa-comment-dots text-amber-400 text-base mb-1 block group-hover:scale-110 transition-transform"></i>
+          <span class="text-xs font-bold text-white block">Testimoni</span>
+          <span class="text-[10px] text-rose-300/70">Ulasan Nyata Klien</span>
+        </a>
+        <a href="/admin/faq" class="p-3 rounded-xl bg-brand-950/70 border border-rose-800/40 hover:border-amber-400/60 text-center hover:bg-rose-950 transition-all group">
+          <i class="fas fa-question-circle text-amber-400 text-base mb-1 block group-hover:scale-110 transition-transform"></i>
+          <span class="text-xs font-bold text-white block">FAQ</span>
+          <span class="text-[10px] text-rose-300/70">Tanya Jawab Layanan</span>
+        </a>
+        <a href="/admin/halaman/legal" class="p-3 rounded-xl bg-brand-950/70 border border-rose-800/40 hover:border-amber-400/60 text-center hover:bg-rose-950 transition-all group">
+          <i class="fas fa-balance-scale text-amber-400 text-base mb-1 block group-hover:scale-110 transition-transform"></i>
+          <span class="text-xs font-bold text-white block">Legalitas</span>
+          <span class="text-[10px] text-rose-300/70">Privasi &amp; Syarat</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Modal Buat / Edit Halaman Kustom -->
+    <dialog id="page-modal" class="backdrop:bg-stone-950/80 bg-transparent p-4 max-w-2xl w-full mx-auto my-auto text-white focus:outline-none">
+      <div class="rounded-2xl bg-[#330206] border border-rose-600/50 p-6 shadow-2xl space-y-4 text-left">
+        <div class="flex items-center justify-between border-b border-rose-900/50 pb-3">
+          <h3 id="page-modal-title" class="font-heading font-black text-lg text-white uppercase tracking-wider">
+            Buat Halaman Kustom Baru
+          </h3>
+          <button id="close-page-modal-btn" type="button" class="text-rose-300 hover:text-white text-lg font-bold">✕</button>
+        </div>
+
+        <form id="custom-page-form" class="space-y-4">
+          <input type="hidden" id="p-id" />
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200 mb-1">
+                Judul Halaman <span class="text-amber-400">*</span>
+              </label>
+              <input
+                type="text"
+                id="p-title"
+                required
+                placeholder="Contoh: Paket Tour Bromo Midnight"
+                class="w-full px-3 py-2 rounded bg-stone-950/70 border border-rose-800 text-white text-xs focus:outline-none focus:border-amber-400"
+              />
+            </div>
+            <div>
+              <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200 mb-1">
+                URL Slug <span class="text-amber-400">*</span>
+              </label>
+              <input
+                type="text"
+                id="p-slug"
+                required
+                placeholder="contoh-paket-tour-bromo"
+                class="w-full px-3 py-2 rounded bg-stone-950/70 border border-rose-800 text-white text-xs font-mono focus:outline-none focus:border-amber-400"
+              />
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200 mb-1">
+                Kategori / Tipe Halaman
+              </label>
+              <select
+                id="p-type"
+                class="w-full px-3 py-2 rounded bg-stone-950/70 border border-rose-800 text-white text-xs focus:outline-none focus:border-amber-400"
+              >
+                <option value="Landing Page">Landing Page Promosi</option>
+                <option value="Paket Khusus">Paket Khusus / Event</option>
+                <option value="Informasi Umum">Informasi &amp; Edukasi</option>
+                <option value="Halaman Legal">Kebijakan &amp; Legal</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200 mb-1">
+                Status Publikasi
+              </label>
+              <select
+                id="p-status"
+                class="w-full px-3 py-2 rounded bg-stone-950/70 border border-rose-800 text-white text-xs focus:outline-none focus:border-amber-400"
+              >
+                <option value="published">Published (Tayang)</option>
+                <option value="draft">Draft (Disimpan Sementara)</option>
+              </select>
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200 mb-1">
+              Ringkasan Halaman (Excerpt)
+            </label>
+            <input
+              type="text"
+              id="p-excerpt"
+              placeholder="Deskripsi singkat untuk cuplikan dan kartu ringkasan"
+              class="w-full px-3 py-2 rounded bg-stone-950/70 border border-rose-800 text-white text-xs focus:outline-none focus:border-amber-400"
+            />
+          </div>
+
+          <div>
+            <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200 mb-1">
+              Isi Konten Halaman (HTML / Teks)
+            </label>
+            <textarea
+              id="p-content"
+              rows="5"
+              placeholder="Tuliskan struktur paragraf, daftar fasilitas, atau konten halaman di sini..."
+              class="w-full px-3 py-2 rounded bg-stone-950/70 border border-rose-800 text-white text-xs focus:outline-none focus:border-amber-400 font-mono"
+            ></textarea>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2 border-t border-rose-900/50">
+            <div>
+              <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200 mb-1">
+                Meta SEO Title
+              </label>
+              <input
+                type="text"
+                id="p-seo-title"
+                placeholder="Judul SEO untuk Google Search"
+                class="w-full px-3 py-2 rounded bg-stone-950/70 border border-rose-800 text-white text-xs focus:outline-none focus:border-amber-400"
+              />
+            </div>
+            <div>
+              <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200 mb-1">
+                Meta SEO Description
+              </label>
+              <input
+                type="text"
+                id="p-seo-desc"
+                placeholder="Deskripsi ringkas 150-160 karakter"
+                class="w-full px-3 py-2 rounded bg-stone-950/70 border border-rose-800 text-white text-xs focus:outline-none focus:border-amber-400"
+              />
+            </div>
+          </div>
+
+          <div class="flex items-center justify-end gap-3 pt-3 border-t border-rose-900/50">
+            <button
+              type="button"
+              id="cancel-page-btn"
+              class="px-4 py-2 rounded bg-rose-950 hover:bg-rose-900 text-rose-200 text-xs font-bold"
+            >
+              Batal
+            </button>
+            <button
+              type="submit"
+              class="px-5 py-2 rounded bg-amber-500 hover:bg-amber-400 text-stone-950 font-bold text-xs uppercase tracking-wider shadow"
+            >
+              Simpan Halaman
+            </button>
+          </div>
+        </form>
+      </div>
+    </dialog>
+
+  </div>
+
+  <script>
+    // Initial master list of all website pages
+    const DEFAULT_SYSTEM_PAGES = [
+      {
+        id: 'sys-beranda',
+        title: 'Halaman Beranda (Landing Page)',
+        slug: '/',
+        type: 'Landing Page',
+        status: 'published',
+        editorUrl: '/admin/halaman/beranda',
+        isSystem: true,
+        updatedAt: 'Terbaru'
+      },
+      {
+        id: 'sys-layanan',
+        title: 'Halaman Layanan Outbound',
+        slug: '/layanan',
+        type: 'Katalog Layanan',
+        status: 'published',
+        editorUrl: '/admin/layanan',
+        isSystem: true,
+        updatedAt: 'Terbaru'
+      },
+      {
+        id: 'sys-paket',
+        title: 'Halaman Paket Pilihan Outbound',
+        slug: '/paket',
+        type: 'Katalog Paket',
+        status: 'published',
+        editorUrl: '/admin/paket',
+        isSystem: true,
+        updatedAt: 'Terbaru'
+      },
+      {
+        id: 'sys-galeri',
+        title: 'Halaman Galeri Dokumentasi Foto',
+        slug: '/galeri',
+        type: 'Media Dokumentasi',
+        status: 'published',
+        editorUrl: '/admin/galeri',
+        isSystem: true,
+        updatedAt: 'Terbaru'
+      },
+      {
+        id: 'sys-tentang',
+        title: 'Halaman Tentang Kami',
+        slug: '/tentang-kami',
+        type: 'Profil Perusahaan',
+        status: 'published',
+        editorUrl: '/admin/halaman/tentang-kami',
+        isSystem: true,
+        updatedAt: 'Terbaru'
+      },
+      {
+        id: 'sys-kontak',
+        title: 'Halaman Kontak & WhatsApp',
+        slug: '/kontak',
+        type: 'Informasi Kontak',
+        status: 'published',
+        editorUrl: '/admin/halaman/kontak',
+        isSystem: true,
+        updatedAt: 'Terbaru'
+      },
+      {
+        id: 'sys-blog',
+        title: 'Halaman Artikel Blog & Tips',
+        slug: '/blog',
+        type: 'Blog / Berita',
+        status: 'published',
+        editorUrl: '/admin/blog',
+        isSystem: true,
+        updatedAt: 'Terbaru'
+      },
+      {
+        id: 'sys-testimoni',
+        title: 'Halaman Testimoni & Review Klien',
+        slug: '/admin/testimoni',
+        type: 'Social Proof',
+        status: 'published',
+        editorUrl: '/admin/testimoni',
+        isSystem: true,
+        updatedAt: 'Terbaru'
+      },
+      {
+        id: 'sys-faq',
+        title: 'Halaman FAQ Tanya Jawab',
+        slug: '/admin/faq',
+        type: 'Tanya Jawab',
+        status: 'published',
+        editorUrl: '/admin/faq',
+        isSystem: true,
+        updatedAt: 'Terbaru'
+      },
+      {
+        id: 'sys-privasi',
+        title: 'Halaman Kebijakan Privasi',
+        slug: '/kebijakan-privasi',
+        type: 'Legal',
+        status: 'published',
+        editorUrl: '/admin/halaman/legal',
+        isSystem: true,
+        updatedAt: 'Terbaru'
+      },
+      {
+        id: 'sys-syarat',
+        title: 'Halaman Syarat & Ketentuan',
+        slug: '/syarat-ketentuan',
+        type: 'Legal',
+        status: 'published',
+        editorUrl: '/admin/halaman/legal',
+        isSystem: true,
+        updatedAt: 'Terbaru'
+      }
+    ];
+
+    const tbody = document.getElementById('pages-tbody');
+    const alertBox = document.getElementById('pages-alert');
+    const modal = document.getElementById('page-modal') as HTMLDialogElement | null;
+    const form = document.getElementById('custom-page-form') as HTMLFormElement | null;
+    const searchInput = document.getElementById('search-page-input') as HTMLInputElement | null;
+    const statusSelect = document.getElementById('filter-status-select') as HTMLSelectElement | null;
+
+    function getCustomPages(): any[] {
+      const stored = localStorage.getItem('vo_custom_pages');
+      return stored ? JSON.parse(stored) : [];
+    }
+
+    function saveCustomPages(list: any[]) {
+      localStorage.setItem('vo_custom_pages', JSON.stringify(list));
+      renderTable();
+    }
+
+    function getAllPages(): any[] {
+      const custom = getCustomPages();
+      return [...DEFAULT_SYSTEM_PAGES, ...custom];
+    }
+
+    function showAlert(msg: string, isError = false) {
+      if (!alertBox) return;
+      alertBox.className = `p-3 rounded-lg text-xs font-bold border block shadow ${
+        isError ? 'bg-red-950 text-red-200 border-red-500' : 'bg-emerald-950 text-emerald-200 border-emerald-500'
+      }`;
+      alertBox.textContent = msg;
+      setTimeout(() => alertBox.classList.add('hidden'), 3000);
+    }
+
+    function renderTable() {
+      if (!tbody) return;
+      const all = getAllPages();
+      const q = (searchInput?.value || '').toLowerCase().trim();
+      const statusFilter = statusSelect?.value || 'all';
+
+      const filtered = all.filter((p) => {
+        const matchQ = p.title.toLowerCase().includes(q) || p.slug.toLowerCase().includes(q) || p.type.toLowerCase().includes(q);
+        const matchStatus = statusFilter === 'all' || p.status === statusFilter;
+        return matchQ && matchStatus;
+      });
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="6" class="py-6 text-center text-rose-400">Tidak ada halaman yang cocok dengan kriteria pencarian.</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = filtered.map((p) => `
+        <tr class="hover:bg-rose-950/40 transition-colors">
+          <td class="py-3 px-4 font-bold text-white">
+            <div class="flex items-center gap-2">
+              <span class="w-1.5 h-1.5 rounded-full ${p.isSystem ? 'bg-amber-400' : 'bg-cyan-400'}"></span>
+              <span>${p.title}</span>
+            </div>
+          </td>
+          <td class="py-3 px-4 font-mono text-amber-300 text-[11px]">${p.slug}</td>
+          <td class="py-3 px-4">
+            <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-brand-900/60 text-rose-200 border border-rose-800/40">
+              ${p.type}
+            </span>
+          </td>
+          <td class="py-3 px-4">
+            <span class="px-2 py-0.5 rounded text-[10px] font-bold ${
+              p.status === 'published' ? 'bg-emerald-500/20 text-emerald-300' : 'bg-amber-500/20 text-amber-300'
+            }">
+              ${p.status === 'published' ? 'Published' : 'Draft'}
+            </span>
+          </td>
+          <td class="py-3 px-4 text-rose-300/70 text-[11px]">${p.updatedAt || 'Terbaru'}</td>
+          <td class="py-3 px-4 text-right">
+            <div class="inline-flex items-center gap-1.5">
+              ${
+                p.editorUrl
+                  ? `<a href="${p.editorUrl}" class="px-2.5 py-1 rounded bg-amber-500/20 hover:bg-amber-500 hover:text-stone-950 text-amber-300 text-[11px] font-bold border border-amber-400/30 transition-colors">Edit Halaman</a>`
+                  : `<button type="button" class="btn-edit-custom px-2.5 py-1 rounded bg-amber-500/20 hover:bg-amber-500 hover:text-stone-950 text-amber-300 text-[11px] font-bold border border-amber-400/30 transition-colors" data-id="${p.id}">Edit</button>`
+              }
+              <a href="${p.slug}" target="_blank" class="px-2 py-1 rounded bg-brand-900/60 hover:bg-brand-800 text-rose-200 text-[11px] border border-rose-800/40" title="Pratinjau di Frontend">
+                <i class="fas fa-external-link-alt text-[10px]"></i>
+              </a>
+              ${
+                !p.isSystem
+                  ? `<button type="button" class="btn-del-custom px-2 py-1 rounded bg-red-950/60 hover:bg-red-800 text-red-300 text-[11px] border border-red-800/40" data-id="${p.id}" title="Hapus Halaman"><i class="fas fa-trash text-[10px]"></i></button>`
+                  : ''
+              }
+            </div>
+          </td>
+        </tr>
+      `).join('');
+
+      attachTableEvents();
+    }
+
+    function attachTableEvents() {
+      // Edit custom page
+      document.querySelectorAll('.btn-edit-custom').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const id = btn.getAttribute('data-id');
+          const custom = getCustomPages();
+          const target = custom.find((c) => c.id === id);
+          if (target && form && modal) {
+            (document.getElementById('p-id') as HTMLInputElement).value = target.id;
+            (document.getElementById('p-title') as HTMLInputElement).value = target.title;
+            (document.getElementById('p-slug') as HTMLInputElement).value = target.slug;
+            (document.getElementById('p-type') as HTMLSelectElement).value = target.type;
+            (document.getElementById('p-status') as HTMLSelectElement).value = target.status;
+            (document.getElementById('p-excerpt') as HTMLInputElement).value = target.excerpt || '';
+            (document.getElementById('p-content') as HTMLTextAreaElement).value = target.content || '';
+            (document.getElementById('p-seo-title') as HTMLInputElement).value = target.seoTitle || '';
+            (document.getElementById('p-seo-desc') as HTMLInputElement).value = target.seoDesc || '';
+
+            const modalTitle = document.getElementById('page-modal-title');
+            if (modalTitle) modalTitle.textContent = 'Edit Halaman: ' + target.title;
+            modal.showModal();
+          }
+        });
+      });
+
+      // Delete custom page
+      document.querySelectorAll('.btn-del-custom').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const id = btn.getAttribute('data-id');
+          if (confirm('Apakah Anda yakin ingin menghapus halaman kustom ini?')) {
+            let custom = getCustomPages();
+            custom = custom.filter((c) => c.id !== id);
+            saveCustomPages(custom);
+            showAlert('✓ Halaman kustom berhasil dihapus!');
+          }
+        });
+      });
+    }
+
+    // Add new custom page
+    document.getElementById('btn-add-custom-page')?.addEventListener('click', () => {
+      form?.reset();
+      (document.getElementById('p-id') as HTMLInputElement).value = '';
+      const modalTitle = document.getElementById('page-modal-title');
+      if (modalTitle) modalTitle.textContent = 'Buat Halaman Kustom Baru';
+      modal?.showModal();
+    });
+
+    document.getElementById('close-page-modal-btn')?.addEventListener('click', () => modal?.close());
+    document.getElementById('cancel-page-btn')?.addEventListener('click', () => modal?.close());
+
+    // Auto-slugify title
+    document.getElementById('p-title')?.addEventListener('input', (e) => {
+      const id = (document.getElementById('p-id') as HTMLInputElement).value;
+      if (!id) {
+        const val = (e.target as HTMLInputElement).value;
+        const slug = val.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+        (document.getElementById('p-slug') as HTMLInputElement).value = slug ? `/${slug}` : '';
+      }
+    });
+
+    // Form submit
+    form?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const id = (document.getElementById('p-id') as HTMLInputElement).value;
+      const title = (document.getElementById('p-title') as HTMLInputElement).value.trim();
+      let slug = (document.getElementById('p-slug') as HTMLInputElement).value.trim();
+      if (!slug.startsWith('/')) slug = `/${slug}`;
+      const type = (document.getElementById('p-type') as HTMLSelectElement).value;
+      const status = (document.getElementById('p-status') as HTMLSelectElement).value;
+      const excerpt = (document.getElementById('p-excerpt') as HTMLInputElement).value.trim();
+      const content = (document.getElementById('p-content') as HTMLTextAreaElement).value.trim();
+      const seoTitle = (document.getElementById('p-seo-title') as HTMLInputElement).value.trim();
+      const seoDesc = (document.getElementById('p-seo-desc') as HTMLInputElement).value.trim();
+
+      let custom = getCustomPages();
+
+      if (id) {
+        // Edit existing
+        const idx = custom.findIndex((c) => c.id === id);
+        if (idx >= 0) {
+          custom[idx] = {
+            ...custom[idx],
+            title,
+            slug,
+            type,
+            status,
+            excerpt,
+            content,
+            seoTitle,
+            seoDesc,
+            updatedAt: new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' })
+          };
+        }
+      } else {
+        // Add new
+        custom.push({
+          id: 'custom-page-' + Date.now(),
+          title,
+          slug,
+          type,
+          status,
+          excerpt,
+          content,
+          seoTitle,
+          seoDesc,
+          isSystem: false,
+          updatedAt: new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' })
+        });
+      }
+
+      saveCustomPages(custom);
+      modal?.close();
+      showAlert('✓ Halaman berhasil disimpan ke daftar master halaman!');
+    });
+
+    // Search and filter triggers
+    searchInput?.addEventListener('input', renderTable);
+    statusSelect?.addEventListener('change', renderTable);
+
+    // Initial render
+    renderTable();
+  </script>
+</AdminLayout>

@@ -1,0 +1,208 @@
+---
+import AdminLayout from '../../layouts/AdminLayout.astro';
+import { GALLERY_ITEMS } from '../../data/defaultContent';
+---
+
+<AdminLayout title="Kelola Galeri Foto">
+  <div class="space-y-6 text-left">
+    
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-rose-900/40">
+      <div>
+        <h1 class="font-heading font-black text-2xl uppercase tracking-wider text-white flex items-center gap-2.5">
+          <i class="fas fa-camera-retro text-amber-400"></i>
+          <span>GALERI DOKUMENTASI MEDIA</span>
+        </h1>
+        <p class="text-xs text-rose-300/80 mt-1">
+          Validasi format WebP wajib dan batas target ukuran &lt; 100 KB per gambar (PRD Section 10 & 11.10).
+        </p>
+      </div>
+
+      <button
+        id="open-upload-btn"
+        type="button"
+        class="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-stone-950 font-bold text-xs uppercase tracking-wider shadow"
+      >
+        <span>+ Upload Foto Baru</span>
+      </button>
+    </div>
+
+    <div id="gal-alert" class="hidden p-3 rounded-lg text-xs font-bold"></div>
+
+    <!-- Media Grid -->
+    <div id="gal-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- Populated via script -->
+    </div>
+
+    <!-- Upload Modal -->
+    <dialog id="upload-modal" class="backdrop:bg-stone-950/80 bg-transparent p-4 max-w-lg w-full mx-auto my-auto text-white focus:outline-none">
+      <div class="rounded-2xl bg-[#330206] border border-rose-600/50 p-6 shadow-2xl space-y-4 text-left">
+        <div class="flex items-center justify-between border-b border-rose-900/50 pb-3">
+          <h3 class="font-heading font-black text-lg text-white uppercase tracking-wider">
+            Upload Foto Galeri (Target &lt; 100 KB)
+          </h3>
+          <button id="close-upload-btn" type="button" class="text-rose-300 hover:text-white text-lg font-bold">✕</button>
+        </div>
+
+        <form id="upload-form" class="space-y-3.5">
+          <!-- File input with WebP validation -->
+          <div>
+            <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200 mb-1">
+              File Foto (Format WebP) <span class="text-amber-400">*</span>
+            </label>
+            <input
+              type="file"
+              id="file-input"
+              accept=".webp,image/webp"
+              required
+              class="w-full text-xs text-rose-300 file:mr-3 file:py-2 file:px-3 file:rounded file:border-0 file:text-xs file:font-bold file:bg-amber-500 file:text-stone-950 hover:file:bg-amber-400 cursor-pointer"
+            />
+            <div id="file-size-info" class="text-[11px] text-amber-300 mt-1 hidden"></div>
+          </div>
+
+          <div>
+            <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200 mb-1">Judul Foto</label>
+            <input type="text" id="g-title" required class="w-full px-3 py-2 rounded bg-stone-950/70 border border-rose-800 text-white text-xs focus:outline-none focus:border-amber-400" />
+          </div>
+
+          <div>
+            <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200 mb-1">Caption / Keterangan</label>
+            <textarea id="g-caption" rows="2" class="w-full px-3 py-2 rounded bg-stone-950/70 border border-rose-800 text-white text-xs focus:outline-none focus:border-amber-400"></textarea>
+          </div>
+
+          <div>
+            <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200 mb-1">Kategori Program</label>
+            <select id="g-category" required class="w-full px-3 py-2 rounded bg-stone-950/70 border border-rose-800 text-white text-xs">
+              <option value="Perusahaan">Perusahaan</option>
+              <option value="Family Gathering">Family Gathering</option>
+              <option value="Sekolah">Sekolah</option>
+              <option value="Wisata & Adventure">Wisata & Adventure</option>
+            </select>
+          </div>
+
+          <div class="flex items-center justify-end gap-3 pt-3 border-t border-rose-900/50">
+            <button type="button" id="cancel-upload-btn" class="px-4 py-2 rounded bg-stone-900 text-rose-300 text-xs font-bold">Batal</button>
+            <button type="submit" class="px-5 py-2 rounded bg-amber-500 hover:bg-amber-400 text-stone-950 font-bold text-xs uppercase">Simpan ke Galeri</button>
+          </div>
+        </form>
+      </div>
+    </dialog>
+
+  </div>
+
+  <script>
+    import { GALLERY_ITEMS } from '../../data/defaultContent';
+
+    const grid = document.getElementById('gal-grid');
+    const modal = document.getElementById('upload-modal') as HTMLDialogElement | null;
+    const form = document.getElementById('upload-form') as HTMLFormElement | null;
+    const fileInput = document.getElementById('file-input') as HTMLInputElement | null;
+    const sizeInfo = document.getElementById('file-size-info');
+    const alertBox = document.getElementById('gal-alert');
+
+    function getItems() {
+      const stored = localStorage.getItem('vo_gallery');
+      return stored ? JSON.parse(stored) : GALLERY_ITEMS;
+    }
+
+    function saveItems(list: any[]) {
+      localStorage.setItem('vo_gallery', JSON.stringify(list));
+      renderGrid();
+    }
+
+    function renderGrid() {
+      if (!grid) return;
+      const list = getItems();
+
+      grid.innerHTML = list.map((item: any, idx: number) => `
+        <div class="rounded-xl bg-[#300205]/80 border border-rose-700/40 overflow-hidden shadow-card p-4 space-y-3">
+          <div class="aspect-4/3 w-full overflow-hidden rounded-lg bg-black/50">
+            <img src="${item.imageUrl}" alt="${item.altText || item.title}" class="w-full h-full object-cover" />
+          </div>
+
+          <div>
+            <span class="text-[10px] uppercase font-bold text-amber-400">${item.category}</span>
+            <h4 class="font-bold text-white text-xs uppercase mt-0.5">${item.title}</h4>
+            <p class="text-[11px] text-rose-200/70 line-clamp-1 mt-0.5">${item.caption}</p>
+          </div>
+
+          <div class="pt-2 border-t border-rose-900/30 flex items-center justify-between text-xs">
+            <span class="text-[10px] text-emerald-400 font-semibold">WebP Valid</span>
+            <button class="del-gal-btn px-2.5 py-1 rounded bg-rose-950 hover:bg-rose-900 text-rose-300 text-[10px] border border-rose-800/40" data-idx="${idx}">
+              Hapus
+            </button>
+          </div>
+        </div>
+      `).join('');
+
+      document.querySelectorAll<HTMLButtonElement>('.del-gal-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          if (confirm('Hapus foto ini dari galeri?')) {
+            const idx = Number(btn.dataset.idx);
+            list.splice(idx, 1);
+            saveItems(list);
+          }
+        });
+      });
+    }
+
+    renderGrid();
+
+    fileInput?.addEventListener('change', () => {
+      const file = fileInput.files?.[0];
+      if (file && sizeInfo) {
+        const kb = (file.size / 1024).toFixed(1);
+        sizeInfo.classList.remove('hidden');
+        if (file.size > 102400) {
+          sizeInfo.className = 'text-[11px] text-amber-400 font-bold mt-1';
+          sizeInfo.textContent = `⚠️ Ukuran: ${kb} KB (Melebihi target 100 KB, mohon kompresi bila memungkinkan)`;
+        } else {
+          sizeInfo.className = 'text-[11px] text-emerald-400 font-bold mt-1';
+          sizeInfo.textContent = `✓ Ukuran: ${kb} KB (Memenuhi target < 100 KB)`;
+        }
+      }
+    });
+
+    document.getElementById('open-upload-btn')?.addEventListener('click', () => {
+      form?.reset();
+      if (sizeInfo) sizeInfo.classList.add('hidden');
+      modal?.showModal();
+    });
+
+    document.getElementById('close-upload-btn')?.addEventListener('click', () => modal?.close());
+    document.getElementById('cancel-upload-btn')?.addEventListener('click', () => modal?.close());
+
+    form?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const list = getItems();
+      const title = (document.getElementById('g-title') as HTMLInputElement).value;
+      const caption = (document.getElementById('g-caption') as HTMLTextAreaElement).value;
+      const category = (document.getElementById('g-category') as HTMLSelectElement).value;
+
+      const file = fileInput?.files?.[0];
+      let imageUrl = '/images/gallery/gallery-1.webp';
+      if (file) {
+        imageUrl = URL.createObjectURL(file);
+      }
+
+      list.unshift({
+        id: 'gal-' + Date.now(),
+        title,
+        caption,
+        altText: title,
+        category,
+        imageUrl,
+        width: 800,
+        height: 600
+      });
+
+      saveItems(list);
+      modal?.close();
+
+      if (alertBox) {
+        alertBox.className = 'p-3 rounded-lg text-xs font-bold bg-emerald-950 text-emerald-200 border border-emerald-500 block';
+        alertBox.textContent = '✓ Foto berhasil diunggah ke galeri!';
+        setTimeout(() => alertBox.classList.add('hidden'), 2500);
+      }
+    });
+  </script>
+</AdminLayout>

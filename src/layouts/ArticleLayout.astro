@@ -1,0 +1,535 @@
+---
+import PublicLayout from './PublicLayout.astro';
+import type { BlogPostItem } from '../data/defaultContent';
+import { BLOG_POSTS, SITE_INFO } from '../data/defaultContent';
+import { getWhatsAppUrl } from '../lib/utils';
+import '../styles/article.css';
+
+interface Props {
+  article: BlogPostItem;
+}
+
+const { article } = Astro.props;
+
+const currentUrl = `${SITE_INFO.domain}/blog/${article.slug}`;
+const authorAvatar = article.authorAvatar || '/images/author-artikel/author-artikel-arby-ardiansyah.webp';
+const authorName = article.authorName || 'Arby Ardiansyah';
+const authorRole = article.authorRole || 'LEAD OUTBOUND CONSULTANT • CERTIFIED BNSP FACILITATOR';
+
+// Pick 2 related posts
+const relatedPosts = BLOG_POSTS.filter((p) => p.slug !== article.slug).slice(0, 2);
+
+// Summary points (either custom or default highlights)
+const summaryPoints = article.summaryPoints || [
+  'Mengapa Malang Raya No. 1: Hawa sejuk pegunungan, akses jalan tol terpadu, dan fasilitas resort kelas dunia menjadikannya destinasi outbound terfavorit.',
+  'Timeline Persiapan H-60: Panduan langkah demi langkah mempersiapkan acara gathering agar panitia internal bebas stres.',
+  'Kombinasi Modul Efektif: Memadukan team building, fun games pemecah kejenuhan, refreshing alam, dan gala dinner.',
+  'Efisiensi Anggaran: Strategi skema all-in terpadu guna memaksimalkan ROI kegiatan pengembangan SDM.'
+];
+
+// FAQs for article
+const faqs = article.faqs || [
+  {
+    question: 'Berapa jumlah minimum dan maksimum peserta untuk gathering di Vendor Outbound?',
+    answer: 'Layanan kami fleksibel mulai dari rombongan skala kecil 20 peserta, medium 50-100 orang, hingga mega-gathering korporasi di atas 500 orang dengan manajemen logistik profesional.'
+  },
+  {
+    question: 'Apakah paket outbound Vendor Outbound sudah mencakup transportasi dan akomodasi all-in?',
+    answer: 'Ya, kami menyediakan paket lengkap All-In mulai dari bus pariwisata eksekutif, rekomendasi hotel/resort/glamping, katering prasmanan, fasilitator berlisensi BNSP, sound system, perizinan, hingga dokumentasi foto dan video drone.'
+  },
+  {
+    question: 'Bagaimana rencana cadangan jika cuaca mendadak hujan saat sesi outdoor?',
+    answer: 'Seluruh venue rekanan kami memiliki pendopo atau ballroom semi-indoor. Fasilitator kami telah tersertifikasi untuk menjalankan contingency plan berupa indoor dynamic games berenergi tinggi tanpa mengurangi esensi pembelajaran.'
+  }
+];
+
+// WhatsApp URL for CTA
+const ctaWaUrl = getWhatsAppUrl(`Halo Vendor Outbound, saya ingin konsultasi kegiatan gathering perusahaan setelah membaca artikel '${article.title}'.`);
+
+// JSON-LD Structured Data (Article + Breadcrumb + FAQPage)
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Article',
+      '@id': `${currentUrl}#article`,
+      headline: article.title,
+      description: article.seoDescription || article.excerpt,
+      url: currentUrl,
+      datePublished: '2026-09-18T08:00:00+07:00',
+      dateModified: '2026-10-25T08:00:00+07:00',
+      author: {
+        '@type': 'Person',
+        name: authorName,
+        jobTitle: 'Outbound & Event Specialist',
+        url: `${SITE_INFO.domain}/tentang-kami`
+      },
+      publisher: {
+        '@type': 'Organization',
+        name: SITE_INFO.brandName,
+        url: SITE_INFO.domain,
+        logo: {
+          '@type': 'ImageObject',
+          url: `${SITE_INFO.domain}/images/logo/logo-fix.webp`
+        }
+      },
+      image: article.thumbnailUrl.startsWith('http') ? article.thumbnailUrl : `${SITE_INFO.domain}${article.thumbnailUrl}`,
+      mainEntityOfPage: currentUrl,
+      inLanguage: 'id-ID'
+    },
+    {
+      '@type': 'BreadcrumbList',
+      '@id': `${currentUrl}#breadcrumb`,
+      itemListElement: [
+        {
+          '@type': 'ListItem',
+          position: 1,
+          name: 'Beranda',
+          item: SITE_INFO.domain
+        },
+        {
+          '@type': 'ListItem',
+          position: 2,
+          name: 'Blog',
+          item: `${SITE_INFO.domain}/blog`
+        },
+        {
+          '@type': 'ListItem',
+          position: 3,
+          name: article.title,
+          item: currentUrl
+        }
+      ]
+    },
+    {
+      '@type': 'FAQPage',
+      '@id': `${currentUrl}#faq`,
+      mainEntity: faqs.map(faq => ({
+        '@type': 'Question',
+        name: faq.question,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: faq.answer
+        }
+      }))
+    }
+  ]
+};
+---
+
+<PublicLayout
+  title={article.seoTitle || article.title}
+  description={article.seoDescription || article.excerpt}
+  canonicalUrl={article.canonicalUrl || currentUrl}
+  ogImage={article.thumbnailUrl}
+>
+  <!-- Article Breadcrumb Bar (Matching Reference) -->
+  <div class="article-breadcrumb-bar">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <nav aria-label="Breadcrumb">
+        <a href="/">Beranda</a>
+        <span>/</span>
+        <a href="/blog">Blog</a>
+        <span>/</span>
+        <span style="color:var(--accent-gold); font-weight:600;">{article.title}</span>
+      </nav>
+    </div>
+  </div>
+
+  <!-- Main Article Page Container -->
+  <main id="main" class="article-page-main">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="article-wrapper">
+        
+        <!-- Main Article Column -->
+        <article class="article-main">
+          
+          <!-- Article Header -->
+          <header class="article-header">
+            <span class="news-badge badge-primary">
+              <i class="fas fa-briefcase"></i> {article.category}
+            </span>
+            
+            <h1>{article.title}</h1>
+            
+            <div class="article-meta">
+              <div class="author-avatar">
+                <img
+                  src={authorAvatar}
+                  alt={authorName}
+                  width="48"
+                  height="48"
+                  loading="lazy"
+                />
+              </div>
+              <div class="author-info">
+                <div class="author-name-row">
+                  <span class="author-name">{authorName}</span>
+                  <span class="meta-verified-badge">
+                    <i class="fas fa-certificate"></i> Verified
+                  </span>
+                </div>
+                <div class="post-meta-details">
+                  <span><i class="far fa-calendar-alt"></i> {article.publishedAt}</span>
+                  <span class="meta-separator">&bull;</span>
+                  <span><i class="far fa-clock"></i> {article.readingTimeMinutes} min baca</span>
+                </div>
+              </div>
+            </div>
+          </header>
+
+          <!-- Featured Hero Image -->
+          <figure class="article-hero">
+            <img
+              src={article.thumbnailUrl}
+              alt={article.imageAlt || article.title}
+              width="1600"
+              height="900"
+              loading="eager"
+              fetchpriority="high"
+            />
+            <figcaption>
+              Pemandangan panorama alam terbuka Malang Raya yang sejuk dan asri, menjadi latar terbaik untuk merekatkan soliditas tim perusahaan.
+            </figcaption>
+          </figure>
+
+          <!-- Article Summary Box -->
+          <div class="article-summary">
+            <h3><i class="fas fa-list-check" style="color:var(--primary);"></i> Ringkasan Utama Artikel</h3>
+            <ul>
+              {summaryPoints.map((point) => (
+                <li set:html={point} />
+              ))}
+            </ul>
+          </div>
+
+          <!-- Dynamic Table of Contents (Accordion Collapsible) -->
+          <div class="toc-wrapper" id="tocWrapper">
+            <div class="toc-header" id="tocToggle">
+              <h3><i class="fas fa-bars-staggered"></i> Daftar Isi Artikel</h3>
+              <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="toc-body" id="tocBody">
+              <ul class="toc-list" id="tocList"></ul>
+            </div>
+          </div>
+
+          <!-- Article Body Content Container -->
+          <div class="article-content" id="articleContent">
+            
+            <!-- Answer-First Callout Box -->
+            {article.answerFirst && (
+              <div class="answer-first-box callout-card-maroon">
+                <p class="text-slate-lead">
+                  <strong>Corporate gathering di Malang Raya</strong> {article.answerFirst}
+                </p>
+              </div>
+            )}
+
+            <!-- Injected Markdown Content Slot -->
+            <slot />
+
+            <!-- Call To Action Banner -->
+            <div class="cta-band">
+              <h3>Rencanakan Corporate Gathering Terbaik Kantor Anda Bersama Kami</h3>
+              <p>Konsultasikan kebutuhan tanggal, target program, dan estimasi bujet perusahaan Anda. Tim ahli Vendor Outbound siap menyusun proposal penawaran all-in terbaik hari ini.</p>
+              <a href={ctaWaUrl} target="_blank" rel="noopener noreferrer" class="btn-wa">
+                <i class="fab fa-whatsapp"></i>
+                <span>Konsultasi Gratis via WhatsApp</span>
+              </a>
+            </div>
+
+            <!-- FAQ Section Accordion -->
+            <div class="faq-section" id="faq-section">
+              <h3><i class="fas fa-circle-question" style="color:var(--primary);"></i> Pertanyaan Sering Diajukan (FAQ)</h3>
+              <div class="faq-container">
+                {faqs.map((faq) => (
+                  <div class="faq-item">
+                    <button class="faq-question" type="button">
+                      <span class="faq-q-badge"><i class="fas fa-question-circle"></i></span>
+                      <span class="faq-q-text">{faq.question}</span>
+                      <span class="faq-toggle-badge"><i class="fas fa-chevron-down"></i></span>
+                    </button>
+                    <div class="faq-answer">
+                      <div class="faq-answer-inner">
+                        {faq.answer}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <!-- Author Bio Box -->
+            <div class="author-bio">
+              <div class="avatar">
+                <img
+                  src={authorAvatar}
+                  alt={authorName}
+                  width="72"
+                  height="72"
+                  loading="lazy"
+                />
+              </div>
+              <div class="info">
+                <h4>{authorName}</h4>
+                <div class="role">{authorRole}</div>
+                <p>{article.authorBio}</p>
+              </div>
+            </div>
+
+            <!-- Social Share Buttons -->
+            <div class="share-section">
+              <span class="label"><i class="fas fa-share-nodes"></i> Bagikan Artikel:</span>
+              <button class="share-btn whatsapp" data-share="wa" aria-label="Bagikan ke WhatsApp">
+                <i class="fab fa-whatsapp"></i> WhatsApp
+              </button>
+              <button class="share-btn facebook" data-share="fb" aria-label="Bagikan ke Facebook">
+                <i class="fab fa-facebook-f"></i> Facebook
+              </button>
+              <button class="share-btn twitter" data-share="tw" aria-label="Bagikan ke Twitter">
+                <i class="fab fa-x-twitter"></i> Twitter
+              </button>
+              <button class="share-btn linkedin" data-share="li" aria-label="Bagikan ke LinkedIn">
+                <i class="fab fa-linkedin-in"></i> LinkedIn
+              </button>
+              <button class="share-btn copy" data-share="copy" aria-label="Salin Link">
+                <i class="fas fa-link"></i> Salin Link
+              </button>
+            </div>
+
+          </div>
+
+        </article>
+
+        <!-- Right Sidebar Column -->
+        <aside class="article-sidebar">
+          
+          <!-- Related Articles Widget -->
+          <div class="sidebar-related">
+            <h3>Artikel Terkait</h3>
+            {relatedPosts.map((rel) => (
+              <div class="related-item">
+                <div class="thumb">
+                  <img
+                    src={rel.thumbnailUrl}
+                    alt={rel.imageAlt || rel.title}
+                    width="120"
+                    height="90"
+                    loading="lazy"
+                  />
+                </div>
+                <div class="content">
+                  <h4><a href={`/blog/${rel.slug}`}>{rel.title}</a></h4>
+                  <p>{rel.excerpt}</p>
+                  <a href={`/blog/${rel.slug}`} class="readmore">Baca Selengkapnya &rarr;</a>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <!-- Hero Promo Banner Widget -->
+          <div class="sidebar-hero">
+            <div class="hero-category">CORPORATE RETREAT 2026</div>
+            <h4>Paket Gathering Kantor All-In Malang Raya</h4>
+            <p>Dapatkan proposal lengkap, pilihan venue resort sejuk, dan susunan rundown custom sesuai target tim Anda.</p>
+            <a
+              href={getWhatsAppUrl('Halo Vendor Outbound, saya tertarik dengan paket corporate gathering 2026.')}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn-cta-link"
+            >
+              Tanya Paket Sekarang
+            </a>
+          </div>
+
+          <!-- Video Highlight / Liputan Event Aftermovie Card -->
+          <div class="news-widget">
+            <div class="news-widget-header">
+              <span class="news-widget-badge"><i class="fas fa-video"></i> LIPUTAN EVENT</span>
+              <span class="news-widget-tag">AFTERMOVIE 4K</span>
+            </div>
+            <a href="/galeri" style="text-decoration:none; display:block;">
+              <div class="news-widget-video-wrap">
+                <img
+                  src="/images/prog-offroad-jeep.webp"
+                  alt="Video Liputan Gathering Vendor Outbound"
+                  class="news-widget-video-thumb"
+                  loading="lazy"
+                />
+                <div class="news-widget-video-overlay"></div>
+                <div class="news-widget-video-play">
+                  <i class="fas fa-play"></i>
+                </div>
+                <span class="news-widget-video-duration"><i class="fas fa-clock"></i> 02:45</span>
+              </div>
+              <h4 class="news-widget-video-title">Aftermovie: Keseruan Gathering &amp; Outbound di Alam Bebas Malang</h4>
+              <p class="news-widget-video-desc">Dokumentasi nyata antusiasme ratusan peserta korporat menikmati team building, fun games, dan petualangan jeep offroad.</p>
+              <span class="news-widget-action">Tonton Video Galeri <i class="fas fa-arrow-right"></i></span>
+            </a>
+          </div>
+
+          <!-- Free Consultation Box -->
+          <div class="sidebar-hero" style="background:#F0FDF4; border:1px solid #BBF7D0; color:var(--text-dark);">
+            <div class="hero-category" style="color:#15803D;">KONSULTASI GRATIS</div>
+            <h4 style="color:#166534;">Rencanakan Gathering Kantor</h4>
+            <p style="color:#4B5563;">Diskusikan jumlah peserta, tanggal kegiatan, preferensi lokasi, dan estimasi anggaran bersama konsultan kami.</p>
+            <a
+              href={getWhatsAppUrl('Halo Vendor Outbound, saya ingin konsultasi gathering kantor.')}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn-cta-wa"
+              style="background:#16A34A; color:#FFFFFF;"
+            >
+              <i class="fab fa-whatsapp"></i> Chat WhatsApp
+            </a>
+          </div>
+
+        </aside>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- Bottom Recommended Packages Strip -->
+  <section style="background:#FFFFFF; padding:60px 0; border-top:1px solid #E2E8F0; color:var(--text-dark);">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div style="margin-bottom:32px;">
+        <span class="news-badge badge-primary"><i class="fas fa-layer-group"></i> REKOMENDASI PROGRAM</span>
+        <h2 style="font-family:var(--font-heading); font-size:1.8rem; font-weight:800; color:var(--text-dark); margin:8px 0 0 0;">
+          Pilihan Program Gathering &amp; Outbound Terfavorit
+        </h2>
+      </div>
+      
+      <div class="recommendations grid-240">
+        <!-- Item 1 -->
+        <div class="recommend-item">
+          <div class="thumb">
+            <img src="/images/prog-gala-dinner.webp" alt="Corporate Gathering Malang" loading="lazy">
+          </div>
+          <div class="body">
+            <span class="prod-cat-label">Corporate Gathering</span>
+            <h4><a href="/layanan/outbound-perusahaan">Corporate Gathering &amp; Gala Dinner</a></h4>
+            <p>Konsep gathering tahunan all-in lengkap dengan indoor/outdoor meeting, welcoming games, dan awarding night berkesan.</p>
+            <a href="/layanan/outbound-perusahaan" class="prod-card-link-auto">Lihat Detail Program &rarr;</a>
+          </div>
+        </div>
+
+        <!-- Item 2 -->
+        <div class="recommend-item">
+          <div class="thumb">
+            <img src="/images/team-about-malang.webp" alt="Outbound Team Building Malang" loading="lazy">
+          </div>
+          <div class="body">
+            <span class="prod-cat-label">Team Building</span>
+            <h4><a href="/layanan/outbound-perusahaan">Outbound Team Building Dinamis</a></h4>
+            <p>Simulasi permainan experiential learning berlisensi BNSP untuk mempererat sinergi, komunikasi, dan leadership antar departemen.</p>
+            <a href="/layanan/outbound-perusahaan" class="prod-card-link-auto">Lihat Detail Program &rarr;</a>
+          </div>
+        </div>
+
+        <!-- Item 3 -->
+        <div class="recommend-item">
+          <div class="thumb">
+            <img src="/images/prog-offroad-jeep.webp" alt="Bromo Adventure & Jeep 4x4" loading="lazy">
+          </div>
+          <div class="body">
+            <span class="prod-cat-label">Adventure Trip</span>
+            <h4><a href="/layanan/wisata-adventure">Bromo Sunrise &amp; Offroad 4x4</a></h4>
+            <p>Petualangan eksotis jelajah kawah Bromo, Bukit Widodaren, dan lautan pasir dengan armada jeep 4x4 tangguh dan berkesan.</p>
+            <a href="/layanan/wisata-adventure" class="prod-card-link-auto">Lihat Detail Program &rarr;</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Article JSON-LD Structured Data -->
+  <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+
+  <!-- Client Interaction Scripts (TOC, FAQ, Social Share) -->
+  <script is:inline>
+    document.addEventListener('DOMContentLoaded', function () {
+      // 1. Generate Table of Contents automatically from H2
+      const content = document.getElementById('articleContent');
+      const tocList = document.getElementById('tocList');
+      if (content && tocList) {
+        const headings = content.querySelectorAll('h2');
+        headings.forEach((h, index) => {
+          const id = h.id || 'section-' + (index + 1);
+          if (!h.id) h.id = id;
+          const li = document.createElement('li');
+          const a = document.createElement('a');
+          a.href = '#' + id;
+          a.textContent = h.textContent;
+          li.appendChild(a);
+          tocList.appendChild(li);
+        });
+      }
+
+      // 2. TOC Accordion Toggle
+      const tocToggle = document.getElementById('tocToggle');
+      const tocBody = document.getElementById('tocBody');
+      if (tocToggle && tocBody) {
+        tocToggle.addEventListener('click', function () {
+          this.classList.toggle('active');
+          tocBody.classList.toggle('open');
+        });
+        // Default open
+        tocToggle.classList.add('active');
+        tocBody.classList.add('open');
+      }
+
+      // 3. FAQ Accordion Toggle
+      const faqQuestions = document.querySelectorAll('.faq-question');
+      faqQuestions.forEach(btn => {
+        btn.addEventListener('click', function () {
+          const item = this.closest('.faq-item');
+          const isActive = item.classList.contains('active');
+          document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
+          if (!isActive) {
+            item.classList.add('active');
+          }
+        });
+      });
+
+      // 4. Social Share Buttons Handler
+      const url = encodeURIComponent(window.location.href);
+      const title = encodeURIComponent(document.title);
+      document.querySelectorAll('.share-btn').forEach(btn => {
+        btn.addEventListener('click', function () {
+          const type = this.getAttribute('data-share');
+          let shareUrl = '';
+          switch (type) {
+            case 'wa':
+              shareUrl = 'https://wa.me/?text=' + title + '%20' + url;
+              break;
+            case 'fb':
+              shareUrl = 'https://www.facebook.com/sharer/sharer.php?u=' + url;
+              break;
+            case 'tw':
+              shareUrl = 'https://twitter.com/intent/tweet?text=' + title + '&url=' + url;
+              break;
+            case 'li':
+              shareUrl = 'https://www.linkedin.com/sharing/share-offsite/?url=' + url;
+              break;
+            case 'copy':
+              navigator.clipboard.writeText(window.location.href).then(() => {
+                alert('Tautan artikel berhasil disalin ke clipboard!');
+              }).catch(() => {
+                const el = document.createElement('textarea');
+                el.value = window.location.href;
+                document.body.appendChild(el);
+                el.select();
+                document.execCommand('copy');
+                document.body.removeChild(el);
+                alert('Tautan artikel berhasil disalin!');
+              });
+              return;
+          }
+          if (shareUrl) window.open(shareUrl, '_blank', 'width=600,height=500');
+        });
+      });
+    });
+  </script>
+</PublicLayout>
