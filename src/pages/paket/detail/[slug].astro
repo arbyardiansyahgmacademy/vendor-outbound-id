@@ -1,0 +1,21 @@
+---
+import PackageDetailView from '../../../components/packages/PackageDetailView.astro';
+import { PACKAGES } from '../../../data/defaultContent';
+import type { PackageItem } from '../../../data/defaultContent';
+
+export function getStaticPaths() {
+  return PACKAGES.map((pkg) => ({
+    params: { slug: pkg.slug },
+    props: { pkg }
+  }));
+}
+
+interface Props {
+  pkg: PackageItem;
+}
+
+const { pkg } = Astro.props;
+---
+
+<PackageDetailView pkg={pkg} />
+

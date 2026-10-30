@@ -43,6 +43,59 @@
   ::-webkit-scrollbar-thumb:hover {
     background: #C3121E;
   }
+
+  /* Admin Dashboard Theme Override (Pine & Sage Palette: #051F20, #0B2B26, #163832, #235347, #8EB69B, #DAF1DE) */
+  body.admin-body {
+    background: #051F20 !important;
+    background-image: radial-gradient(circle at 50% 0%, rgba(35, 83, 71, 0.28) 0%, rgba(11, 43, 38, 0.6) 45%, #051F20 100%) !important;
+    color: #DAF1DE !important;
+  }
+
+  /* Admin Dashboard Light Green (Hijau Muda) Scrollbar */
+  body.admin-body,
+  body.admin-login-body {
+    scrollbar-color: #8EB69B #051F20;
+    scrollbar-width: thin;
+  }
+  body.admin-body ::-webkit-scrollbar,
+  body.admin-login-body ::-webkit-scrollbar {
+    width: 9px;
+    height: 9px;
+  }
+  body.admin-body ::-webkit-scrollbar-track,
+  body.admin-login-body ::-webkit-scrollbar-track {
+    background: #051F20;
+    border-left: 1px solid #163832;
+  }
+  body.admin-body ::-webkit-scrollbar-thumb,
+  body.admin-login-body ::-webkit-scrollbar-thumb {
+    background: #8EB69B;
+    border-radius: 9999px;
+    border: 2px solid #051F20;
+  }
+  body.admin-body ::-webkit-scrollbar-thumb:hover,
+  body.admin-login-body ::-webkit-scrollbar-thumb:hover {
+    background: #DAF1DE;
+    box-shadow: 0 0 10px rgba(218, 241, 222, 0.7);
+  }
+
+  /* Admin Login Theme (Pine & Sage Palette) */
+  body.admin-login-body {
+    background: #051F20 !important;
+    background-image: radial-gradient(ellipse at 50% -10%, rgba(218, 241, 222, 0.18) 0%, rgba(142, 182, 155, 0.15) 30%, rgba(35, 83, 71, 0.35) 60%, #051F20 100%) !important;
+    color: #DAF1DE !important;
+  }
+
+  /* Universal Aspect Ratio Utilities */
+  .aspect-16-10, .aspect-\[16\/10\], .aspect-16\/10 {
+    aspect-ratio: 16 / 10;
+  }
+  .aspect-3-2, .aspect-\[3\/2\], .aspect-3\/2 {
+    aspect-ratio: 3 / 2;
+  }
+  .aspect-4-3, .aspect-\[4\/3\], .aspect-4\/3, .aspect-coban {
+    aspect-ratio: 750 / 560;
+  }
 }
 
 @layer components {
@@ -190,28 +243,30 @@
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 12px 0;
+  padding: 8px 0;
   transition: var(--transition);
   z-index: 1030;
 }
 .navbar-navy.scrolled {
   background: rgba(45, 1, 1, 0.98);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
-  padding: 8px 0;
+  padding: 6px 0;
 }
 .navbar-brand {
   display: inline-flex !important;
   align-items: center !important;
-  gap: 12px !important;
+  gap: 10px !important;
   color: #ffffff !important;
   text-decoration: none !important;
+  flex-shrink: 0 !important;
 }
 .brand-logo-img {
   border-radius: 50%;
   object-fit: cover;
   border: 2px solid var(--secondary);
-  width: 44px;
-  height: 44px;
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
 }
 .brand-text {
   display: flex !important;
@@ -224,9 +279,9 @@
 .brand-name {
   display: block !important;
   font-family: var(--font-display) !important;
-  font-size: 1.15rem !important;
+  font-size: 1.02rem !important;
   font-weight: 800 !important;
-  letter-spacing: 0.5px !important;
+  letter-spacing: 0.4px !important;
   color: #ffffff !important;
   line-height: 1.15 !important;
   margin: 0 !important;
@@ -235,12 +290,12 @@
 }
 .brand-tagline {
   display: block !important;
-  font-size: 0.72rem !important;
+  font-size: 0.65rem !important;
   color: var(--secondary) !important;
   font-weight: 700 !important;
-  letter-spacing: 0.6px !important;
+  letter-spacing: 0.5px !important;
   text-transform: uppercase !important;
-  line-height: 1.25 !important;
+  line-height: 1.2 !important;
   margin: 2px 0 0 0 !important;
   padding: 0 !important;
   white-space: nowrap !important;
@@ -248,39 +303,43 @@
 .navbar-nav .nav-link {
   color: rgba(255, 255, 255, 0.88) !important;
   font-weight: 600;
-  font-size: 0.95rem;
-  padding: 8px 18px !important;
+  font-size: 0.835rem;
+  letter-spacing: 0.2px;
+  padding: 6px 13px !important;
   border-radius: var(--radius-full);
   border: 1px solid transparent;
   transition: var(--transition);
   display: inline-block;
   text-decoration: none;
+  white-space: nowrap !important;
 }
 .navbar-nav .nav-link:hover {
   color: #ffffff !important;
-  background: rgba(255, 255, 255, 0.16) !important;
+  background: rgba(255, 255, 255, 0.14) !important;
 }
 .navbar-nav .nav-link.active,
 .navbar-nav .nav-link[aria-current="page"] {
   color: #ffffff !important;
-  background: rgba(255, 255, 255, 0.24) !important;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25) !important;
-  border: 1px solid rgba(255, 255, 255, 0.35) !important;
-  font-weight: 800 !important;
+  background: rgba(255, 255, 255, 0.20) !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2) !important;
+  border: 1px solid rgba(255, 255, 255, 0.28) !important;
+  font-weight: 700 !important;
 }
 .btn-wa-nav {
   background: linear-gradient(135deg, #25d366, #128c7e);
   color: #ffffff !important;
   font-weight: 700;
-  font-size: 0.9rem;
-  padding: 9px 20px !important;
+  font-size: 0.825rem;
+  padding: 7px 16px !important;
   border-radius: var(--radius-full);
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   box-shadow: 0 4px 14px rgba(37, 211, 102, 0.35);
   transition: var(--transition);
   text-decoration: none;
+  white-space: nowrap !important;
+  flex-shrink: 0 !important;
 }
 .btn-wa-nav:hover {
   transform: translateY(-2px);
@@ -722,7 +781,7 @@
   position: relative;
   border-radius: 14px;
   overflow: hidden;
-  aspect-ratio: 1 / 1;
+  aspect-ratio: 3 / 2;
   background: #2a0202;
   border: 1px solid rgba(255, 255, 255, 0.15);
   cursor: pointer;
@@ -731,7 +790,9 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center;
   transition: transform 0.4s ease;
+  display: block;
 }
 .gallery-item:hover img {
   transform: scale(1.08);

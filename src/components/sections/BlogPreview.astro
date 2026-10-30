@@ -12,7 +12,7 @@ const featuredPosts = BLOG_POSTS.slice(0, 3);
         <span class="text-xs font-bold uppercase tracking-widest text-amber-400">
           Artikel &amp; Panduan
         </span>
-        <h2 class="font-heading font-black text-2xl sm:text-3xl lg:text-4xl uppercase tracking-[0.16em] text-white mt-1">
+        <h2 class="font-heading font-black text-2xl sm:text-3xl lg:text-4xl uppercase tracking-[0.16em] text-white mt-1" id="blog-preview-heading">
           BLOG TERBARU
         </h2>
       </div>
@@ -29,17 +29,17 @@ const featuredPosts = BLOG_POSTS.slice(0, 3);
     </div>
 
     <!-- 3 Article Cards -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="homepage-blog-grid">
       {featuredPosts.map((post) => (
-        <article class="rounded-xl bg-[#480308]/60 border border-rose-700/30 overflow-hidden flex flex-col hover:border-amber-400/50 transition-all duration-300 hover:-translate-y-1.5 shadow-card group">
+        <article class="rounded-xl bg-[#480308]/60 border border-rose-700/30 overflow-hidden flex flex-col justify-between hover:border-amber-400/50 transition-all duration-300 hover:-translate-y-1.5 shadow-card group h-full">
           
-          <a href={`/blog/${post.slug}`} class="aspect-16/10 w-full overflow-hidden block relative">
+          <a href={`/blog/${post.slug}`} class="w-full h-48 sm:h-52 overflow-hidden block relative bg-brand-950 shrink-0" style="aspect-ratio: 16 / 10;">
             <img
               src={post.thumbnailUrl}
               alt={post.imageAlt}
               width="500"
               height="320"
-              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500 block"
               loading="lazy"
             />
             <span class="absolute top-3 left-3 px-2.5 py-1 rounded bg-stone-900/85 backdrop-blur-sm text-[10px] font-bold uppercase tracking-wider text-amber-400 border border-amber-400/30">
@@ -66,7 +66,7 @@ const featuredPosts = BLOG_POSTS.slice(0, 3);
               </p>
             </div>
 
-            <div class="pt-3 border-t border-rose-900/40 flex items-center justify-between">
+            <div class="pt-3 border-t border-rose-900/40 flex items-center justify-between mt-auto">
               <div class="flex items-center gap-2">
                 <img
                   src={post.authorAvatar || '/images/author-artikel/author-artikel-arby-ardiansyah.webp'}
@@ -98,3 +98,85 @@ const featuredPosts = BLOG_POSTS.slice(0, 3);
 
   </div>
 </section>
+
+<script is:inline>
+  (function() {
+    function hydrateHomeBlog() {
+      var raw = localStorage.getItem('vo_blog') || localStorage.getItem('vo_blogs');
+      if (!raw) return;
+      try {
+        var list = JSON.parse(raw);
+        if (!Array.isArray(list) || list.length === 0) return;
+        var container = document.getElementById('homepage-blog-grid');
+        if (!container) return;
+
+        var published = list.filter(function(p) { return p.status !== 'draft'; });
+        if (published.length === 0) published = list;
+
+        container.innerHTML = published.slice(0, 3).map(function(post) {
+          var thumb = post.thumbnailUrl || '/images/blog/panduan-lengkap-corporate-gathering-malang.webp';
+          var alt = post.imageAlt || post.title || 'Artikel Outbound';
+          var cat = post.category || 'Panduan Outbound';
+          var date = post.publishedAt || 'Terbaru 2026';
+          var readTime = post.readingTimeMinutes || '5';
+          var title = post.title || 'Judul Artikel';
+          var excerpt = post.excerpt || '';
+          var authorName = post.authorName || 'Arby Ardiansyah';
+          var authorAvatar = post.authorAvatar || '/images/author-artikel/author-artikel-arby-ardiansyah.webp';
+          var slug = post.slug || '';
+
+          return (
+            '<article class="rounded-xl bg-[#480308]/60 border border-rose-700/30 overflow-hidden flex flex-col justify-between hover:border-amber-400/50 transition-all duration-300 hover:-translate-y-1.5 shadow-card group h-full">' +
+              '<a href="/blog/' + slug + '" class="w-full h-48 sm:h-52 overflow-hidden block relative bg-brand-950 shrink-0" style="aspect-ratio: 16 / 10;">' +
+                '<img src="' + thumb + '" alt="' + alt + '" width="500" height="320" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500 block" loading="lazy" />' +
+                '<span class="absolute top-3 left-3 px-2.5 py-1 rounded bg-stone-900/85 backdrop-blur-sm text-[10px] font-bold uppercase tracking-wider text-amber-400 border border-amber-400/30">' + cat + '</span>' +
+              '</a>' +
+              '<div class="p-5 flex-1 flex flex-col justify-between space-y-4">' +
+                '<div class="space-y-2">' +
+                  '<div class="flex items-center gap-2 text-[11px] text-rose-300/70">' +
+                    '<span>' + date + '</span>' +
+                    '<span>•</span>' +
+                    '<span>' + readTime + ' mnt baca</span>' +
+                  '</div>' +
+                  '<a href="/blog/' + slug + '" class="block group-hover:text-amber-400 transition-colors">' +
+                    '<h3 class="font-heading font-bold text-base sm:text-lg text-white leading-snug line-clamp-2">' + title + '</h3>' +
+                  '</a>' +
+                  '<p class="text-xs text-rose-200/75 line-clamp-2 leading-relaxed">' + excerpt + '</p>' +
+                '</div>' +
+                '<div class="pt-3 border-t border-rose-900/40 flex items-center justify-between mt-auto">' +
+                  '<div class="flex items-center gap-2">' +
+                    '<img src="' + authorAvatar + '" alt="' + authorName + '" width="22" height="22" class="w-5 h-5 rounded-full object-cover border border-amber-400/50" loading="lazy" />' +
+                    '<span class="text-xs text-rose-300/80 font-medium">' + authorName + '</span>' +
+                  '</div>' +
+                  '<a href="/blog/' + slug + '" class="inline-flex items-center gap-1 text-xs font-bold text-amber-400 group-hover:translate-x-1 transition-transform">' +
+                    '<span>Baca</span>' +
+                    '<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7" /></svg>' +
+                  '</a>' +
+                '</div>' +
+              '</div>' +
+            '</article>'
+          );
+        }).join('');
+      } catch (e) {
+        console.error('Hydrate home blog error:', e);
+      }
+    }
+
+    hydrateHomeBlog();
+    document.addEventListener('DOMContentLoaded', hydrateHomeBlog);
+    window.addEventListener('storage', function(e) {
+      if (e.key === 'vo_blog' || e.key === 'vo_blogs') hydrateHomeBlog();
+    });
+    window.addEventListener('vo_content_updated', function(e) {
+      if (!e.detail || e.detail.key === 'vo_blog' || e.detail.key === 'vo_blogs') hydrateHomeBlog();
+    });
+    try {
+      var bc = new BroadcastChannel('vo_sync_channel');
+      bc.onmessage = function(e) {
+        if (!e.data || e.data.key === 'vo_blog' || e.data.key === 'vo_blogs') {
+          hydrateHomeBlog();
+        }
+      };
+    } catch (err) {}
+  })();
+</script>

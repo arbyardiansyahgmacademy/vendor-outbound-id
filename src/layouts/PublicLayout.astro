@@ -5,7 +5,7 @@ import type { BreadcrumbItem } from '../components/layout/Breadcrumb.astro';
 import Footer from '../components/layout/Footer.astro';
 import FloatingActions from '../components/layout/FloatingActions.astro';
 import { SITE_INFO } from '../data/defaultContent';
-import { generateWebSiteSchema, formatSEOTitle } from '../lib/seo';
+import { generateWebSiteSchema, generateLocalBusinessSchema, formatSEOTitle } from '../lib/seo';
 import '../styles/global.css';
 
 interface Props {
@@ -29,6 +29,7 @@ const {
 const currentPath = Astro.url.pathname;
 const pageTitle = formatSEOTitle(title);
 const websiteSchema = generateWebSiteSchema();
+const localBusinessSchema = generateLocalBusinessSchema();
 ---
 
 <!doctype html>
@@ -46,9 +47,21 @@ const websiteSchema = generateWebSiteSchema();
       <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
     )}
 
+    <!-- GEO Targeting Meta Tags (Kota Batu & Malang, Jawa Timur) -->
+    <meta name="geo.region" content="ID-JI" />
+    <meta name="geo.placename" content="Kota Batu, Malang, Jawa Timur, Indonesia" />
+    <meta name="geo.position" content="-7.8712;112.5270" />
+    <meta name="ICBM" content="-7.8712, 112.5270" />
+
+    <!-- AEO (Answer Engine Optimization) Meta Tags -->
+    <meta name="author" content="Provider Outbound - Arby Ardiansyah" />
+    <meta name="coverage" content="Kota Batu, Kota Malang, Kabupaten Malang, Jawa Timur, Indonesia" />
+    <meta name="distribution" content="Global" />
+    <meta name="rating" content="General" />
+
     <!-- Favicon & Official Logo Icons -->
-    <link rel="icon" type="image/webp" href="/images/logo/logo-fix.webp" />
-    <link rel="apple-touch-icon" href="/images/logo/logo-fix.webp" />
+    <link rel="icon" type="image/webp" href="/images/logo/logo-provider-outbound.webp" />
+    <link rel="apple-touch-icon" href="/images/logo/logo-provider-outbound.webp" />
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
@@ -57,6 +70,7 @@ const websiteSchema = generateWebSiteSchema();
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={ogImage} />
+    <meta property="og:locale" content="id_ID" />
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
@@ -81,8 +95,9 @@ const websiteSchema = generateWebSiteSchema();
       referrerpolicy="no-referrer"
     />
 
-    <!-- WebSite Schema JSON-LD -->
+    <!-- WebSite & LocalBusiness Schema JSON-LD (SEO, AEO, GEO) -->
     <script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(localBusinessSchema)} />
   </head>
 
   <body class="min-h-screen flex flex-col font-sans antialiased text-white selection:bg-amber-500 selection:text-stone-950">
@@ -106,5 +121,552 @@ const websiteSchema = generateWebSiteSchema();
     <!-- Floating Actions (WhatsApp + Back to top) -->
     <FloatingActions pageTitle={title} />
 
+    <!-- Real-time Client Content Hydration Engine -->
+    <script is:inline>
+      (function() {
+        function applyFrontendHydration() {
+          var isHome = window.location.pathname === '/' || window.location.pathname === '';
+          var isTentang = window.location.pathname.indexOf('/tentang-kami') !== -1;
+          var isKontak = window.location.pathname.indexOf('/kontak') !== -1;
+          var isPrivasi = window.location.pathname.indexOf('/kebijakan-privasi') !== -1;
+          var isSyarat = window.location.pathname.indexOf('/syarat-ketentuan') !== -1;
+
+          // A. Head & Global SEO Hydration
+          var headRaw = localStorage.getItem('vo_head');
+          if (headRaw) {
+            try {
+              var hd = JSON.parse(headRaw);
+              if (hd.metaDescription) {
+                var mDesc = document.querySelector('meta[name="description"]');
+                if (mDesc) mDesc.setAttribute('content', hd.metaDescription);
+              }
+              if (hd.faviconUrl) {
+                var fav = document.querySelector('link[rel="icon"]');
+                if (fav) fav.setAttribute('href', hd.faviconUrl);
+                var favApple = document.querySelector('link[rel="apple-touch-icon"]');
+                if (favApple) favApple.setAttribute('href', hd.faviconUrl);
+              }
+              if (hd.ogImageUrl) {
+                var ogImg = document.querySelector('meta[property="og:image"]');
+                if (ogImg) ogImg.setAttribute('content', hd.ogImageUrl);
+                var twImg = document.querySelector('meta[name="twitter:image"]');
+                if (twImg) twImg.setAttribute('content', hd.ogImageUrl);
+              }
+              if (hd.noindex !== undefined) {
+                var mRobots = document.querySelector('meta[name="robots"]');
+                if (mRobots) {
+                  mRobots.setAttribute('content', hd.noindex ? 'noindex, nofollow' : 'index, follow, max-image-preview:large');
+                }
+              }
+              if (hd.customHeadScripts && !document.getElementById('vo-injected-head-script')) {
+                var headScript = document.createElement('div');
+                headScript.id = 'vo-injected-head-script';
+                headScript.innerHTML = hd.customHeadScripts;
+                document.head.appendChild(headScript);
+              }
+              if (hd.customBodyScripts && !document.getElementById('vo-injected-body-script')) {
+                var bodyScript = document.createElement('div');
+                bodyScript.id = 'vo-injected-body-script';
+                bodyScript.innerHTML = hd.customBodyScripts;
+                document.body.appendChild(bodyScript);
+              }
+            } catch (e) {}
+          }
+
+          // B. Navbar & Navigasi Hydration
+          var navRaw = localStorage.getItem('vo_navbar');
+          if (navRaw) {
+            try {
+              var nd = JSON.parse(navRaw);
+              if (nd.brandName) {
+                document.querySelectorAll('.brand-name').forEach(function(el) {
+                  el.textContent = nd.brandName;
+                });
+              }
+              if (nd.tagline) {
+                document.querySelectorAll('.brand-tagline').forEach(function(el) {
+                  el.textContent = nd.tagline;
+                });
+              }
+              if (nd.logoUrl || nd.logo_url) {
+                var logoVal = nd.logoUrl || nd.logo_url;
+                document.querySelectorAll('.brand-logo-img').forEach(function(img) {
+                  img.src = logoVal;
+                });
+                var navLogo = document.getElementById('navbar-brand-logo');
+                if (navLogo) navLogo.src = logoVal;
+                var footLogo = document.getElementById('footer-brand-logo');
+                if (footLogo) footLogo.src = logoVal;
+              }
+              if (nd.ctaText) {
+                document.querySelectorAll('.btn-wa-nav span').forEach(function(s) {
+                  s.textContent = nd.ctaText;
+                });
+              }
+              if (nd.ctaLink) {
+                document.querySelectorAll('.btn-wa-nav').forEach(function(a) {
+                  a.href = nd.ctaLink;
+                });
+              }
+              // If custom nav links provided
+              if (Array.isArray(nd.navLinks) && nd.navLinks.length > 0) {
+                var desktopNav = document.getElementById('navbar-nav-links');
+                var mobileNav = document.getElementById('navbar-mobile-nav-links');
+                var curPath = window.location.pathname;
+
+                if (desktopNav) {
+                  desktopNav.innerHTML = nd.navLinks.map(function(item) {
+                    var isActive = curPath === item.url || (item.url !== '/' && curPath.indexOf(item.url) === 0);
+                    return '<a class="nav-link ' + (isActive ? 'active' : '') + '" href="' + item.url + '"' + (isActive ? ' aria-current="page"' : '') + '>' + item.label + '</a>';
+                  }).join('');
+                }
+
+                if (mobileNav) {
+                  mobileNav.innerHTML = nd.navLinks.map(function(item) {
+                    var isActive = curPath === item.url || (item.url !== '/' && curPath.indexOf(item.url) === 0);
+                    return '<a class="nav-link text-left block w-full py-2.5 px-4 rounded-lg font-semibold ' + (isActive ? 'active text-white' : 'text-white/80 hover:text-white hover:bg-white/10') + '" href="' + item.url + '">' + item.label + '</a>';
+                  }).join('');
+                }
+              }
+            } catch (e) {}
+          }
+
+          // C. Footer & Socials Hydration
+          var footerRaw = localStorage.getItem('vo_footer');
+          if (footerRaw) {
+            try {
+              var fd = JSON.parse(footerRaw);
+              if (fd.brandName) {
+                var fBrand = document.getElementById('footer-brand-name');
+                if (fBrand) fBrand.textContent = fd.brandName;
+              }
+              if (fd.description) {
+                var fDesc = document.getElementById('footer-brand-desc');
+                if (fDesc) fDesc.textContent = fd.description;
+              }
+              if (fd.copyrightText) {
+                var fCopy = document.getElementById('footer-copyright-text');
+                if (fCopy) fCopy.textContent = fd.copyrightText;
+              }
+              if (fd.socialInstagram) {
+                var ig = document.querySelector('footer a[title="Instagram"]');
+                if (ig) ig.href = fd.socialInstagram;
+              }
+              if (fd.socialTiktok) {
+                var tt = document.querySelector('footer a[title="TikTok"]');
+                if (tt) tt.href = fd.socialTiktok;
+              }
+              if (fd.socialFacebook) {
+                var fb = document.querySelector('footer a[title="Facebook"]');
+                if (fb) fb.href = fd.socialFacebook;
+              }
+              if (fd.socialTwitter) {
+                var tw = document.querySelector('footer a[title*="Twitter"]') || document.querySelector('footer a[title="X (Twitter)"]');
+                if (tw) tw.href = fd.socialTwitter;
+              }
+              if (fd.socialYoutube) {
+                var yt = document.querySelector('footer a[title="YouTube"]');
+                if (yt) yt.href = fd.socialYoutube;
+              }
+              if (Array.isArray(fd.footerLinks) && fd.footerLinks.length > 0) {
+                var fNavList = document.getElementById('footer-nav-list');
+                if (fNavList) {
+                  fNavList.innerHTML = fd.footerLinks.map(function(item) {
+                    return '<li><a href="' + item.url + '" class="hover:text-amber-400 transition-colors flex items-center gap-2"><i class="fas fa-chevron-right text-[10px] text-amber-400/70"></i> ' + item.label + '</a></li>';
+                  }).join('');
+                }
+              }
+            } catch (e) {}
+          }
+
+          // D. Beranda / Landing Page All 12 Sections Hydration
+          var berandaRaw = localStorage.getItem('vo_page_beranda') || localStorage.getItem('vo_page_content');
+          if (berandaRaw) {
+            try {
+              var d = JSON.parse(berandaRaw);
+
+              // 01. Hero
+              if (d.heroEyebrow) {
+                var eb = document.getElementById('hero-eyebrow-text');
+                if (eb) eb.textContent = d.heroEyebrow;
+              }
+              if (d.heroH1) {
+                var h1 = document.getElementById('hero-main-title') || document.querySelector('.hero-main-title');
+                if (h1) h1.textContent = d.heroH1;
+              }
+              if (d.heroDesc) {
+                var desc = document.getElementById('hero-main-desc') || document.querySelector('.hero-main-desc');
+                if (desc) desc.textContent = d.heroDesc;
+              }
+              if (d.heroCtaMain) {
+                var ctaMain = document.getElementById('hero-btn-main-text') || document.querySelector('.btn-hero-order .btn-text-main');
+                if (ctaMain) ctaMain.textContent = d.heroCtaMain;
+              }
+              if (d.heroCtaSub) {
+                var ctaSub = document.getElementById('hero-btn-sub-text') || document.querySelector('.btn-hero-order .btn-text-sub');
+                if (ctaSub) ctaSub.textContent = d.heroCtaSub;
+              }
+              if (d.heroImage) {
+                var heroImg = document.getElementById('hero-dish-img') || document.querySelector('.hero-dish-img');
+                if (heroImg) heroImg.src = d.heroImage;
+              }
+
+              // 02. About Us
+              if (d.aboutHeading) {
+                var aboutH = document.getElementById('about-preview-heading') || document.querySelector('#about-us .about-content-block h2');
+                if (aboutH) aboutH.textContent = d.aboutHeading;
+              }
+              if (d.aboutP1) {
+                var abP1 = document.getElementById('about-preview-p1');
+                if (abP1) abP1.textContent = d.aboutP1;
+              }
+              if (d.aboutP2) {
+                var abP2 = document.getElementById('about-preview-p2');
+                if (abP2) abP2.textContent = d.aboutP2;
+              }
+              if (d.aboutImage) {
+                var abImg = document.getElementById('about-preview-img') || document.querySelector('#about-us .about-dish-img');
+                if (abImg) abImg.src = d.aboutImage;
+              }
+
+              // 03. Services
+              if (d.servicesHeading) {
+                var sHeading = document.getElementById('services-main-heading') || document.querySelector('#our-services .section-main-heading');
+                if (sHeading) sHeading.textContent = d.servicesHeading;
+              }
+              if (d.servicesSubheading) {
+                var sSub = document.getElementById('services-sub-heading') || document.querySelector('#our-services .section-sub-heading');
+                if (sSub) sSub.textContent = d.servicesSubheading;
+              }
+              if (d.servicesBtnText) {
+                document.querySelectorAll('#our-services .btn-row-action span').forEach(function(span) {
+                  span.textContent = d.servicesBtnText;
+                });
+              }
+
+              // 04. Mengapa Memilih Kami
+              if (d.whyHeading) {
+                var whyH = document.getElementById('why-heading');
+                if (whyH) whyH.textContent = d.whyHeading;
+              }
+              if (d.whySubheading) {
+                var whySub = document.getElementById('why-subheading');
+                if (whySub) whySub.textContent = d.whySubheading;
+              }
+
+              // 05. Categories Showcase
+              if (d.catHeading) {
+                var catH = document.getElementById('categories-heading');
+                if (catH) catH.textContent = d.catHeading;
+              }
+              if (d.catSubheading) {
+                var catSub = document.getElementById('categories-subheading');
+                if (catSub) catSub.textContent = d.catSubheading;
+              }
+              if (d.catImg1) { var c1 = document.getElementById('cat-img-outbound-perusahaan'); if (c1) c1.src = d.catImg1; }
+              if (d.catImg2) { var c2 = document.getElementById('cat-img-family-gathering'); if (c2) c2.src = d.catImg2; }
+              if (d.catImg3) { var c3 = document.getElementById('cat-img-outbound-sekolah'); if (c3) c3.src = d.catImg3; }
+              if (d.catImg4) { var c4 = document.getElementById('cat-img-wisata-adventure'); if (c4) c4.src = d.catImg4; }
+
+              // 06. Paket Pilihan
+              if (d.pkgHeading) {
+                var pkgH = document.getElementById('pkg-grid-heading');
+                if (pkgH) pkgH.textContent = d.pkgHeading;
+              }
+              if (d.pkgSubheading) {
+                var pkgSub = document.getElementById('pkg-grid-subheading');
+                if (pkgSub) pkgSub.textContent = d.pkgSubheading;
+              }
+
+              // 07. Galeri Preview
+              if (d.galHeading) {
+                var galH = document.getElementById('galeri-preview-heading');
+                if (galH) galH.textContent = d.galHeading;
+              }
+              if (d.galSubheading) {
+                var galSub = document.getElementById('galeri-preview-subheading');
+                if (galSub) galSub.textContent = d.galSubheading;
+              }
+              for (var gi = 0; gi < 6; gi++) {
+                if (d['galImg' + gi]) {
+                  var gImg = document.getElementById('homepage-gal-img-' + gi);
+                  if (gImg) gImg.src = d['galImg' + gi];
+                }
+              }
+
+              // 08. Blog Terbaru
+              if (d.blogHeading) {
+                var blogH = document.getElementById('blog-preview-heading');
+                if (blogH) blogH.textContent = d.blogHeading;
+              }
+
+              // 09. Testimoni
+              if (d.testiHeading) {
+                var testiH = document.getElementById('testi-section-heading');
+                if (testiH) testiH.textContent = d.testiHeading;
+              }
+              if (d.testiSubheading) {
+                var testiSub = document.getElementById('testi-section-subheading');
+                if (testiSub) testiSub.textContent = d.testiSubheading;
+              }
+
+              // 10. FAQ
+              if (d.faqHeading) {
+                var faqH = document.getElementById('faq-accordion-title');
+                if (faqH) faqH.textContent = d.faqHeading;
+              }
+              if (d.faqSubheading) {
+                var faqSub = document.getElementById('faq-accordion-subtitle');
+                if (faqSub) faqSub.textContent = d.faqSubheading;
+              }
+
+              // 11. CTA Banner
+              if (d.ctaHeading) {
+                var ctaH = document.getElementById('cta-banner-title');
+                if (ctaH) ctaH.textContent = d.ctaHeading;
+              }
+              if (d.ctaDesc) {
+                var ctaD = document.getElementById('cta-banner-desc');
+                if (ctaD) ctaD.textContent = d.ctaDesc;
+              }
+              if (d.ctaBtnText) {
+                var ctaB = document.getElementById('cta-banner-btn-text');
+                if (ctaB) ctaB.textContent = d.ctaBtnText;
+              }
+
+              // SEO Homepage
+              if (isHome) {
+                if (d.seoTitle) document.title = d.seoTitle;
+                if (d.seoDesc) {
+                  var metaDesc = document.querySelector('meta[name="description"]');
+                  if (metaDesc) metaDesc.setAttribute('content', d.seoDesc);
+                }
+              }
+            } catch (e) {
+              console.error('Hydration error (Beranda):', e);
+            }
+          }
+
+          // E. Tentang Kami Page Hydration
+          if (isTentang) {
+            var tentangRaw = localStorage.getItem('vo_page_tentang_kami');
+            if (tentangRaw) {
+              try {
+                var td = JSON.parse(tentangRaw);
+                var tkEb = document.getElementById('tk-eyebrow');
+                if (tkEb && td.eyebrow) tkEb.textContent = td.eyebrow;
+
+                var tkH1 = document.getElementById('tk-h1');
+                if (tkH1 && td.h1) tkH1.textContent = td.h1;
+
+                var tkSub = document.getElementById('tk-subheading');
+                if (tkSub && td.subheading) tkSub.textContent = td.subheading;
+
+                var tkNT = document.getElementById('tk-narrative-title');
+                if (tkNT && td.narrativeTitle) tkNT.textContent = td.narrativeTitle;
+
+                var tkP1 = document.getElementById('tk-narrative-p1');
+                if (tkP1 && td.narrativeP1) tkP1.textContent = td.narrativeP1;
+
+                var tkP2 = document.getElementById('tk-narrative-p2');
+                if (tkP2 && td.narrativeP2) tkP2.textContent = td.narrativeP2;
+
+                var tkTeam = document.getElementById('tk-team-img');
+                if (tkTeam && td.teamImg) tkTeam.src = td.teamImg;
+
+                var tkP1T = document.getElementById('tk-p1-title');
+                if (tkP1T && td.pilar1Title) tkP1T.textContent = td.pilar1Title;
+
+                var tkP1D = document.getElementById('tk-p1-desc');
+                if (tkP1D && td.pilar1Desc) tkP1D.textContent = td.pilar1Desc;
+
+                var tkP2T = document.getElementById('tk-p2-title');
+                if (tkP2T && td.pilar2Title) tkP2T.textContent = td.pilar2Title;
+
+                var tkP2D = document.getElementById('tk-p2-desc');
+                if (tkP2D && td.pilar2Desc) tkP2D.textContent = td.pilar2Desc;
+
+                var tkP3T = document.getElementById('tk-p3-title');
+                if (tkP3T && td.pilar3Title) tkP3T.textContent = td.pilar3Title;
+
+                var tkP3D = document.getElementById('tk-p3-desc');
+                if (tkP3D && td.pilar3Desc) tkP3D.textContent = td.pilar3Desc;
+
+                var tkP4T = document.getElementById('tk-p4-title');
+                if (tkP4T && td.pilar4Title) tkP4T.textContent = td.pilar4Title;
+
+                var tkP4D = document.getElementById('tk-p4-desc');
+                if (tkP4D && td.pilar4Desc) tkP4D.textContent = td.pilar4Desc;
+
+                if (td.seoTitle) document.title = td.seoTitle;
+                if (td.seoDesc) {
+                  var m = document.querySelector('meta[name="description"]');
+                  if (m) m.setAttribute('content', td.seoDesc);
+                }
+              } catch (e) {
+                console.error('Hydration error (Tentang Kami):', e);
+              }
+            }
+          }
+
+          // F. Kontak Page Hydration
+          if (isKontak) {
+            var kontakRaw = localStorage.getItem('vo_page_kontak');
+            if (kontakRaw) {
+              try {
+                var kd = JSON.parse(kontakRaw);
+                var kEb = document.getElementById('kontak-eyebrow');
+                if (kEb && kd.eyebrow) kEb.textContent = kd.eyebrow;
+
+                var kH1 = document.getElementById('kontak-h1');
+                if (kH1 && kd.h1) kH1.textContent = kd.h1;
+
+                var kDesc = document.getElementById('kontak-desc');
+                if (kDesc && kd.desc) kDesc.textContent = kd.desc;
+
+                var kWaDisp = document.getElementById('kontak-wa-disp');
+                if (kWaDisp && kd.waDisplay) kWaDisp.textContent = kd.waDisplay;
+
+                var kAreas = document.getElementById('kontak-service-areas');
+                if (kAreas && kd.address) kAreas.textContent = kd.address;
+
+                var kHours = document.getElementById('kontak-operating-hours');
+                if (kHours && kd.hours) kHours.textContent = kd.hours;
+
+                var kOffice = document.getElementById('kontak-office-img');
+                if (kOffice && kd.officeImg) kOffice.src = kd.officeImg;
+
+                var kWaBtn = document.getElementById('kontak-wa-btn');
+                if (kWaBtn && kd.waNumber) {
+                  var clean = kd.waNumber.replace(/[^0-9]/g, '');
+                  kWaBtn.href = 'https://wa.me/' + clean + '?text=Halo%20Vendor%20Outbound,%20saya%20ingin%20konsultasi%20langsung.';
+                }
+
+                if (kd.seoTitle) document.title = kd.seoTitle;
+                if (kd.seoDesc) {
+                  var m = document.querySelector('meta[name="description"]');
+                  if (m) m.setAttribute('content', kd.seoDesc);
+                }
+              } catch (e) {
+                console.error('Hydration error (Kontak):', e);
+              }
+            }
+          }
+
+          // G. Legal Pages (Kebijakan Privasi & Syarat Ketentuan)
+          var legalRaw = localStorage.getItem('vo_page_legal');
+          if (legalRaw) {
+            try {
+              var ld = JSON.parse(legalRaw);
+              if (isPrivasi) {
+                if (ld.privasiTitle) {
+                  var h1 = document.getElementById('privasi-h1') || document.querySelector('h1');
+                  if (h1) h1.textContent = ld.privasiTitle;
+                }
+                if (ld.privasiContent) {
+                  var box = document.getElementById('privasi-custom-box');
+                  var txt = document.getElementById('privasi-custom-text');
+                  if (box && txt) {
+                    txt.textContent = ld.privasiContent;
+                    box.classList.remove('hidden');
+                  }
+                }
+              }
+              if (isSyarat) {
+                if (ld.syaratTitle) {
+                  var h1 = document.getElementById('syarat-h1') || document.querySelector('h1');
+                  if (h1) h1.textContent = ld.syaratTitle;
+                }
+                if (ld.syaratContent) {
+                  var box = document.getElementById('syarat-custom-box');
+                  var txt = document.getElementById('syarat-custom-text');
+                  if (box && txt) {
+                    txt.textContent = ld.syaratContent;
+                    box.classList.remove('hidden');
+                  }
+                }
+              }
+            } catch (e) {}
+          }
+
+          // H. Global WhatsApp Link Synchronization
+          var settingsRaw = localStorage.getItem('vo_settings');
+          var targetWa = '';
+          if (settingsRaw) {
+            try {
+              var s = JSON.parse(settingsRaw);
+              if (s.whatsappNumber) targetWa = s.whatsappNumber;
+            } catch (e) {}
+          }
+          if (!targetWa && navRaw) {
+            try {
+              var n = JSON.parse(navRaw);
+              if (n.whatsappNumber) targetWa = n.whatsappNumber;
+            } catch (e) {}
+          }
+          if (targetWa) {
+            var cleanWa = targetWa.replace(/[^0-9]/g, '');
+            document.querySelectorAll('a[href*="wa.me"]').forEach(function(a) {
+              a.href = a.href.replace(/wa\.me\/[0-9]+/, 'wa.me/' + cleanWa);
+            });
+          }
+        }
+
+        // Execute immediately upon load
+        applyFrontendHydration();
+        document.addEventListener('DOMContentLoaded', applyFrontendHydration);
+
+        // Listen for changes from another tab (Admin Dashboard)
+        window.addEventListener('storage', function(e) {
+          if (!e.key || e.key.indexOf('vo_') === 0) {
+            applyFrontendHydration();
+          }
+        });
+
+        // Listen for custom in-tab updates
+        window.addEventListener('vo_content_updated', applyFrontendHydration);
+
+        // BroadcastChannel sync across tabs & windows
+        try {
+          var bc = new BroadcastChannel('vo_sync_channel');
+          bc.onmessage = function() {
+            applyFrontendHydration();
+          };
+        } catch(err) {}
+      })();
+    </script>
+        }
+
+        // Execute immediately upon load
+        applyFrontendHydration();
+        document.addEventListener('DOMContentLoaded', applyFrontendHydration);
+
+        // Listen for changes from another tab (Admin Dashboard)
+        window.addEventListener('storage', function(e) {
+          if (!e.key || e.key.indexOf('vo_') === 0) {
+            applyFrontendHydration();
+          }
+        });
+
+        // Listen for custom in-tab updates
+        window.addEventListener('vo_content_updated', applyFrontendHydration);
+
+        // BroadcastChannel sync across tabs & windows
+        try {
+          var bc = new BroadcastChannel('vo_sync_channel');
+          bc.onmessage = function() {
+            applyFrontendHydration();
+          };
+        } catch(err) {}
+      })();
+    </script>
+
+    <!-- Supabase Cloud Sync Engine (Bundled Vite Module) -->
+    <script>
+      import { pullLatestFromSupabase } from '../lib/supabaseSync';
+      if (typeof window !== 'undefined' && navigator.onLine) {
+        pullLatestFromSupabase();
+      }
+    </script>
   </body>
 </html>

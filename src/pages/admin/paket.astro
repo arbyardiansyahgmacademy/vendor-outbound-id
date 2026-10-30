@@ -6,19 +6,19 @@ import { PACKAGES } from '../../data/defaultContent';
 <AdminLayout title="Kelola Paket Outbound">
   <div class="space-y-6 text-left">
     
-    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-rose-900/40">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[#163832]">
       <div>
         <h1 class="font-heading font-black text-2xl uppercase tracking-wider text-white flex items-center gap-2.5">
-          <i class="fas fa-box-open text-amber-400"></i>
+          <i class="fas fa-box-open text-[#DAF1DE]"></i>
           <span>KELOLA PAKET PILIHAN OUTBOUND</span>
         </h1>
-        <p class="text-xs text-rose-300/80 mt-1">
+        <p class="text-xs text-[#8EB69B] mt-1">
           Daftar paket pilihan outbound dalam 4 kategori (Perusahaan, Family, Sekolah, Adventure).
         </p>
       </div>
 
       <div class="flex items-center gap-3">
-        <select id="pkg-cat-filter" class="px-3 py-2 rounded-lg bg-[#2D0206] border border-rose-800 text-white text-xs">
+        <select id="pkg-cat-filter" class="px-3 py-2 rounded-lg bg-[#0B2B26] border border-[#235347] text-[#DAF1DE] text-xs focus:outline-none focus:border-[#8EB69B]">
           <option value="all">Semua Kategori</option>
           <option value="perusahaan">Perusahaan</option>
           <option value="family-gathering">Family Gathering</option>
@@ -28,7 +28,7 @@ import { PACKAGES } from '../../data/defaultContent';
         <button
           id="add-pkg-btn"
           type="button"
-          class="px-4 py-2 rounded-lg bg-amber-500 hover:bg-amber-400 text-stone-950 font-bold text-xs uppercase tracking-wider shadow"
+          class="px-4 py-2 rounded-lg bg-[#DAF1DE] hover:bg-white text-[#051F20] font-bold text-xs uppercase tracking-wider shadow-glow-mint transition-all"
         >
           + Tambah Paket
         </button>
@@ -38,10 +38,10 @@ import { PACKAGES } from '../../data/defaultContent';
     <div id="pkg-alert" class="hidden p-3 rounded-lg text-xs font-bold"></div>
 
     <!-- Table -->
-    <div class="rounded-2xl bg-[#300205]/90 border border-rose-700/40 overflow-hidden shadow-2xl">
+    <div class="rounded-2xl bg-[#0B2B26] border border-[#235347] overflow-hidden shadow-2xl">
       <div class="overflow-x-auto">
         <table class="w-full text-xs text-left">
-          <thead class="bg-[#240104] text-[10px] uppercase font-bold text-rose-300/80 border-b border-rose-900/60">
+          <thead class="bg-[#072522] text-[10px] uppercase font-bold text-[#8EB69B] border-b border-[#163832]">
             <tr>
               <th class="py-3 px-4">Nama Paket</th>
               <th class="py-3 px-4">Kategori</th>
@@ -51,7 +51,7 @@ import { PACKAGES } from '../../data/defaultContent';
               <th class="py-3 px-4 text-right">Tindakan</th>
             </tr>
           </thead>
-          <tbody id="packages-tbody" class="divide-y divide-rose-900/30 text-rose-100">
+          <tbody id="packages-tbody" class="divide-y divide-[#163832] text-[#DAF1DE]/90">
             <!-- Populated via script -->
           </tbody>
         </table>
@@ -59,27 +59,27 @@ import { PACKAGES } from '../../data/defaultContent';
     </div>
 
     <!-- Modal Form -->
-    <dialog id="pkg-modal" class="backdrop:bg-stone-950/80 bg-transparent p-4 max-w-xl w-full mx-auto my-auto text-white focus:outline-none">
-      <div class="rounded-2xl bg-[#330206] border border-rose-600/50 p-6 shadow-2xl space-y-4 text-left">
-        <div class="flex items-center justify-between border-b border-rose-900/50 pb-3">
+    <dialog id="pkg-modal" class="backdrop:bg-[#051F20]/80 bg-transparent p-4 max-w-xl w-full mx-auto my-auto text-white focus:outline-none">
+      <div class="rounded-2xl bg-[#163832] border border-[#235347] p-6 shadow-2xl space-y-4 text-left">
+        <div class="flex items-center justify-between border-b border-[#235347] pb-3">
           <h3 id="modal-pkg-title" class="font-heading font-black text-lg text-white uppercase tracking-wider">
             Tambah / Edit Paket
           </h3>
-          <button id="close-pkg-modal-btn" type="button" class="text-rose-300 hover:text-white text-lg font-bold">✕</button>
+          <button id="close-pkg-modal-btn" type="button" class="text-[#8EB69B] hover:text-white text-lg font-bold">✕</button>
         </div>
 
         <form id="pkg-form" class="space-y-3.5">
           <input type="hidden" id="pkg-idx" />
 
           <div>
-            <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200 mb-1">Nama Paket</label>
-            <input type="text" id="p-title" required class="w-full px-3 py-2 rounded bg-stone-950/70 border border-rose-800 text-white text-xs focus:outline-none focus:border-amber-400" />
+            <label class="block text-[11px] font-bold uppercase tracking-wider text-[#DAF1DE] mb-1">Nama Paket</label>
+            <input type="text" id="p-title" required class="w-full px-3 py-2 rounded bg-[#051F20]/90 border border-[#235347] text-white text-xs focus:outline-none focus:border-[#8EB69B]" />
           </div>
 
           <div class="grid grid-cols-2 gap-3">
             <div>
-              <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200 mb-1">Kategori</label>
-              <select id="p-category" required class="w-full px-3 py-2 rounded bg-stone-950/70 border border-rose-800 text-white text-xs">
+              <label class="block text-[11px] font-bold uppercase tracking-wider text-[#DAF1DE] mb-1">Kategori</label>
+              <select id="p-category" required class="w-full px-3 py-2 rounded bg-[#051F20]/90 border border-[#235347] text-white text-xs focus:outline-none focus:border-[#8EB69B]">
                 <option value="perusahaan">Perusahaan</option>
                 <option value="family-gathering">Family Gathering</option>
                 <option value="sekolah">Sekolah</option>
@@ -87,24 +87,57 @@ import { PACKAGES } from '../../data/defaultContent';
               </select>
             </div>
             <div>
-              <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200 mb-1">Durasi</label>
-              <input type="text" id="p-duration" placeholder="Contoh: 1 Hari" class="w-full px-3 py-2 rounded bg-stone-950/70 border border-rose-800 text-white text-xs focus:outline-none focus:border-amber-400" />
+              <label class="block text-[11px] font-bold uppercase tracking-wider text-[#DAF1DE] mb-1">Durasi</label>
+              <input type="text" id="p-duration" placeholder="Contoh: 1 Hari" class="w-full px-3 py-2 rounded bg-[#051F20]/90 border border-[#235347] text-white text-xs focus:outline-none focus:border-[#8EB69B]" />
             </div>
           </div>
 
           <div>
-            <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200 mb-1">Ringkasan / Excerpt</label>
-            <textarea id="p-excerpt" rows="2" required class="w-full px-3 py-2 rounded bg-stone-950/70 border border-rose-800 text-white text-xs focus:outline-none focus:border-amber-400"></textarea>
+            <label class="block text-[11px] font-bold uppercase tracking-wider text-[#DAF1DE] mb-1">Ringkasan / Excerpt</label>
+            <textarea id="p-excerpt" rows="2" required class="w-full px-3 py-2 rounded bg-[#051F20]/90 border border-[#235347] text-white text-xs focus:outline-none focus:border-[#8EB69B]"></textarea>
           </div>
 
           <div>
-            <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200 mb-1">Label Harga / Status</label>
-            <input type="text" id="p-price" value="Konsultasikan kebutuhan paket" class="w-full px-3 py-2 rounded bg-stone-950/70 border border-rose-800 text-white text-xs focus:outline-none focus:border-amber-400" />
+            <label class="block text-[11px] font-bold uppercase tracking-wider text-[#DAF1DE] mb-1">Label Harga / Status</label>
+            <input type="text" id="p-price" value="Konsultasi Bujet" class="w-full px-3 py-2 rounded bg-[#051F20]/90 border border-[#235347] text-white text-xs focus:outline-none focus:border-[#8EB69B]" />
           </div>
 
-          <div class="flex items-center justify-end gap-3 pt-3 border-t border-rose-900/50">
-            <button type="button" id="cancel-pkg-btn" class="px-4 py-2 rounded bg-stone-900 text-rose-300 text-xs font-bold">Batal</button>
-            <button type="submit" class="px-5 py-2 rounded bg-amber-500 hover:bg-amber-400 text-stone-950 font-bold text-xs uppercase">Simpan Paket</button>
+          <!-- Gambar Paket Section -->
+          <div class="space-y-2 pt-1 border-t border-[#235347]/60">
+            <label class="block text-[11px] font-bold uppercase tracking-wider text-[#DAF1DE]">
+              Gambar / Foto Paket
+            </label>
+            <div class="flex items-center gap-3">
+              <img id="p-img-preview" src="/images/packages/team-building.webp" alt="Pratinjau Paket" class="w-16 h-12 object-cover rounded-lg border border-[#235347] bg-[#051F20]" />
+              <div class="flex-1 space-y-1.5">
+                <input
+                  type="text"
+                  id="p-image"
+                  class="w-full px-3 py-1.5 rounded bg-[#051F20]/90 border border-[#235347] text-white text-xs font-mono focus:outline-none focus:border-[#8EB69B]"
+                  placeholder="/images/packages/..."
+                />
+                <div class="flex items-center gap-2 flex-wrap">
+                  <input type="file" id="p-file-input" accept="image/*" class="hidden" />
+                  <button type="button" id="p-upload-btn" class="px-2.5 py-1 rounded bg-[#0B2B26] hover:bg-[#235347] text-[#DAF1DE] text-[10px] font-bold border border-[#235347] flex items-center gap-1.5">
+                    <i class="fas fa-upload text-[10px]"></i>
+                    <span>Unggah File</span>
+                  </button>
+                  <span class="text-[10px] text-[#8EB69B]">preset:</span>
+                  <div class="flex items-center gap-1 flex-wrap">
+                    <button type="button" class="preset-pkg-btn px-2 py-0.5 rounded text-[10px] bg-[#051F20] text-[#8EB69B] hover:text-white border border-[#235347]" data-src="/images/packages/team-building.webp">Team Building</button>
+                    <button type="button" class="preset-pkg-btn px-2 py-0.5 rounded text-[10px] bg-[#051F20] text-[#8EB69B] hover:text-white border border-[#235347]" data-src="/images/packages/fun-games.webp">Fun Games</button>
+                    <button type="button" class="preset-pkg-btn px-2 py-0.5 rounded text-[10px] bg-[#051F20] text-[#8EB69B] hover:text-white border border-[#235347]" data-src="/images/packages/corporate-gathering.webp">Gathering</button>
+                    <button type="button" class="preset-pkg-btn px-2 py-0.5 rounded text-[10px] bg-[#051F20] text-[#8EB69B] hover:text-white border border-[#235347]" data-src="/images/packages/rafting.webp">Rafting</button>
+                    <button type="button" class="preset-pkg-btn px-2 py-0.5 rounded text-[10px] bg-[#051F20] text-[#8EB69B] hover:text-white border border-[#235347]" data-src="/images/packages/offroad-4x4.webp">Offroad</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex items-center justify-end gap-3 pt-3 border-t border-[#235347]">
+            <button type="button" id="cancel-pkg-btn" class="px-4 py-2 rounded bg-[#0B2B26] hover:bg-[#163832] text-[#8EB69B] border border-[#235347] text-xs font-bold">Batal</button>
+            <button type="submit" class="px-5 py-2 rounded bg-[#DAF1DE] hover:bg-white text-[#051F20] font-bold text-xs uppercase shadow-glow-mint">Simpan Paket</button>
           </div>
         </form>
       </div>
@@ -114,6 +147,7 @@ import { PACKAGES } from '../../data/defaultContent';
 
   <script>
     import { PACKAGES } from '../../data/defaultContent';
+    import { syncPackageToSupabase, deletePackageFromSupabase } from '../../lib/supabaseSync';
 
     const tbody = document.getElementById('packages-tbody');
     const modal = document.getElementById('pkg-modal') as HTMLDialogElement | null;
@@ -128,6 +162,12 @@ import { PACKAGES } from '../../data/defaultContent';
 
     function savePackages(list: any[]) {
       localStorage.setItem('vo_packages', JSON.stringify(list));
+      window.dispatchEvent(new CustomEvent('vo_content_updated', { detail: { key: 'vo_packages', data: list } }));
+      window.dispatchEvent(new Event('storage'));
+      try {
+        const bc = new BroadcastChannel('vo_sync_channel');
+        bc.postMessage({ type: 'VO_UPDATED', key: 'vo_packages', data: list });
+      } catch (e) {}
       renderTable();
     }
 
@@ -141,19 +181,19 @@ import { PACKAGES } from '../../data/defaultContent';
       }
 
       tbody.innerHTML = list.map((p: any, idx: number) => `
-        <tr class="hover:bg-rose-950/40 transition-colors">
+        <tr class="hover:bg-[#163832]/50 transition-colors">
           <td class="py-3 px-4 font-bold text-white">${p.title}</td>
-          <td class="py-3 px-4 text-amber-300 font-semibold">${p.categoryName}</td>
-          <td class="py-3 px-4 text-rose-200/80">${p.duration}</td>
-          <td class="py-3 px-4 text-[11px] text-rose-300/70">${p.priceLabel}</td>
+          <td class="py-3 px-4 text-[#DAF1DE] font-semibold">${p.categoryName}</td>
+          <td class="py-3 px-4 text-[#DAF1DE]/80">${p.duration}</td>
+          <td class="py-3 px-4 text-[11px] text-[#8EB69B]">${p.priceLabel}</td>
           <td class="py-3 px-4">
-            <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/20 text-emerald-300">Published</span>
+            <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-[#235347]/60 text-[#DAF1DE] border border-[#8EB69B]/40">Published</span>
           </td>
           <td class="py-3 px-4 text-right space-x-2">
-            <button class="edit-p-btn px-2.5 py-1 rounded bg-amber-500/20 hover:bg-amber-500 hover:text-stone-950 text-amber-300 text-[10px] font-bold border border-amber-500/40" data-idx="${idx}">
+            <button class="edit-p-btn px-2.5 py-1 rounded bg-[#163832] hover:bg-[#235347] text-[#DAF1DE] text-[10px] font-bold border border-[#235347]" data-idx="${idx}">
               Edit
             </button>
-            <button class="del-p-btn px-2.5 py-1 rounded bg-rose-950 hover:bg-rose-900 text-rose-300 text-[10px] border border-rose-800/40" data-idx="${idx}">
+            <button class="del-p-btn px-2.5 py-1 rounded bg-[#051F20] hover:bg-rose-950 text-rose-300 text-[10px] border border-[#235347]" data-idx="${idx}">
               Hapus
             </button>
           </td>
@@ -171,17 +211,26 @@ import { PACKAGES } from '../../data/defaultContent';
             (document.getElementById('p-duration') as HTMLInputElement).value = item.duration;
             (document.getElementById('p-excerpt') as HTMLTextAreaElement).value = item.excerpt;
             (document.getElementById('p-price') as HTMLInputElement).value = item.priceLabel;
+            const imgInput = document.getElementById('p-image') as HTMLInputElement;
+            const imgPreview = document.getElementById('p-img-preview') as HTMLImageElement;
+            const imgUrl = item.imageUrl || '/images/packages/team-building.webp';
+            if (imgInput) imgInput.value = imgUrl;
+            if (imgPreview) imgPreview.src = imgUrl;
             modal.showModal();
           }
         });
       });
 
       document.querySelectorAll<HTMLButtonElement>('.del-p-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
+        btn.addEventListener('click', async () => {
           if (confirm('Hapus paket ini?')) {
             const idx = Number(btn.dataset.idx);
+            const targetSlug = list[idx]?.slug;
             list.splice(idx, 1);
             savePackages(list);
+            if (targetSlug) {
+              await deletePackageFromSupabase(targetSlug);
+            }
           }
         });
       });
@@ -194,13 +243,56 @@ import { PACKAGES } from '../../data/defaultContent';
     document.getElementById('add-pkg-btn')?.addEventListener('click', () => {
       form?.reset();
       (document.getElementById('pkg-idx') as HTMLInputElement).value = '-1';
+      const imgInput = document.getElementById('p-image') as HTMLInputElement;
+      const imgPreview = document.getElementById('p-img-preview') as HTMLImageElement;
+      if (imgInput) imgInput.value = '/images/packages/team-building.webp';
+      if (imgPreview) imgPreview.src = '/images/packages/team-building.webp';
       modal?.showModal();
     });
 
     document.getElementById('close-pkg-modal-btn')?.addEventListener('click', () => modal?.close());
     document.getElementById('cancel-pkg-btn')?.addEventListener('click', () => modal?.close());
 
-    form?.addEventListener('submit', (e) => {
+    // Image preview & upload listeners
+    const pkgImageInput = document.getElementById('p-image') as HTMLInputElement | null;
+    const pkgImagePreview = document.getElementById('p-img-preview') as HTMLImageElement | null;
+    const pkgFileInput = document.getElementById('p-file-input') as HTMLInputElement | null;
+    const pkgUploadBtn = document.getElementById('p-upload-btn');
+
+    pkgImageInput?.addEventListener('input', () => {
+      if (pkgImagePreview && pkgImageInput.value) {
+        pkgImagePreview.src = pkgImageInput.value;
+      }
+    });
+
+    pkgUploadBtn?.addEventListener('click', () => {
+      pkgFileInput?.click();
+    });
+
+    pkgFileInput?.addEventListener('change', () => {
+      const file = pkgFileInput.files?.[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = (ev) => {
+          const res = ev.target?.result as string;
+          if (pkgImageInput) pkgImageInput.value = res;
+          if (pkgImagePreview) pkgImagePreview.src = res;
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+    document.querySelectorAll<HTMLButtonElement>('.preset-pkg-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const src = btn.dataset.src;
+        if (src) {
+          if (pkgImageInput) pkgImageInput.value = src;
+          if (pkgImagePreview) pkgImagePreview.src = src;
+        }
+      });
+    });
+
+    form?.addEventListener('submit', async (e) => {
       e.preventDefault();
       const list = getPackages();
       const idx = Number((document.getElementById('pkg-idx') as HTMLInputElement).value);
@@ -209,37 +301,44 @@ import { PACKAGES } from '../../data/defaultContent';
       const duration = (document.getElementById('p-duration') as HTMLInputElement).value;
       const excerpt = (document.getElementById('p-excerpt') as HTMLTextAreaElement).value;
       const priceLabel = (document.getElementById('p-price') as HTMLInputElement).value;
+      const imageUrl = (document.getElementById('p-image') as HTMLInputElement)?.value || '/images/packages/team-building.webp';
 
       const categoryName = categorySlug === 'perusahaan' ? 'Perusahaan' :
         categorySlug === 'family-gathering' ? 'Family Gathering' :
         categorySlug === 'sekolah' ? 'Sekolah' : 'Wisata & Adventure';
 
+      let savedItem: any;
       if (idx >= 0) {
-        list[idx] = { ...list[idx], title, categorySlug, categoryName, duration, excerpt, priceLabel };
+        list[idx] = { ...list[idx], title, categorySlug, categoryName, duration, excerpt, priceLabel, imageUrl };
+        savedItem = list[idx];
       } else {
-        list.push({
+        savedItem = {
           id: 'pkg-' + Date.now(),
           categorySlug,
           categoryName,
           title,
           slug: title.toLowerCase().replace(/[^\w\s-]/g, '').replace(/\s+/g, '-'),
           excerpt,
-          imageUrl: '/images/packages/team-building.webp',
+          imageUrl,
           activities: ['Aktivitas Tim Terpilih'],
           features: ['Instruktur & Fasilitator', 'Air Mineral', 'P3K'],
           duration,
           priceLabel,
           featured: false,
           sortOrder: list.length + 1
-        });
+        };
+        list.push(savedItem);
       }
 
       savePackages(list);
       modal?.close();
 
+      // Background Supabase Sync
+      syncPackageToSupabase(savedItem);
+
       if (alertBox) {
         alertBox.className = 'p-3 rounded-lg text-xs font-bold bg-emerald-950 text-emerald-200 border border-emerald-500 block';
-        alertBox.textContent = '✓ Data paket berhasil disimpan!';
+        alertBox.textContent = '✓ Data paket berhasil disimpan ke Front-End & Supabase!';
         setTimeout(() => alertBox.classList.add('hidden'), 2500);
       }
     });

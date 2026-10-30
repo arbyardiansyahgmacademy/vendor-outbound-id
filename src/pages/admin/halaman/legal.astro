@@ -6,19 +6,19 @@ import AdminLayout from '../../../layouts/AdminLayout.astro';
   <div class="space-y-8 text-left max-w-4xl">
     
     <!-- Header -->
-    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-rose-900/40">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[#235347]">
       <div>
         <div class="flex items-center gap-2 mb-1">
-          <a href="/admin/halaman" class="text-xs text-amber-400 hover:underline">← Master Halaman</a>
-          <span class="text-xs text-rose-400">/</span>
-          <span class="text-xs text-rose-300">Editor Legalitas</span>
+          <a href="/admin/halaman" class="text-xs text-[#DAF1DE] hover:underline">← Master Halaman</a>
+          <span class="text-xs text-[#235347]">/</span>
+          <span class="text-xs text-[#8EB69B]">Editor Legalitas</span>
         </div>
         <h1 class="font-heading font-black text-2xl uppercase tracking-wider text-white flex items-center gap-2">
-          <i class="fas fa-balance-scale text-amber-400"></i>
+          <i class="fas fa-balance-scale text-[#8EB69B]"></i>
           <span>EDITOR KEBIJAKAN PRIVASI &amp; SYARAT KETENTUAN</span>
         </h1>
-        <p class="text-xs text-rose-300/80 mt-1">
-          Kelola ketentuan layanan outbound, klausul pemesanan, kebijakan perlindungan data, dan hak cipta.
+        <p class="text-xs text-[#8EB69B] mt-1">
+          Kelola ketentuan layanan outbound, klausul pemesanan, kebijakan perlindungan data, hak cipta, dan gambar banner OG share.
         </p>
       </div>
 
@@ -26,91 +26,169 @@ import AdminLayout from '../../../layouts/AdminLayout.astro';
         <a
           href="/kebijakan-privasi"
           target="_blank"
-          class="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg bg-brand-900/70 hover:bg-brand-800 text-rose-200 hover:text-white text-xs font-bold border border-rose-700/50"
+          class="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg bg-[#163832] hover:bg-[#235347] text-[#DAF1DE] text-xs font-bold border border-[#235347] transition-colors"
         >
-          <i class="fas fa-shield-alt"></i>
+          <i class="fas fa-shield-alt text-[#8EB69B]"></i>
           <span>Privasi</span>
         </a>
         <a
           href="/syarat-ketentuan"
           target="_blank"
-          class="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg bg-brand-900/70 hover:bg-brand-800 text-rose-200 hover:text-white text-xs font-bold border border-rose-700/50"
+          class="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg bg-[#163832] hover:bg-[#235347] text-[#DAF1DE] text-xs font-bold border border-[#235347] transition-colors"
         >
-          <i class="fas fa-file-contract"></i>
+          <i class="fas fa-file-contract text-[#8EB69B]"></i>
           <span>Syarat</span>
         </a>
       </div>
     </div>
 
     <!-- Alert Box -->
-    <div id="legal-alert" class="hidden p-3 rounded-lg text-xs font-bold transition-all"></div>
+    <div id="legal-alert" class="hidden p-3 rounded-lg text-xs font-bold transition-all shadow-md"></div>
 
     <form id="legal-editor-form" class="space-y-8">
       
       <!-- Section 1: Kebijakan Privasi -->
-      <div class="rounded-xl bg-[#330206] border border-rose-700/40 p-6 space-y-4 shadow-xl">
-        <div class="flex items-center justify-between border-b border-rose-900/50 pb-2">
-          <h2 class="font-heading font-bold text-base uppercase text-amber-400 tracking-wider flex items-center gap-2">
-            <i class="fas fa-user-secret"></i>
+      <div class="rounded-xl bg-[#0B2B26] border border-[#235347] p-6 space-y-4 shadow-xl">
+        <div class="flex items-center justify-between border-b border-[#235347] pb-2">
+          <h2 class="font-heading font-bold text-base uppercase text-[#DAF1DE] tracking-wider flex items-center gap-2">
+            <i class="fas fa-user-secret text-[#8EB69B]"></i>
             <span>01. Halaman Kebijakan Privasi (/kebijakan-privasi)</span>
           </h2>
-          <span class="text-[10px] uppercase font-bold text-rose-400/80 tracking-widest">Privasi Data</span>
+          <span class="text-[10px] uppercase font-bold text-[#8EB69B] tracking-widest">Privasi Data</span>
         </div>
 
         <div>
-          <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200 mb-1">
+          <label class="block text-[11px] font-bold uppercase tracking-wider text-[#8EB69B] mb-1">
             Judul Halaman
           </label>
           <input
             type="text"
             id="l-privasi-title"
-            class="w-full px-3.5 py-2.5 rounded-lg bg-stone-950/70 border border-rose-800/60 text-white text-xs focus:outline-none focus:border-amber-400 font-bold"
+            class="w-full px-3.5 py-2.5 rounded-lg bg-[#051F20] border border-[#235347] text-white text-xs focus:outline-none focus:border-[#8EB69B] font-bold"
             value="KEBIJAKAN PRIVASI"
           />
         </div>
 
+        <!-- Privasi OG Image Control -->
+        <div class="p-3.5 rounded-lg bg-[#051F20] border border-[#235347] space-y-2">
+          <div class="flex items-center justify-between">
+            <label class="block text-[11px] font-bold uppercase tracking-wider text-[#8EB69B]">
+              Social Share Image (OG Image) Kebijakan Privasi
+            </label>
+            <span class="text-[10px] text-[#8EB69B]/70">URL / Upload / Preset</span>
+          </div>
+
+          <div class="flex flex-col sm:flex-row items-start sm:items-center gap-3">
+            <div class="w-16 h-12 rounded-lg bg-[#0B2B26] border border-[#235347] overflow-hidden flex-shrink-0 flex items-center justify-center">
+              <img id="l-privasi-og-preview" src="/images/hero/hero-outbound.webp" alt="OG Privasi Preview" class="w-full h-full object-cover" />
+            </div>
+
+            <div class="flex-1 w-full space-y-1.5">
+              <div class="flex gap-2">
+                <input
+                  type="text"
+                  id="l-privasi-og"
+                  data-preview="l-privasi-og-preview"
+                  class="img-ctrl-input flex-1 px-3 py-1.5 rounded-lg bg-[#0B2B26] border border-[#235347] text-white text-xs font-mono focus:outline-none focus:border-[#8EB69B]"
+                  value="/images/hero/hero-outbound.webp"
+                />
+                <label class="btn-img-upload px-3 py-1.5 rounded-lg bg-[#163832] hover:bg-[#235347] text-[#DAF1DE] text-xs font-bold border border-[#235347] cursor-pointer flex items-center gap-1.5 transition-all">
+                  <i class="fas fa-upload text-[11px]"></i>
+                  <span>Upload</span>
+                  <input type="file" accept="image/*" class="hidden img-ctrl-file" data-input="l-privasi-og" data-preview="l-privasi-og-preview" />
+                </label>
+              </div>
+
+              <div class="flex flex-wrap items-center gap-1.5 text-[10px]">
+                <span class="text-[#8EB69B]">Preset:</span>
+                <button type="button" class="btn-img-preset px-2 py-0.5 rounded bg-[#0B2B26] hover:bg-[#163832] text-[#DAF1DE] border border-[#235347]" data-input="l-privasi-og" data-preview="l-privasi-og-preview" data-val="/images/hero/hero-outbound.webp">Hero Outbound</button>
+                <button type="button" class="btn-img-preset px-2 py-0.5 rounded bg-[#0B2B26] hover:bg-[#163832] text-[#DAF1DE] border border-[#235347]" data-input="l-privasi-og" data-preview="l-privasi-og-preview" data-val="/images/about/team-fasilitator.webp">Tim Fasilitator</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div>
-          <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200 mb-1">
+          <label class="block text-[11px] font-bold uppercase tracking-wider text-[#8EB69B] mb-1">
             Isi Klausul Kebijakan Privasi (Data Pribadi & Perlindungan Pengguna)
           </label>
           <textarea
             id="l-privasi-content"
             rows="6"
-            class="w-full px-3.5 py-2.5 rounded-lg bg-stone-950/70 border border-rose-800/60 text-white text-xs font-mono focus:outline-none focus:border-amber-400 leading-relaxed"
-          >Vendor Outbound menghargai privasi Anda dan berkomitmen melindungi informasi pribadi yang Anda berikan melalui formulir konsultasi website vendoroutbound.id. Data berupa nama instansi, nomor WhatsApp, estimasi peserta, dan pesan hanya digunakan untuk keperluan perancangan paket kegiatan dan koordinasi penawaran resmi. Kami tidak pernah membagikan atau menjual data Anda kepada pihak ketiga.</textarea>
+            class="w-full px-3.5 py-2.5 rounded-lg bg-[#051F20] border border-[#235347] text-white text-xs font-mono focus:outline-none focus:border-[#8EB69B] leading-relaxed"
+          >Provider Outbound menghargai privasi Anda dan berkomitmen melindungi informasi pribadi yang Anda berikan melalui formulir konsultasi website provideroutbound.web.id. Data berupa nama instansi, nomor WhatsApp, estimasi peserta, dan pesan hanya digunakan untuk keperluan perancangan paket kegiatan dan koordinasi penawaran resmi. Kami tidak pernah membagikan atau menjual data Anda kepada pihak ketiga.</textarea>
         </div>
       </div>
 
       <!-- Section 2: Syarat & Ketentuan Layanan -->
-      <div class="rounded-xl bg-[#330206] border border-rose-700/40 p-6 space-y-4 shadow-xl">
-        <div class="flex items-center justify-between border-b border-rose-900/50 pb-2">
-          <h2 class="font-heading font-bold text-base uppercase text-amber-400 tracking-wider flex items-center gap-2">
-            <i class="fas fa-file-signature"></i>
+      <div class="rounded-xl bg-[#0B2B26] border border-[#235347] p-6 space-y-4 shadow-xl">
+        <div class="flex items-center justify-between border-b border-[#235347] pb-2">
+          <h2 class="font-heading font-bold text-base uppercase text-[#DAF1DE] tracking-wider flex items-center gap-2">
+            <i class="fas fa-file-signature text-[#8EB69B]"></i>
             <span>02. Halaman Syarat &amp; Ketentuan (/syarat-ketentuan)</span>
           </h2>
-          <span class="text-[10px] uppercase font-bold text-rose-400/80 tracking-widest">Ketentuan Acara</span>
+          <span class="text-[10px] uppercase font-bold text-[#8EB69B] tracking-widest">Ketentuan Acara</span>
         </div>
 
         <div>
-          <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200 mb-1">
+          <label class="block text-[11px] font-bold uppercase tracking-wider text-[#8EB69B] mb-1">
             Judul Halaman
           </label>
           <input
             type="text"
             id="l-syarat-title"
-            class="w-full px-3.5 py-2.5 rounded-lg bg-stone-950/70 border border-rose-800/60 text-white text-xs focus:outline-none focus:border-amber-400 font-bold"
+            class="w-full px-3.5 py-2.5 rounded-lg bg-[#051F20] border border-[#235347] text-white text-xs focus:outline-none focus:border-[#8EB69B] font-bold"
             value="SYARAT & KETENTUAN LAYANAN"
           />
         </div>
 
+        <!-- Syarat OG Image Control -->
+        <div class="p-3.5 rounded-lg bg-[#051F20] border border-[#235347] space-y-2">
+          <div class="flex items-center justify-between">
+            <label class="block text-[11px] font-bold uppercase tracking-wider text-[#8EB69B]">
+              Social Share Image (OG Image) Syarat &amp; Ketentuan
+            </label>
+            <span class="text-[10px] text-[#8EB69B]/70">URL / Upload / Preset</span>
+          </div>
+
+          <div class="flex flex-col sm:flex-row items-start sm:items-center gap-3">
+            <div class="w-16 h-12 rounded-lg bg-[#0B2B26] border border-[#235347] overflow-hidden flex-shrink-0 flex items-center justify-center">
+              <img id="l-syarat-og-preview" src="/images/hero/hero-outbound.webp" alt="OG Syarat Preview" class="w-full h-full object-cover" />
+            </div>
+
+            <div class="flex-1 w-full space-y-1.5">
+              <div class="flex gap-2">
+                <input
+                  type="text"
+                  id="l-syarat-og"
+                  data-preview="l-syarat-og-preview"
+                  class="img-ctrl-input flex-1 px-3 py-1.5 rounded-lg bg-[#0B2B26] border border-[#235347] text-white text-xs font-mono focus:outline-none focus:border-[#8EB69B]"
+                  value="/images/hero/hero-outbound.webp"
+                />
+                <label class="btn-img-upload px-3 py-1.5 rounded-lg bg-[#163832] hover:bg-[#235347] text-[#DAF1DE] text-xs font-bold border border-[#235347] cursor-pointer flex items-center gap-1.5 transition-all">
+                  <i class="fas fa-upload text-[11px]"></i>
+                  <span>Upload</span>
+                  <input type="file" accept="image/*" class="hidden img-ctrl-file" data-input="l-syarat-og" data-preview="l-syarat-og-preview" />
+                </label>
+              </div>
+
+              <div class="flex flex-wrap items-center gap-1.5 text-[10px]">
+                <span class="text-[#8EB69B]">Preset:</span>
+                <button type="button" class="btn-img-preset px-2 py-0.5 rounded bg-[#0B2B26] hover:bg-[#163832] text-[#DAF1DE] border border-[#235347]" data-input="l-syarat-og" data-preview="l-syarat-og-preview" data-val="/images/hero/hero-outbound.webp">Hero Outbound</button>
+                <button type="button" class="btn-img-preset px-2 py-0.5 rounded bg-[#0B2B26] hover:bg-[#163832] text-[#DAF1DE] border border-[#235347]" data-input="l-syarat-og" data-preview="l-syarat-og-preview" data-val="/images/destinasi/coban-rondo.webp">Coban Rondo</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div>
-          <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200 mb-1">
+          <label class="block text-[11px] font-bold uppercase tracking-wider text-[#8EB69B] mb-1">
             Isi Klausul Pemesanan, Pembayaran DP, & Keamanan di Lapangan
           </label>
           <textarea
             id="l-syarat-content"
             rows="6"
-            class="w-full px-3.5 py-2.5 rounded-lg bg-stone-950/70 border border-rose-800/60 text-white text-xs font-mono focus:outline-none focus:border-amber-400 leading-relaxed"
+            class="w-full px-3.5 py-2.5 rounded-lg bg-[#051F20] border border-[#235347] text-white text-xs font-mono focus:outline-none focus:border-[#8EB69B] leading-relaxed"
           >1. Konfirmasi Kegiatan: Pemesanan tanggal kegiatan outbound dinyatakan resmi setelah penandatanganan Surat Perjanjian Kerja (SPK) atau persetujuan proposal penawaran serta pembayaran uang muka (DP).
 2. Keselamatan & SOP: Peserta wajib mematuhi seluruh instruksi fasilitator dan standar operasional prosedur (SOP) keselamatan selama kegiatan outbound, rafting, offroad, atau camping.
 3. Rencana Cadangan (Contingency Plan): Apabila terjadi perubahan cuaca ekstrim di kawasan Batu Malang, fasilitator berhak mengalihkan simulasi ke modul semi-indoor tanpa mengurangi esensi pembelajaran dan keselamatan peserta.</textarea>
@@ -118,13 +196,14 @@ import AdminLayout from '../../../layouts/AdminLayout.astro';
       </div>
 
       <!-- Submit Bar -->
-      <div class="flex items-center justify-between pt-4 border-t border-rose-900/50">
-        <span class="text-xs text-rose-300/80">
-          Status: Sinkronisasi instan ke basis data
+      <div class="flex items-center justify-between pt-4 border-t border-[#235347]">
+        <span class="text-xs text-[#8EB69B]">
+          <i class="fas fa-check-circle text-[#DAF1DE] mr-1"></i>
+          <span>Status: Sinkronisasi instan ke basis data Supabase &amp; Web</span>
         </span>
         <button
           type="submit"
-          class="px-6 py-3 rounded-lg bg-amber-500 hover:bg-amber-400 text-stone-950 font-heading font-black text-xs uppercase tracking-wider shadow-lg transition-all hover:scale-105 flex items-center gap-2"
+          class="px-6 py-3 rounded-lg bg-[#DAF1DE] hover:bg-white text-[#051F20] font-heading font-black text-xs uppercase tracking-wider shadow-glow-mint transition-all hover:scale-105 flex items-center gap-2"
         >
           <i class="fas fa-save"></i>
           <span>Simpan Ketentuan Legal</span>
@@ -136,38 +215,130 @@ import AdminLayout from '../../../layouts/AdminLayout.astro';
   </div>
 
   <script>
+    import { syncPageToSupabase } from '../../../lib/supabaseSync';
+
     const form = document.getElementById('legal-editor-form') as HTMLFormElement | null;
     const alertBox = document.getElementById('legal-alert');
     const STORAGE_KEY = 'vo_page_legal';
+
+    function initImageControls() {
+      document.querySelectorAll<HTMLInputElement>('.img-ctrl-input').forEach((input) => {
+        const prevId = input.getAttribute('data-preview');
+        if (prevId) {
+          const prev = document.getElementById(prevId) as HTMLImageElement;
+          input.addEventListener('input', () => {
+            if (prev) prev.src = input.value || '';
+          });
+        }
+      });
+
+      document.querySelectorAll<HTMLElement>('.btn-img-upload').forEach((label) => {
+        label.addEventListener('click', (e) => {
+          if ((e.target as HTMLElement).tagName !== 'INPUT') {
+            const fileInput = label.querySelector<HTMLInputElement>('.img-ctrl-file');
+            fileInput?.click();
+          }
+        });
+      });
+
+      document.querySelectorAll<HTMLInputElement>('.img-ctrl-file').forEach((fileInput) => {
+        fileInput.addEventListener('change', () => {
+          const file = fileInput.files?.[0];
+          if (file) {
+            const inputId = fileInput.getAttribute('data-input');
+            const prevId = fileInput.getAttribute('data-preview');
+            const reader = new FileReader();
+            reader.onload = (e) => {
+              const res = e.target?.result as string;
+              if (inputId) {
+                const inp = document.getElementById(inputId) as HTMLInputElement;
+                if (inp) inp.value = res;
+              }
+              if (prevId) {
+                const prev = document.getElementById(prevId) as HTMLImageElement;
+                if (prev) prev.src = res;
+              }
+            };
+            reader.readAsDataURL(file);
+          }
+        });
+      });
+
+      document.querySelectorAll<HTMLButtonElement>('.btn-img-preset').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const inputId = btn.getAttribute('data-input');
+          const prevId = btn.getAttribute('data-preview');
+          const val = btn.getAttribute('data-val');
+          if (val) {
+            if (inputId) {
+              const inp = document.getElementById(inputId) as HTMLInputElement;
+              if (inp) inp.value = val;
+            }
+            if (prevId) {
+              const prev = document.getElementById(prevId) as HTMLImageElement;
+              if (prev) prev.src = val;
+            }
+          }
+        });
+      });
+    }
+
+    function setFieldAndPreview(inputId: string, prevId: string, val: string) {
+      const inp = document.getElementById(inputId) as HTMLInputElement;
+      if (inp) inp.value = val;
+      const prev = document.getElementById(prevId) as HTMLImageElement;
+      if (prev && val) prev.src = val;
+    }
+
+    initImageControls();
 
     const saved = localStorage.getItem(STORAGE_KEY);
     if (saved) {
       try {
         const d = JSON.parse(saved);
         if (d.privasiTitle) (document.getElementById('l-privasi-title') as HTMLInputElement).value = d.privasiTitle;
+        if (d.privasiOg) setFieldAndPreview('l-privasi-og', 'l-privasi-og-preview', d.privasiOg);
         if (d.privasiContent) (document.getElementById('l-privasi-content') as HTMLTextAreaElement).value = d.privasiContent;
         if (d.syaratTitle) (document.getElementById('l-syarat-title') as HTMLInputElement).value = d.syaratTitle;
+        if (d.syaratOg) setFieldAndPreview('l-syarat-og', 'l-syarat-og-preview', d.syaratOg);
         if (d.syaratContent) (document.getElementById('l-syarat-content') as HTMLTextAreaElement).value = d.syaratContent;
       } catch (e) {
         console.error(e);
       }
     }
 
-    form?.addEventListener('submit', (e) => {
+    form?.addEventListener('submit', async (e) => {
       e.preventDefault();
       const payload = {
         privasiTitle: (document.getElementById('l-privasi-title') as HTMLInputElement).value,
+        privasiOg: (document.getElementById('l-privasi-og') as HTMLInputElement).value,
         privasiContent: (document.getElementById('l-privasi-content') as HTMLTextAreaElement).value,
         syaratTitle: (document.getElementById('l-syarat-title') as HTMLInputElement).value,
+        syaratOg: (document.getElementById('l-syarat-og') as HTMLInputElement).value,
         syaratContent: (document.getElementById('l-syarat-content') as HTMLTextAreaElement).value,
         updatedAt: new Date().toISOString()
       };
 
       localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+      window.dispatchEvent(new CustomEvent('vo_content_updated', { detail: { key: STORAGE_KEY, data: payload } }));
+      window.dispatchEvent(new Event('storage'));
+      try {
+        const bc = new BroadcastChannel('vo_sync_channel');
+        bc.postMessage({ type: 'VO_UPDATED', key: STORAGE_KEY, data: payload });
+      } catch (e) {}
+
+      // Sync to Supabase directly
+      await syncPageToSupabase('/kebijakan-privasi', payload.privasiTitle, payload, 'legal', {
+        ogImage: payload.privasiOg
+      });
+      await syncPageToSupabase('/syarat-ketentuan', payload.syaratTitle, payload, 'legal', {
+        ogImage: payload.syaratOg
+      });
+      await syncPageToSupabase('/legal', 'Legal & Kebijakan', payload, 'legal');
 
       if (alertBox) {
-        alertBox.className = 'p-3 rounded-lg text-xs font-bold bg-emerald-950 text-emerald-200 border border-emerald-500 block';
-        alertBox.textContent = '✓ Seluruh konten Kebijakan Privasi & Syarat Ketentuan berhasil disimpan!';
+        alertBox.className = 'p-3 rounded-lg text-xs font-bold bg-[#163832] text-[#DAF1DE] border border-[#235347] block shadow-glow-mint';
+        alertBox.textContent = '✓ Seluruh konten Kebijakan Privasi & Syarat Ketentuan tersimpan ke Cloud Supabase & Web!';
         setTimeout(() => alertBox.classList.add('hidden'), 3500);
       }
     });

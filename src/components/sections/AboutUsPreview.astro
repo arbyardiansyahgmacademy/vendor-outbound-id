@@ -10,7 +10,8 @@ import { SITE_INFO } from '../../data/defaultContent';
       <!-- Left Column: Circular Floating Visual -->
       <div class="about-dish-visual">
         <img
-          alt="Kegiatan Outbound & Fasilitator Vendor Outbound di Batu Malang"
+          id="about-preview-img"
+          alt="Kegiatan Outbound & Fasilitator Provider Outbound di Batu Malang"
           class="about-dish-img"
           height="600"
           width="600"
@@ -21,11 +22,11 @@ import { SITE_INFO } from '../../data/defaultContent';
 
       <!-- Right Column: Content Block -->
       <div class="about-content-block text-left">
-        <h2>ABOUT US</h2>
-        <p>
+        <h2 id="about-preview-heading">ABOUT US</h2>
+        <p id="about-preview-p1">
           {SITE_INFO.brandName} berdedikasi menghadirkan jamuan aktivitas outbound, corporate team building, dan family gathering yang dirancang terstruktur dengan nilai edukasi, kehangatan, serta keselamatan terbaik di alam terbuka Kota Batu dan Malang.
         </p>
-        <p>
+        <p id="about-preview-p2">
           Setiap modul simulasi dipandu oleh fasilitator lapangan tersertifikasi dan berpengalaman, memastikan pengalaman kebersamaan yang berkesan mendalam bagi rekan kerja kantor, keluarga besar, maupun institusi pendidikan Anda.
         </p>
         <a class="btn-about-more" href="/tentang-kami">
@@ -50,4 +51,43 @@ import { SITE_INFO } from '../../data/defaultContent';
 
   </div>
 </section>
+
+<script is:inline>
+  (function() {
+    function hydrateAboutPreviewSection() {
+      var raw = localStorage.getItem('vo_page_beranda') || localStorage.getItem('vo_page_content');
+      if (!raw) return;
+      try {
+        var data = JSON.parse(raw);
+        var heading = document.getElementById('about-preview-heading');
+        var p1 = document.getElementById('about-preview-p1');
+        var p2 = document.getElementById('about-preview-p2');
+        var img = document.getElementById('about-preview-img');
+
+        if (data.aboutHeading && heading) heading.textContent = data.aboutHeading;
+        if (data.aboutP1 && p1) p1.textContent = data.aboutP1;
+        if (data.aboutP2 && p2) p2.textContent = data.aboutP2;
+        if (data.aboutImage && img) img.src = data.aboutImage;
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    hydrateAboutPreviewSection();
+    document.addEventListener('DOMContentLoaded', hydrateAboutPreviewSection);
+    window.addEventListener('storage', function(e) {
+      if (e.key === 'vo_page_beranda' || e.key === 'vo_page_content') hydrateAboutPreviewSection();
+    });
+    window.addEventListener('vo_content_updated', hydrateAboutPreviewSection);
+
+    try {
+      var bc = new BroadcastChannel('vo_sync_channel');
+      bc.onmessage = function(e) {
+        if (!e.data || e.data.key === 'vo_page_beranda' || e.data.key === 'vo_page_content') {
+          hydrateAboutPreviewSection();
+        }
+      };
+    } catch(err) {}
+  })();
+</script>
 

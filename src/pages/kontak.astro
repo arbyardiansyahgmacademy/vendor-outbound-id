@@ -9,24 +9,92 @@ const breadcrumbs = [
   { name: 'Kontak' }
 ];
 
-const waDirectUrl = getWhatsAppUrl('Halo Vendor Outbound, saya ingin konsultasi langsung kebutuhan outbound di Batu Malang.');
+const waDirectUrl = getWhatsAppUrl('Halo Provider Outbound, saya ingin konsultasi langsung kebutuhan outbound di Batu Malang.');
+
+const socialMediaList = [
+  {
+    name: 'Instagram',
+    handle: '@provideroutbound.id',
+    url: 'https://instagram.com',
+    icon: 'fab fa-instagram',
+    tag: 'Dokumentasi Harian',
+    accentColor: 'from-pink-500 via-rose-500 to-amber-500',
+    borderColor: 'group-hover:border-pink-500/70',
+    iconBg: 'bg-gradient-to-tr from-pink-600 to-rose-500 text-white shadow-pink-500/20',
+    desc: 'Update harian foto keseruan outbound, highlight reels, dan tips persiapan gathering tim di Batu Malang.',
+    btnText: 'Buka Instagram',
+    btnClass: 'bg-gradient-to-r from-pink-600 to-rose-600 hover:from-pink-500 hover:to-rose-500 text-white border border-pink-400/30 shadow-pink-950/40'
+  },
+  {
+    name: 'TikTok',
+    handle: '@provideroutbound',
+    url: 'https://tiktok.com',
+    icon: 'fab fa-tiktok',
+    tag: 'Video Pendek Viral',
+    accentColor: 'from-cyan-400 to-rose-500',
+    borderColor: 'group-hover:border-cyan-400/70',
+    iconBg: 'bg-stone-900 border border-cyan-400/50 text-cyan-300 shadow-cyan-500/20',
+    desc: 'Cuplikan video seru ice breaking, simulasi game kocak, serta aksi menantang offroad dan arung jeram.',
+    btnText: 'Buka TikTok',
+    btnClass: 'bg-stone-900 hover:bg-stone-850 text-cyan-300 border border-cyan-400/50 hover:border-cyan-300 shadow-cyan-950/40'
+  },
+  {
+    name: 'Facebook',
+    handle: 'Provider Outbound Batu Malang',
+    url: 'https://facebook.com',
+    icon: 'fab fa-facebook-f',
+    tag: 'Komunitas & Event',
+    accentColor: 'from-blue-600 to-blue-400',
+    borderColor: 'group-hover:border-blue-500/70',
+    iconBg: 'bg-blue-600 text-white shadow-blue-500/20',
+    desc: 'Album foto kegiatan per instansi, testimoni korporat, ulasan venue, dan artikel panduan outbound.',
+    btnText: 'Buka Facebook',
+    btnClass: 'bg-blue-600 hover:bg-blue-500 text-white border border-blue-400/30 shadow-blue-950/40'
+  },
+  {
+    name: 'X (Twitter)',
+    handle: '@provideroutbound',
+    url: 'https://x.com',
+    icon: 'fab fa-x-twitter',
+    tag: 'Update Kilat & Info',
+    accentColor: 'from-stone-300 to-stone-500',
+    borderColor: 'group-hover:border-stone-400/70',
+    iconBg: 'bg-stone-900 border border-white/20 text-white shadow-white/10',
+    desc: 'Update kilat kondisi cuaca Kota Batu, info ketersediaan slot venue, dan tips outbound singkat.',
+    btnText: 'Buka Akun X',
+    btnClass: 'bg-stone-900 hover:bg-stone-850 text-white border border-stone-600 hover:border-stone-400 shadow-stone-950/40'
+  },
+  {
+    name: 'YouTube',
+    handle: 'Provider Outbound Official',
+    url: 'https://youtube.com',
+    icon: 'fab fa-youtube',
+    tag: 'Aftermovie 4K HD',
+    accentColor: 'from-red-600 to-red-500',
+    borderColor: 'group-hover:border-red-500/70',
+    iconBg: 'bg-red-600 text-white shadow-red-500/20',
+    desc: 'Aftermovie sinematik resolusi tinggi 4K, profil perusahaan, dan video eksplorasi venue pegunungan.',
+    btnText: 'Buka YouTube',
+    btnClass: 'bg-red-600 hover:bg-red-500 text-white border border-red-400/30 shadow-red-950/40'
+  }
+];
 ---
 
 <PublicLayout
-  title="Kontak & Konsultasi Outbound Batu Malang | Vendor Outbound"
-  description="Hubungi Vendor Outbound untuk konsultasi dan perencanaan kegiatan outbound korporat, gathering keluarga, dan petualangan di Batu Malang."
+  title="Kontak & Konsultasi Outbound Batu Malang | Provider Outbound"
+  description="Hubungi Provider Outbound untuk konsultasi dan perencanaan kegiatan outbound korporat, gathering keluarga, dan petualangan di Batu Malang."
   breadcrumbs={breadcrumbs}
 >
   <!-- Hero Section -->
   <section class="py-16 sm:py-24 relative overflow-hidden">
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
-      <span class="text-xs font-bold uppercase tracking-widest text-amber-400">
+      <span id="kontak-eyebrow" class="text-xs font-bold uppercase tracking-widest text-amber-400">
         Layanan Pelanggan
       </span>
-      <h1 class="font-heading font-black text-3xl sm:text-5xl uppercase tracking-[0.14em] text-white">
+      <h1 id="kontak-h1" class="font-heading font-black text-3xl sm:text-5xl uppercase tracking-[0.14em] text-white">
         KONTAK &amp; KONSULTASI
       </h1>
-      <p class="text-base sm:text-lg text-rose-100/85 max-w-3xl mx-auto leading-relaxed">
+      <p id="kontak-desc" class="text-base sm:text-lg text-rose-100/85 max-w-3xl mx-auto leading-relaxed">
         Diskusikan rancangan kegiatan, pilihan lokasi pegunungan di Batu & Malang, dan penawaran program yang tepat untuk tim Anda.
       </p>
     </div>
@@ -235,9 +303,9 @@ const waDirectUrl = getWhatsAppUrl('Halo Vendor Outbound, saya ingin konsultasi 
         
         <!-- WhatsApp Callout -->
         <div class="rounded-2xl bg-gradient-to-br from-emerald-950/70 to-emerald-900/40 border-2 border-emerald-500/40 p-6 sm:p-8 space-y-4 shadow-xl">
-          <div class="w-12 h-12 rounded-xl bg-emerald-500 text-stone-950 flex items-center justify-center font-bold shadow-lg">
-            <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24">
-              <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.669-.699c.969.54 1.772.82 2.791.82 3.181 0 5.767-2.586 5.768-5.766 0-3.18-2.587-5.766-5.768-5.766zm9.969 5.766c0 5.514-4.486 10-10 10-1.823 0-3.539-.493-5.029-1.353l-6.971 1.822 1.854-6.782c-.933-1.536-1.467-3.329-1.467-5.247 0-5.514 4.486-10 10-10s10 4.486 10 10z"/>
+          <div class="w-13 h-13 sm:w-14 sm:h-14 rounded-2xl bg-emerald-500 text-white flex items-center justify-center shadow-lg shadow-emerald-500/30">
+            <svg class="w-7 h-7 sm:w-8 sm:h-8 fill-current" viewBox="0 0 24 24">
+              <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
             </svg>
           </div>
 
@@ -247,16 +315,20 @@ const waDirectUrl = getWhatsAppUrl('Halo Vendor Outbound, saya ingin konsultasi 
           <p class="text-xs text-emerald-100/80 leading-relaxed">
             Butuh penawaran kilat atau diskusi langsung via chat? Hubungi fasilitator kami di:
           </p>
-          <div class="text-2xl font-heading font-black text-amber-300">
+          <div id="kontak-wa-disp" class="text-2xl font-heading font-black text-amber-300">
             {SITE_INFO.whatsappDisplay}
           </div>
 
           <a
+            id="kontak-wa-btn"
             href={waDirectUrl}
             target="_blank"
             rel="noopener noreferrer"
-            class="inline-flex items-center gap-2 px-5 py-3 rounded-md bg-emerald-500 hover:bg-emerald-400 text-stone-950 font-heading font-black text-xs uppercase tracking-wider transition-all"
+            class="inline-flex items-center gap-2.5 px-5 py-3.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-stone-950 font-heading font-black text-xs uppercase tracking-wider transition-all shadow-md hover:scale-[1.02]"
           >
+            <svg class="w-4 h-4 fill-current shrink-0" viewBox="0 0 24 24">
+              <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
+            </svg>
             <span>Buka WhatsApp Sekarang</span>
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
@@ -269,7 +341,7 @@ const waDirectUrl = getWhatsAppUrl('Halo Vendor Outbound, saya ingin konsultasi 
           <h4 class="font-heading font-bold text-sm text-amber-400 uppercase tracking-wider">
             Wilayah Operasional Utama
           </h4>
-          <p class="text-xs text-rose-100/85 leading-relaxed">
+          <p id="kontak-service-areas" class="text-xs text-rose-100/85 leading-relaxed">
             {SITE_INFO.serviceAreas}. Kami melayani kegiatan di kawasan hutan pinus, resort outbound, rafting Kaliwatu &amp; Kasembon, serta area camping ground Batu Malang.
           </p>
         </div>
@@ -280,10 +352,103 @@ const waDirectUrl = getWhatsAppUrl('Halo Vendor Outbound, saya ingin konsultasi 
             Jam Layanan Konsultasi
           </h4>
           <p class="text-xs text-rose-100/85 leading-relaxed">
-            Setiap hari: <span class="font-bold text-white">{SITE_INFO.operatingHours}</span>. Permintaan yang masuk di luar jam layanan akan ditindaklanjuti pada pagi hari berikutnya.
+            Setiap hari: <span id="kontak-operating-hours" class="font-bold text-white">{SITE_INFO.operatingHours}</span>. Permintaan yang masuk di luar jam layanan akan ditindaklanjuti pada pagi hari berikutnya.
           </p>
         </div>
 
+        <!-- Basecamp & Office Card -->
+        <div class="rounded-xl bg-[#450308]/60 border border-rose-700/35 p-6 space-y-3">
+          <h4 class="font-heading font-bold text-sm text-amber-400 uppercase tracking-wider flex items-center gap-2">
+            <i class="fas fa-map-marked-alt text-amber-400"></i>
+            <span>Kantor &amp; Basecamp Lapangan</span>
+          </h4>
+          <p id="kontak-office-desc" class="text-xs text-rose-100/85 leading-relaxed">
+            Jl. Raya Oro-Oro Ombo No. 9, Bumiaji, Kota Wisata Batu, Jawa Timur 65316. Tersedia area parkir luas dan ruang diskusi koordinasi teknis agenda kegiatan.
+          </p>
+          <div class="overflow-hidden rounded-lg border border-rose-800/40">
+            <img
+              id="kontak-office-img"
+              src="/images/gallery/gallery-4.webp"
+              alt="Basecamp Provider Outbound Batu Malang"
+              class="w-full h-32 sm:h-36 object-cover hover:scale-105 transition-transform duration-300"
+              loading="lazy"
+            />
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- DEDICATED SOCIAL MEDIA CARDS SECTION (INSTAGRAM, TIKTOK, FACEBOOK, X, YOUTUBE) -->
+  <section class="py-16 sm:py-20 relative bg-brand-950/50 border-t border-rose-900/40" id="media-sosial-resmi">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
+      
+      <!-- Section Header -->
+      <div class="text-center space-y-3 max-w-3xl mx-auto">
+        <span class="text-xs font-bold uppercase tracking-widest text-amber-400 bg-amber-500/10 px-3.5 py-1 rounded-full border border-amber-400/20 inline-flex items-center gap-2">
+          <i class="fas fa-hashtag text-[11px]"></i> Kanal Resmi Media Sosial
+        </span>
+        <h2 class="font-heading font-black text-2xl sm:text-3xl lg:text-4xl uppercase tracking-wider text-white">
+          TERHUBUNG DI MEDIA SOSIAL RESMI
+        </h2>
+        <p class="text-xs sm:text-sm text-rose-200/80 leading-relaxed">
+          Ikuti media sosial Provider Outbound untuk melihat dokumentasi video real-time, recap keseruan games peserta, tips team building, dan update promo paket gathering di Batu Malang.
+        </p>
+      </div>
+
+      <!-- 5 Social Media Cards Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5">
+        {socialMediaList.map((soc) => (
+          <div class={`rounded-2xl bg-[#480308]/75 border border-rose-700/40 ${soc.borderColor} p-5 sm:p-6 flex flex-col justify-between shadow-card hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 group text-left relative overflow-hidden`}>
+            
+            <!-- Top Gradient Accent Line -->
+            <div class={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${soc.accentColor}`}></div>
+
+            <div class="space-y-4">
+              <!-- Header with Icon & Tag -->
+              <div class="flex items-center justify-between">
+                <div class={`w-12 h-12 rounded-xl flex items-center justify-center text-xl shadow-lg ${soc.iconBg} group-hover:scale-110 transition-transform`}>
+                  <i class={soc.icon}></i>
+                </div>
+                <span class="text-[10px] font-bold uppercase tracking-wider text-amber-300/90 bg-stone-900/60 px-2 py-0.5 rounded border border-rose-800/40">
+                  {soc.tag}
+                </span>
+              </div>
+
+              <!-- Title & Handle -->
+              <div>
+                <h3 class="font-heading font-black text-lg text-white uppercase tracking-wider group-hover:text-amber-400 transition-colors">
+                  {soc.name}
+                </h3>
+                <span class="text-xs font-mono font-medium text-amber-400/90 block mt-0.5 truncate">
+                  {soc.handle}
+                </span>
+              </div>
+
+              <!-- Description -->
+              <p class="text-xs text-rose-200/80 leading-relaxed line-clamp-3 min-h-[56px]">
+                {soc.desc}
+              </p>
+            </div>
+
+            <!-- Action Button (Harmonized Uniform Height & Shape) -->
+            <div class="pt-4 mt-4 border-t border-rose-900/40">
+              <a
+                href={soc.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                class={`w-full h-11 inline-flex items-center justify-center gap-2 px-3 rounded-xl font-heading font-black text-xs uppercase tracking-wider transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] ${soc.btnClass}`}
+                aria-label={`${soc.btnText} Provider Outbound`}
+              >
+                <i class={`${soc.icon} text-sm`}></i>
+                <span class="truncate">{soc.btnText}</span>
+              </a>
+            </div>
+
+          </div>
+        ))}
       </div>
 
     </div>
@@ -296,6 +461,67 @@ const waDirectUrl = getWhatsAppUrl('Halo Vendor Outbound, saya ingin konsultasi 
   <CTASection />
 
 </PublicLayout>
+
+<script is:inline>
+  (function() {
+    function hydrateKontak() {
+      var raw = localStorage.getItem('vo_page_kontak');
+      if (!raw) return;
+      try {
+        var d = JSON.parse(raw);
+        var eb = document.getElementById('kontak-eyebrow');
+        if (eb && d.eyebrow) eb.textContent = d.eyebrow;
+
+        var h1 = document.getElementById('kontak-h1');
+        if (h1 && d.h1) h1.textContent = d.h1;
+
+        var desc = document.getElementById('kontak-desc');
+        if (desc && d.desc) desc.textContent = d.desc;
+
+        var waDisp = document.getElementById('kontak-wa-disp');
+        if (waDisp && d.waDisplay) waDisp.textContent = d.waDisplay;
+
+        var areas = document.getElementById('kontak-service-areas');
+        if (areas && d.address) areas.textContent = d.address;
+
+        var hours = document.getElementById('kontak-operating-hours');
+        if (hours && d.hours) hours.textContent = d.hours;
+
+        var officeImg = document.getElementById('kontak-office-img');
+        if (officeImg && d.officeImg) officeImg.src = d.officeImg;
+
+        var waBtn = document.getElementById('kontak-wa-btn');
+        if (waBtn && d.waNumber) {
+          var clean = d.waNumber.replace(/[^0-9]/g, '');
+          waBtn.href = 'https://wa.me/' + clean + '?text=Halo%20Vendor%20Outbound,%20saya%20ingin%20konsultasi%20langsung.';
+        }
+
+        if (d.seoTitle) document.title = d.seoTitle;
+        if (d.seoDesc) {
+          var m = document.querySelector('meta[name="description"]');
+          if (m) m.setAttribute('content', d.seoDesc);
+        }
+      } catch(e) {
+        console.error('Kontak hydration error:', e);
+      }
+    }
+
+    hydrateKontak();
+    document.addEventListener('DOMContentLoaded', hydrateKontak);
+    window.addEventListener('storage', function(e) {
+      if (e.key === 'vo_page_kontak') hydrateKontak();
+    });
+    window.addEventListener('vo_content_updated', function(e) {
+      if (!e.detail || e.detail.key === 'vo_page_kontak') hydrateKontak();
+    });
+    try {
+      var bc = new BroadcastChannel('vo_sync_channel');
+      bc.onmessage = function(e) {
+        if (!e.data || e.data.key === 'vo_page_kontak') hydrateKontak();
+      };
+    } catch(err) {}
+  })();
+</script>
 
 <script>
   import { isSupabaseConfigured, supabase } from '../lib/supabase';

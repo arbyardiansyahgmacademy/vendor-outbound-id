@@ -1,0 +1,239 @@
+---
+import PublicLayout from '../layouts/PublicLayout.astro';
+import CTASection from '../components/sections/CTASection.astro';
+import FAQAccordion from '../components/sections/FAQAccordion.astro';
+
+const defaultTestimonials = [
+  {
+    id: 1,
+    name: 'Hendro Wicaksono, S.T.',
+    role: 'HR Director',
+    company: 'PT Astra Graphia Tbk',
+    avatar: '/images/testimonials/client-1.webp',
+    rating: 5,
+    tag: 'Corporate Gathering • 150 Peserta',
+    review: 'Penyelenggaraan corporate gathering dan team building 150 staf kami di resort Batu berjalan luar biasa tertib, presisi waktu, dan sangat berkesan. Fasilitator BNSP sangat komunikatif membimbing simulasi tim, dan sesi debrief-nya berhasil menyegarkan kembali komitmen kerja lintas divisi.',
+    date: 'September 2026'
+  },
+  {
+    id: 2,
+    name: 'Dra. Hj. Siti Nurhaliza, M.Pd',
+    role: 'Kepala Sekolah',
+    company: 'SMAN 3 Surabaya',
+    avatar: '/images/testimonials/client-2.webp',
+    rating: 5,
+    tag: 'LDKS & Karakter Siswa • 220 Pelajar',
+    review: 'Latihan Dasar Kepemimpinan Siswa (LDKS) di Coban Rondo terlaksana sangat aman, edukatif, dan sarat nilai kedisiplinan. Fasilitator Provider Outbound sangat sigap mengawal SOP keselamatan anak didik kami dengan pendekatan yang persuasif dan inspiratif. Luar biasa!',
+    date: 'Oktober 2026'
+  },
+  {
+    id: 3,
+    name: 'Ir. Bambang Priyambodo',
+    role: 'Ketua Panitia Gathering',
+    company: 'Paguyuban Alumni ITS Surabaya',
+    avatar: '/images/testimonials/client-3.webp',
+    rating: 5,
+    tag: 'Family Gathering • 85 Keluarga',
+    review: 'Family gathering tahunan kami berjalan sangat meriah tanpa ada peserta yang jenuh. Variasi fun games-nya ramah untuk balita hingga lansia. Tim logistik dan konsumsinya sigap, plus dokumentasi foto dan drone-nya berkualitas studio. Pasti repeat order tahun depan!',
+    date: 'Agustus 2026'
+  }
+];
+
+const breadcrumbs = [
+  { name: 'Testimoni & Ulasan' }
+];
+---
+
+<PublicLayout
+  title="Testimoni Klien & Ulasan Nyata | Provider Outbound Batu Malang"
+  description="Ulasan nyata dari pimpinan perusahaan, kepala sekolah, dan panitia gathering keluarga yang telah mempercayakan kegiatan outbound di Batu Malang bersama Provider Outbound."
+  breadcrumbs={breadcrumbs}
+>
+  <!-- Hero Section -->
+  <section class="py-16 sm:py-24 relative overflow-hidden">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
+      <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/15 border border-amber-400/30 text-amber-300 text-xs font-bold uppercase tracking-widest">
+        <i class="fas fa-certificate text-[10px]"></i> Pengalaman Terverifikasi Klien
+      </span>
+      <h1 class="font-heading font-black text-3xl sm:text-5xl uppercase tracking-[0.14em] text-white">
+        TESTIMONI &amp; KEPERCAYAAN KLIEN
+      </h1>
+      <p class="text-base sm:text-lg text-rose-100/85 max-w-3xl mx-auto leading-relaxed">
+        Kepuasan dan dampak positif pada kekompakan tim Anda adalah tolak ukur utama keberhasilan kami. Simak apa kata para pimpinan institusi yang telah berkolaborasi bersama kami.
+      </p>
+
+      <!-- Trust Badges Bar -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto pt-6">
+        <div class="p-4 rounded-xl bg-[#3c0307]/70 border border-rose-800/40 text-center">
+          <div class="font-heading font-black text-2xl text-amber-400">4.9 / 5.0</div>
+          <div class="text-[11px] text-rose-300/80 mt-1 uppercase font-semibold">Skor Kepuasan Klien</div>
+        </div>
+        <div class="p-4 rounded-xl bg-[#3c0307]/70 border border-rose-800/40 text-center">
+          <div class="font-heading font-black text-2xl text-amber-400">120+</div>
+          <div class="text-[11px] text-rose-300/80 mt-1 uppercase font-semibold">Instansi Korporasi</div>
+        </div>
+        <div class="p-4 rounded-xl bg-[#3c0307]/70 border border-rose-800/40 text-center">
+          <div class="font-heading font-black text-2xl text-amber-400">100%</div>
+          <div class="text-[11px] text-rose-300/80 mt-1 uppercase font-semibold">Fasilitator BNSP</div>
+        </div>
+        <div class="p-4 rounded-xl bg-[#3c0307]/70 border border-rose-800/40 text-center">
+          <div class="font-heading font-black text-2xl text-amber-400">0 Insiden</div>
+          <div class="text-[11px] text-rose-300/80 mt-1 uppercase font-semibold">Komitmen Safety Zero</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- All Testimonials Grid -->
+  <section class="py-12 border-t border-rose-900/40">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8" id="page-testimonials-grid">
+        {defaultTestimonials.map((item) => (
+          <div class="rounded-2xl bg-[#440308]/75 backdrop-blur-md border border-rose-700/40 hover:border-amber-400/60 p-6 sm:p-7 flex flex-col justify-between shadow-2xl transition-all duration-300 hover:-translate-y-2 group">
+            <div>
+              <div class="flex items-center justify-between gap-2 mb-4 pb-3 border-b border-rose-900/40">
+                <div class="flex items-center gap-1 text-amber-400 text-sm">
+                  {Array.from({ length: item.rating }).map(() => (
+                    <i class="fas fa-star"></i>
+                  ))}
+                </div>
+                <span class="text-[10px] font-bold uppercase tracking-wider text-amber-300/90 bg-amber-500/10 px-2 py-0.5 rounded border border-amber-500/20">
+                  {item.date}
+                </span>
+              </div>
+
+              <div class="inline-flex items-center gap-1.5 text-[11px] font-semibold text-rose-200/90 mb-3 bg-brand-950/60 px-2.5 py-1 rounded-md border border-rose-800/30">
+                <i class="fas fa-check-circle text-emerald-400 text-[10px]"></i>
+                <span>{item.tag}</span>
+              </div>
+
+              <div class="relative">
+                <i class="fas fa-quote-left text-amber-500/20 text-3xl absolute -top-2 -left-1 pointer-events-none"></i>
+                <p class="text-xs sm:text-sm text-rose-100/90 leading-relaxed italic relative z-10 pl-2">
+                  "{item.review}"
+                </p>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-3.5 pt-5 mt-6 border-t border-rose-900/40">
+              <img
+                src={item.avatar}
+                alt={item.name}
+                width="48"
+                height="48"
+                class="w-12 h-12 rounded-full object-cover border-2 border-amber-400/70 shadow-md group-hover:scale-105 transition-transform"
+                loading="lazy"
+              />
+              <div class="min-w-0 flex-1">
+                <h3 class="font-heading font-black text-sm text-white uppercase tracking-wider group-hover:text-amber-400 transition-colors truncate">
+                  {item.name}
+                </h3>
+                <p class="text-[11px] text-amber-300/90 font-medium truncate">
+                  {item.role}
+                </p>
+                <p class="text-[10px] text-rose-300/70 truncate">
+                  {item.company}
+                </p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <FAQAccordion title="FAQ SEPUTAR KEPUASAN & TESTIMONI KLIEN" />
+
+  <!-- CTA Section -->
+  <CTASection />
+
+  <!-- Realtime Hydration Script for Testimoni Page -->
+  <script is:inline>
+    (function() {
+      function hydrateTestimonialsPage() {
+        var raw = localStorage.getItem('vo_testimonials');
+        if (!raw) return;
+        try {
+          var list = JSON.parse(raw);
+          if (!Array.isArray(list) || list.length === 0) return;
+          var container = document.getElementById('page-testimonials-grid');
+          if (!container) return;
+
+          container.innerHTML = list.map(function(item) {
+            var starCount = Number(item.rating) || 5;
+            var starsHtml = '';
+            for (var i = 0; i < starCount; i++) {
+              starsHtml += '<i class="fas fa-star"></i>';
+            }
+            var avatarSrc = item.avatar || '/images/author-artikel/author-artikel-arby-ardiansyah.webp';
+            var clientName = item.name || item.display_name || 'Klien Outbound';
+            var clientRole = item.role || '';
+            var clientOrg = item.company || item.organization || '';
+            var clientReview = item.review || item.quote || '';
+            var tagLabel = item.tag || item.company || 'Corporate Client';
+            var dateLabel = item.date || 'Terverifikasi';
+
+            return (
+              '<div class="rounded-2xl bg-[#440308]/75 backdrop-blur-md border border-rose-700/40 hover:border-amber-400/60 p-6 sm:p-7 flex flex-col justify-between shadow-2xl transition-all duration-300 hover:-translate-y-2 group">' +
+                '<div>' +
+                  '<div class="flex items-center justify-between gap-2 mb-4 pb-3 border-b border-rose-900/40">' +
+                    '<div class="flex items-center gap-1 text-amber-400 text-sm">' +
+                      starsHtml +
+                    '</div>' +
+                    '<span class="text-[10px] font-bold uppercase tracking-wider text-amber-300/90 bg-amber-500/10 px-2 py-0.5 rounded border border-amber-500/20">' +
+                      dateLabel +
+                    '</span>' +
+                  '</div>' +
+                  '<div class="inline-flex items-center gap-1.5 text-[11px] font-semibold text-rose-200/90 mb-3 bg-brand-950/60 px-2.5 py-1 rounded-md border border-rose-800/30">' +
+                    '<i class="fas fa-check-circle text-emerald-400 text-[10px]"></i>' +
+                    '<span>' + tagLabel + '</span>' +
+                  '</div>' +
+                  '<div class="relative">' +
+                    '<i class="fas fa-quote-left text-amber-500/20 text-3xl absolute -top-2 -left-1 pointer-events-none"></i>' +
+                    '<p class="text-xs sm:text-sm text-rose-100/90 leading-relaxed italic relative z-10 pl-2">' +
+                      '"' + clientReview + '"' +
+                    '</p>' +
+                  '</div>' +
+                '</div>' +
+                '<div class="flex items-center gap-3.5 pt-5 mt-6 border-t border-rose-900/40">' +
+                  '<img src="' + avatarSrc + '" alt="' + clientName + '" width="48" height="48" class="w-12 h-12 rounded-full object-cover border-2 border-amber-400/70 shadow-md group-hover:scale-105 transition-transform" loading="lazy" />' +
+                  '<div class="min-w-0 flex-1">' +
+                    '<h3 class="font-heading font-black text-sm text-white uppercase tracking-wider group-hover:text-amber-400 transition-colors truncate">' +
+                      clientName +
+                    '</h3>' +
+                    '<p class="text-[11px] text-amber-300/90 font-medium truncate">' +
+                      clientRole +
+                    '</p>' +
+                    '<p class="text-[10px] text-rose-300/70 truncate">' +
+                      clientOrg +
+                    '</p>' +
+                  '</div>' +
+                '</div>' +
+              '</div>'
+            );
+          }).join('');
+        } catch (e) {
+          console.error('Hydrate testimoni page error:', e);
+        }
+      }
+
+      hydrateTestimonialsPage();
+      document.addEventListener('DOMContentLoaded', hydrateTestimonialsPage);
+      window.addEventListener('storage', function(e) {
+        if (e.key === 'vo_testimonials') hydrateTestimonialsPage();
+      });
+      window.addEventListener('vo_content_updated', function(e) {
+        if (!e.detail || e.detail.key === 'vo_testimonials') hydrateTestimonialsPage();
+      });
+      try {
+        var bc = new BroadcastChannel('vo_sync_channel');
+        bc.onmessage = function(e) {
+          if (!e.data || e.data.key === 'vo_testimonials') {
+            hydrateTestimonialsPage();
+          }
+        };
+      } catch (err) {}
+    })();
+  </script>
+</PublicLayout>

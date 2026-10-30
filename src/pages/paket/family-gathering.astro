@@ -2,6 +2,7 @@
 import PublicLayout from '../../layouts/PublicLayout.astro';
 import FAQAccordion from '../../components/sections/FAQAccordion.astro';
 import CTASection from '../../components/sections/CTASection.astro';
+import DestinationsSection from '../../components/sections/DestinationsSection.astro';
 import { PACKAGES } from '../../data/defaultContent';
 import { getWhatsAppUrl } from '../../lib/utils';
 
@@ -16,91 +17,168 @@ const breadcrumbs = [
 ---
 
 <PublicLayout
-  title={`Paket ${categoryName} Batu Malang | Vendor Outbound`}
-  description="Pilihan paket family gathering keluarga di Batu Malang: Paket Hemat, Standard, Premium, dan Custom."
+  title={`Paket Outbound ${categoryName} Batu Malang | Provider Outbound`}
+  description="Pilihan paket Family Gathering perusahaan di Batu Malang: Paket Hemat, Paket Standard, Paket Premium Resort, dan Paket Custom yang ramah segala usia."
   breadcrumbs={breadcrumbs}
 >
+  <!-- Hero Section -->
   <section class="py-16 sm:py-24 relative overflow-hidden">
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
       <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/15 border border-amber-400/30 text-amber-300 text-xs font-bold uppercase tracking-widest">
-        Kategori Paket 02
+        <i class="fas fa-heart"></i>
+        <span>Kategori Paket 02</span>
       </div>
       <h1 class="font-heading font-black text-3xl sm:text-5xl uppercase tracking-[0.14em] text-white">
-        PAKET {categoryName.toUpperCase()}
+        PAKET OUTBOUND {categoryName.toUpperCase()}
       </h1>
       <p class="text-base sm:text-lg text-rose-100/85 max-w-3xl mx-auto leading-relaxed">
-        Pilihan paket gathering ceria, hangat, dan ramah segala usia untuk keluarga besar karyawan perusahaan, perkumpulan alumni, atau komunitas.
+        Rajut kehangatan silaturahmi keluarga besar karyawan dalam suasana pegunungan Kota Batu yang sejuk dan asri. Dirancang ramah anak, nyaman untuk orang tua dan lansia, serta sarat tawa kebersamaan.
       </p>
     </div>
   </section>
 
+  <!-- Package Cards Grid -->
   <section class="py-12 border-t border-rose-900/40">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-        {packages.map((pkg) => {
-          const waUrl = getWhatsAppUrl(`Halo Vendor Outbound, saya ingin konsultasi paket ${pkg.title} (${categoryName}).`);
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div id="category-pkg-grid" data-category-slug={categorySlug} class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        {packages.map((pkg, idx) => {
+          const waUrl = getWhatsAppUrl(`Halo Provider Outbound, saya ingin konsultasi detail paket ${pkg.title} (${categoryName}) untuk rombongan keluarga besar kami.`);
+          const letter = String.fromCharCode(97 + idx);
 
           return (
-            <div class="rounded-2xl bg-[#480308]/60 border border-rose-700/35 overflow-hidden flex flex-col justify-between hover:border-amber-400/50 transition-all duration-300 shadow-card group">
+            <div class="rounded-2xl bg-[#480308]/70 border border-rose-700/35 overflow-hidden flex flex-col justify-between hover:border-amber-400/50 transition-all duration-300 shadow-card group">
               <div>
-                <div class="aspect-16/9 w-full overflow-hidden bg-brand-950 relative">
+                <!-- Image Banner -->
+                <div class="w-full overflow-hidden bg-brand-950 relative shrink-0" style="aspect-ratio: 16 / 9;">
                   <img
                     src={pkg.imageUrl}
                     alt={pkg.title}
-                    width="600"
-                    height="350"
-                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    width="700"
+                    height="394"
+                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 block"
+                    loading="lazy"
                   />
-                  <div class="absolute bottom-3 left-3 px-3 py-1 rounded bg-stone-900/85 backdrop-blur-sm text-xs font-bold uppercase tracking-wider text-amber-400 border border-amber-400/30">
-                    Durasi: {pkg.duration}
-                  </div>
+                  <div class="absolute inset-0 bg-gradient-to-t from-stone-950/80 via-transparent to-transparent"></div>
+                  <span class="absolute top-3 left-3 px-3 py-1 rounded-md bg-stone-900/90 text-xs font-bold text-amber-400 border border-amber-400/30 uppercase tracking-wider">
+                    Paket {letter}.
+                  </span>
+                  <span class="absolute top-3 right-3 px-2.5 py-1 rounded-md bg-brand-900/90 text-xs font-semibold text-rose-200 border border-rose-700/40">
+                    <i class="far fa-clock text-amber-400 mr-1"></i> {pkg.duration}
+                  </span>
                 </div>
 
-                <div class="p-6 space-y-4 text-left">
-                  <h2 class="font-heading font-black text-xl sm:text-2xl uppercase tracking-wider text-white group-hover:text-amber-400 transition-colors">
-                    {pkg.title}
-                  </h2>
-                  <p class="text-sm text-rose-100/85 leading-relaxed">
-                    {pkg.excerpt}
+                <!-- Card Content -->
+                <div class="p-6 sm:p-8 space-y-6 text-left">
+                  <div>
+                    <h2 class="font-heading font-black text-2xl uppercase tracking-wider text-white group-hover:text-amber-400 transition-colors">
+                      {pkg.title}
+                    </h2>
+                    <p class="text-xs font-semibold uppercase tracking-wider text-rose-300/80 mt-1">
+                      Kategori: {categoryName}
+                    </p>
+                  </div>
+
+                  <!-- Description -->
+                  <p class="text-sm text-rose-100/90 leading-relaxed border-l-2 border-amber-400/60 pl-3.5 italic bg-brand-950/30 py-2 rounded-r">
+                    {pkg.description || pkg.excerpt}
                   </p>
 
-                  <div class="space-y-2 pt-2 border-t border-rose-900/30">
-                    <span class="text-xs font-bold uppercase tracking-wider text-amber-400">Rangkaian Aktivitas:</span>
-                    <ul class="grid grid-cols-1 sm:grid-cols-2 gap-1.5 text-xs text-rose-200/90">
-                      {pkg.activities.map((act) => (
-                        <li class="flex items-center gap-2">
-                          <span class="text-amber-400 font-bold">•</span>
-                          <span>{act}</span>
-                        </li>
-                      ))}
-                    </ul>
+                  <!-- 2-Column Grid -->
+                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 pt-2 border-t border-rose-900/40">
+                    <div class="space-y-2.5">
+                      <span class="text-xs font-heading font-black uppercase tracking-wider text-amber-400 flex items-center gap-1.5">
+                        <i class="fas fa-bullseye text-[11px]"></i> Aktivitas Seru:
+                      </span>
+                      <ul class="space-y-1.5 text-xs text-rose-100/85">
+                        {pkg.activities.map((act) => (
+                          <li class="flex items-start gap-2">
+                            <span class="text-amber-400 font-bold mt-0.5">✓</span>
+                            <span>{act}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    <div class="space-y-2.5">
+                      <span class="text-xs font-heading font-black uppercase tracking-wider text-amber-400 flex items-center gap-1.5">
+                        <i class="fas fa-gift text-[11px]"></i> Fasilitas Termasuk:
+                      </span>
+                      <ul class="space-y-1.5 text-xs text-rose-100/85">
+                        {pkg.features.map((feat) => (
+                          <li class="flex items-start gap-2">
+                            <span class="text-emerald-400 font-bold mt-0.5">•</span>
+                            <span>{feat}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
                   </div>
 
-                  <div class="space-y-2 pt-2 border-t border-rose-900/30">
-                    <span class="text-xs font-bold uppercase tracking-wider text-amber-400">Fasilitas Termasuk:</span>
-                    <ul class="grid grid-cols-1 sm:grid-cols-2 gap-1.5 text-xs text-rose-200/90">
-                      {pkg.features.map((feat) => (
-                        <li class="flex items-center gap-2">
-                          <span class="text-emerald-400 font-bold">✓</span>
-                          <span>{feat}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+                  <!-- Add-Ons -->
+                  {pkg.addons && pkg.addons.length > 0 && (
+                    <div class="pt-4 border-t border-rose-900/40 space-y-2.5">
+                      <span class="text-xs font-heading font-black uppercase tracking-wider text-amber-400 flex items-center gap-1.5">
+                        <i class="fas fa-plus-circle text-[11px]"></i> Pilihan Fasilitas Add-On:
+                      </span>
+                      <div class="flex flex-wrap gap-1.5">
+                        {pkg.addons.map((addon) => (
+                          <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded bg-[#2A0205] border border-rose-800/40 text-[11px] text-rose-200">
+                            <i class="fas fa-star text-[9px] text-amber-400"></i>
+                            <span>{addon}</span>
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  <!-- Rundown Accordion -->
+                  {pkg.rundown && pkg.rundown.length > 0 && (
+                    <div class="pt-4 border-t border-rose-900/40">
+                      <details class="group/rundown bg-stone-950/40 rounded-xl border border-rose-800/30 p-3.5 transition-colors">
+                        <summary class="flex items-center justify-between cursor-pointer list-none text-xs font-heading font-bold uppercase tracking-wider text-amber-300 select-none">
+                          <span class="flex items-center gap-2">
+                            <i class="fas fa-calendar-alt text-amber-400"></i>
+                            <span>Lihat Estimasi Rundown Acara ({pkg.duration})</span>
+                          </span>
+                          <i class="fas fa-chevron-down text-xs transition-transform group-open/rundown:rotate-180"></i>
+                        </summary>
+                        <div class="mt-3.5 space-y-2.5 pt-3 border-t border-rose-900/40">
+                          {pkg.rundown.map((item) => (
+                            <div class="flex items-start gap-3 text-xs">
+                              <span class="px-2 py-0.5 rounded bg-brand-900 text-amber-300 font-mono text-[10px] font-bold shrink-0 mt-0.5">
+                                {item.time}
+                              </span>
+                              <div>
+                                <strong class="text-white block font-heading">{item.activity}</strong>
+                                <span class="text-rose-200/75 text-[11px] leading-tight block">{item.desc}</span>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </details>
+                    </div>
+                  )}
+
                 </div>
               </div>
 
-              <div class="p-6 pt-0 mt-4">
+              <!-- Action Buttons (Detail Paket on the left of Konsultasi Paket) -->
+              <div class="p-6 sm:p-8 pt-0 flex flex-col sm:flex-row items-center gap-3">
+                <a
+                  href={`/paket/family-gathering/${pkg.slug}`}
+                  class="w-full sm:w-1/2 inline-flex items-center justify-center gap-2 py-3.5 px-4 rounded-xl bg-brand-950/80 hover:bg-brand-900 text-amber-300 hover:text-white border border-amber-500/40 font-heading font-bold text-xs uppercase tracking-wider transition-all hover:scale-[1.01]"
+                >
+                  <i class="fas fa-info-circle text-sm text-amber-400"></i>
+                  <span>Detail Paket</span>
+                </a>
                 <a
                   href={waUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="w-full inline-flex items-center justify-center gap-2.5 py-3.5 rounded-md bg-amber-500 hover:bg-amber-400 text-stone-950 font-heading font-black text-xs uppercase tracking-wider shadow-md hover:scale-[1.02] transition-all"
+                  class="w-full sm:w-1/2 inline-flex items-center justify-center gap-2 py-3.5 px-4 rounded-xl bg-amber-500 hover:bg-amber-400 text-stone-950 font-heading font-black text-xs uppercase tracking-wider shadow-md hover:scale-[1.01] transition-all"
                 >
-                  <span>Konsultasi Paket Ini</span>
-                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                  </svg>
+                  <i class="fab fa-whatsapp text-base"></i>
+                  <span>Konsultasi Paket</span>
                 </a>
               </div>
             </div>
@@ -110,10 +188,125 @@ const breadcrumbs = [
     </div>
   </section>
 
+  <!-- Recommended Official Destinations -->
+  <DestinationsSection
+    title="DESTINASI RESMI FAMILY GATHERING"
+    subtitle="Venue ramah keluarga dengan akses jalan mudah, taman rumput datar, dan fasilitas toilet bersih di Batu Malang."
+    filterSlug={["coban-rais","coban-rondo","payung-pinus","hotel-jambuluwuk-resort"]}
+  />
+
+  <!-- FAQ Section -->
   <FAQAccordion title={`FAQ SEPUTAR PAKET ${categoryName.toUpperCase()}`} />
 
+  <!-- Comprehensive SEO Guide Section (Artikel Mendalam & Optimasi SEO/AEO/GEO) -->
+  <section class="py-16 sm:py-24 border-t border-rose-900/40 relative">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12 text-left">
+      
+      <div class="text-center space-y-4 max-w-3xl mx-auto">
+        <span class="text-xs font-bold uppercase tracking-widest text-amber-400">
+          Panduan Lengkap Panitia Gathering Keluarga
+        </span>
+        <h2 class="font-heading font-black text-2xl sm:text-4xl uppercase tracking-wider text-white">
+          PANDUAN LENGKAP MERANCANG FAMILY GATHERING DI KOTA BATU BEBAS STRES
+        </h2>
+        <p class="text-sm sm:text-base text-rose-100/80 leading-relaxed">
+          Pelajari kiat menyusun rundown ramah multigenerasi, kriteria pemilihan venue bebas tanjakan terjal, penyediaan menu ramah anak dan lansia, serta standar posko medis lapangan bersama Provider Outbound.
+        </p>
+      </div>
+
+      <!-- Chapter 1 -->
+      <article class="bg-[#3D0308]/60 border border-rose-800/35 rounded-2xl p-6 sm:p-10 space-y-4 shadow-card">
+        <h3 class="font-heading font-black text-xl sm:text-2xl text-white uppercase tracking-wide flex items-center gap-3">
+          <span class="w-8 h-8 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center text-sm font-bold">1</span>
+          <span>Kompleksitas Family Gathering: Menyelaraskan Kebutuhan Balita hingga Kakek-Nenek</span>
+        </h3>
+        <p class="text-sm text-rose-100/90 leading-relaxed">
+          Mengorganisasi acara <em>family gathering</em> perusahaan memiliki keunikan dan tingkat kerumitan yang lebih tinggi daripada outbound karyawan biasa. Jika peserta outbound karyawan adalah kelompok usia produktif yang relatif seragam, peserta family gathering memiliki rentang usia yang sangat lebar: mulai dari bayi dan balita usia 2 tahun yang rentan rewel saat lapar atau kelelahan, anak-anak usia SD yang sangat aktif ingin berlarian, remaja yang cenderung mudah bosan jika permainan terlalu kekanak-kanakan, hingga orang tua dan kakek-nenek lansia yang memerlukan akses berjalan yang landai dan tempat istirahat yang teduh.
+        </p>
+        <p class="text-sm text-rose-100/90 leading-relaxed">
+          Filosofi utama Provider Outbound dalam family gathering adalah <em>"No Family Member Left Behind"</em>. Seluruh anggota keluarga harus merasakan kebahagiaan, perhatian, dan keramahan pelayanan sejak penjemputan hingga pulang kembali ke rumah.
+        </p>
+      </article>
+
+      <!-- Chapter 2 -->
+      <article class="bg-[#3D0308]/60 border border-rose-800/35 rounded-2xl p-6 sm:p-10 space-y-4 shadow-card">
+        <h3 class="font-heading font-black text-xl sm:text-2xl text-white uppercase tracking-wide flex items-center gap-3">
+          <span class="w-8 h-8 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center text-sm font-bold">2</span>
+          <span>Kriteria Memilih Venue Ramah Keluarga di Kota Wisata Batu</span>
+        </h3>
+        <p class="text-sm text-rose-100/90 leading-relaxed">
+          Jangan terkecoh oleh foto panorama alam tanpa memastikan aksesibilitas fisiknya. Untuk kenyamanan keluarga, pastikan venue memenuhi syarat berikut:
+        </p>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
+          <div class="p-4 rounded-xl bg-stone-950/50 border border-rose-800/30 space-y-2">
+            <h4 class="font-heading font-bold text-base text-amber-300">Kontur Datar Bebas Tebing Terjal</h4>
+            <p class="text-xs text-rose-100/80 leading-relaxed">
+              Pilihlah venue seperti lapangan Coban Rais (area bawah BFG) atau resort privat yang datar tanpa undakan anak tangga curam, sehingga aman bagi anak kecil yang suka berlarian.
+            </p>
+          </div>
+          <div class="p-4 rounded-xl bg-stone-950/50 border border-rose-800/30 space-y-2">
+            <h4 class="font-heading font-bold text-base text-amber-300">Ramah Stroller &amp; Kursi Roda</h4>
+            <p class="text-xs text-rose-100/80 leading-relaxed">
+              Jalur pejalan kaki yang beraspal atau paving mulus memudahkan keluarga muda yang membawa kereta dorong bayi serta kakek-nenek lansia yang memakai kursi roda.
+            </p>
+          </div>
+          <div class="p-4 rounded-xl bg-stone-950/50 border border-rose-800/30 space-y-2">
+            <h4 class="font-heading font-bold text-base text-amber-300">Toilet Bersih Berjarak Dekat</h4>
+            <p class="text-xs text-rose-100/80 leading-relaxed">
+              Anak-anak kerap kali buang air mendadak. Ketersediaan bilik toilet yang bersih, berair mengalir lancar, dan berjarak kurang dari 50 meter dari ground acara adalah keharusan mutlak.
+            </p>
+          </div>
+          <div class="p-4 rounded-xl bg-stone-950/50 border border-rose-800/30 space-y-2">
+            <h4 class="font-heading font-bold text-base text-amber-300">Gazebo &amp; Area Teduh Memadai</h4>
+            <p class="text-xs text-rose-100/80 leading-relaxed">
+              Area teduh berpohon rindang atau pendopo beratap melindungi keluarga dari sengatan panas siang hari maupun gerimis mendadak pegunungan.
+            </p>
+          </div>
+        </div>
+      </article>
+
+      <!-- Chapter 3 -->
+      <article class="bg-[#3D0308]/60 border border-rose-800/35 rounded-2xl p-6 sm:p-10 space-y-4 shadow-card">
+        <h3 class="font-heading font-black text-xl sm:text-2xl text-white uppercase tracking-wide flex items-center gap-3">
+          <span class="w-8 h-8 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center text-sm font-bold">3</span>
+          <span>Aturan Manajemen Ritme Rundown 60:30 (Pacing &amp; Downtime)</span>
+        </h3>
+        <p class="text-sm text-rose-100/90 leading-relaxed">
+          Kesalahan terbesar panitia amatir adalah membuat jadwal kegiatan yang terlalu padat tanpa jeda istirahat. Untuk family gathering, kami selalu menerapkan rasio <strong>60:30</strong>: setiap 60 menit sesi kegiatan terstruktur harus diimbangi oleh 30 menit waktu santai bebas (<em>downtime</em>).
+        </p>
+        <p class="text-sm text-rose-100/90 leading-relaxed">
+          Waktu jeda ini memberi ruang bagi ibu-ibu menyusui, anak-anak menikmati kudapan es krim, bapak-bapak bercengkerama santai menyeruput kopi, serta seluruh keluarga berfoto di spot panorama indah Kota Batu tanpa merasa diburu-buru waktu.
+        </p>
+      </article>
+
+      <!-- Chapter 4 -->
+      <article class="bg-[#3D0308]/60 border border-rose-800/35 rounded-2xl p-6 sm:p-10 space-y-4 shadow-card">
+        <h3 class="font-heading font-black text-xl sm:text-2xl text-white uppercase tracking-wide flex items-center gap-3">
+          <span class="w-8 h-8 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center text-sm font-bold">4</span>
+          <span>Tata Kelola Menu Katering: Hidangan Bergizi Ramah Segala Usia</span>
+        </h3>
+        <p class="text-sm text-rose-100/90 leading-relaxed">
+          Katering untuk family gathering tidak boleh disamakan dengan katering karyawan dewasa. Provider Outbound menyajikan menu ganda yang seimbang: menu nusantara autentik khas Malang (seperti Rawon Daging, Soto Ayam Kampung, dan Bakso Malang) untuk dewasa, serta hidangan khusus anak non-pedas (Sup Makaroni Ayam, Chicken Katsu, Kentang Goreng, Puding Buah) agar anak-anak makan dengan lahap dan tidak rewel.
+        </p>
+      </article>
+
+      <!-- Chapter 5 -->
+      <article class="bg-[#3D0308]/60 border border-rose-800/35 rounded-2xl p-6 sm:p-10 space-y-4 shadow-card">
+        <h3 class="font-heading font-black text-xl sm:text-2xl text-white uppercase tracking-wide flex items-center gap-3">
+          <span class="w-8 h-8 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center text-sm font-bold">5</span>
+          <span>Sesi Puncak Malam Keakraban, Doorprize &amp; Posko Medis Siaga</span>
+        </h3>
+        <p class="text-sm text-rose-100/90 leading-relaxed">
+          Malam keakraban adalah momentum emas untuk menyampaikan rasa terima kasih perusahaan kepada keluarga karyawan. Kami mengemas panggung hiburan dengan lomba bakat anak, kuis interaktif keluarga, serta pengundian doorprize yang merata. Di samping panggung, posko First Aid berfasilitas oksigen dan ambulans darurat selalu siaga untuk memberikan rasa aman penuh sepanjang acara.
+        </p>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- CTA Section -->
   <CTASection
     title={`KONSULTASIKAN ACARA ${categoryName.toUpperCase()} BATU MALANG`}
-    customMessage={`Halo Vendor Outbound, saya ingin konsultasi paket family gathering di Batu Malang.`}
+    customMessage="Halo Provider Outbound, saya ingin konsultasi paket family gathering di Batu Malang untuk rombongan keluarga besar kami."
   />
 </PublicLayout>

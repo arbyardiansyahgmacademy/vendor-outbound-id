@@ -1,9 +1,9 @@
 ---
 import PublicLayout from '../../layouts/PublicLayout.astro';
-import CategoryShowcase from '../../components/sections/CategoryShowcase.astro';
 import FAQAccordion from '../../components/sections/FAQAccordion.astro';
 import CTASection from '../../components/sections/CTASection.astro';
-import { SERVICES } from '../../data/defaultContent';
+import DestinationsSection from '../../components/sections/DestinationsSection.astro';
+import { SERVICES, PACKAGES } from '../../data/defaultContent';
 
 const breadcrumbs = [
   { name: 'Layanan' }
@@ -11,7 +11,7 @@ const breadcrumbs = [
 ---
 
 <PublicLayout
-  title="Layanan Outbound &amp; Gathering | Vendor Outbound Batu Malang"
+  title="Layanan Outbound &amp; Gathering | Provider Outbound Batu Malang"
   description="Katalog layanan outbound korporat, family gathering, outbound edukasi sekolah, dan wisata petualangan di kawasan Batu & Malang."
   breadcrumbs={breadcrumbs}
 >
@@ -32,7 +32,7 @@ const breadcrumbs = [
 
   <!-- 4 Main Service Cards Detail View -->
   <section class="py-12 border-t border-rose-900/40">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
+    <div id="services-cards-container" class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
       
       {SERVICES.map((service, index) => (
         <div class={`rounded-2xl bg-[#480308]/60 border border-rose-700/35 overflow-hidden p-6 sm:p-8 flex flex-col lg:flex-row items-center gap-8 shadow-card hover:border-amber-400/50 transition-all ${
@@ -78,6 +78,23 @@ const breadcrumbs = [
               </ul>
             </div>
 
+            <!-- Sub-packages List -->
+            <div class="space-y-1.5 pt-2">
+              <span class="text-xs uppercase font-bold text-amber-400 tracking-wider">
+                Pilihan Paket Program:
+              </span>
+              <div class="flex flex-wrap gap-2">
+                {PACKAGES.filter(p => p.categorySlug === (service.slug === 'outbound-perusahaan' ? 'perusahaan' : service.slug)).map((pkg) => (
+                  <a
+                    href={`/paket/${service.slug === 'outbound-perusahaan' ? 'perusahaan' : service.slug}`}
+                    class="px-2.5 py-1 rounded-md bg-stone-900/60 hover:bg-amber-500 hover:text-stone-950 border border-rose-800/40 text-[11px] text-rose-100 font-medium transition-colors"
+                  >
+                    • {pkg.title}
+                  </a>
+                ))}
+              </div>
+            </div>
+
             <div class="pt-4 flex items-center gap-4">
               <a
                 href={`/layanan/${service.slug}`}
@@ -87,6 +104,12 @@ const breadcrumbs = [
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7" />
                 </svg>
+              </a>
+              <a
+                href={`/paket/${service.slug === 'outbound-perusahaan' ? 'perusahaan' : service.slug}`}
+                class="inline-flex items-center gap-2 px-4 py-3 rounded-md bg-stone-900/70 hover:bg-stone-800 text-rose-200 hover:text-amber-300 font-heading font-bold text-xs uppercase tracking-wider border border-rose-700/40 transition-all"
+              >
+                <span>Lihat 4 Paket</span>
               </a>
             </div>
 
@@ -98,8 +121,12 @@ const breadcrumbs = [
     </div>
   </section>
 
-  <!-- Categories Showcase Reference View -->
-  <CategoryShowcase />
+  <!-- 9 Official Destinations Showcase Section -->
+  <DestinationsSection
+    title="9 DESTINASI RESMI OUTBOUND BATU MALANG"
+    subtitle="Venue outbound legendaris, spot air terjun eksotis, pusat arung jeram Kaliwatu, safari jeep Bromo, hingga resort bintang 5 pilihan Provider Outbound."
+  />
+
 
   <!-- FAQ Section -->
   <FAQAccordion title="FAQ SEPUTAR LAYANAN OUTBOUND" />
@@ -108,3 +135,82 @@ const breadcrumbs = [
   <CTASection />
 
 </PublicLayout>
+
+<script is:inline>
+  (function() {
+    function hydrateServicesPage() {
+      var raw = localStorage.getItem('vo_services');
+      if (!raw) return;
+      try {
+        var list = JSON.parse(raw);
+        if (!Array.isArray(list) || list.length === 0) return;
+        var container = document.getElementById('services-cards-container');
+        if (!container) return;
+
+        container.innerHTML = list.map(function(service, index) {
+          var isRev = index % 2 === 1 ? 'lg:flex-row-reverse' : '';
+          var benefitsHtml = '';
+          if (Array.isArray(service.benefits)) {
+            benefitsHtml = service.benefits.map(function(b) {
+              return '<li class="flex items-center gap-2"><span class="text-amber-400 font-bold">✓</span><span>' + b + '</span></li>';
+            }).join('');
+          }
+          var orderNum = (index + 1 < 10 ? '0' : '') + (index + 1);
+          var detailSlug = service.slug.replace(/^\/+|\/+$/g, '');
+
+          return (
+            '<div class="rounded-2xl bg-[#480308]/60 border border-rose-700/35 overflow-hidden p-6 sm:p-8 flex flex-col lg:flex-row items-center gap-8 shadow-card hover:border-amber-400/50 transition-all ' + isRev + '">' +
+              '<div class="w-full lg:w-1/2 aspect-16/10 rounded-xl overflow-hidden bg-brand-950 flex-shrink-0 relative group">' +
+                '<img src="' + (service.imageUrl || '/images/services/outbound-perusahaan.webp') + '" alt="' + service.title + '" width="600" height="400" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />' +
+                '<span class="absolute top-3 left-3 px-3 py-1 rounded bg-stone-900/85 backdrop-blur-sm text-xs font-bold uppercase tracking-wider text-amber-400 border border-amber-400/30">' +
+                  orderNum + ' • ' + service.title +
+                '</span>' +
+              '</div>' +
+              '<div class="w-full lg:w-1/2 space-y-4 text-left">' +
+                '<h2 class="font-heading font-black text-2xl sm:text-3xl uppercase tracking-wider text-white">' +
+                  service.title +
+                '</h2>' +
+                '<p class="text-sm text-rose-100/85 leading-relaxed">' +
+                  (service.overview || service.excerpt || '') +
+                '</p>' +
+                (benefitsHtml ? (
+                  '<div class="space-y-1.5 pt-2">' +
+                    '<span class="text-xs uppercase font-bold text-amber-400 tracking-wider">Manfaat &amp; Tujuan Utama:</span>' +
+                    '<ul class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-rose-200/80">' +
+                      benefitsHtml +
+                    '</ul>' +
+                  '</div>'
+                ) : '') +
+                '<div class="pt-4 flex items-center gap-4">' +
+                  '<a href="/layanan/' + detailSlug + '" class="inline-flex items-center gap-2 px-6 py-3 rounded-md bg-amber-500 hover:bg-amber-400 text-stone-950 font-heading font-black text-xs uppercase tracking-wider shadow-md hover:scale-105 transition-all">' +
+                    '<span>Detail Layanan</span>' +
+                    '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">' +
+                      '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7" />' +
+                    '</svg>' +
+                  '</a>' +
+                '</div>' +
+              '</div>' +
+            '</div>'
+          );
+        }).join('');
+      } catch(e) {
+        console.error(e);
+      }
+    }
+
+    hydrateServicesPage();
+    document.addEventListener('DOMContentLoaded', hydrateServicesPage);
+    window.addEventListener('storage', function(e) {
+      if (e.key === 'vo_services') hydrateServicesPage();
+    });
+    window.addEventListener('vo_content_updated', function(e) {
+      if (!e.detail || e.detail.key === 'vo_services') hydrateServicesPage();
+    });
+    try {
+      var bc = new BroadcastChannel('vo_sync_channel');
+      bc.onmessage = function(e) {
+        if (!e.data || e.data.key === 'vo_services') hydrateServicesPage();
+      };
+    } catch(e) {}
+  })();
+</script>

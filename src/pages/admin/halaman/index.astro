@@ -6,13 +6,13 @@ import AdminLayout from '../../../layouts/AdminLayout.astro';
   <div class="space-y-6 text-left">
     
     <!-- Header -->
-    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-rose-900/40">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[#235347]">
       <div>
         <h1 class="font-heading font-black text-2xl uppercase tracking-wider text-white flex items-center gap-2.5">
-          <i class="fas fa-layer-group text-amber-400"></i>
+          <i class="fas fa-layer-group text-[#8EB69B]"></i>
           <span>MASTER KELOLA SEMUA HALAMAN</span>
         </h1>
-        <p class="text-xs text-rose-300/80 mt-1">
+        <p class="text-xs text-[#8EB69B] mt-1">
           Daftar lengkap seluruh halaman website. Anda dapat mengedit konten setiap halaman spesifik atau membuat halaman kustom baru (PRD Section 11.5 & 12.2).
         </p>
       </div>
@@ -21,7 +21,7 @@ import AdminLayout from '../../../layouts/AdminLayout.astro';
         <button
           type="button"
           id="btn-add-custom-page"
-          class="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-stone-950 font-bold text-xs uppercase tracking-wider shadow transition-all hover:scale-105"
+          class="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-[#DAF1DE] hover:bg-white text-[#051F20] font-bold text-xs uppercase tracking-wider shadow-glow-mint transition-all hover:scale-105"
         >
           <i class="fas fa-plus"></i>
           <span>+ Buat Halaman Baru</span>
@@ -33,22 +33,22 @@ import AdminLayout from '../../../layouts/AdminLayout.astro';
     <div id="pages-alert" class="hidden p-3 rounded-lg text-xs font-bold transition-all"></div>
 
     <!-- Filter & Search Bar -->
-    <div class="flex flex-col sm:flex-row items-center justify-between gap-3 bg-[#2D0206] p-3.5 rounded-xl border border-rose-800/40">
+    <div class="flex flex-col sm:flex-row items-center justify-between gap-3 bg-[#0B2B26] p-3.5 rounded-xl border border-[#235347] shadow-xl">
       <div class="relative w-full sm:w-72">
         <input
           type="text"
           id="search-page-input"
           placeholder="Cari halaman atau URL slug..."
-          class="w-full px-3.5 py-2 pl-9 rounded-lg bg-stone-950/70 border border-rose-800/60 text-white text-xs placeholder-rose-300/40 focus:outline-none focus:border-amber-400"
+          class="w-full px-3.5 py-2 pl-9 rounded-lg bg-[#051F20] border border-[#235347] text-white text-xs placeholder-[#8EB69B]/40 focus:outline-none focus:border-[#8EB69B]"
         />
-        <i class="fas fa-search absolute left-3 top-2.5 text-rose-400 text-xs"></i>
+        <i class="fas fa-search absolute left-3 top-2.5 text-[#8EB69B] text-xs"></i>
       </div>
 
       <div class="flex items-center gap-2 w-full sm:w-auto">
-        <span class="text-[11px] text-rose-300 font-semibold uppercase tracking-wider">Status:</span>
+        <span class="text-[11px] text-[#8EB69B] font-semibold uppercase tracking-wider">Status:</span>
         <select
           id="filter-status-select"
-          class="px-3 py-1.5 rounded-lg bg-stone-950/70 border border-rose-800/60 text-rose-200 text-xs focus:outline-none focus:border-amber-400"
+          class="px-3 py-1.5 rounded-lg bg-[#051F20] border border-[#235347] text-[#DAF1DE] text-xs focus:outline-none focus:border-[#8EB69B]"
         >
           <option value="all">Semua Status</option>
           <option value="published">Published</option>
@@ -58,10 +58,10 @@ import AdminLayout from '../../../layouts/AdminLayout.astro';
     </div>
 
     <!-- Table of Pages -->
-    <div class="rounded-2xl bg-[#300205]/90 border border-rose-700/40 overflow-hidden shadow-2xl">
+    <div class="rounded-2xl bg-[#0B2B26] border border-[#235347] overflow-hidden shadow-2xl">
       <div class="overflow-x-auto">
         <table class="w-full text-xs text-left">
-          <thead class="bg-[#240104] text-[10px] uppercase font-bold text-rose-300/80 border-b border-rose-900/60">
+          <thead class="bg-[#072522] text-[10px] uppercase font-bold text-[#8EB69B] border-b border-[#235347]">
             <tr>
               <th class="py-3 px-4">Nama Halaman</th>
               <th class="py-3 px-4">URL Slug</th>
@@ -71,7 +71,7 @@ import AdminLayout from '../../../layouts/AdminLayout.astro';
               <th class="py-3 px-4 text-right">Tindakan</th>
             </tr>
           </thead>
-          <tbody id="pages-tbody" class="divide-y divide-rose-900/30 text-rose-100">
+          <tbody id="pages-tbody" class="divide-y divide-[#235347]/50 text-white">
             <!-- Populated via script -->
           </tbody>
         </table>
@@ -80,71 +80,72 @@ import AdminLayout from '../../../layouts/AdminLayout.astro';
 
     <!-- Quick Shortcuts Card Grid -->
     <div class="space-y-3 pt-4">
-      <h3 class="font-heading font-bold text-xs uppercase tracking-wider text-amber-400">
-        Akses Cepat Editor Halaman Utama:
+      <h3 class="font-heading font-bold text-xs uppercase tracking-wider text-[#DAF1DE] flex items-center gap-2">
+        <i class="fas fa-th-large text-[#8EB69B]"></i>
+        <span>Akses Cepat Editor Halaman Utama:</span>
       </h3>
       <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-5 gap-3">
-        <a href="/admin/halaman/beranda" class="p-3 rounded-xl bg-brand-950/70 border border-rose-800/40 hover:border-amber-400/60 text-center hover:bg-rose-950 transition-all group">
-          <i class="fas fa-home text-amber-400 text-base mb-1 block group-hover:scale-110 transition-transform"></i>
+        <a href="/admin/halaman/beranda" class="p-3 rounded-xl bg-[#0B2B26] border border-[#235347] hover:border-[#8EB69B] text-center hover:bg-[#163832] transition-all group shadow-md">
+          <i class="fas fa-home text-[#8EB69B] text-base mb-1 block group-hover:scale-110 group-hover:text-[#DAF1DE] transition-transform"></i>
           <span class="text-xs font-bold text-white block">Beranda</span>
-          <span class="text-[10px] text-rose-300/70">Hero, Service, &amp; Paket</span>
+          <span class="text-[10px] text-[#8EB69B]/80">Hero, Service, &amp; Paket</span>
         </a>
-        <a href="/admin/layanan" class="p-3 rounded-xl bg-brand-950/70 border border-rose-800/40 hover:border-amber-400/60 text-center hover:bg-rose-950 transition-all group">
-          <i class="fas fa-briefcase text-amber-400 text-base mb-1 block group-hover:scale-110 transition-transform"></i>
+        <a href="/admin/layanan" class="p-3 rounded-xl bg-[#0B2B26] border border-[#235347] hover:border-[#8EB69B] text-center hover:bg-[#163832] transition-all group shadow-md">
+          <i class="fas fa-briefcase text-[#8EB69B] text-base mb-1 block group-hover:scale-110 group-hover:text-[#DAF1DE] transition-transform"></i>
           <span class="text-xs font-bold text-white block">Layanan</span>
-          <span class="text-[10px] text-rose-300/70">4 Layanan Outbound</span>
+          <span class="text-[10px] text-[#8EB69B]/80">4 Layanan Outbound</span>
         </a>
-        <a href="/admin/paket" class="p-3 rounded-xl bg-brand-950/70 border border-rose-800/40 hover:border-amber-400/60 text-center hover:bg-rose-950 transition-all group">
-          <i class="fas fa-box-open text-amber-400 text-base mb-1 block group-hover:scale-110 transition-transform"></i>
+        <a href="/admin/paket" class="p-3 rounded-xl bg-[#0B2B26] border border-[#235347] hover:border-[#8EB69B] text-center hover:bg-[#163832] transition-all group shadow-md">
+          <i class="fas fa-box-open text-[#8EB69B] text-base mb-1 block group-hover:scale-110 group-hover:text-[#DAF1DE] transition-transform"></i>
           <span class="text-xs font-bold text-white block">Paket Pilihan</span>
-          <span class="text-[10px] text-rose-300/70">16 Paket Outbound</span>
+          <span class="text-[10px] text-[#8EB69B]/80">16 Paket Outbound</span>
         </a>
-        <a href="/admin/galeri" class="p-3 rounded-xl bg-brand-950/70 border border-rose-800/40 hover:border-amber-400/60 text-center hover:bg-rose-950 transition-all group">
-          <i class="fas fa-camera-retro text-amber-400 text-base mb-1 block group-hover:scale-110 transition-transform"></i>
+        <a href="/admin/galeri" class="p-3 rounded-xl bg-[#0B2B26] border border-[#235347] hover:border-[#8EB69B] text-center hover:bg-[#163832] transition-all group shadow-md">
+          <i class="fas fa-camera-retro text-[#8EB69B] text-base mb-1 block group-hover:scale-110 group-hover:text-[#DAF1DE] transition-transform"></i>
           <span class="text-xs font-bold text-white block">Galeri Foto</span>
-          <span class="text-[10px] text-rose-300/70">Dokumentasi Media</span>
+          <span class="text-[10px] text-[#8EB69B]/80">Dokumentasi Media</span>
         </a>
-        <a href="/admin/halaman/tentang-kami" class="p-3 rounded-xl bg-brand-950/70 border border-rose-800/40 hover:border-amber-400/60 text-center hover:bg-rose-950 transition-all group">
-          <i class="fas fa-users text-amber-400 text-base mb-1 block group-hover:scale-110 transition-transform"></i>
+        <a href="/admin/halaman/tentang-kami" class="p-3 rounded-xl bg-[#0B2B26] border border-[#235347] hover:border-[#8EB69B] text-center hover:bg-[#163832] transition-all group shadow-md">
+          <i class="fas fa-users text-[#8EB69B] text-base mb-1 block group-hover:scale-110 group-hover:text-[#DAF1DE] transition-transform"></i>
           <span class="text-xs font-bold text-white block">Tentang Kami</span>
-          <span class="text-[10px] text-rose-300/70">Profil &amp; Dedikasi</span>
+          <span class="text-[10px] text-[#8EB69B]/80">Profil &amp; Dedikasi</span>
         </a>
-        <a href="/admin/halaman/kontak" class="p-3 rounded-xl bg-brand-950/70 border border-rose-800/40 hover:border-amber-400/60 text-center hover:bg-rose-950 transition-all group">
-          <i class="fas fa-phone-alt text-amber-400 text-base mb-1 block group-hover:scale-110 transition-transform"></i>
+        <a href="/admin/halaman/kontak" class="p-3 rounded-xl bg-[#0B2B26] border border-[#235347] hover:border-[#8EB69B] text-center hover:bg-[#163832] transition-all group shadow-md">
+          <i class="fas fa-phone-alt text-[#8EB69B] text-base mb-1 block group-hover:scale-110 group-hover:text-[#DAF1DE] transition-transform"></i>
           <span class="text-xs font-bold text-white block">Kontak</span>
-          <span class="text-[10px] text-rose-300/70">WhatsApp &amp; Lokasi</span>
+          <span class="text-[10px] text-[#8EB69B]/80">WhatsApp &amp; Lokasi</span>
         </a>
-        <a href="/admin/blog" class="p-3 rounded-xl bg-brand-950/70 border border-rose-800/40 hover:border-amber-400/60 text-center hover:bg-rose-950 transition-all group">
-          <i class="fas fa-feather-alt text-amber-400 text-base mb-1 block group-hover:scale-110 transition-transform"></i>
+        <a href="/admin/blog" class="p-3 rounded-xl bg-[#0B2B26] border border-[#235347] hover:border-[#8EB69B] text-center hover:bg-[#163832] transition-all group shadow-md">
+          <i class="fas fa-feather-alt text-[#8EB69B] text-base mb-1 block group-hover:scale-110 group-hover:text-[#DAF1DE] transition-transform"></i>
           <span class="text-xs font-bold text-white block">Blog &amp; Tips</span>
-          <span class="text-[10px] text-rose-300/70">Artikel Arby Ardiansyah</span>
+          <span class="text-[10px] text-[#8EB69B]/80">Artikel Arby Ardiansyah</span>
         </a>
-        <a href="/admin/testimoni" class="p-3 rounded-xl bg-brand-950/70 border border-rose-800/40 hover:border-amber-400/60 text-center hover:bg-rose-950 transition-all group">
-          <i class="fas fa-comment-dots text-amber-400 text-base mb-1 block group-hover:scale-110 transition-transform"></i>
+        <a href="/admin/testimoni" class="p-3 rounded-xl bg-[#0B2B26] border border-[#235347] hover:border-[#8EB69B] text-center hover:bg-[#163832] transition-all group shadow-md">
+          <i class="fas fa-comment-dots text-[#8EB69B] text-base mb-1 block group-hover:scale-110 group-hover:text-[#DAF1DE] transition-transform"></i>
           <span class="text-xs font-bold text-white block">Testimoni</span>
-          <span class="text-[10px] text-rose-300/70">Ulasan Nyata Klien</span>
+          <span class="text-[10px] text-[#8EB69B]/80">Ulasan Nyata Klien</span>
         </a>
-        <a href="/admin/faq" class="p-3 rounded-xl bg-brand-950/70 border border-rose-800/40 hover:border-amber-400/60 text-center hover:bg-rose-950 transition-all group">
-          <i class="fas fa-question-circle text-amber-400 text-base mb-1 block group-hover:scale-110 transition-transform"></i>
+        <a href="/admin/faq" class="p-3 rounded-xl bg-[#0B2B26] border border-[#235347] hover:border-[#8EB69B] text-center hover:bg-[#163832] transition-all group shadow-md">
+          <i class="fas fa-question-circle text-[#8EB69B] text-base mb-1 block group-hover:scale-110 group-hover:text-[#DAF1DE] transition-transform"></i>
           <span class="text-xs font-bold text-white block">FAQ</span>
-          <span class="text-[10px] text-rose-300/70">Tanya Jawab Layanan</span>
+          <span class="text-[10px] text-[#8EB69B]/80">Tanya Jawab Layanan</span>
         </a>
-        <a href="/admin/halaman/legal" class="p-3 rounded-xl bg-brand-950/70 border border-rose-800/40 hover:border-amber-400/60 text-center hover:bg-rose-950 transition-all group">
-          <i class="fas fa-balance-scale text-amber-400 text-base mb-1 block group-hover:scale-110 transition-transform"></i>
+        <a href="/admin/halaman/legal" class="p-3 rounded-xl bg-[#0B2B26] border border-[#235347] hover:border-[#8EB69B] text-center hover:bg-[#163832] transition-all group shadow-md">
+          <i class="fas fa-balance-scale text-[#8EB69B] text-base mb-1 block group-hover:scale-110 group-hover:text-[#DAF1DE] transition-transform"></i>
           <span class="text-xs font-bold text-white block">Legalitas</span>
-          <span class="text-[10px] text-rose-300/70">Privasi &amp; Syarat</span>
+          <span class="text-[10px] text-[#8EB69B]/80">Privasi &amp; Syarat</span>
         </a>
       </div>
     </div>
 
     <!-- Modal Buat / Edit Halaman Kustom -->
     <dialog id="page-modal" class="backdrop:bg-stone-950/80 bg-transparent p-4 max-w-2xl w-full mx-auto my-auto text-white focus:outline-none">
-      <div class="rounded-2xl bg-[#330206] border border-rose-600/50 p-6 shadow-2xl space-y-4 text-left">
-        <div class="flex items-center justify-between border-b border-rose-900/50 pb-3">
+      <div class="rounded-2xl bg-[#0B2B26] border border-[#235347] p-6 shadow-2xl space-y-4 text-left">
+        <div class="flex items-center justify-between border-b border-[#235347] pb-3">
           <h3 id="page-modal-title" class="font-heading font-black text-lg text-white uppercase tracking-wider">
             Buat Halaman Kustom Baru
           </h3>
-          <button id="close-page-modal-btn" type="button" class="text-rose-300 hover:text-white text-lg font-bold">✕</button>
+          <button id="close-page-modal-btn" type="button" class="text-[#8EB69B] hover:text-[#DAF1DE] text-lg font-bold">✕</button>
         </div>
 
         <form id="custom-page-form" class="space-y-4">
@@ -152,39 +153,39 @@ import AdminLayout from '../../../layouts/AdminLayout.astro';
 
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200 mb-1">
-                Judul Halaman <span class="text-amber-400">*</span>
+              <label class="block text-[11px] font-bold uppercase tracking-wider text-[#8EB69B] mb-1">
+                Judul Halaman <span class="text-[#DAF1DE]">*</span>
               </label>
               <input
                 type="text"
                 id="p-title"
                 required
                 placeholder="Contoh: Paket Tour Bromo Midnight"
-                class="w-full px-3 py-2 rounded bg-stone-950/70 border border-rose-800 text-white text-xs focus:outline-none focus:border-amber-400"
+                class="w-full px-3 py-2 rounded-lg bg-[#051F20] border border-[#235347] text-white text-xs focus:outline-none focus:border-[#8EB69B]"
               />
             </div>
             <div>
-              <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200 mb-1">
-                URL Slug <span class="text-amber-400">*</span>
+              <label class="block text-[11px] font-bold uppercase tracking-wider text-[#8EB69B] mb-1">
+                URL Slug <span class="text-[#DAF1DE]">*</span>
               </label>
               <input
                 type="text"
                 id="p-slug"
                 required
                 placeholder="contoh-paket-tour-bromo"
-                class="w-full px-3 py-2 rounded bg-stone-950/70 border border-rose-800 text-white text-xs font-mono focus:outline-none focus:border-amber-400"
+                class="w-full px-3 py-2 rounded-lg bg-[#051F20] border border-[#235347] text-white text-xs font-mono focus:outline-none focus:border-[#8EB69B]"
               />
             </div>
           </div>
 
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200 mb-1">
+              <label class="block text-[11px] font-bold uppercase tracking-wider text-[#8EB69B] mb-1">
                 Kategori / Tipe Halaman
               </label>
               <select
                 id="p-type"
-                class="w-full px-3 py-2 rounded bg-stone-950/70 border border-rose-800 text-white text-xs focus:outline-none focus:border-amber-400"
+                class="w-full px-3 py-2 rounded-lg bg-[#051F20] border border-[#235347] text-white text-xs focus:outline-none focus:border-[#8EB69B]"
               >
                 <option value="Landing Page">Landing Page Promosi</option>
                 <option value="Paket Khusus">Paket Khusus / Event</option>
@@ -193,12 +194,12 @@ import AdminLayout from '../../../layouts/AdminLayout.astro';
               </select>
             </div>
             <div>
-              <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200 mb-1">
+              <label class="block text-[11px] font-bold uppercase tracking-wider text-[#8EB69B] mb-1">
                 Status Publikasi
               </label>
               <select
                 id="p-status"
-                class="w-full px-3 py-2 rounded bg-stone-950/70 border border-rose-800 text-white text-xs focus:outline-none focus:border-amber-400"
+                class="w-full px-3 py-2 rounded-lg bg-[#051F20] border border-[#235347] text-white text-xs focus:outline-none focus:border-[#8EB69B]"
               >
                 <option value="published">Published (Tayang)</option>
                 <option value="draft">Draft (Disimpan Sementara)</option>
@@ -207,65 +208,101 @@ import AdminLayout from '../../../layouts/AdminLayout.astro';
           </div>
 
           <div>
-            <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200 mb-1">
+            <label class="block text-[11px] font-bold uppercase tracking-wider text-[#8EB69B] mb-1">
               Ringkasan Halaman (Excerpt)
             </label>
             <input
               type="text"
               id="p-excerpt"
               placeholder="Deskripsi singkat untuk cuplikan dan kartu ringkasan"
-              class="w-full px-3 py-2 rounded bg-stone-950/70 border border-rose-800 text-white text-xs focus:outline-none focus:border-amber-400"
+              class="w-full px-3 py-2 rounded-lg bg-[#051F20] border border-[#235347] text-white text-xs focus:outline-none focus:border-[#8EB69B]"
             />
           </div>
 
           <div>
-            <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200 mb-1">
+            <label class="block text-[11px] font-bold uppercase tracking-wider text-[#8EB69B] mb-1">
               Isi Konten Halaman (HTML / Teks)
             </label>
             <textarea
               id="p-content"
               rows="5"
               placeholder="Tuliskan struktur paragraf, daftar fasilitas, atau konten halaman di sini..."
-              class="w-full px-3 py-2 rounded bg-stone-950/70 border border-rose-800 text-white text-xs focus:outline-none focus:border-amber-400 font-mono"
+              class="w-full px-3 py-2 rounded-lg bg-[#051F20] border border-[#235347] text-white text-xs focus:outline-none focus:border-[#8EB69B] font-mono"
             ></textarea>
           </div>
 
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2 border-t border-rose-900/50">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2 border-t border-[#235347]">
             <div>
-              <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200 mb-1">
+              <label class="block text-[11px] font-bold uppercase tracking-wider text-[#8EB69B] mb-1">
                 Meta SEO Title
               </label>
               <input
                 type="text"
                 id="p-seo-title"
                 placeholder="Judul SEO untuk Google Search"
-                class="w-full px-3 py-2 rounded bg-stone-950/70 border border-rose-800 text-white text-xs focus:outline-none focus:border-amber-400"
+                class="w-full px-3 py-2 rounded-lg bg-[#051F20] border border-[#235347] text-white text-xs focus:outline-none focus:border-[#8EB69B]"
               />
             </div>
             <div>
-              <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200 mb-1">
+              <label class="block text-[11px] font-bold uppercase tracking-wider text-[#8EB69B] mb-1">
                 Meta SEO Description
               </label>
               <input
                 type="text"
                 id="p-seo-desc"
                 placeholder="Deskripsi ringkas 150-160 karakter"
-                class="w-full px-3 py-2 rounded bg-stone-950/70 border border-rose-800 text-white text-xs focus:outline-none focus:border-amber-400"
+                class="w-full px-3 py-2 rounded-lg bg-[#051F20] border border-[#235347] text-white text-xs focus:outline-none focus:border-[#8EB69B]"
               />
             </div>
           </div>
 
-          <div class="flex items-center justify-end gap-3 pt-3 border-t border-rose-900/50">
+          <!-- Custom Page Featured / OG Image Control -->
+          <div class="p-3 rounded-lg bg-[#051F20] border border-[#235347] space-y-2">
+            <div class="flex items-center justify-between">
+              <label class="block text-[11px] font-bold uppercase tracking-wider text-[#DAF1DE]">
+                Gambar Sampul / Social Share (OG Image)
+              </label>
+              <span class="text-[10px] text-[#8EB69B]">Upload / Preset</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <div class="w-16 h-12 rounded-lg bg-[#0B2B26] border border-[#235347] overflow-hidden flex-shrink-0 flex items-center justify-center">
+                <img id="p-img-preview" src="/images/hero/hero-outbound.webp" alt="Preview" class="w-full h-full object-cover" />
+              </div>
+              <div class="flex-1 space-y-1.5">
+                <div class="flex gap-2">
+                  <input
+                    type="text"
+                    id="p-image-url"
+                    class="flex-1 px-3 py-1.5 rounded-lg bg-[#0B2B26] border border-[#235347] text-white text-xs font-mono focus:outline-none focus:border-[#8EB69B]"
+                    value="/images/hero/hero-outbound.webp"
+                  />
+                  <label class="px-3 py-1.5 rounded-lg bg-[#163832] hover:bg-[#235347] text-[#DAF1DE] text-xs font-bold border border-[#235347] cursor-pointer flex items-center gap-1.5 transition-all">
+                    <i class="fas fa-upload text-[11px]"></i>
+                    <span>Upload</span>
+                    <input type="file" id="p-image-file" accept="image/*" class="hidden" />
+                  </label>
+                </div>
+                <div class="flex flex-wrap items-center gap-1.5 text-[10px]">
+                  <span class="text-[#8EB69B]">Preset:</span>
+                  <button type="button" class="btn-pimg-preset px-2 py-0.5 rounded bg-[#0B2B26] hover:bg-[#163832] text-[#DAF1DE] border border-[#235347]" data-val="/images/hero/hero-outbound.webp">Hero Outbound</button>
+                  <button type="button" class="btn-pimg-preset px-2 py-0.5 rounded bg-[#0B2B26] hover:bg-[#163832] text-[#DAF1DE] border border-[#235347]" data-val="/images/hero-bromo-sunrise.webp">Bromo</button>
+                  <button type="button" class="btn-pimg-preset px-2 py-0.5 rounded bg-[#0B2B26] hover:bg-[#163832] text-[#DAF1DE] border border-[#235347]" data-val="/images/about/team-fasilitator.webp">Tim</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex items-center justify-end gap-3 pt-3 border-t border-[#235347]">
             <button
               type="button"
               id="cancel-page-btn"
-              class="px-4 py-2 rounded bg-rose-950 hover:bg-rose-900 text-rose-200 text-xs font-bold"
+              class="px-4 py-2 rounded-lg bg-[#051F20] hover:bg-[#163832] text-[#8EB69B] hover:text-white border border-[#235347] text-xs font-bold transition-colors"
             >
               Batal
             </button>
             <button
               type="submit"
-              class="px-5 py-2 rounded bg-amber-500 hover:bg-amber-400 text-stone-950 font-bold text-xs uppercase tracking-wider shadow"
+              class="px-5 py-2 rounded-lg bg-[#DAF1DE] hover:bg-white text-[#051F20] font-bold text-xs uppercase tracking-wider shadow-glow-mint transition-all hover:scale-105"
             >
               Simpan Halaman
             </button>
@@ -277,6 +314,8 @@ import AdminLayout from '../../../layouts/AdminLayout.astro';
   </div>
 
   <script>
+    import { syncPageToSupabase, deletePageFromSupabase, getSupabaseClient } from '../../../lib/supabaseSync';
+
     // Initial master list of all website pages
     const DEFAULT_SYSTEM_PAGES = [
       {
@@ -352,7 +391,7 @@ import AdminLayout from '../../../layouts/AdminLayout.astro';
       {
         id: 'sys-testimoni',
         title: 'Halaman Testimoni & Review Klien',
-        slug: '/admin/testimoni',
+        slug: '/testimoni',
         type: 'Social Proof',
         status: 'published',
         editorUrl: '/admin/testimoni',
@@ -362,7 +401,7 @@ import AdminLayout from '../../../layouts/AdminLayout.astro';
       {
         id: 'sys-faq',
         title: 'Halaman FAQ Tanya Jawab',
-        slug: '/admin/faq',
+        slug: '/faq',
         type: 'Tanya Jawab',
         status: 'published',
         editorUrl: '/admin/faq',
@@ -405,6 +444,12 @@ import AdminLayout from '../../../layouts/AdminLayout.astro';
 
     function saveCustomPages(list: any[]) {
       localStorage.setItem('vo_custom_pages', JSON.stringify(list));
+      window.dispatchEvent(new CustomEvent('vo_content_updated', { detail: { key: 'vo_custom_pages', data: list } }));
+      window.dispatchEvent(new Event('storage'));
+      try {
+        const bc = new BroadcastChannel('vo_sync_channel');
+        bc.postMessage({ type: 'VO_UPDATED', key: 'vo_custom_pages', data: list });
+      } catch (e) {}
       renderTable();
     }
 
@@ -415,8 +460,8 @@ import AdminLayout from '../../../layouts/AdminLayout.astro';
 
     function showAlert(msg: string, isError = false) {
       if (!alertBox) return;
-      alertBox.className = `p-3 rounded-lg text-xs font-bold border block shadow ${
-        isError ? 'bg-red-950 text-red-200 border-red-500' : 'bg-emerald-950 text-emerald-200 border-emerald-500'
+      alertBox.className = `p-3 rounded-lg text-xs font-bold border block shadow-glow-mint ${
+        isError ? 'bg-red-950/90 text-red-200 border-red-500/60' : 'bg-[#163832] text-[#DAF1DE] border-[#235347]'
       }`;
       alertBox.textContent = msg;
       setTimeout(() => alertBox.classList.add('hidden'), 3000);
@@ -435,45 +480,45 @@ import AdminLayout from '../../../layouts/AdminLayout.astro';
       });
 
       if (filtered.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="6" class="py-6 text-center text-rose-400">Tidak ada halaman yang cocok dengan kriteria pencarian.</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="6" class="py-6 text-center text-[#8EB69B]">Tidak ada halaman yang cocok dengan kriteria pencarian.</td></tr>`;
         return;
       }
 
       tbody.innerHTML = filtered.map((p) => `
-        <tr class="hover:bg-rose-950/40 transition-colors">
+        <tr class="hover:bg-[#163832]/40 transition-colors">
           <td class="py-3 px-4 font-bold text-white">
             <div class="flex items-center gap-2">
-              <span class="w-1.5 h-1.5 rounded-full ${p.isSystem ? 'bg-amber-400' : 'bg-cyan-400'}"></span>
+              <span class="w-1.5 h-1.5 rounded-full ${p.isSystem ? 'bg-[#8EB69B]' : 'bg-[#DAF1DE]'}"></span>
               <span>${p.title}</span>
             </div>
           </td>
-          <td class="py-3 px-4 font-mono text-amber-300 text-[11px]">${p.slug}</td>
+          <td class="py-3 px-4 font-mono text-[#8EB69B] text-[11px]">${p.slug}</td>
           <td class="py-3 px-4">
-            <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-brand-900/60 text-rose-200 border border-rose-800/40">
+            <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-[#163832] text-[#8EB69B] border border-[#235347]">
               ${p.type}
             </span>
           </td>
           <td class="py-3 px-4">
             <span class="px-2 py-0.5 rounded text-[10px] font-bold ${
-              p.status === 'published' ? 'bg-emerald-500/20 text-emerald-300' : 'bg-amber-500/20 text-amber-300'
+              p.status === 'published' ? 'bg-[#163832] text-[#DAF1DE] border border-[#235347]' : 'bg-[#051F20] text-[#8EB69B] border border-[#235347]'
             }">
               ${p.status === 'published' ? 'Published' : 'Draft'}
             </span>
           </td>
-          <td class="py-3 px-4 text-rose-300/70 text-[11px]">${p.updatedAt || 'Terbaru'}</td>
+          <td class="py-3 px-4 text-[#8EB69B]/80 text-[11px]">${p.updatedAt || 'Terbaru'}</td>
           <td class="py-3 px-4 text-right">
             <div class="inline-flex items-center gap-1.5">
               ${
                 p.editorUrl
-                  ? `<a href="${p.editorUrl}" class="px-2.5 py-1 rounded bg-amber-500/20 hover:bg-amber-500 hover:text-stone-950 text-amber-300 text-[11px] font-bold border border-amber-400/30 transition-colors">Edit Halaman</a>`
-                  : `<button type="button" class="btn-edit-custom px-2.5 py-1 rounded bg-amber-500/20 hover:bg-amber-500 hover:text-stone-950 text-amber-300 text-[11px] font-bold border border-amber-400/30 transition-colors" data-id="${p.id}">Edit</button>`
+                  ? `<a href="${p.editorUrl}" class="px-2.5 py-1 rounded bg-[#163832] hover:bg-[#235347] text-[#DAF1DE] text-[11px] font-bold border border-[#235347] transition-colors">Edit Halaman</a>`
+                  : `<button type="button" class="btn-edit-custom px-2.5 py-1 rounded bg-[#163832] hover:bg-[#235347] text-[#DAF1DE] text-[11px] font-bold border border-[#235347] transition-colors" data-id="${p.id}">Edit</button>`
               }
-              <a href="${p.slug}" target="_blank" class="px-2 py-1 rounded bg-brand-900/60 hover:bg-brand-800 text-rose-200 text-[11px] border border-rose-800/40" title="Pratinjau di Frontend">
+              <a href="${p.slug}" target="_blank" class="px-2 py-1 rounded bg-[#051F20] hover:bg-[#163832] text-[#8EB69B] hover:text-[#DAF1DE] text-[11px] border border-[#235347] transition-colors" title="Pratinjau di Frontend">
                 <i class="fas fa-external-link-alt text-[10px]"></i>
               </a>
               ${
                 !p.isSystem
-                  ? `<button type="button" class="btn-del-custom px-2 py-1 rounded bg-red-950/60 hover:bg-red-800 text-red-300 text-[11px] border border-red-800/40" data-id="${p.id}" title="Hapus Halaman"><i class="fas fa-trash text-[10px]"></i></button>`
+                  ? `<button type="button" class="btn-del-custom px-2 py-1 rounded bg-[#051F20] hover:bg-rose-950 text-rose-300 text-[11px] border border-[#235347] transition-colors" data-id="${p.id}" title="Hapus Halaman"><i class="fas fa-trash text-[10px]"></i></button>`
                   : ''
               }
             </div>
@@ -501,6 +546,12 @@ import AdminLayout from '../../../layouts/AdminLayout.astro';
             (document.getElementById('p-content') as HTMLTextAreaElement).value = target.content || '';
             (document.getElementById('p-seo-title') as HTMLInputElement).value = target.seoTitle || '';
             (document.getElementById('p-seo-desc') as HTMLInputElement).value = target.seoDesc || '';
+            
+            const pImg = target.imageUrl || target.ogImage || '/images/hero/hero-outbound.webp';
+            const imgInp = document.getElementById('p-image-url') as HTMLInputElement | null;
+            const imgPrev = document.getElementById('p-img-preview') as HTMLImageElement | null;
+            if (imgInp) imgInp.value = pImg;
+            if (imgPrev) imgPrev.src = pImg;
 
             const modalTitle = document.getElementById('page-modal-title');
             if (modalTitle) modalTitle.textContent = 'Edit Halaman: ' + target.title;
@@ -511,22 +562,59 @@ import AdminLayout from '../../../layouts/AdminLayout.astro';
 
       // Delete custom page
       document.querySelectorAll('.btn-del-custom').forEach((btn) => {
-        btn.addEventListener('click', () => {
+        btn.addEventListener('click', async () => {
           const id = btn.getAttribute('data-id');
           if (confirm('Apakah Anda yakin ingin menghapus halaman kustom ini?')) {
             let custom = getCustomPages();
-            custom = custom.filter((c) => c.id !== id);
+            const target = custom.find((c: any) => c.id === id);
+            custom = custom.filter((c: any) => c.id !== id);
             saveCustomPages(custom);
-            showAlert('✓ Halaman kustom berhasil dihapus!');
+            if (target && target.slug) {
+              await deletePageFromSupabase(target.slug);
+            }
+            showAlert('✓ Halaman kustom berhasil dihapus dari Front-End & Supabase!');
           }
         });
       });
     }
 
+    const pImgInp = document.getElementById('p-image-url') as HTMLInputElement | null;
+    const pImgPrev = document.getElementById('p-img-preview') as HTMLImageElement | null;
+    const pImgFile = document.getElementById('p-image-file') as HTMLInputElement | null;
+
+    pImgInp?.addEventListener('input', () => {
+      if (pImgPrev) pImgPrev.src = pImgInp.value || '';
+    });
+
+    document.querySelectorAll<HTMLButtonElement>('.btn-pimg-preset').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const val = btn.getAttribute('data-val');
+        if (val) {
+          if (pImgInp) pImgInp.value = val;
+          if (pImgPrev) pImgPrev.src = val;
+        }
+      });
+    });
+
+    pImgFile?.addEventListener('change', () => {
+      const file = pImgFile.files?.[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const res = e.target?.result as string;
+          if (pImgInp) pImgInp.value = res;
+          if (pImgPrev) pImgPrev.src = res;
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
     // Add new custom page
     document.getElementById('btn-add-custom-page')?.addEventListener('click', () => {
       form?.reset();
       (document.getElementById('p-id') as HTMLInputElement).value = '';
+      if (pImgInp) pImgInp.value = '/images/hero/hero-outbound.webp';
+      if (pImgPrev) pImgPrev.src = '/images/hero/hero-outbound.webp';
       const modalTitle = document.getElementById('page-modal-title');
       if (modalTitle) modalTitle.textContent = 'Buat Halaman Kustom Baru';
       modal?.showModal();
@@ -558,12 +646,13 @@ import AdminLayout from '../../../layouts/AdminLayout.astro';
       const content = (document.getElementById('p-content') as HTMLTextAreaElement).value.trim();
       const seoTitle = (document.getElementById('p-seo-title') as HTMLInputElement).value.trim();
       const seoDesc = (document.getElementById('p-seo-desc') as HTMLInputElement).value.trim();
+      const imageUrl = (document.getElementById('p-image-url') as HTMLInputElement)?.value || '/images/hero/hero-outbound.webp';
 
       let custom = getCustomPages();
 
       if (id) {
         // Edit existing
-        const idx = custom.findIndex((c) => c.id === id);
+        const idx = custom.findIndex((c: any) => c.id === id);
         if (idx >= 0) {
           custom[idx] = {
             ...custom[idx],
@@ -575,6 +664,7 @@ import AdminLayout from '../../../layouts/AdminLayout.astro';
             content,
             seoTitle,
             seoDesc,
+            imageUrl,
             updatedAt: new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' })
           };
         }
@@ -590,6 +680,7 @@ import AdminLayout from '../../../layouts/AdminLayout.astro';
           content,
           seoTitle,
           seoDesc,
+          imageUrl,
           isSystem: false,
           updatedAt: new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' })
         });
@@ -597,7 +688,29 @@ import AdminLayout from '../../../layouts/AdminLayout.astro';
 
       saveCustomPages(custom);
       modal?.close();
-      showAlert('✓ Halaman berhasil disimpan ke daftar master halaman!');
+
+      // Sync to Supabase directly
+      syncPageToSupabase(
+        slug,
+        title,
+        {
+          id,
+          title,
+          slug,
+          type,
+          status,
+          excerpt,
+          content,
+          seoTitle,
+          seoDesc,
+          imageUrl,
+          updatedAt: new Date().toISOString()
+        },
+        type.toLowerCase() === 'legal' ? 'legal' : 'standard',
+        { seoTitle, seoDesc, ogImage: imageUrl }
+      );
+
+      showAlert('✓ Halaman berhasil disimpan ke Front-End & Cloud Supabase!');
     });
 
     // Search and filter triggers
@@ -606,5 +719,43 @@ import AdminLayout from '../../../layouts/AdminLayout.astro';
 
     // Initial render
     renderTable();
+
+    // Hydrate extra custom pages from Supabase if any
+    (async () => {
+      const client = getSupabaseClient();
+      if (!client) return;
+      try {
+        const { data } = await client.from('pages').select('*');
+        if (data && data.length > 0) {
+          const custom = getCustomPages();
+          let modified = false;
+          data.forEach((p: any) => {
+            const isSystem = DEFAULT_SYSTEM_PAGES.some(sp => sp.slug === p.slug);
+            if (!isSystem && !custom.some((c: any) => c.slug === p.slug)) {
+              custom.push({
+                id: 'supabase-' + (p.id || p.slug),
+                title: p.title || p.slug,
+                slug: p.slug,
+                type: p.page_type || 'Custom',
+                status: p.status || 'published',
+                excerpt: p.seo_description || '',
+                content: typeof p.content === 'string' ? p.content : JSON.stringify(p.content),
+                seoTitle: p.seo_title || p.title,
+                seoDesc: p.seo_description || '',
+                isSystem: false,
+                updatedAt: p.updated_at ? new Date(p.updated_at).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' }) : 'Terbaru'
+              });
+              modified = true;
+            }
+          });
+          if (modified) {
+            localStorage.setItem('vo_custom_pages', JSON.stringify(custom));
+            renderTable();
+          }
+        }
+      } catch (err) {
+        console.warn('Hydrate custom pages from Supabase error:', err);
+      }
+    })();
   </script>
 </AdminLayout>

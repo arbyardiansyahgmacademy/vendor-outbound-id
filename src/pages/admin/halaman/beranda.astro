@@ -3,23 +3,23 @@ import AdminLayout from '../../../layouts/AdminLayout.astro';
 import { SITE_INFO } from '../../../data/defaultContent';
 ---
 
-<AdminLayout title="Editor Halaman Beranda">
-  <div class="space-y-8 text-left max-w-4xl">
+<AdminLayout title="Editor Halaman Beranda (Section-to-Section & Gambar)">
+  <div class="space-y-8 text-left max-w-5xl">
     
-    <!-- Header -->
-    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-rose-900/40">
+    <!-- Top Header -->
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[#235347]">
       <div>
         <div class="flex items-center gap-2 mb-1">
-          <a href="/admin/halaman" class="text-xs text-amber-400 hover:underline">← Master Halaman</a>
-          <span class="text-xs text-rose-400">/</span>
-          <span class="text-xs text-rose-300">Editor Beranda</span>
+          <a href="/admin/halaman" class="text-xs text-[#DAF1DE] hover:underline">← Master Halaman</a>
+          <span class="text-xs text-[#235347]">/</span>
+          <span class="text-xs text-[#8EB69B]">Editor Beranda</span>
         </div>
         <h1 class="font-heading font-black text-2xl uppercase tracking-wider text-white flex items-center gap-2">
-          <i class="fas fa-home text-amber-400"></i>
-          <span>EDITOR KONTEN BERANDA (HOME)</span>
+          <i class="fas fa-home text-[#8EB69B]"></i>
+          <span>EDITOR SECTION &amp; GAMBAR BERANDA (HOME)</span>
         </h1>
-        <p class="text-xs text-rose-300/80 mt-1">
-          Kelola teks Hero, section OUR SERVICES, Mengapa Memilih Kami, PAKET PILIHAN, About Us, dan konfigurasi SEO Beranda.
+        <p class="text-xs text-[#8EB69B] mt-1">
+          Kelola teks, tombol, dan gambar untuk seluruh section Beranda: SEO, Hero, About Us, Services, Mengapa Kami, 4 Kategori, Paket, Destinasi, Galeri, Blog, Testimoni, FAQ, dan CTA Banner.
         </p>
       </div>
 
@@ -27,288 +27,1019 @@ import { SITE_INFO } from '../../../data/defaultContent';
         <a
           href="/"
           target="_blank"
-          class="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg bg-brand-900/70 hover:bg-brand-800 text-rose-200 hover:text-white text-xs font-bold border border-rose-700/50"
+          class="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg bg-[#163832] hover:bg-[#235347] text-[#DAF1DE] text-xs font-bold border border-[#235347] transition-all hover:scale-105"
         >
           <i class="fas fa-external-link-alt"></i>
-          <span>Lihat Beranda</span>
+          <span>Buka Beranda Live</span>
         </a>
       </div>
     </div>
 
     <!-- Alert Box -->
-    <div id="beranda-alert" class="hidden p-3 rounded-lg text-xs font-bold transition-all"></div>
+    <div id="beranda-alert" class="hidden p-3 rounded-lg text-xs font-bold transition-all shadow-md"></div>
+
+    <!-- Quick Navigation Jump Bar -->
+    <div class="p-3.5 rounded-xl bg-[#0B2B26] border border-[#235347] shadow-xl flex flex-wrap items-center gap-2 text-xs">
+      <span class="text-[10px] uppercase font-bold text-[#8EB69B] tracking-wider mr-1">
+        <i class="fas fa-bookmark text-[#DAF1DE] mr-1"></i> Lompat Section:
+      </span>
+      <a href="#sec-seo" class="px-2.5 py-1 rounded bg-[#051F20] hover:bg-[#163832] text-[#DAF1DE] border border-[#235347]">01. SEO</a>
+      <a href="#sec-hero" class="px-2.5 py-1 rounded bg-[#051F20] hover:bg-[#163832] text-[#DAF1DE] border border-[#235347]">02. Hero</a>
+      <a href="#sec-about" class="px-2.5 py-1 rounded bg-[#051F20] hover:bg-[#163832] text-[#DAF1DE] border border-[#235347]">03. About Us</a>
+      <a href="#sec-services" class="px-2.5 py-1 rounded bg-[#051F20] hover:bg-[#163832] text-[#DAF1DE] border border-[#235347]">04. Services</a>
+      <a href="#sec-why" class="px-2.5 py-1 rounded bg-[#051F20] hover:bg-[#163832] text-[#DAF1DE] border border-[#235347]">05. Mengapa Kami</a>
+      <a href="#sec-categories" class="px-2.5 py-1 rounded bg-[#051F20] hover:bg-[#163832] text-[#DAF1DE] border border-[#235347]">06. 4 Kategori</a>
+      <a href="#sec-packages" class="px-2.5 py-1 rounded bg-[#051F20] hover:bg-[#163832] text-[#DAF1DE] border border-[#235347]">07. Paket</a>
+      <a href="#sec-destinations" class="px-2.5 py-1 rounded bg-[#051F20] hover:bg-[#163832] text-[#DAF1DE] border border-[#235347]">08. Destinasi</a>
+      <a href="#sec-gallery" class="px-2.5 py-1 rounded bg-[#051F20] hover:bg-[#163832] text-[#DAF1DE] border border-[#235347]">09. Galeri</a>
+      <a href="#sec-blog" class="px-2.5 py-1 rounded bg-[#051F20] hover:bg-[#163832] text-[#DAF1DE] border border-[#235347]">10. Blog</a>
+      <a href="#sec-testi" class="px-2.5 py-1 rounded bg-[#051F20] hover:bg-[#163832] text-[#DAF1DE] border border-[#235347]">11. Testimoni</a>
+      <a href="#sec-faq" class="px-2.5 py-1 rounded bg-[#051F20] hover:bg-[#163832] text-[#DAF1DE] border border-[#235347]">12. FAQ</a>
+      <a href="#sec-cta" class="px-2.5 py-1 rounded bg-[#051F20] hover:bg-[#163832] text-[#DAF1DE] border border-[#235347]">13. CTA Banner</a>
+    </div>
 
     <form id="beranda-editor-form" class="space-y-8">
       
-      <!-- Section 1: Hero Banner -->
-      <div class="rounded-xl bg-[#330206] border border-rose-700/40 p-6 space-y-4 shadow-xl">
-        <div class="flex items-center justify-between border-b border-rose-900/50 pb-2">
-          <h2 class="font-heading font-bold text-base uppercase text-amber-400 tracking-wider flex items-center gap-2">
+      <!-- Section 01: Meta SEO Beranda -->
+      <div id="sec-seo" class="rounded-xl bg-[#0B2B26] border border-[#235347] p-6 space-y-4 shadow-xl">
+        <div class="flex items-center justify-between border-b border-[#235347] pb-3">
+          <h2 class="font-heading font-bold text-base uppercase text-[#DAF1DE] tracking-wider flex items-center gap-2">
             <span>01.</span>
-            <span>Section Hero Banner</span>
+            <span>Pengaturan Head &amp; Meta SEO Beranda</span>
           </h2>
-          <span class="text-[10px] uppercase font-bold text-rose-400/80 tracking-widest">Tampilan Pertama</span>
+          <span class="text-[10px] uppercase font-bold text-[#8EB69B] tracking-widest">Google &amp; Social Meta</span>
         </div>
 
         <div>
-          <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200 mb-1">
-            Eyebrow Badge (Teks Di Atas Judul Utama)
-          </label>
-          <input
-            type="text"
-            id="hero-eyebrow"
-            class="w-full px-3.5 py-2.5 rounded-lg bg-stone-950/70 border border-rose-800/60 text-white text-xs focus:outline-none focus:border-amber-400"
-            value="Rekomendasi Utama Outbound Batu & Malang"
-          />
-        </div>
-
-        <div>
-          <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200 mb-1">
-            Judul Utama Hero (H1)
-          </label>
-          <input
-            type="text"
-            id="hero-h1"
-            class="w-full px-3.5 py-2.5 rounded-lg bg-stone-950/70 border border-rose-800/60 text-white text-xs focus:outline-none focus:border-amber-400 font-bold"
-            value="OUTBOUND & TEAM BUILDING BATU MALANG"
-          />
-        </div>
-
-        <div>
-          <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200 mb-1">
-            Paragraf Deskripsi Hero
-          </label>
-          <textarea
-            id="hero-desc"
-            rows="3"
-            class="w-full px-3.5 py-2.5 rounded-lg bg-stone-950/70 border border-rose-800/60 text-white text-xs focus:outline-none focus:border-amber-400 leading-relaxed"
-          >Wujudkan kekompakan tim, kehangatan family gathering, serta petualangan seru rafting dan offroad 4x4 di kawasan pegunungan sejuk Kota Batu & Malang bersama fasilitator tersertifikasi.</textarea>
-        </div>
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div>
-            <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200 mb-1">
-              Label Tombol CTA Utama
-            </label>
-            <input
-              type="text"
-              id="hero-cta-main"
-              class="w-full px-3.5 py-2.5 rounded-lg bg-stone-950/70 border border-rose-800/60 text-white text-xs focus:outline-none focus:border-amber-400"
-              value="Pilihan Paket Acara"
-            />
-          </div>
-          <div>
-            <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200 mb-1">
-              Subteks Tombol CTA Utama
-            </label>
-            <input
-              type="text"
-              id="hero-cta-sub"
-              class="w-full px-3.5 py-2.5 rounded-lg bg-stone-950/70 border border-rose-800/60 text-white text-xs focus:outline-none focus:border-amber-400"
-              value="Corporate, Gathering & Adventure"
-            />
-          </div>
-        </div>
-
-        <div>
-          <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200 mb-1">
-            Gambar Hero (Format WebP)
-          </label>
-          <input
-            type="text"
-            id="hero-image"
-            class="w-full px-3.5 py-2.5 rounded-lg bg-stone-950/70 border border-rose-800/60 text-white text-xs font-mono focus:outline-none focus:border-amber-400"
-            value="/images/hero/hero-outbound.webp"
-          />
-        </div>
-      </div>
-
-      <!-- Section 2: OUR SERVICES -->
-      <div class="rounded-xl bg-[#330206] border border-rose-700/40 p-6 space-y-4 shadow-xl">
-        <div class="flex items-center justify-between border-b border-rose-900/50 pb-2">
-          <h2 class="font-heading font-bold text-base uppercase text-amber-400 tracking-wider flex items-center gap-2">
-            <span>02.</span>
-            <span>Section OUR SERVICES (List Bar Interaktif)</span>
-          </h2>
-          <span class="text-[10px] uppercase font-bold text-rose-400/80 tracking-widest">Jasa Outbound</span>
-        </div>
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div>
-            <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200 mb-1">
-              Heading Section
-            </label>
-            <input
-              type="text"
-              id="services-heading"
-              class="w-full px-3.5 py-2.5 rounded-lg bg-stone-950/70 border border-rose-800/60 text-white text-xs focus:outline-none focus:border-amber-400 font-bold"
-              value="OUR SERVICES"
-            />
-          </div>
-          <div>
-            <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200 mb-1">
-              Teks Tombol Aksi
-            </label>
-            <input
-              type="text"
-              id="services-btn-text"
-              class="w-full px-3.5 py-2.5 rounded-lg bg-stone-950/70 border border-rose-800/60 text-white text-xs focus:outline-none focus:border-amber-400 font-bold"
-              value="Pesan Layanan"
-            />
-          </div>
-        </div>
-
-        <div>
-          <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200 mb-1">
-            Sub-Heading Penjelasan
-          </label>
-          <input
-            type="text"
-            id="services-subheading"
-            class="w-full px-3.5 py-2.5 rounded-lg bg-stone-950/70 border border-rose-800/60 text-white text-xs focus:outline-none focus:border-amber-400"
-            value="Pilihan paket outbound dan petualangan terfavorit di Kota Batu & Malang"
-          />
-        </div>
-      </div>
-
-      <!-- Section 3: PAKET PILIHAN -->
-      <div class="rounded-xl bg-[#330206] border border-rose-700/40 p-6 space-y-4 shadow-xl">
-        <div class="flex items-center justify-between border-b border-rose-900/50 pb-2">
-          <h2 class="font-heading font-bold text-base uppercase text-amber-400 tracking-wider flex items-center gap-2">
-            <span>03.</span>
-            <span>Section PAKET PILIHAN (4 Kartu Vertikal)</span>
-          </h2>
-          <span class="text-[10px] uppercase font-bold text-rose-400/80 tracking-widest">Katalog Paket</span>
-        </div>
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div>
-            <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200 mb-1">
-              Heading Section
-            </label>
-            <input
-              type="text"
-              id="pkg-heading"
-              class="w-full px-3.5 py-2.5 rounded-lg bg-stone-950/70 border border-rose-800/60 text-white text-xs focus:outline-none focus:border-amber-400 font-bold"
-              value="PAKET PILIHAN"
-            />
-          </div>
-          <div>
-            <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200 mb-1">
-              Sub-Heading Paket
-            </label>
-            <input
-              type="text"
-              id="pkg-subheading"
-              class="w-full px-3.5 py-2.5 rounded-lg bg-stone-950/70 border border-rose-800/60 text-white text-xs focus:outline-none focus:border-amber-400"
-              value="Pilihan Paket Outbound & Petualangan Paling Diminati di Batu Malang"
-            />
-          </div>
-        </div>
-      </div>
-
-      <!-- Section 4: About Us Preview -->
-      <div class="rounded-xl bg-[#330206] border border-rose-700/40 p-6 space-y-4 shadow-xl">
-        <div class="flex items-center justify-between border-b border-rose-900/50 pb-2">
-          <h2 class="font-heading font-bold text-base uppercase text-amber-400 tracking-wider flex items-center gap-2">
-            <span>04.</span>
-            <span>Section ABOUT US (Ringkasan Profil di Beranda)</span>
-          </h2>
-          <span class="text-[10px] uppercase font-bold text-rose-400/80 tracking-widest">Profil Singkat</span>
-        </div>
-
-        <div>
-          <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200 mb-1">
-            Heading About Us
-          </label>
-          <input
-            type="text"
-            id="about-heading"
-            class="w-full px-3.5 py-2.5 rounded-lg bg-stone-950/70 border border-rose-800/60 text-white text-xs focus:outline-none focus:border-amber-400 font-bold"
-            value="ABOUT US"
-          />
-        </div>
-
-        <div>
-          <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200 mb-1">
-            Paragraf 1
-          </label>
-          <textarea
-            id="about-p1"
-            rows="2"
-            class="w-full px-3.5 py-2.5 rounded-lg bg-stone-950/70 border border-rose-800/60 text-white text-xs focus:outline-none focus:border-amber-400"
-          >{SITE_INFO.brandName} berdedikasi menghadirkan jamuan aktivitas outbound, corporate team building, dan family gathering yang dirancang terstruktur dengan nilai edukasi, kehangatan, serta keselamatan terbaik di alam terbuka Kota Batu dan Malang.</textarea>
-        </div>
-
-        <div>
-          <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200 mb-1">
-            Paragraf 2
-          </label>
-          <textarea
-            id="about-p2"
-            rows="2"
-            class="w-full px-3.5 py-2.5 rounded-lg bg-stone-950/70 border border-rose-800/60 text-white text-xs focus:outline-none focus:border-amber-400"
-          >Setiap modul simulasi dipandu oleh fasilitator lapangan tersertifikasi dan berpengalaman, memastikan pengalaman kebersamaan yang berkesan mendalam bagi rekan kerja kantor, keluarga besar, maupun institusi pendidikan Anda.</textarea>
-        </div>
-
-        <div>
-          <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200 mb-1">
-            Foto Tim Fasilitator Lapangan
-          </label>
-          <input
-            type="text"
-            id="about-image"
-            class="w-full px-3.5 py-2.5 rounded-lg bg-stone-950/70 border border-rose-800/60 text-white text-xs font-mono focus:outline-none focus:border-amber-400"
-            value="/images/about/team-fasilitator.webp"
-          />
-        </div>
-      </div>
-
-      <!-- Section 5: Meta SEO Beranda -->
-      <div class="rounded-xl bg-[#330206] border border-rose-700/40 p-6 space-y-4 shadow-xl">
-        <div class="flex items-center justify-between border-b border-rose-900/50 pb-2">
-          <h2 class="font-heading font-bold text-base uppercase text-amber-400 tracking-wider flex items-center gap-2">
-            <span>05.</span>
-            <span>Pengaturan SEO Beranda (Google &amp; Social Share)</span>
-          </h2>
-          <span class="text-[10px] uppercase font-bold text-rose-400/80 tracking-widest">SEO Meta</span>
-        </div>
-
-        <div>
-          <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200 mb-1">
-            SEO Title
+          <label class="block text-[11px] font-bold uppercase tracking-wider text-[#8EB69B] mb-1">
+            SEO Title (Tag &lt;title&gt;)
           </label>
           <input
             type="text"
             id="seo-title"
-            class="w-full px-3.5 py-2.5 rounded-lg bg-stone-950/70 border border-rose-800/60 text-white text-xs focus:outline-none focus:border-amber-400"
-            value="Vendor Outbound Batu Malang | Spesialis Team Building & Gathering"
+            class="w-full px-3.5 py-2.5 rounded-lg bg-[#051F20] border border-[#235347] text-white text-xs focus:outline-none focus:border-[#8EB69B]"
+            value="Provider Outbound Batu Malang | Spesialis Team Building & Gathering"
           />
         </div>
 
         <div>
-          <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200 mb-1">
+          <label class="block text-[11px] font-bold uppercase tracking-wider text-[#8EB69B] mb-1">
             SEO Meta Description
           </label>
           <textarea
             id="seo-desc"
             rows="2"
-            class="w-full px-3.5 py-2.5 rounded-lg bg-stone-950/70 border border-rose-800/60 text-white text-xs focus:outline-none focus:border-amber-400"
+            class="w-full px-3.5 py-2.5 rounded-lg bg-[#051F20] border border-[#235347] text-white text-xs focus:outline-none focus:border-[#8EB69B]"
           >Penyedia kegiatan outbound, corporate team building, family gathering, outbound edukasi sekolah, dan petualangan rafting offroad di Batu & Malang.</textarea>
+        </div>
+
+        <!-- Social Share Image (OG Image) with Live Preview & Upload -->
+        <div class="p-3.5 rounded-lg bg-[#051F20] border border-[#235347] space-y-2">
+          <label class="block text-[11px] font-bold uppercase tracking-wider text-[#8EB69B]">
+            Social Share Image URL (OG Image 1200x630)
+          </label>
+          <div class="flex items-center gap-3">
+            <img id="seo-og-preview" src="/images/hero/hero-outbound.webp" class="w-16 h-12 object-cover rounded-lg border border-[#235347] bg-[#051F20]" alt="OG Preview" />
+            <div class="flex-1 space-y-1.5">
+              <input
+                type="text"
+                id="seo-og-image"
+                data-preview="seo-og-preview"
+                class="img-ctrl-input w-full px-3 py-1.5 rounded bg-[#0B2B26] border border-[#235347] text-white text-xs font-mono focus:outline-none focus:border-[#8EB69B]"
+                value="/images/hero/hero-outbound.webp"
+              />
+              <div class="flex items-center gap-2 flex-wrap">
+                <input type="file" id="seo-og-file" accept="image/*" class="hidden img-ctrl-file" data-input="seo-og-image" data-preview="seo-og-preview" />
+                <button type="button" class="btn-img-upload px-2.5 py-1 rounded bg-[#163832] hover:bg-[#235347] text-[#DAF1DE] text-[10px] font-bold border border-[#235347]" data-file="seo-og-file">
+                  <i class="fas fa-upload mr-1"></i>Unggah File
+                </button>
+                <span class="text-[10px] text-[#8EB69B]">preset:</span>
+                <button type="button" class="btn-img-preset px-2 py-0.5 rounded text-[10px] bg-[#0B2B26] text-[#8EB69B] hover:text-white border border-[#235347]" data-input="seo-og-image" data-preview="seo-og-preview" data-val="/images/hero/hero-outbound.webp">Hero Outbound</button>
+                <button type="button" class="btn-img-preset px-2 py-0.5 rounded text-[10px] bg-[#0B2B26] text-[#8EB69B] hover:text-white border border-[#235347]" data-input="seo-og-image" data-preview="seo-og-preview" data-val="/images/dest-batu-malang.webp">Destinasi Batu</button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
-      <!-- Submit Bar -->
-      <div class="flex items-center justify-between pt-4 border-t border-rose-900/50">
-        <span class="text-xs text-rose-300/80">
-          Status: Sinkronisasi instan ke basis data lokal &amp; cloud
-        </span>
+      <!-- Section 02: Hero Banner -->
+      <div id="sec-hero" class="rounded-xl bg-[#0B2B26] border border-[#235347] p-6 space-y-4 shadow-xl">
+        <div class="flex items-center justify-between border-b border-[#235347] pb-3">
+          <h2 class="font-heading font-bold text-base uppercase text-[#DAF1DE] tracking-wider flex items-center gap-2">
+            <span>02.</span>
+            <span>Section Hero Banner (Tampilan Pertama)</span>
+          </h2>
+          <span class="text-[10px] uppercase font-bold text-[#8EB69B] tracking-widest">Hero Section</span>
+        </div>
+
+        <div>
+          <label class="block text-[11px] font-bold uppercase tracking-wider text-[#8EB69B] mb-1">
+            Eyebrow Tagline Badge
+          </label>
+          <input
+            type="text"
+            id="hero-eyebrow"
+            class="w-full px-3.5 py-2.5 rounded-lg bg-[#051F20] border border-[#235347] text-white text-xs focus:outline-none focus:border-[#8EB69B]"
+            value="Rekomendasi Utama Outbound Batu & Malang"
+          />
+        </div>
+
+        <div>
+          <label class="block text-[11px] font-bold uppercase tracking-wider text-[#8EB69B] mb-1">
+            Judul Utama Hero (H1)
+          </label>
+          <input
+            type="text"
+            id="hero-h1"
+            class="w-full px-3.5 py-2.5 rounded-lg bg-[#051F20] border border-[#235347] text-white text-xs focus:outline-none focus:border-[#8EB69B] font-bold"
+            value="OUTBOUND & TEAM BUILDING BATU MALANG"
+          />
+        </div>
+
+        <div>
+          <label class="block text-[11px] font-bold uppercase tracking-wider text-[#8EB69B] mb-1">
+            Paragraf Deskripsi Hero
+          </label>
+          <textarea
+            id="hero-desc"
+            rows="3"
+            class="w-full px-3.5 py-2.5 rounded-lg bg-[#051F20] border border-[#235347] text-white text-xs focus:outline-none focus:border-[#8EB69B] leading-relaxed"
+          >Wujudkan kekompakan tim, kehangatan family gathering, serta petualangan seru rafting dan offroad 4x4 di kawasan pegunungan sejuk Kota Batu & Malang bersama fasilitator tersertifikasi.</textarea>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-[11px] font-bold uppercase tracking-wider text-[#8EB69B] mb-1">
+              Label Tombol CTA Utama
+            </label>
+            <input
+              type="text"
+              id="hero-cta-main"
+              class="w-full px-3.5 py-2.5 rounded-lg bg-[#051F20] border border-[#235347] text-white text-xs focus:outline-none focus:border-[#8EB69B]"
+              value="Pilihan Paket Acara"
+            />
+          </div>
+          <div>
+            <label class="block text-[11px] font-bold uppercase tracking-wider text-[#8EB69B] mb-1">
+              Subteks Tombol CTA Utama
+            </label>
+            <input
+              type="text"
+              id="hero-cta-sub"
+              class="w-full px-3.5 py-2.5 rounded-lg bg-[#051F20] border border-[#235347] text-white text-xs focus:outline-none focus:border-[#8EB69B]"
+              value="Corporate, Gathering & Adventure"
+            />
+          </div>
+        </div>
+
+        <!-- Hero Image Control with Live Preview & Upload -->
+        <div class="p-3.5 rounded-lg bg-[#051F20] border border-[#235347] space-y-2">
+          <label class="block text-[11px] font-bold uppercase tracking-wider text-[#8EB69B]">
+            Gambar Hero Banner Visual (Format WebP)
+          </label>
+          <div class="flex items-center gap-3">
+            <img id="hero-img-preview" src="/images/hero/hero-outbound.webp" class="w-16 h-16 object-cover rounded-full border border-[#235347] bg-[#051F20]" alt="Hero Preview" />
+            <div class="flex-1 space-y-1.5">
+              <input
+                type="text"
+                id="hero-image"
+                data-preview="hero-img-preview"
+                class="img-ctrl-input w-full px-3 py-1.5 rounded bg-[#0B2B26] border border-[#235347] text-white text-xs font-mono focus:outline-none focus:border-[#8EB69B]"
+                value="/images/hero/hero-outbound.webp"
+              />
+              <div class="flex items-center gap-2 flex-wrap">
+                <input type="file" id="hero-img-file" accept="image/*" class="hidden img-ctrl-file" data-input="hero-image" data-preview="hero-img-preview" />
+                <button type="button" class="btn-img-upload px-2.5 py-1 rounded bg-[#163832] hover:bg-[#235347] text-[#DAF1DE] text-[10px] font-bold border border-[#235347]" data-file="hero-img-file">
+                  <i class="fas fa-upload mr-1"></i>Unggah Foto Hero
+                </button>
+                <span class="text-[10px] text-[#8EB69B]">preset:</span>
+                <button type="button" class="btn-img-preset px-2 py-0.5 rounded text-[10px] bg-[#0B2B26] text-[#8EB69B] hover:text-white border border-[#235347]" data-input="hero-image" data-preview="hero-img-preview" data-val="/images/hero/hero-outbound.webp">Outbound Hero</button>
+                <button type="button" class="btn-img-preset px-2 py-0.5 rounded text-[10px] bg-[#0B2B26] text-[#8EB69B] hover:text-white border border-[#235347]" data-input="hero-image" data-preview="hero-img-preview" data-val="/images/dest-batu-malang.webp">Destinasi Batu</button>
+                <button type="button" class="btn-img-preset px-2 py-0.5 rounded text-[10px] bg-[#0B2B26] text-[#8EB69B] hover:text-white border border-[#235347]" data-input="hero-image" data-preview="hero-img-preview" data-val="/images/prog-glamping.webp">Glamping Camping</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 03: About Us Preview -->
+      <div id="sec-about" class="rounded-xl bg-[#0B2B26] border border-[#235347] p-6 space-y-4 shadow-xl">
+        <div class="flex items-center justify-between border-b border-[#235347] pb-3">
+          <h2 class="font-heading font-bold text-base uppercase text-[#DAF1DE] tracking-wider flex items-center gap-2">
+            <span>03.</span>
+            <span>Section About Us Preview (Profil Singkat)</span>
+          </h2>
+          <span class="text-[10px] uppercase font-bold text-[#8EB69B] tracking-widest">About Us</span>
+        </div>
+
+        <div>
+          <label class="block text-[11px] font-bold uppercase tracking-wider text-[#8EB69B] mb-1">
+            Judul Section About Us (H2)
+          </label>
+          <input
+            type="text"
+            id="about-heading"
+            class="w-full px-3.5 py-2.5 rounded-lg bg-[#051F20] border border-[#235347] text-white text-xs focus:outline-none focus:border-[#8EB69B] font-bold"
+            value="TENTANG KAMI"
+          />
+        </div>
+
+        <div>
+          <label class="block text-[11px] font-bold uppercase tracking-wider text-[#8EB69B] mb-1">
+            Paragraf 1: Pengantar Pengalaman
+          </label>
+          <textarea
+            id="about-p1"
+            rows="3"
+            class="w-full px-3.5 py-2.5 rounded-lg bg-[#051F20] border border-[#235347] text-white text-xs focus:outline-none focus:border-[#8EB69B]"
+          >Dengan pengalaman bertahun-tahun mengorganisir kegiatan luar ruang di kawasan pegunungan Batu & Malang, kami hadir sebagai mitra terpercaya untuk membangun kekompakan tim, menyegarkan semangat kerja, dan menciptakan momen kebersamaan yang berharga.</textarea>
+        </div>
+
+        <div>
+          <label class="block text-[11px] font-bold uppercase tracking-wider text-[#8EB69B] mb-1">
+            Paragraf 2: Fasilitator & Standar Mutu
+          </label>
+          <textarea
+            id="about-p2"
+            rows="3"
+            class="w-full px-3.5 py-2.5 rounded-lg bg-[#051F20] border border-[#235347] text-white text-xs focus:outline-none focus:border-[#8EB69B]"
+          >Setiap modul simulasi dipandu oleh fasilitator lapangan tersertifikasi dan berpengalaman, memastikan pengalaman kebersamaan yang berkesan mendalam bagi rekan kerja kantor, keluarga besar, maupun institusi pendidikan Anda.</textarea>
+        </div>
+
+        <div>
+          <label class="block text-[11px] font-bold uppercase tracking-wider text-[#8EB69B] mb-1">
+            Teks Badge Strip Bawah About Us
+          </label>
+          <input
+            type="text"
+            id="about-strip"
+            class="w-full px-3.5 py-2.5 rounded-lg bg-[#051F20] border border-[#235347] text-white text-xs focus:outline-none focus:border-[#8EB69B]"
+            value="Fasilitator Bersertifikat BNSP • Asuransi Resmi • 15+ Venue Batu Malang"
+          />
+        </div>
+
+        <!-- About Image Control with Live Preview & Upload -->
+        <div class="p-3.5 rounded-lg bg-[#051F20] border border-[#235347] space-y-2">
+          <label class="block text-[11px] font-bold uppercase tracking-wider text-[#8EB69B]">
+            Foto Visual Tim / Fasilitator About Us
+          </label>
+          <div class="flex items-center gap-3">
+            <img id="about-img-preview" src="/images/about/team-fasilitator.webp" class="w-16 h-16 object-cover rounded-full border border-[#235347] bg-[#051F20]" alt="About Preview" />
+            <div class="flex-1 space-y-1.5">
+              <input
+                type="text"
+                id="about-image"
+                data-preview="about-img-preview"
+                class="img-ctrl-input w-full px-3 py-1.5 rounded bg-[#0B2B26] border border-[#235347] text-white text-xs font-mono focus:outline-none focus:border-[#8EB69B]"
+                value="/images/about/team-fasilitator.webp"
+              />
+              <div class="flex items-center gap-2 flex-wrap">
+                <input type="file" id="about-img-file" accept="image/*" class="hidden img-ctrl-file" data-input="about-image" data-preview="about-img-preview" />
+                <button type="button" class="btn-img-upload px-2.5 py-1 rounded bg-[#163832] hover:bg-[#235347] text-[#DAF1DE] text-[10px] font-bold border border-[#235347]" data-file="about-img-file">
+                  <i class="fas fa-upload mr-1"></i>Unggah Foto About
+                </button>
+                <span class="text-[10px] text-[#8EB69B]">preset:</span>
+                <button type="button" class="btn-img-preset px-2 py-0.5 rounded text-[10px] bg-[#0B2B26] text-[#8EB69B] hover:text-white border border-[#235347]" data-input="about-image" data-preview="about-img-preview" data-val="/images/about/team-fasilitator.webp">Tim Fasilitator</button>
+                <button type="button" class="btn-img-preset px-2 py-0.5 rounded text-[10px] bg-[#0B2B26] text-[#8EB69B] hover:text-white border border-[#235347]" data-input="about-image" data-preview="about-img-preview" data-val="/images/team-about-malang.webp">Team Batu Malang</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 04: Our Services Showcase -->
+      <div id="sec-services" class="rounded-xl bg-[#0B2B26] border border-[#235347] p-6 space-y-4 shadow-xl">
+        <div class="flex items-center justify-between border-b border-[#235347] pb-3">
+          <h2 class="font-heading font-bold text-base uppercase text-[#DAF1DE] tracking-wider flex items-center gap-2">
+            <span>04.</span>
+            <span>Section Our Services (Katalog Layanan Utama)</span>
+          </h2>
+          <span class="text-[10px] uppercase font-bold text-[#8EB69B] tracking-widest">Our Services</span>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-[11px] font-bold uppercase tracking-wider text-[#8EB69B] mb-1">
+              Judul Utama Section (H2)
+            </label>
+            <input
+              type="text"
+              id="services-heading"
+              class="w-full px-3.5 py-2.5 rounded-lg bg-[#051F20] border border-[#235347] text-white text-xs focus:outline-none focus:border-[#8EB69B] font-bold"
+              value="OUR SERVICES"
+            />
+          </div>
+
+          <div>
+            <label class="block text-[11px] font-bold uppercase tracking-wider text-[#8EB69B] mb-1">
+              Label Tombol Baris Layanan
+            </label>
+            <input
+              type="text"
+              id="services-btn-text"
+              class="w-full px-3.5 py-2.5 rounded-lg bg-[#051F20] border border-[#235347] text-white text-xs focus:outline-none focus:border-[#8EB69B]"
+              value="DETAIL LAYANAN"
+            />
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-[11px] font-bold uppercase tracking-wider text-[#8EB69B] mb-1">
+            Subjudul / Deskripsi Section Services
+          </label>
+          <textarea
+            id="services-subheading"
+            rows="2"
+            class="w-full px-3.5 py-2.5 rounded-lg bg-[#051F20] border border-[#235347] text-white text-xs focus:outline-none focus:border-[#8EB69B]"
+          >Empat pilar layanan outbound terpadu kami yang dapat dikustomisasi sesuai dengan karakteristik instansi dan target kegiatan Anda.</textarea>
+        </div>
+
+        <!-- Services Image Control -->
+        <div class="p-3.5 rounded-lg bg-[#051F20] border border-[#235347] space-y-2">
+          <label class="block text-[11px] font-bold uppercase tracking-wider text-[#8EB69B]">
+            Gambar Latar / Sorotan Section Layanan
+          </label>
+          <div class="flex items-center gap-3">
+            <img id="services-img-preview" src="/images/activities/outbound-team-building.webp" class="w-16 h-12 object-cover rounded-lg border border-[#235347] bg-[#051F20]" alt="Services Preview" />
+            <div class="flex-1 space-y-1.5">
+              <input
+                type="text"
+                id="services-image"
+                data-preview="services-img-preview"
+                class="img-ctrl-input w-full px-3 py-1.5 rounded bg-[#0B2B26] border border-[#235347] text-white text-xs font-mono focus:outline-none focus:border-[#8EB69B]"
+                value="/images/activities/outbound-team-building.webp"
+              />
+              <div class="flex items-center gap-2 flex-wrap">
+                <input type="file" id="services-img-file" accept="image/*" class="hidden img-ctrl-file" data-input="services-image" data-preview="services-img-preview" />
+                <button type="button" class="btn-img-upload px-2.5 py-1 rounded bg-[#163832] hover:bg-[#235347] text-[#DAF1DE] text-[10px] font-bold border border-[#235347]" data-file="services-img-file">
+                  <i class="fas fa-upload mr-1"></i>Unggah
+                </button>
+                <span class="text-[10px] text-[#8EB69B]">preset:</span>
+                <button type="button" class="btn-img-preset px-2 py-0.5 rounded text-[10px] bg-[#0B2B26] text-[#8EB69B] hover:text-white border border-[#235347]" data-input="services-image" data-preview="services-img-preview" data-val="/images/activities/outbound-team-building.webp">Team Building</button>
+                <button type="button" class="btn-img-preset px-2 py-0.5 rounded text-[10px] bg-[#0B2B26] text-[#8EB69B] hover:text-white border border-[#235347]" data-input="services-image" data-preview="services-img-preview" data-val="/images/activities/rafting-arung-jeram.webp">Rafting</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 05: Mengapa Memilih Kami (Why Choose Us) -->
+      <div id="sec-why" class="rounded-xl bg-[#0B2B26] border border-[#235347] p-6 space-y-4 shadow-xl">
+        <div class="flex items-center justify-between border-b border-[#235347] pb-3">
+          <h2 class="font-heading font-bold text-base uppercase text-[#DAF1DE] tracking-wider flex items-center gap-2">
+            <span>05.</span>
+            <span>Section Mengapa Memilih Kami (Why Choose Us)</span>
+          </h2>
+          <span class="text-[10px] uppercase font-bold text-[#8EB69B] tracking-widest">4 Pilar Mutu</span>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-[11px] font-bold uppercase tracking-wider text-[#8EB69B] mb-1">
+              Judul Section
+            </label>
+            <input
+              type="text"
+              id="why-heading"
+              class="w-full px-3.5 py-2.5 rounded-lg bg-[#051F20] border border-[#235347] text-white text-xs focus:outline-none focus:border-[#8EB69B] font-bold"
+              value="MENGAPA MEMILIH KAMI"
+            />
+          </div>
+
+          <div>
+            <label class="block text-[11px] font-bold uppercase tracking-wider text-[#8EB69B] mb-1">
+              Subjudul Section
+            </label>
+            <input
+              type="text"
+              id="why-subheading"
+              class="w-full px-3.5 py-2.5 rounded-lg bg-[#051F20] border border-[#235347] text-white text-xs focus:outline-none focus:border-[#8EB69B]"
+              value="Komitmen keunggulan dan standar keselamatan prima dalam setiap program."
+            />
+          </div>
+        </div>
+
+        <!-- Why Choose Us Image Control -->
+        <div class="p-3.5 rounded-lg bg-[#051F20] border border-[#235347] space-y-2">
+          <label class="block text-[11px] font-bold uppercase tracking-wider text-[#8EB69B]">
+            Gambar Sertifikasi &amp; Keunggulan Fasilitator
+          </label>
+          <div class="flex items-center gap-3">
+            <img id="why-img-preview" src="/images/dest-batu-malang.webp" class="w-16 h-12 object-cover rounded-lg border border-[#235347] bg-[#051F20]" alt="Why Preview" />
+            <div class="flex-1 space-y-1.5">
+              <input
+                type="text"
+                id="why-image"
+                data-preview="why-img-preview"
+                class="img-ctrl-input w-full px-3 py-1.5 rounded bg-[#0B2B26] border border-[#235347] text-white text-xs font-mono focus:outline-none focus:border-[#8EB69B]"
+                value="/images/dest-batu-malang.webp"
+              />
+              <div class="flex items-center gap-2 flex-wrap">
+                <input type="file" id="why-img-file" accept="image/*" class="hidden img-ctrl-file" data-input="why-image" data-preview="why-img-preview" />
+                <button type="button" class="btn-img-upload px-2.5 py-1 rounded bg-[#163832] hover:bg-[#235347] text-[#DAF1DE] text-[10px] font-bold border border-[#235347]" data-file="why-img-file">
+                  <i class="fas fa-upload mr-1"></i>Unggah
+                </button>
+                <span class="text-[10px] text-[#8EB69B]">preset:</span>
+                <button type="button" class="btn-img-preset px-2 py-0.5 rounded text-[10px] bg-[#0B2B26] text-[#8EB69B] hover:text-white border border-[#235347]" data-input="why-image" data-preview="why-img-preview" data-val="/images/dest-batu-malang.webp">Destinasi Batu</button>
+                <button type="button" class="btn-img-preset px-2 py-0.5 rounded text-[10px] bg-[#0B2B26] text-[#8EB69B] hover:text-white border border-[#235347]" data-input="why-image" data-preview="why-img-preview" data-val="/images/about/team-fasilitator.webp">Fasilitator</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+          <div class="p-3 rounded-lg bg-[#051F20] border border-[#235347] space-y-1.5">
+            <label class="block text-[10px] font-bold uppercase text-[#DAF1DE]">Pilar 1 (Trainer BNSP)</label>
+            <input type="text" id="why-p1-title" value="Instruktur Bersertifikat BNSP" class="w-full px-2.5 py-1.5 rounded bg-[#0B2B26] border border-[#235347] text-white text-xs" />
+            <textarea id="why-p1-desc" rows="2" class="w-full px-2.5 py-1.5 rounded bg-[#0B2B26] border border-[#235347] text-white text-xs">Seluruh fasilitator dan master games kami tersertifikasi kompetensi nasional BNSP RI.</textarea>
+          </div>
+
+          <div class="p-3 rounded-lg bg-[#051F20] border border-[#235347] space-y-1.5">
+            <label class="block text-[10px] font-bold uppercase text-[#DAF1DE]">Pilar 2 (Zero Accident)</label>
+            <input type="text" id="why-p2-title" value="Protokol Zero Accident" class="w-full px-2.5 py-1.5 rounded bg-[#0B2B26] border border-[#235347] text-white text-xs" />
+            <textarea id="why-p2-desc" rows="2" class="w-full px-2.5 py-1.5 rounded bg-[#0B2B26] border border-[#235347] text-white text-xs">SOP keselamatan internasional, simulasi terproteksi, tim medis siaga, dan asuransi all-risk.</textarea>
+          </div>
+
+          <div class="p-3 rounded-lg bg-[#051F20] border border-[#235347] space-y-1.5">
+            <label class="block text-[10px] font-bold uppercase text-[#DAF1DE]">Pilar 3 (Venue Resmi)</label>
+            <input type="text" id="why-p3-title" value="15+ Jaringan Venue Resmi" class="w-full px-2.5 py-1.5 rounded bg-[#0B2B26] border border-[#235347] text-white text-xs" />
+            <textarea id="why-p3-desc" rows="2" class="w-full px-2.5 py-1.5 rounded bg-[#0B2B26] border border-[#235347] text-white text-xs">Kemitraan langsung dengan resort bintang 5, bumi perkemahan pinus, dan basecamp rafting Kaliwatu.</textarea>
+          </div>
+
+          <div class="p-3 rounded-lg bg-[#051F20] border border-[#235347] space-y-1.5">
+            <label class="block text-[10px] font-bold uppercase text-[#DAF1DE]">Pilar 4 (Legalitas & Pajak)</label>
+            <input type="text" id="why-p4-title" value="Legalitas & Faktur Pajak Resmi" class="w-full px-2.5 py-1.5 rounded bg-[#0B2B26] border border-[#235347] text-white text-xs" />
+            <textarea id="why-p4-desc" rows="2" class="w-full px-2.5 py-1.5 rounded bg-[#0B2B26] border border-[#235347] text-white text-xs">Kemudahan administrasi SPK, proposal penawaran, kuitansi bermaterai, dan penerbitan faktur pajak.</textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 06: Categories Showcase (4 Kategori dengan Gambar Mandiri) -->
+      <div id="sec-categories" class="rounded-xl bg-[#0B2B26] border border-[#235347] p-6 space-y-4 shadow-xl">
+        <div class="flex items-center justify-between border-b border-[#235347] pb-3">
+          <h2 class="font-heading font-bold text-base uppercase text-[#DAF1DE] tracking-wider flex items-center gap-2">
+            <span>06.</span>
+            <span>Section Categories Showcase (4 Pilar Kategori)</span>
+          </h2>
+          <span class="text-[10px] uppercase font-bold text-[#8EB69B] tracking-widest">Gambar Tiap Card</span>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-[11px] font-bold uppercase tracking-wider text-[#8EB69B] mb-1">
+              Judul Heading Categories
+            </label>
+            <input
+              type="text"
+              id="cat-heading"
+              class="w-full px-3.5 py-2.5 rounded-lg bg-[#051F20] border border-[#235347] text-white text-xs focus:outline-none focus:border-[#8EB69B] font-bold"
+              value="CATEGORIES"
+            />
+          </div>
+
+          <div>
+            <label class="block text-[11px] font-bold uppercase tracking-wider text-[#8EB69B] mb-1">
+              Subjudul Categories
+            </label>
+            <input
+              type="text"
+              id="cat-subheading"
+              class="w-full px-3.5 py-2.5 rounded-lg bg-[#051F20] border border-[#235347] text-white text-xs focus:outline-none focus:border-[#8EB69B]"
+              value="4 Pilar Layanan Outbound di Batu & Malang"
+            />
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+          <!-- Card Kategori 1: Outbound Perusahaan -->
+          <div class="p-3.5 rounded-lg bg-[#051F20] border border-[#235347] space-y-2">
+            <span class="text-[11px] font-bold uppercase text-[#DAF1DE] block">Card 1: Outbound Perusahaan</span>
+            <div class="flex items-center gap-3">
+              <img id="cat-img-preview-1" src="/images/services/outbound-perusahaan.webp" class="w-14 h-14 rounded-full object-cover border border-[#235347] bg-[#051F20]" alt="Cat 1 Preview" />
+              <div class="flex-1 space-y-1">
+                <input type="text" id="cat-img-1" data-preview="cat-img-preview-1" class="img-ctrl-input w-full px-2.5 py-1 rounded bg-[#0B2B26] border border-[#235347] text-white text-xs font-mono" value="/images/services/outbound-perusahaan.webp" />
+                <div class="flex items-center gap-2">
+                  <input type="file" id="cat-file-1" accept="image/*" class="hidden img-ctrl-file" data-input="cat-img-1" data-preview="cat-img-preview-1" />
+                  <button type="button" class="btn-img-upload px-2 py-0.5 rounded bg-[#163832] text-[#DAF1DE] text-[10px] font-bold border border-[#235347]" data-file="cat-file-1">Unggah</button>
+                  <button type="button" class="btn-img-preset px-1.5 py-0.5 rounded text-[10px] bg-[#0B2B26] text-[#8EB69B] border border-[#235347]" data-input="cat-img-1" data-preview="cat-img-preview-1" data-val="/images/services/outbound-perusahaan.webp">Bawaan</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card Kategori 2: Family Gathering -->
+          <div class="p-3.5 rounded-lg bg-[#051F20] border border-[#235347] space-y-2">
+            <span class="text-[11px] font-bold uppercase text-[#DAF1DE] block">Card 2: Family Gathering</span>
+            <div class="flex items-center gap-3">
+              <img id="cat-img-preview-2" src="/images/services/family-gathering.webp" class="w-14 h-14 rounded-full object-cover border border-[#235347] bg-[#051F20]" alt="Cat 2 Preview" />
+              <div class="flex-1 space-y-1">
+                <input type="text" id="cat-img-2" data-preview="cat-img-preview-2" class="img-ctrl-input w-full px-2.5 py-1 rounded bg-[#0B2B26] border border-[#235347] text-white text-xs font-mono" value="/images/services/family-gathering.webp" />
+                <div class="flex items-center gap-2">
+                  <input type="file" id="cat-file-2" accept="image/*" class="hidden img-ctrl-file" data-input="cat-img-2" data-preview="cat-img-preview-2" />
+                  <button type="button" class="btn-img-upload px-2 py-0.5 rounded bg-[#163832] text-[#DAF1DE] text-[10px] font-bold border border-[#235347]" data-file="cat-file-2">Unggah</button>
+                  <button type="button" class="btn-img-preset px-1.5 py-0.5 rounded text-[10px] bg-[#0B2B26] text-[#8EB69B] border border-[#235347]" data-input="cat-img-2" data-preview="cat-img-preview-2" data-val="/images/services/family-gathering.webp">Bawaan</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card Kategori 3: Outbound Sekolah -->
+          <div class="p-3.5 rounded-lg bg-[#051F20] border border-[#235347] space-y-2">
+            <span class="text-[11px] font-bold uppercase text-[#DAF1DE] block">Card 3: Outbound Sekolah</span>
+            <div class="flex items-center gap-3">
+              <img id="cat-img-preview-3" src="/images/services/outbound-sekolah.webp" class="w-14 h-14 rounded-full object-cover border border-[#235347] bg-[#051F20]" alt="Cat 3 Preview" />
+              <div class="flex-1 space-y-1">
+                <input type="text" id="cat-img-3" data-preview="cat-img-preview-3" class="img-ctrl-input w-full px-2.5 py-1 rounded bg-[#0B2B26] border border-[#235347] text-white text-xs font-mono" value="/images/services/outbound-sekolah.webp" />
+                <div class="flex items-center gap-2">
+                  <input type="file" id="cat-file-3" accept="image/*" class="hidden img-ctrl-file" data-input="cat-img-3" data-preview="cat-img-preview-3" />
+                  <button type="button" class="btn-img-upload px-2 py-0.5 rounded bg-[#163832] text-[#DAF1DE] text-[10px] font-bold border border-[#235347]" data-file="cat-file-3">Unggah</button>
+                  <button type="button" class="btn-img-preset px-1.5 py-0.5 rounded text-[10px] bg-[#0B2B26] text-[#8EB69B] border border-[#235347]" data-input="cat-img-3" data-preview="cat-img-preview-3" data-val="/images/services/outbound-sekolah.webp">Bawaan</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card Kategori 4: Wisata Adventure -->
+          <div class="p-3.5 rounded-lg bg-[#051F20] border border-[#235347] space-y-2">
+            <span class="text-[11px] font-bold uppercase text-[#DAF1DE] block">Card 4: Wisata Adventure</span>
+            <div class="flex items-center gap-3">
+              <img id="cat-img-preview-4" src="/images/services/wisata-adventure.webp" class="w-14 h-14 rounded-full object-cover border border-[#235347] bg-[#051F20]" alt="Cat 4 Preview" />
+              <div class="flex-1 space-y-1">
+                <input type="text" id="cat-img-4" data-preview="cat-img-preview-4" class="img-ctrl-input w-full px-2.5 py-1 rounded bg-[#0B2B26] border border-[#235347] text-white text-xs font-mono" value="/images/services/wisata-adventure.webp" />
+                <div class="flex items-center gap-2">
+                  <input type="file" id="cat-file-4" accept="image/*" class="hidden img-ctrl-file" data-input="cat-img-4" data-preview="cat-img-preview-4" />
+                  <button type="button" class="btn-img-upload px-2 py-0.5 rounded bg-[#163832] text-[#DAF1DE] text-[10px] font-bold border border-[#235347]" data-file="cat-file-4">Unggah</button>
+                  <button type="button" class="btn-img-preset px-1.5 py-0.5 rounded text-[10px] bg-[#0B2B26] text-[#8EB69B] border border-[#235347]" data-input="cat-img-4" data-preview="cat-img-preview-4" data-val="/images/services/wisata-adventure.webp">Bawaan</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 07: Paket Pilihan Grid -->
+      <div id="sec-packages" class="rounded-xl bg-[#0B2B26] border border-[#235347] p-6 space-y-4 shadow-xl">
+        <div class="flex items-center justify-between border-b border-[#235347] pb-3">
+          <h2 class="font-heading font-bold text-base uppercase text-[#DAF1DE] tracking-wider flex items-center gap-2">
+            <span>07.</span>
+            <span>Section Paket Pilihan (Product Grid)</span>
+          </h2>
+          <span class="text-[10px] uppercase font-bold text-[#8EB69B] tracking-widest">Paket Pilihan</span>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-[11px] font-bold uppercase tracking-wider text-[#8EB69B] mb-1">
+              Judul Section (H2)
+            </label>
+            <input
+              type="text"
+              id="pkg-heading"
+              class="w-full px-3.5 py-2.5 rounded-lg bg-[#051F20] border border-[#235347] text-white text-xs focus:outline-none focus:border-[#8EB69B] font-bold"
+              value="PAKET PILIHAN"
+            />
+          </div>
+
+          <div>
+            <label class="block text-[11px] font-bold uppercase tracking-wider text-[#8EB69B] mb-1">
+              Subjudul Section Paket
+            </label>
+            <input
+              type="text"
+              id="pkg-subheading"
+              class="w-full px-3.5 py-2.5 rounded-lg bg-[#051F20] border border-[#235347] text-white text-xs focus:outline-none focus:border-[#8EB69B]"
+              value="Pilihan paket kegiatan outbound terpopuler dengan durasi dan fasilitas all-in di Batu Malang."
+            />
+          </div>
+        </div>
+
+        <!-- Paket Highlight Image Control -->
+        <div class="p-3.5 rounded-lg bg-[#051F20] border border-[#235347] space-y-2">
+          <label class="block text-[11px] font-bold uppercase tracking-wider text-[#8EB69B]">
+            Gambar Sorotan / Banner Seksi Paket
+          </label>
+          <div class="flex items-center gap-3">
+            <img id="pkg-img-preview" src="/images/packages/team-building.webp" class="w-16 h-12 object-cover rounded-lg border border-[#235347] bg-[#051F20]" alt="Pkg Preview" />
+            <div class="flex-1 space-y-1.5">
+              <input
+                type="text"
+                id="pkg-image"
+                data-preview="pkg-img-preview"
+                class="img-ctrl-input w-full px-3 py-1.5 rounded bg-[#0B2B26] border border-[#235347] text-white text-xs font-mono focus:outline-none focus:border-[#8EB69B]"
+                value="/images/packages/team-building.webp"
+              />
+              <div class="flex items-center gap-2 flex-wrap">
+                <input type="file" id="pkg-img-file" accept="image/*" class="hidden img-ctrl-file" data-input="pkg-image" data-preview="pkg-img-preview" />
+                <button type="button" class="btn-img-upload px-2.5 py-1 rounded bg-[#163832] hover:bg-[#235347] text-[#DAF1DE] text-[10px] font-bold border border-[#235347]" data-file="pkg-img-file">
+                  <i class="fas fa-upload mr-1"></i>Unggah
+                </button>
+                <span class="text-[10px] text-[#8EB69B]">preset:</span>
+                <button type="button" class="btn-img-preset px-2 py-0.5 rounded text-[10px] bg-[#0B2B26] text-[#8EB69B] hover:text-white border border-[#235347]" data-input="pkg-image" data-preview="pkg-img-preview" data-val="/images/packages/team-building.webp">Team Building</button>
+                <button type="button" class="btn-img-preset px-2 py-0.5 rounded text-[10px] bg-[#0B2B26] text-[#8EB69B] hover:text-white border border-[#235347]" data-input="pkg-image" data-preview="pkg-img-preview" data-val="/images/packages/corporate-gathering.webp">Corporate</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 08: 9 Destinasi Resmi Outbound -->
+      <div id="sec-destinations" class="rounded-xl bg-[#0B2B26] border border-[#235347] p-6 space-y-4 shadow-xl">
+        <div class="flex items-center justify-between border-b border-[#235347] pb-3">
+          <h2 class="font-heading font-bold text-base uppercase text-[#DAF1DE] tracking-wider flex items-center gap-2">
+            <span>08.</span>
+            <span>Section 9 Destinasi Resmi Outbound</span>
+          </h2>
+          <span class="text-[10px] uppercase font-bold text-[#8EB69B] tracking-widest">Venue &amp; Destinasi</span>
+        </div>
+
+        <div>
+          <label class="block text-[11px] font-bold uppercase tracking-wider text-[#8EB69B] mb-1">
+            Judul Section Destinasi Resmi
+          </label>
+          <input
+            type="text"
+            id="dest-heading"
+            class="w-full px-3.5 py-2.5 rounded-lg bg-[#051F20] border border-[#235347] text-white text-xs focus:outline-none focus:border-[#8EB69B]"
+            value="9 DESTINASI RESMI OUTBOUND BATU MALANG"
+          />
+        </div>
+
+        <!-- Destinasi Image Control -->
+        <div class="p-3.5 rounded-lg bg-[#051F20] border border-[#235347] space-y-2">
+          <label class="block text-[11px] font-bold uppercase tracking-wider text-[#8EB69B]">
+            Gambar Peta / Highlight Destinasi
+          </label>
+          <div class="flex items-center gap-3">
+            <img id="dest-img-preview" src="/images/dest-batu-malang.webp" class="w-16 h-12 object-cover rounded-lg border border-[#235347] bg-[#051F20]" alt="Dest Preview" />
+            <div class="flex-1 space-y-1.5">
+              <input
+                type="text"
+                id="dest-image"
+                data-preview="dest-img-preview"
+                class="img-ctrl-input w-full px-3 py-1.5 rounded bg-[#0B2B26] border border-[#235347] text-white text-xs font-mono focus:outline-none focus:border-[#8EB69B]"
+                value="/images/dest-batu-malang.webp"
+              />
+              <div class="flex items-center gap-2 flex-wrap">
+                <input type="file" id="dest-img-file" accept="image/*" class="hidden img-ctrl-file" data-input="dest-image" data-preview="dest-img-preview" />
+                <button type="button" class="btn-img-upload px-2.5 py-1 rounded bg-[#163832] hover:bg-[#235347] text-[#DAF1DE] text-[10px] font-bold border border-[#235347]" data-file="dest-img-file">
+                  <i class="fas fa-upload mr-1"></i>Unggah
+                </button>
+                <span class="text-[10px] text-[#8EB69B]">preset:</span>
+                <button type="button" class="btn-img-preset px-2 py-0.5 rounded text-[10px] bg-[#0B2B26] text-[#8EB69B] hover:text-white border border-[#235347]" data-input="dest-image" data-preview="dest-img-preview" data-val="/images/dest-batu-malang.webp">Destinasi Batu</button>
+                <button type="button" class="btn-img-preset px-2 py-0.5 rounded text-[10px] bg-[#0B2B26] text-[#8EB69B] hover:text-white border border-[#235347]" data-input="dest-image" data-preview="dest-img-preview" data-val="/images/hero-bromo-sunrise.webp">Bromo Sunrise</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 09: Galeri Preview (6 Foto di Beranda) -->
+      <div id="sec-gallery" class="rounded-xl bg-[#0B2B26] border border-[#235347] p-6 space-y-4 shadow-xl">
+        <div class="flex items-center justify-between border-b border-[#235347] pb-3">
+          <h2 class="font-heading font-bold text-base uppercase text-[#DAF1DE] tracking-wider flex items-center gap-2">
+            <span>09.</span>
+            <span>Section Galeri Preview (6 Foto Beranda)</span>
+          </h2>
+          <span class="text-[10px] uppercase font-bold text-[#8EB69B] tracking-widest">Media Preview</span>
+        </div>
+
+        <div>
+          <label class="block text-[11px] font-bold uppercase tracking-wider text-[#8EB69B] mb-1">
+            Judul Section Galeri
+          </label>
+          <input
+            type="text"
+            id="gal-heading"
+            class="w-full px-3.5 py-2.5 rounded-lg bg-[#051F20] border border-[#235347] text-white text-xs focus:outline-none focus:border-[#8EB69B]"
+            value="DOKUMENTASI KEGIATAN KAMI"
+          />
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 pt-2">
+          <!-- Foto Galeri 1-6 -->
+          <div class="p-3 rounded-lg bg-[#051F20] border border-[#235347] space-y-1.5">
+            <span class="text-[10px] font-bold uppercase text-[#DAF1DE]">Foto 1 (Grid Beranda)</span>
+            <div class="flex items-center gap-2">
+              <img id="gal-img-prev-0" src="/images/gallery/gallery-1.webp" class="w-12 h-10 object-cover rounded border border-[#235347]" alt="Gal 1" />
+              <input type="text" id="gal-img-0" data-preview="gal-img-prev-0" class="img-ctrl-input flex-1 px-2 py-1 rounded bg-[#0B2B26] border border-[#235347] text-white text-xs font-mono" value="/images/gallery/gallery-1.webp" />
+              <input type="file" id="gal-file-0" accept="image/*" class="hidden img-ctrl-file" data-input="gal-img-0" data-preview="gal-img-prev-0" />
+              <button type="button" class="btn-img-upload p-1.5 rounded bg-[#163832] text-[#DAF1DE] border border-[#235347]" data-file="gal-file-0"><i class="fas fa-upload text-[10px]"></i></button>
+            </div>
+          </div>
+
+          <div class="p-3 rounded-lg bg-[#051F20] border border-[#235347] space-y-1.5">
+            <span class="text-[10px] font-bold uppercase text-[#DAF1DE]">Foto 2 (Grid Beranda)</span>
+            <div class="flex items-center gap-2">
+              <img id="gal-img-prev-1" src="/images/gallery/gallery-2.webp" class="w-12 h-10 object-cover rounded border border-[#235347]" alt="Gal 2" />
+              <input type="text" id="gal-img-1" data-preview="gal-img-prev-1" class="img-ctrl-input flex-1 px-2 py-1 rounded bg-[#0B2B26] border border-[#235347] text-white text-xs font-mono" value="/images/gallery/gallery-2.webp" />
+              <input type="file" id="gal-file-1" accept="image/*" class="hidden img-ctrl-file" data-input="gal-img-1" data-preview="gal-img-prev-1" />
+              <button type="button" class="btn-img-upload p-1.5 rounded bg-[#163832] text-[#DAF1DE] border border-[#235347]" data-file="gal-file-1"><i class="fas fa-upload text-[10px]"></i></button>
+            </div>
+          </div>
+
+          <div class="p-3 rounded-lg bg-[#051F20] border border-[#235347] space-y-1.5">
+            <span class="text-[10px] font-bold uppercase text-[#DAF1DE]">Foto 3 (Grid Beranda)</span>
+            <div class="flex items-center gap-2">
+              <img id="gal-img-prev-2" src="/images/gallery/gallery-3.webp" class="w-12 h-10 object-cover rounded border border-[#235347]" alt="Gal 3" />
+              <input type="text" id="gal-img-2" data-preview="gal-img-prev-2" class="img-ctrl-input flex-1 px-2 py-1 rounded bg-[#0B2B26] border border-[#235347] text-white text-xs font-mono" value="/images/gallery/gallery-3.webp" />
+              <input type="file" id="gal-file-2" accept="image/*" class="hidden img-ctrl-file" data-input="gal-img-2" data-preview="gal-img-prev-2" />
+              <button type="button" class="btn-img-upload p-1.5 rounded bg-[#163832] text-[#DAF1DE] border border-[#235347]" data-file="gal-file-2"><i class="fas fa-upload text-[10px]"></i></button>
+            </div>
+          </div>
+
+          <div class="p-3 rounded-lg bg-[#051F20] border border-[#235347] space-y-1.5">
+            <span class="text-[10px] font-bold uppercase text-[#DAF1DE]">Foto 4 (Grid Beranda)</span>
+            <div class="flex items-center gap-2">
+              <img id="gal-img-prev-3" src="/images/gallery/gallery-4.webp" class="w-12 h-10 object-cover rounded border border-[#235347]" alt="Gal 4" />
+              <input type="text" id="gal-img-3" data-preview="gal-img-prev-3" class="img-ctrl-input flex-1 px-2 py-1 rounded bg-[#0B2B26] border border-[#235347] text-white text-xs font-mono" value="/images/gallery/gallery-4.webp" />
+              <input type="file" id="gal-file-3" accept="image/*" class="hidden img-ctrl-file" data-input="gal-img-3" data-preview="gal-img-prev-3" />
+              <button type="button" class="btn-img-upload p-1.5 rounded bg-[#163832] text-[#DAF1DE] border border-[#235347]" data-file="gal-file-3"><i class="fas fa-upload text-[10px]"></i></button>
+            </div>
+          </div>
+
+          <div class="p-3 rounded-lg bg-[#051F20] border border-[#235347] space-y-1.5">
+            <span class="text-[10px] font-bold uppercase text-[#DAF1DE]">Foto 5 (Grid Beranda)</span>
+            <div class="flex items-center gap-2">
+              <img id="gal-img-prev-4" src="/images/gallery/gallery-6.webp" class="w-12 h-10 object-cover rounded border border-[#235347]" alt="Gal 5" />
+              <input type="text" id="gal-img-4" data-preview="gal-img-prev-4" class="img-ctrl-input flex-1 px-2 py-1 rounded bg-[#0B2B26] border border-[#235347] text-white text-xs font-mono" value="/images/gallery/gallery-6.webp" />
+              <input type="file" id="gal-file-4" accept="image/*" class="hidden img-ctrl-file" data-input="gal-img-4" data-preview="gal-img-prev-4" />
+              <button type="button" class="btn-img-upload p-1.5 rounded bg-[#163832] text-[#DAF1DE] border border-[#235347]" data-file="gal-file-4"><i class="fas fa-upload text-[10px]"></i></button>
+            </div>
+          </div>
+
+          <div class="p-3 rounded-lg bg-[#051F20] border border-[#235347] space-y-1.5">
+            <span class="text-[10px] font-bold uppercase text-[#DAF1DE]">Foto 6 (Grid Beranda)</span>
+            <div class="flex items-center gap-2">
+              <img id="gal-img-prev-5" src="/images/dest-batu-malang.webp" class="w-12 h-10 object-cover rounded border border-[#235347]" alt="Gal 6" />
+              <input type="text" id="gal-img-5" data-preview="gal-img-prev-5" class="img-ctrl-input flex-1 px-2 py-1 rounded bg-[#0B2B26] border border-[#235347] text-white text-xs font-mono" value="/images/dest-batu-malang.webp" />
+              <input type="file" id="gal-file-5" accept="image/*" class="hidden img-ctrl-file" data-input="gal-img-5" data-preview="gal-img-prev-5" />
+              <button type="button" class="btn-img-upload p-1.5 rounded bg-[#163832] text-[#DAF1DE] border border-[#235347]" data-file="gal-file-5"><i class="fas fa-upload text-[10px]"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 10: Tiga Card Blog -->
+      <div id="sec-blog" class="rounded-xl bg-[#0B2B26] border border-[#235347] p-6 space-y-4 shadow-xl">
+        <div class="flex items-center justify-between border-b border-[#235347] pb-3">
+          <h2 class="font-heading font-bold text-base uppercase text-[#DAF1DE] tracking-wider flex items-center gap-2">
+            <span>10.</span>
+            <span>Section Tiga Card Blog &amp; Artikel</span>
+          </h2>
+          <span class="text-[10px] uppercase font-bold text-[#8EB69B] tracking-widest">Artikel &amp; Tips</span>
+        </div>
+
+        <div>
+          <label class="block text-[11px] font-bold uppercase tracking-wider text-[#8EB69B] mb-1">
+            Judul Section Blog
+          </label>
+          <input
+            type="text"
+            id="blog-heading"
+            class="w-full px-3.5 py-2.5 rounded-lg bg-[#051F20] border border-[#235347] text-white text-xs focus:outline-none focus:border-[#8EB69B]"
+            value="ARTIKEL &amp; TIPS OUTBOUND"
+          />
+        </div>
+
+        <!-- Blog Image Control -->
+        <div class="p-3.5 rounded-lg bg-[#051F20] border border-[#235347] space-y-2">
+          <label class="block text-[11px] font-bold uppercase tracking-wider text-[#8EB69B]">
+            Gambar Sorotan / Banner Blog
+          </label>
+          <div class="flex items-center gap-3">
+            <img id="blog-img-preview" src="/images/blog/panduan-lengkap-corporate-gathering-malang.webp" class="w-16 h-12 object-cover rounded-lg border border-[#235347] bg-[#051F20]" alt="Blog Preview" />
+            <div class="flex-1 space-y-1.5">
+              <input
+                type="text"
+                id="blog-image"
+                data-preview="blog-img-preview"
+                class="img-ctrl-input w-full px-3 py-1.5 rounded bg-[#0B2B26] border border-[#235347] text-white text-xs font-mono focus:outline-none focus:border-[#8EB69B]"
+                value="/images/blog/panduan-lengkap-corporate-gathering-malang.webp"
+              />
+              <div class="flex items-center gap-2 flex-wrap">
+                <input type="file" id="blog-img-file" accept="image/*" class="hidden img-ctrl-file" data-input="blog-image" data-preview="blog-img-preview" />
+                <button type="button" class="btn-img-upload px-2.5 py-1 rounded bg-[#163832] hover:bg-[#235347] text-[#DAF1DE] text-[10px] font-bold border border-[#235347]" data-file="blog-img-file">
+                  <i class="fas fa-upload mr-1"></i>Unggah
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 11: Testimoni Klien -->
+      <div id="sec-testi" class="rounded-xl bg-[#0B2B26] border border-[#235347] p-6 space-y-4 shadow-xl">
+        <div class="flex items-center justify-between border-b border-[#235347] pb-3">
+          <h2 class="font-heading font-bold text-base uppercase text-[#DAF1DE] tracking-wider flex items-center gap-2">
+            <span>11.</span>
+            <span>Section Testimoni Klien</span>
+          </h2>
+          <span class="text-[10px] uppercase font-bold text-[#8EB69B] tracking-widest">Social Proof</span>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-[11px] font-bold uppercase tracking-wider text-[#8EB69B] mb-1">
+              Judul Section Testimoni
+            </label>
+            <input
+              type="text"
+              id="testi-heading"
+              class="w-full px-3.5 py-2.5 rounded-lg bg-[#051F20] border border-[#235347] text-white text-xs focus:outline-none focus:border-[#8EB69B]"
+              value="ULASAN NYATA KLIEN KAMI"
+            />
+          </div>
+
+          <div>
+            <label class="block text-[11px] font-bold uppercase tracking-wider text-[#8EB69B] mb-1">
+              Subjudul Section Testimoni
+            </label>
+            <input
+              type="text"
+              id="testi-subheading"
+              class="w-full px-3.5 py-2.5 rounded-lg bg-[#051F20] border border-[#235347] text-white text-xs focus:outline-none focus:border-[#8EB69B]"
+              value="Kisah sukses penyelenggaraan program outbound korporat dan gathering keluarga."
+            />
+          </div>
+        </div>
+
+        <!-- Testimoni Image Control -->
+        <div class="p-3.5 rounded-lg bg-[#051F20] border border-[#235347] space-y-2">
+          <label class="block text-[11px] font-bold uppercase tracking-wider text-[#8EB69B]">
+            Gambar Trust Seal / Icon Testimoni
+          </label>
+          <div class="flex items-center gap-3">
+            <img id="testi-img-preview" src="/images/author-artikel/author-artikel-arby-ardiansyah.webp" class="w-12 h-12 rounded-full object-cover border border-[#235347] bg-[#051F20]" alt="Testi Preview" />
+            <div class="flex-1 space-y-1.5">
+              <input
+                type="text"
+                id="testi-image"
+                data-preview="testi-img-preview"
+                class="img-ctrl-input w-full px-3 py-1.5 rounded bg-[#0B2B26] border border-[#235347] text-white text-xs font-mono focus:outline-none focus:border-[#8EB69B]"
+                value="/images/author-artikel/author-artikel-arby-ardiansyah.webp"
+              />
+              <div class="flex items-center gap-2 flex-wrap">
+                <input type="file" id="testi-img-file" accept="image/*" class="hidden img-ctrl-file" data-input="testi-image" data-preview="testi-img-preview" />
+                <button type="button" class="btn-img-upload px-2.5 py-1 rounded bg-[#163832] hover:bg-[#235347] text-[#DAF1DE] text-[10px] font-bold border border-[#235347]" data-file="testi-img-file">
+                  <i class="fas fa-upload mr-1"></i>Unggah
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 12: FAQ Informasi Praktis -->
+      <div id="sec-faq" class="rounded-xl bg-[#0B2B26] border border-[#235347] p-6 space-y-4 shadow-xl">
+        <div class="flex items-center justify-between border-b border-[#235347] pb-3">
+          <h2 class="font-heading font-bold text-base uppercase text-[#DAF1DE] tracking-wider flex items-center gap-2">
+            <span>12.</span>
+            <span>Section FAQ Informasi Praktis</span>
+          </h2>
+          <span class="text-[10px] uppercase font-bold text-[#8EB69B] tracking-widest">FAQ Accordion</span>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-[11px] font-bold uppercase tracking-wider text-[#8EB69B] mb-1">
+              Judul Section FAQ
+            </label>
+            <input
+              type="text"
+              id="faq-heading"
+              class="w-full px-3.5 py-2.5 rounded-lg bg-[#051F20] border border-[#235347] text-white text-xs focus:outline-none focus:border-[#8EB69B]"
+              value="INFORMASI PRAKTIS SEPUTAR OUTBOUND"
+            />
+          </div>
+
+          <div>
+            <label class="block text-[11px] font-bold uppercase tracking-wider text-[#8EB69B] mb-1">
+              Subjudul Section FAQ
+            </label>
+            <input
+              type="text"
+              id="faq-subheading"
+              class="w-full px-3.5 py-2.5 rounded-lg bg-[#051F20] border border-[#235347] text-white text-xs focus:outline-none focus:border-[#8EB69B]"
+              value="Jawaban seputar lokasi, penyesuaian agenda, dan keselamatan outbound di Batu - Malang."
+            />
+          </div>
+        </div>
+
+        <!-- FAQ Image Control -->
+        <div class="p-3.5 rounded-lg bg-[#051F20] border border-[#235347] space-y-2">
+          <label class="block text-[11px] font-bold uppercase tracking-wider text-[#8EB69B]">
+            Gambar Ilustrasi / Helpdesk FAQ
+          </label>
+          <div class="flex items-center gap-3">
+            <img id="faq-img-preview" src="/images/activities/keindahan-alam-batu.webp" class="w-16 h-12 object-cover rounded-lg border border-[#235347] bg-[#051F20]" alt="FAQ Preview" />
+            <div class="flex-1 space-y-1.5">
+              <input
+                type="text"
+                id="faq-image"
+                data-preview="faq-img-preview"
+                class="img-ctrl-input w-full px-3 py-1.5 rounded bg-[#0B2B26] border border-[#235347] text-white text-xs font-mono focus:outline-none focus:border-[#8EB69B]"
+                value="/images/activities/keindahan-alam-batu.webp"
+              />
+              <div class="flex items-center gap-2 flex-wrap">
+                <input type="file" id="faq-img-file" accept="image/*" class="hidden img-ctrl-file" data-input="faq-image" data-preview="faq-img-preview" />
+                <button type="button" class="btn-img-upload px-2.5 py-1 rounded bg-[#163832] hover:bg-[#235347] text-[#DAF1DE] text-[10px] font-bold border border-[#235347]" data-file="faq-img-file">
+                  <i class="fas fa-upload mr-1"></i>Unggah
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 13: CTA Banner Final -->
+      <div id="sec-cta" class="rounded-xl bg-[#0B2B26] border border-[#235347] p-6 space-y-4 shadow-xl">
+        <div class="flex items-center justify-between border-b border-[#235347] pb-3">
+          <h2 class="font-heading font-bold text-base uppercase text-[#DAF1DE] tracking-wider flex items-center gap-2">
+            <span>13.</span>
+            <span>Section CTA Banner Penutup Beranda</span>
+          </h2>
+          <span class="text-[10px] uppercase font-bold text-[#8EB69B] tracking-widest">Call to Action</span>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-[11px] font-bold uppercase tracking-wider text-[#8EB69B] mb-1">
+              Judul Utama Banner CTA
+            </label>
+            <input
+              type="text"
+              id="cta-title"
+              class="w-full px-3.5 py-2.5 rounded-lg bg-[#051F20] border border-[#235347] text-white text-xs focus:outline-none focus:border-[#8EB69B] font-bold"
+              value="SIAP MERANCANG AGENDA OUTBOUND TERBAIK?"
+            />
+          </div>
+
+          <div>
+            <label class="block text-[11px] font-bold uppercase tracking-wider text-[#8EB69B] mb-1">
+              Label Tombol WhatsApp CTA
+            </label>
+            <input
+              type="text"
+              id="cta-btn-wa"
+              class="w-full px-3.5 py-2.5 rounded-lg bg-[#051F20] border border-[#235347] text-white text-xs focus:outline-none focus:border-[#8EB69B]"
+              value="Konsultasi via WhatsApp"
+            />
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-[11px] font-bold uppercase tracking-wider text-[#8EB69B] mb-1">
+            Paragraf Ajakan CTA
+          </label>
+          <textarea
+            id="cta-desc"
+            rows="2"
+            class="w-full px-3.5 py-2.5 rounded-lg bg-[#051F20] border border-[#235347] text-white text-xs focus:outline-none focus:border-[#8EB69B]"
+          >Hubungi konsultan outbound kami untuk mendapatkan proposal penawaran resmi dan rekomendasi venue terbaik sesuai bujet Anda.</textarea>
+        </div>
+
+        <!-- CTA Image Control with Live Preview & Upload -->
+        <div class="p-3.5 rounded-lg bg-[#051F20] border border-[#235347] space-y-2">
+          <label class="block text-[11px] font-bold uppercase tracking-wider text-[#8EB69B]">
+            Gambar Latar / Aksen Visual Banner CTA
+          </label>
+          <div class="flex items-center gap-3">
+            <img id="cta-img-preview" src="/images/hero/hero-outbound.webp" class="w-16 h-12 object-cover rounded-lg border border-[#235347] bg-[#051F20]" alt="CTA Preview" />
+            <div class="flex-1 space-y-1.5">
+              <input
+                type="text"
+                id="cta-image"
+                data-preview="cta-img-preview"
+                class="img-ctrl-input w-full px-3 py-1.5 rounded bg-[#0B2B26] border border-[#235347] text-white text-xs font-mono focus:outline-none focus:border-[#8EB69B]"
+                value="/images/hero/hero-outbound.webp"
+              />
+              <div class="flex items-center gap-2 flex-wrap">
+                <input type="file" id="cta-img-file" accept="image/*" class="hidden img-ctrl-file" data-input="cta-image" data-preview="cta-img-preview" />
+                <button type="button" class="btn-img-upload px-2.5 py-1 rounded bg-[#163832] hover:bg-[#235347] text-[#DAF1DE] text-[10px] font-bold border border-[#235347]" data-file="cta-img-file">
+                  <i class="fas fa-upload mr-1"></i>Unggah
+                </button>
+                <span class="text-[10px] text-[#8EB69B]">preset:</span>
+                <button type="button" class="btn-img-preset px-2 py-0.5 rounded text-[10px] bg-[#0B2B26] text-[#8EB69B] hover:text-white border border-[#235347]" data-input="cta-image" data-preview="cta-img-preview" data-val="/images/hero/hero-outbound.webp">Hero Outbound</button>
+                <button type="button" class="btn-img-preset px-2 py-0.5 rounded text-[10px] bg-[#0B2B26] text-[#8EB69B] hover:text-white border border-[#235347]" data-input="cta-image" data-preview="cta-img-preview" data-val="/images/dest-batu-malang.webp">Destinasi Batu</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Button Submit Bar -->
+      <div class="sticky bottom-4 z-30 flex items-center justify-between p-4 rounded-xl bg-[#0B2B26]/95 border-2 border-[#8EB69B]/40 shadow-2xl backdrop-blur-md">
+        <div class="text-xs text-[#8EB69B] hidden sm:block">
+          <i class="fas fa-sync text-[#DAF1DE] mr-1"></i>
+          <span>Perubahan teks &amp; gambar langsung tersinkron ke Front-End &amp; Supabase</span>
+        </div>
+
         <button
           type="submit"
-          class="px-6 py-3 rounded-lg bg-amber-500 hover:bg-amber-400 text-stone-950 font-heading font-black text-xs uppercase tracking-wider shadow-lg transition-all hover:scale-105 flex items-center gap-2"
+          class="w-full sm:w-auto px-7 py-3.5 rounded-lg bg-[#DAF1DE] hover:bg-white text-[#051F20] font-heading font-black text-xs uppercase tracking-wider shadow-glow-mint transition-all hover:scale-105 flex items-center justify-center gap-2"
         >
-          <i class="fas fa-save"></i>
-          <span>Simpan Perubahan Beranda</span>
+          <i class="fas fa-save text-sm"></i>
+          <span>Simpan Seluruh Section &amp; Gambar Beranda</span>
         </button>
       </div>
 
@@ -317,75 +1048,274 @@ import { SITE_INFO } from '../../../data/defaultContent';
   </div>
 
   <script>
+    import { syncPageToSupabase, syncSiteSettingsToSupabase } from '../../../lib/supabaseSync';
+
     const form = document.getElementById('beranda-editor-form') as HTMLFormElement | null;
     const alertBox = document.getElementById('beranda-alert');
-
     const STORAGE_KEY = 'vo_page_beranda';
+
+    // Generic Image Control Initializer
+    function initImageControls() {
+      // 1. Text input live update to preview
+      document.querySelectorAll<HTMLInputElement>('.img-ctrl-input').forEach((input) => {
+        const updatePrev = () => {
+          const prevId = input.getAttribute('data-preview');
+          if (prevId) {
+            const prev = document.getElementById(prevId) as HTMLImageElement;
+            if (prev && input.value) {
+              prev.src = input.value;
+            }
+          }
+        };
+        input.addEventListener('input', updatePrev);
+        input.addEventListener('change', updatePrev);
+      });
+
+      // 2. Trigger file picker
+      document.querySelectorAll<HTMLButtonElement>('.btn-img-upload').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const fileId = btn.getAttribute('data-file');
+          if (fileId) {
+            const fileInput = document.getElementById(fileId) as HTMLInputElement;
+            fileInput?.click();
+          }
+        });
+      });
+
+      // 3. File picker onchange converts to DataURL and updates input & preview
+      document.querySelectorAll<HTMLInputElement>('.img-ctrl-file').forEach((fileInput) => {
+        fileInput.addEventListener('change', () => {
+          const file = fileInput.files?.[0];
+          if (file) {
+            const inputId = fileInput.getAttribute('data-input');
+            const prevId = fileInput.getAttribute('data-preview');
+            const reader = new FileReader();
+            reader.onload = (e) => {
+              const res = e.target?.result as string;
+              if (inputId) {
+                const inp = document.getElementById(inputId) as HTMLInputElement;
+                if (inp) inp.value = res;
+              }
+              if (prevId) {
+                const prev = document.getElementById(prevId) as HTMLImageElement;
+                if (prev) prev.src = res;
+              }
+            };
+            reader.readAsDataURL(file);
+          }
+        });
+      });
+
+      // 4. Presets buttons
+      document.querySelectorAll<HTMLButtonElement>('.btn-img-preset').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const inputId = btn.getAttribute('data-input');
+          const prevId = btn.getAttribute('data-preview');
+          const val = btn.getAttribute('data-val');
+          if (val) {
+            if (inputId) {
+              const inp = document.getElementById(inputId) as HTMLInputElement;
+              if (inp) inp.value = val;
+            }
+            if (prevId) {
+              const prev = document.getElementById(prevId) as HTMLImageElement;
+              if (prev) prev.src = val;
+            }
+          }
+        });
+      });
+    }
+
+    // Helper to safely set input and update its preview
+    function setFieldAndPreview(inputId: string, prevId: string, val: string) {
+      const inp = document.getElementById(inputId) as HTMLInputElement;
+      if (inp) inp.value = val;
+      const prev = document.getElementById(prevId) as HTMLImageElement;
+      if (prev && val) prev.src = val;
+    }
 
     // Load saved data
     const saved = localStorage.getItem(STORAGE_KEY);
     if (saved) {
       try {
         const d = JSON.parse(saved);
+        if (d.seoTitle) (document.getElementById('seo-title') as HTMLInputElement).value = d.seoTitle;
+        if (d.seoOgImage) setFieldAndPreview('seo-og-image', 'seo-og-preview', d.seoOgImage);
+        if (d.seoDesc) (document.getElementById('seo-desc') as HTMLTextAreaElement).value = d.seoDesc;
+
         if (d.heroEyebrow) (document.getElementById('hero-eyebrow') as HTMLInputElement).value = d.heroEyebrow;
         if (d.heroH1) (document.getElementById('hero-h1') as HTMLInputElement).value = d.heroH1;
         if (d.heroDesc) (document.getElementById('hero-desc') as HTMLTextAreaElement).value = d.heroDesc;
         if (d.heroCtaMain) (document.getElementById('hero-cta-main') as HTMLInputElement).value = d.heroCtaMain;
         if (d.heroCtaSub) (document.getElementById('hero-cta-sub') as HTMLInputElement).value = d.heroCtaSub;
-        if (d.heroImage) (document.getElementById('hero-image') as HTMLInputElement).value = d.heroImage;
-
-        if (d.servicesHeading) (document.getElementById('services-heading') as HTMLInputElement).value = d.servicesHeading;
-        if (d.servicesBtnText) (document.getElementById('services-btn-text') as HTMLInputElement).value = d.servicesBtnText;
-        if (d.servicesSubheading) (document.getElementById('services-subheading') as HTMLInputElement).value = d.servicesSubheading;
-
-        if (d.pkgHeading) (document.getElementById('pkg-heading') as HTMLInputElement).value = d.pkgHeading;
-        if (d.pkgSubheading) (document.getElementById('pkg-subheading') as HTMLInputElement).value = d.pkgSubheading;
+        if (d.heroImage) setFieldAndPreview('hero-image', 'hero-img-preview', d.heroImage);
 
         if (d.aboutHeading) (document.getElementById('about-heading') as HTMLInputElement).value = d.aboutHeading;
         if (d.aboutP1) (document.getElementById('about-p1') as HTMLTextAreaElement).value = d.aboutP1;
         if (d.aboutP2) (document.getElementById('about-p2') as HTMLTextAreaElement).value = d.aboutP2;
-        if (d.aboutImage) (document.getElementById('about-image') as HTMLInputElement).value = d.aboutImage;
+        if (d.aboutStrip) (document.getElementById('about-strip') as HTMLInputElement).value = d.aboutStrip;
+        if (d.aboutImage) setFieldAndPreview('about-image', 'about-img-preview', d.aboutImage);
 
-        if (d.seoTitle) (document.getElementById('seo-title') as HTMLInputElement).value = d.seoTitle;
-        if (d.seoDesc) (document.getElementById('seo-desc') as HTMLTextAreaElement).value = d.seoDesc;
+        if (d.servicesHeading) (document.getElementById('services-heading') as HTMLInputElement).value = d.servicesHeading;
+        if (d.servicesBtnText) (document.getElementById('services-btn-text') as HTMLInputElement).value = d.servicesBtnText;
+        if (d.servicesSubheading) (document.getElementById('services-subheading') as HTMLInputElement).value = d.servicesSubheading;
+        if (d.servicesImage) setFieldAndPreview('services-image', 'services-img-preview', d.servicesImage);
+
+        if (d.whyHeading) (document.getElementById('why-heading') as HTMLInputElement).value = d.whyHeading;
+        if (d.whySubheading) (document.getElementById('why-subheading') as HTMLInputElement).value = d.whySubheading;
+        if (d.whyImage) setFieldAndPreview('why-image', 'why-img-preview', d.whyImage);
+        if (d.whyP1Title) (document.getElementById('why-p1-title') as HTMLInputElement).value = d.whyP1Title;
+        if (d.whyP1Desc) (document.getElementById('why-p1-desc') as HTMLTextAreaElement).value = d.whyP1Desc;
+        if (d.whyP2Title) (document.getElementById('why-p2-title') as HTMLInputElement).value = d.whyP2Title;
+        if (d.whyP2Desc) (document.getElementById('why-p2-desc') as HTMLTextAreaElement).value = d.whyP2Desc;
+        if (d.whyP3Title) (document.getElementById('why-p3-title') as HTMLInputElement).value = d.whyP3Title;
+        if (d.whyP3Desc) (document.getElementById('why-p3-desc') as HTMLTextAreaElement).value = d.whyP3Desc;
+        if (d.whyP4Title) (document.getElementById('why-p4-title') as HTMLInputElement).value = d.whyP4Title;
+        if (d.whyP4Desc) (document.getElementById('why-p4-desc') as HTMLTextAreaElement).value = d.whyP4Desc;
+
+        if (d.catHeading) (document.getElementById('cat-heading') as HTMLInputElement).value = d.catHeading;
+        if (d.catSubheading) (document.getElementById('cat-subheading') as HTMLInputElement).value = d.catSubheading;
+        if (d.catImg1) setFieldAndPreview('cat-img-1', 'cat-img-preview-1', d.catImg1);
+        if (d.catImg2) setFieldAndPreview('cat-img-2', 'cat-img-preview-2', d.catImg2);
+        if (d.catImg3) setFieldAndPreview('cat-img-3', 'cat-img-preview-3', d.catImg3);
+        if (d.catImg4) setFieldAndPreview('cat-img-4', 'cat-img-preview-4', d.catImg4);
+
+        if (d.pkgHeading) (document.getElementById('pkg-heading') as HTMLInputElement).value = d.pkgHeading;
+        if (d.pkgSubheading) (document.getElementById('pkg-subheading') as HTMLInputElement).value = d.pkgSubheading;
+        if (d.pkgImage) setFieldAndPreview('pkg-image', 'pkg-img-preview', d.pkgImage);
+
+        if (d.destHeading) (document.getElementById('dest-heading') as HTMLInputElement).value = d.destHeading;
+        if (d.destImage) setFieldAndPreview('dest-image', 'dest-img-preview', d.destImage);
+
+        if (d.galHeading) (document.getElementById('gal-heading') as HTMLInputElement).value = d.galHeading;
+        for (let i = 0; i < 6; i++) {
+          if (d[`galImg${i}`]) setFieldAndPreview(`gal-img-${i}`, `gal-img-prev-${i}`, d[`galImg${i}`]);
+        }
+
+        if (d.blogHeading) (document.getElementById('blog-heading') as HTMLInputElement).value = d.blogHeading;
+        if (d.blogImage) setFieldAndPreview('blog-image', 'blog-img-preview', d.blogImage);
+
+        if (d.testiHeading) (document.getElementById('testi-heading') as HTMLInputElement).value = d.testiHeading;
+        if (d.testiSubheading) (document.getElementById('testi-subheading') as HTMLInputElement).value = d.testiSubheading;
+        if (d.testiImage) setFieldAndPreview('testi-image', 'testi-img-preview', d.testiImage);
+
+        if (d.faqHeading) (document.getElementById('faq-heading') as HTMLInputElement).value = d.faqHeading;
+        if (d.faqSubheading) (document.getElementById('faq-subheading') as HTMLInputElement).value = d.faqSubheading;
+        if (d.faqImage) setFieldAndPreview('faq-image', 'faq-img-preview', d.faqImage);
+
+        if (d.ctaTitle) (document.getElementById('cta-title') as HTMLInputElement).value = d.ctaTitle;
+        if (d.ctaBtnWa) (document.getElementById('cta-btn-wa') as HTMLInputElement).value = d.ctaBtnWa;
+        if (d.ctaDesc) (document.getElementById('cta-desc') as HTMLTextAreaElement).value = d.ctaDesc;
+        if (d.ctaImage) setFieldAndPreview('cta-image', 'cta-img-preview', d.ctaImage);
       } catch (e) {
         console.error(e);
       }
     }
 
-    form?.addEventListener('submit', (e) => {
+    // Initialize all controls
+    initImageControls();
+
+    form?.addEventListener('submit', async (e) => {
       e.preventDefault();
-      const payload = {
-        heroEyebrow: (document.getElementById('hero-eyebrow') as HTMLInputElement).value,
-        heroH1: (document.getElementById('hero-h1') as HTMLInputElement).value,
-        heroDesc: (document.getElementById('hero-desc') as HTMLTextAreaElement).value,
-        heroCtaMain: (document.getElementById('hero-cta-main') as HTMLInputElement).value,
-        heroCtaSub: (document.getElementById('hero-cta-sub') as HTMLInputElement).value,
-        heroImage: (document.getElementById('hero-image') as HTMLInputElement).value,
+      const payload: any = {
+        seoTitle: (document.getElementById('seo-title') as HTMLInputElement)?.value,
+        seoOgImage: (document.getElementById('seo-og-image') as HTMLInputElement)?.value,
+        seoDesc: (document.getElementById('seo-desc') as HTMLTextAreaElement)?.value,
 
-        servicesHeading: (document.getElementById('services-heading') as HTMLInputElement).value,
-        servicesBtnText: (document.getElementById('services-btn-text') as HTMLInputElement).value,
-        servicesSubheading: (document.getElementById('services-subheading') as HTMLInputElement).value,
+        heroEyebrow: (document.getElementById('hero-eyebrow') as HTMLInputElement)?.value,
+        heroH1: (document.getElementById('hero-h1') as HTMLInputElement)?.value,
+        heroDesc: (document.getElementById('hero-desc') as HTMLTextAreaElement)?.value,
+        heroCtaMain: (document.getElementById('hero-cta-main') as HTMLInputElement)?.value,
+        heroCtaSub: (document.getElementById('hero-cta-sub') as HTMLInputElement)?.value,
+        heroImage: (document.getElementById('hero-image') as HTMLInputElement)?.value,
 
-        pkgHeading: (document.getElementById('pkg-heading') as HTMLInputElement).value,
-        pkgSubheading: (document.getElementById('pkg-subheading') as HTMLInputElement).value,
+        aboutHeading: (document.getElementById('about-heading') as HTMLInputElement)?.value,
+        aboutP1: (document.getElementById('about-p1') as HTMLTextAreaElement)?.value,
+        aboutP2: (document.getElementById('about-p2') as HTMLTextAreaElement)?.value,
+        aboutStrip: (document.getElementById('about-strip') as HTMLInputElement)?.value,
+        aboutImage: (document.getElementById('about-image') as HTMLInputElement)?.value,
 
-        aboutHeading: (document.getElementById('about-heading') as HTMLInputElement).value,
-        aboutP1: (document.getElementById('about-p1') as HTMLTextAreaElement).value,
-        aboutP2: (document.getElementById('about-p2') as HTMLTextAreaElement).value,
-        aboutImage: (document.getElementById('about-image') as HTMLInputElement).value,
+        servicesHeading: (document.getElementById('services-heading') as HTMLInputElement)?.value,
+        servicesBtnText: (document.getElementById('services-btn-text') as HTMLInputElement)?.value,
+        servicesSubheading: (document.getElementById('services-subheading') as HTMLInputElement)?.value,
+        servicesImage: (document.getElementById('services-image') as HTMLInputElement)?.value,
 
-        seoTitle: (document.getElementById('seo-title') as HTMLInputElement).value,
-        seoDesc: (document.getElementById('seo-desc') as HTMLTextAreaElement).value,
+        whyHeading: (document.getElementById('why-heading') as HTMLInputElement)?.value,
+        whySubheading: (document.getElementById('why-subheading') as HTMLInputElement)?.value,
+        whyImage: (document.getElementById('why-image') as HTMLInputElement)?.value,
+        whyP1Title: (document.getElementById('why-p1-title') as HTMLInputElement)?.value,
+        whyP1Desc: (document.getElementById('why-p1-desc') as HTMLTextAreaElement)?.value,
+        whyP2Title: (document.getElementById('why-p2-title') as HTMLInputElement)?.value,
+        whyP2Desc: (document.getElementById('why-p2-desc') as HTMLTextAreaElement)?.value,
+        whyP3Title: (document.getElementById('why-p3-title') as HTMLInputElement)?.value,
+        whyP3Desc: (document.getElementById('why-p3-desc') as HTMLTextAreaElement)?.value,
+        whyP4Title: (document.getElementById('why-p4-title') as HTMLInputElement)?.value,
+        whyP4Desc: (document.getElementById('why-p4-desc') as HTMLTextAreaElement)?.value,
+
+        catHeading: (document.getElementById('cat-heading') as HTMLInputElement)?.value,
+        catSubheading: (document.getElementById('cat-subheading') as HTMLInputElement)?.value,
+        catImg1: (document.getElementById('cat-img-1') as HTMLInputElement)?.value,
+        catImg2: (document.getElementById('cat-img-2') as HTMLInputElement)?.value,
+        catImg3: (document.getElementById('cat-img-3') as HTMLInputElement)?.value,
+        catImg4: (document.getElementById('cat-img-4') as HTMLInputElement)?.value,
+
+        pkgHeading: (document.getElementById('pkg-heading') as HTMLInputElement)?.value,
+        pkgSubheading: (document.getElementById('pkg-subheading') as HTMLInputElement)?.value,
+        pkgImage: (document.getElementById('pkg-image') as HTMLInputElement)?.value,
+
+        destHeading: (document.getElementById('dest-heading') as HTMLInputElement)?.value,
+        destImage: (document.getElementById('dest-image') as HTMLInputElement)?.value,
+
+        galHeading: (document.getElementById('gal-heading') as HTMLInputElement)?.value,
+
+        blogHeading: (document.getElementById('blog-heading') as HTMLInputElement)?.value,
+        blogImage: (document.getElementById('blog-image') as HTMLInputElement)?.value,
+
+        testiHeading: (document.getElementById('testi-heading') as HTMLInputElement)?.value,
+        testiSubheading: (document.getElementById('testi-subheading') as HTMLInputElement)?.value,
+        testiImage: (document.getElementById('testi-image') as HTMLInputElement)?.value,
+
+        faqHeading: (document.getElementById('faq-heading') as HTMLInputElement)?.value,
+        faqSubheading: (document.getElementById('faq-subheading') as HTMLInputElement)?.value,
+        faqImage: (document.getElementById('faq-image') as HTMLInputElement)?.value,
+
+        ctaTitle: (document.getElementById('cta-title') as HTMLInputElement)?.value,
+        ctaBtnWa: (document.getElementById('cta-btn-wa') as HTMLInputElement)?.value,
+        ctaDesc: (document.getElementById('cta-desc') as HTMLTextAreaElement)?.value,
+        ctaImage: (document.getElementById('cta-image') as HTMLInputElement)?.value,
+
         updatedAt: new Date().toISOString()
       };
 
+      for (let i = 0; i < 6; i++) {
+        payload[`galImg${i}`] = (document.getElementById(`gal-img-${i}`) as HTMLInputElement)?.value;
+      }
+
+      // Save to localStorage
       localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+      localStorage.setItem('vo_page_content', JSON.stringify(payload));
+
+      // Dispatch real-time events for instant in-tab & cross-window updates
+      window.dispatchEvent(new CustomEvent('vo_content_updated', { detail: payload }));
+      window.dispatchEvent(new Event('storage'));
+
+      try {
+        const bc = new BroadcastChannel('vo_sync_channel');
+        bc.postMessage({ type: 'VO_UPDATED', key: STORAGE_KEY, data: payload });
+      } catch (err) {}
+
+      // Push to Supabase Cloud directly
+      await syncPageToSupabase('/', 'Halaman Beranda', payload, 'landing', {
+        seoTitle: payload.seoTitle,
+        seoDesc: payload.seoDesc,
+        ogImage: payload.seoOgImage
+      });
+      await syncSiteSettingsToSupabase('beranda', payload);
 
       if (alertBox) {
-        alertBox.className = 'p-3 rounded-lg text-xs font-bold bg-emerald-950 text-emerald-200 border border-emerald-500 block';
-        alertBox.textContent = '✓ Seluruh perubahan konten Halaman Beranda berhasil disimpan!';
-        setTimeout(() => alertBox.classList.add('hidden'), 3500);
+        alertBox.className = 'p-3 rounded-lg text-xs font-bold bg-[#163832] text-[#DAF1DE] border border-[#235347] block shadow-glow-mint';
+        alertBox.textContent = '✓ Seluruh section & gambar Halaman Beranda berhasil tersimpan & tersinkron ke Cloud Supabase!';
+        setTimeout(() => alertBox.classList.add('hidden'), 4000);
       }
     });
   </script>

@@ -10,7 +10,7 @@ const breadcrumbs = [
 ---
 
 <PublicLayout
-  title="Blog & Panduan Outbound Batu Malang | Vendor Outbound"
+  title="Blog & Panduan Outbound Batu Malang | Provider Outbound"
   description="Artikel, tips persiapan, dan panduan lengkap penyelenggaraan kegiatan outbound, family gathering, dan team building di Batu Malang."
   breadcrumbs={breadcrumbs}
 >
@@ -32,17 +32,17 @@ const breadcrumbs = [
   <!-- Blog Articles Grid -->
   <section class="py-12 border-t border-rose-900/40">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        {BLOG_POSTS.map((post) => (
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8" id="blog-posts-grid">
+        {BLOG_POSTS.slice(0, 3).map((post) => (
           <article class="rounded-2xl bg-[#480308]/60 border border-rose-700/35 overflow-hidden flex flex-col justify-between hover:border-amber-400/50 transition-all duration-300 hover:-translate-y-1.5 shadow-card group">
             <div>
-              <a href={`/blog/${post.slug}`} class="aspect-16/10 w-full overflow-hidden block relative">
+              <a href={`/blog/${post.slug}`} class="w-full h-52 sm:h-56 overflow-hidden block relative bg-brand-950" style="aspect-ratio: 16 / 10;">
                 <img
                   src={post.thumbnailUrl}
                   alt={post.imageAlt}
                   width="500"
                   height="320"
-                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
                   loading="lazy"
                 />
                 <span class="absolute top-3 left-3 px-2.5 py-1 rounded bg-stone-900/85 backdrop-blur-sm text-[10px] font-bold uppercase tracking-wider text-amber-400 border border-amber-400/30">
@@ -104,5 +104,88 @@ const breadcrumbs = [
 
   <!-- CTA Section -->
   <CTASection />
+
+  <!-- Realtime Hydration Script for Blog Index -->
+  <script is:inline>
+    (function() {
+      function hydrateBlogGrid() {
+        var raw = localStorage.getItem('vo_blog') || localStorage.getItem('vo_blogs');
+        if (!raw) return;
+        try {
+          var list = JSON.parse(raw);
+          if (!Array.isArray(list) || list.length === 0) return;
+          var container = document.getElementById('blog-posts-grid');
+          if (!container) return;
+
+          var published = list.filter(function(p) { return p.status !== 'draft'; });
+          if (published.length === 0) published = list;
+
+          container.innerHTML = published.slice(0, 3).map(function(post) {
+            var thumb = post.thumbnailUrl || '/images/blog/panduan-lengkap-corporate-gathering-malang.webp';
+            var alt = post.imageAlt || post.title || 'Artikel Outbound';
+            var cat = post.category || 'Panduan Outbound';
+            var date = post.publishedAt || 'Terbaru 2026';
+            var readTime = post.readingTimeMinutes || '5';
+            var title = post.title || 'Judul Artikel';
+            var excerpt = post.excerpt || '';
+            var authorName = post.authorName || 'Arby Ardiansyah';
+            var authorAvatar = post.authorAvatar || '/images/author-artikel/author-artikel-arby-ardiansyah.webp';
+            var slug = post.slug || '';
+
+            return (
+              '<article class="rounded-2xl bg-[#480308]/60 border border-rose-700/35 overflow-hidden flex flex-col justify-between hover:border-amber-400/50 transition-all duration-300 hover:-translate-y-1.5 shadow-card group">' +
+                '<div>' +
+                  '<a href="/blog/' + slug + '" class="w-full h-52 sm:h-56 overflow-hidden block relative bg-brand-950" style="aspect-ratio: 16 / 10;">' +
+                    '<img src="' + thumb + '" alt="' + alt + '" width="500" height="320" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500" loading="lazy" />' +
+                    '<span class="absolute top-3 left-3 px-2.5 py-1 rounded bg-stone-900/85 backdrop-blur-sm text-[10px] font-bold uppercase tracking-wider text-amber-400 border border-amber-400/30">' + cat + '</span>' +
+                  '</a>' +
+                  '<div class="p-6 space-y-3 text-left">' +
+                    '<div class="flex items-center gap-2 text-[11px] text-rose-300/70">' +
+                      '<span>' + date + '</span>' +
+                      '<span>•</span>' +
+                      '<span>' + readTime + ' mnt baca</span>' +
+                    '</div>' +
+                    '<a href="/blog/' + slug + '" class="block group-hover:text-amber-400 transition-colors">' +
+                      '<h2 class="font-heading font-black text-lg text-white leading-snug">' + title + '</h2>' +
+                    '</a>' +
+                    '<p class="text-xs text-rose-200/75 line-clamp-3 leading-relaxed">' + excerpt + '</p>' +
+                  '</div>' +
+                '</div>' +
+                '<div class="p-6 pt-0 mt-4 border-t border-rose-900/30 flex items-center justify-between">' +
+                  '<div class="flex items-center gap-2">' +
+                    '<img src="' + authorAvatar + '" alt="' + authorName + '" width="24" height="24" class="w-6 h-6 rounded-full object-cover border border-amber-400/50" loading="lazy" />' +
+                    '<span class="text-xs text-rose-300/80 font-medium">' + authorName + '</span>' +
+                  '</div>' +
+                  '<a href="/blog/' + slug + '" class="inline-flex items-center gap-1.5 text-xs font-bold text-amber-400 group-hover:translate-x-1 transition-transform">' +
+                    '<span>Baca Selengkapnya</span>' +
+                    '<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7" /></svg>' +
+                  '</a>' +
+                '</div>' +
+              '</article>'
+            );
+          }).join('');
+        } catch (e) {
+          console.error('Hydrate blog error:', e);
+        }
+      }
+
+      hydrateBlogGrid();
+      document.addEventListener('DOMContentLoaded', hydrateBlogGrid);
+      window.addEventListener('storage', function(e) {
+        if (e.key === 'vo_blog' || e.key === 'vo_blogs') hydrateBlogGrid();
+      });
+      window.addEventListener('vo_content_updated', function(e) {
+        if (!e.detail || e.detail.key === 'vo_blog' || e.detail.key === 'vo_blogs') hydrateBlogGrid();
+      });
+      try {
+        var bc = new BroadcastChannel('vo_sync_channel');
+        bc.onmessage = function(e) {
+          if (!e.data || e.data.key === 'vo_blog' || e.data.key === 'vo_blogs') {
+            hydrateBlogGrid();
+          }
+        };
+      } catch (err) {}
+    })();
+  </script>
 
 </PublicLayout>

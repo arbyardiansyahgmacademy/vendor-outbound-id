@@ -1,0 +1,15 @@
+import{F as f}from"./defaultContent.9dE4QXkE.js";import{a as b,b as p}from"./supabaseSync.Ir1-o2S7.js";import"./supabase.CLFogjFB.js";const c=document.getElementById("faq-tbody"),o=document.getElementById("faq-modal"),l=document.getElementById("faq-form"),s=document.getElementById("faq-alert");function i(){const t=localStorage.getItem("vo_faqs");return t?JSON.parse(t):f}function m(t){localStorage.setItem("vo_faqs",JSON.stringify(t)),window.dispatchEvent(new CustomEvent("vo_content_updated",{detail:{key:"vo_faqs",data:t}})),window.dispatchEvent(new Event("storage"));try{new BroadcastChannel("vo_sync_channel").postMessage({type:"VO_UPDATED",key:"vo_faqs",data:t})}catch{}u()}function u(){if(!c)return;const t=i();c.innerHTML=t.map((e,n)=>`
+        <tr class="hover:bg-[#163832]/50 transition-colors">
+          <td class="py-3 px-4 font-bold text-[#DAF1DE]">${n+1}</td>
+          <td class="py-3 px-4 font-bold text-white max-w-xs">${e.question}</td>
+          <td class="py-3 px-4 text-[#DAF1DE]/80 leading-relaxed max-w-md">${e.answer}</td>
+          <td class="py-3 px-4 text-right space-x-2 whitespace-nowrap">
+            <button class="edit-f-btn px-2.5 py-1 rounded bg-[#163832] hover:bg-[#235347] text-[#DAF1DE] text-[10px] font-bold border border-[#235347]" data-idx="${n}">
+              Edit
+            </button>
+            <button class="del-f-btn px-2.5 py-1 rounded bg-[#051F20] hover:bg-rose-950 text-rose-300 text-[10px] border border-[#235347]" data-idx="${n}">
+              Hapus
+            </button>
+          </td>
+        </tr>
+      `).join(""),document.querySelectorAll(".edit-f-btn").forEach(e=>{e.addEventListener("click",()=>{const n=Number(e.dataset.idx),a=t[n];a&&o&&(document.getElementById("faq-idx").value=String(n),document.getElementById("f-question").value=a.question,document.getElementById("f-answer").value=a.answer,o.showModal())})}),document.querySelectorAll(".del-f-btn").forEach(e=>{e.addEventListener("click",async()=>{if(confirm("Hapus pertanyaan FAQ ini?")){const n=Number(e.dataset.idx),a=t[n]?.question;t.splice(n,1),m(t),a&&await p(a)}})})}u();document.getElementById("add-faq-btn")?.addEventListener("click",()=>{l?.reset(),document.getElementById("faq-idx").value="-1",o?.showModal()});document.getElementById("close-faq-modal-btn")?.addEventListener("click",()=>o?.close());document.getElementById("cancel-faq-btn")?.addEventListener("click",()=>o?.close());l?.addEventListener("submit",async t=>{t.preventDefault();const e=i(),n=Number(document.getElementById("faq-idx").value),a=document.getElementById("f-question").value,r=document.getElementById("f-answer").value;let d;n>=0?(e[n]={...e[n],question:a,answer:r},d=e[n]):(d={id:"faq-"+Date.now(),pageSlug:"/",question:a,answer:r,sortOrder:e.length+1},e.push(d)),m(e),o?.close(),b(d),s&&(s.className="p-3 rounded-lg text-xs font-bold bg-emerald-950 text-emerald-200 border border-emerald-500 block",s.textContent="✓ Data FAQ berhasil disimpan ke Front-End & Supabase!",setTimeout(()=>s.classList.add("hidden"),2500))});

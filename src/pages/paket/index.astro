@@ -3,6 +3,7 @@ import PublicLayout from '../../layouts/PublicLayout.astro';
 import ProductGrid from '../../components/sections/ProductGrid.astro';
 import FAQAccordion from '../../components/sections/FAQAccordion.astro';
 import CTASection from '../../components/sections/CTASection.astro';
+import DestinationsSection from '../../components/sections/DestinationsSection.astro';
 import { PACKAGE_CATEGORIES, PACKAGES } from '../../data/defaultContent';
 import { getWhatsAppUrl } from '../../lib/utils';
 
@@ -12,7 +13,7 @@ const breadcrumbs = [
 ---
 
 <PublicLayout
-  title="Katalog Paket Outbound Batu Malang | Vendor Outbound"
+  title="Katalog Paket Outbound Batu Malang | Provider Outbound"
   description="Katalog lengkap paket outbound di Batu dan Malang: Perusahaan, Family Gathering, Sekolah, dan Wisata Adventure."
   breadcrumbs={breadcrumbs}
 >
@@ -28,18 +29,6 @@ const breadcrumbs = [
       <p class="text-base sm:text-lg text-rose-100/85 max-w-3xl mx-auto leading-relaxed">
         Pilihan paket terstruktur yang dapat disesuaikan sepenuhnya dengan anggaran, durasi, dan tujuan instansi Anda di kawasan sejuk Batu dan Malang.
       </p>
-
-      <!-- Category Filter Shortcuts -->
-      <div class="flex flex-wrap items-center justify-center gap-3 pt-4">
-        {PACKAGE_CATEGORIES.map((cat) => (
-          <a
-            href={`/paket/${cat.slug}`}
-            class="px-4 py-2 rounded-lg bg-[#450308]/70 hover:bg-amber-500 hover:text-stone-950 text-rose-200 border border-rose-800/40 text-xs font-bold uppercase tracking-wider transition-all"
-          >
-            {cat.name}
-          </a>
-        ))}
-      </div>
     </div>
   </section>
 
@@ -77,20 +66,20 @@ const breadcrumbs = [
             </a>
           </div>
 
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div id={`pkg-grid-${cat.slug}`} class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {categoryPackages.map((pkg) => {
-              const waUrl = getWhatsAppUrl(`Halo Vendor Outbound, saya ingin konsultasi detail paket ${pkg.title} (${cat.name}).`);
+              const waUrl = getWhatsAppUrl(`Halo Provider Outbound, saya ingin konsultasi detail paket ${pkg.title} (${cat.name}).`);
 
               return (
                 <div class="rounded-xl bg-[#480308]/60 border border-rose-700/35 overflow-hidden flex flex-col justify-between hover:border-amber-400/50 transition-all duration-300 hover:-translate-y-1 shadow-card group">
                   <div>
-                    <div class="aspect-16/10 w-full overflow-hidden bg-brand-950">
+                    <div class="w-full overflow-hidden bg-brand-950" style="aspect-ratio: 16 / 10;">
                       <img
                         src={pkg.imageUrl}
                         alt={pkg.title}
                         width="400"
                         height="250"
-                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500 block"
                         loading="lazy"
                       />
                     </div>
@@ -121,17 +110,22 @@ const breadcrumbs = [
                     </div>
                   </div>
 
-                  <div class="p-5 pt-0 mt-4">
+                  <div class="p-5 pt-0 mt-4 flex items-center gap-2">
+                    <a
+                      href={`/paket/${pkg.categorySlug}/${pkg.slug}`}
+                      class="flex-1 inline-flex items-center justify-center gap-1.5 py-2.5 px-2 rounded-md bg-brand-950/80 hover:bg-brand-900 text-amber-300 hover:text-white border border-amber-500/40 font-heading font-bold text-xs uppercase tracking-wider transition-all"
+                    >
+                      <i class="fas fa-eye text-[11px] text-amber-400"></i>
+                      <span>Detail</span>
+                    </a>
                     <a
                       href={waUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      class="w-full inline-flex items-center justify-center gap-2 py-2.5 rounded-md bg-amber-500 hover:bg-amber-400 text-stone-950 font-heading font-black text-xs uppercase tracking-wider shadow-md hover:scale-[1.02] transition-all"
+                      class="flex-1 inline-flex items-center justify-center gap-1.5 py-2.5 px-2 rounded-md bg-amber-500 hover:bg-amber-400 text-stone-950 font-heading font-black text-xs uppercase tracking-wider shadow-md hover:scale-[1.02] transition-all"
                     >
-                      <span>Konsultasi Paket</span>
-                      <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                      </svg>
+                      <i class="fab fa-whatsapp text-xs"></i>
+                      <span>Konsultasi</span>
                     </a>
                   </div>
                 </div>
@@ -143,6 +137,12 @@ const breadcrumbs = [
     })}
   </div>
 
+  <!-- 9 Official Destinations Showcase Section -->
+  <DestinationsSection
+    title="DESTINASI RESMI PENYELENGGARAAN PAKET"
+    subtitle="Seluruh 16 pilihan paket di atas dapat diselenggarakan di 9 destinasi resmi unggulan Provider Outbound dengan fasilitas super komplit."
+  />
+
   <!-- FAQ Section -->
   <FAQAccordion title="FAQ SEPUTAR PAKET OUTBOUND" />
 
@@ -150,3 +150,90 @@ const breadcrumbs = [
   <CTASection />
 
 </PublicLayout>
+
+<script is:inline>
+  (function() {
+    var categories = ['perusahaan', 'family-gathering', 'sekolah', 'wisata-adventure'];
+
+    function hydrateAllPackageGrids() {
+      var raw = localStorage.getItem('vo_packages');
+      if (!raw) return;
+      try {
+        var allPkgs = JSON.parse(raw);
+        if (!Array.isArray(allPkgs)) return;
+
+        categories.forEach(function(catSlug) {
+          var grid = document.getElementById('pkg-grid-' + catSlug);
+          if (!grid) return;
+          var filtered = allPkgs.filter(function(p) { return p.categorySlug === catSlug; });
+          if (filtered.length === 0) return;
+
+          grid.innerHTML = filtered.map(function(pkg) {
+            var waMsg = encodeURIComponent('Halo Provider Outbound, saya ingin konsultasi detail paket ' + pkg.title + '.');
+            var waLink = 'https://wa.me/6282211221909?text=' + waMsg;
+            var featsHtml = '';
+            if (Array.isArray(pkg.features)) {
+              featsHtml = pkg.features.slice(0, 3).map(function(f) {
+                return '<li class="flex items-center gap-1.5"><span class="text-amber-400">✓</span><span class="truncate">' + f + '</span></li>';
+              }).join('');
+            }
+
+            return (
+              '<div class="rounded-xl bg-[#480308]/60 border border-rose-700/35 overflow-hidden flex flex-col justify-between hover:border-amber-400/50 transition-all duration-300 hover:-translate-y-1 shadow-card group">' +
+                '<div>' +
+                  '<div class="w-full overflow-hidden bg-brand-950" style="aspect-ratio: 16 / 10;">' +
+                    '<img src="' + (pkg.imageUrl || '/images/hero/hero-outbound.webp') + '" alt="' + pkg.title + '" width="400" height="250" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500 block" loading="lazy" />' +
+                  '</div>' +
+                  '<div class="p-5 space-y-3">' +
+                    '<h3 class="font-heading font-black text-base uppercase tracking-wider text-white group-hover:text-amber-400 transition-colors">' +
+                      pkg.title +
+                    '</h3>' +
+                    '<p class="text-xs text-rose-200/75 line-clamp-2">' +
+                      (pkg.excerpt || '') +
+                    '</p>' +
+                    '<div class="pt-2 border-t border-rose-900/30 text-xs text-rose-300/80">' +
+                      '<span class="font-bold text-amber-400">Durasi:</span> ' + (pkg.duration || '1 Hari') +
+                    '</div>' +
+                    (featsHtml ? (
+                      '<div class="space-y-1 pt-1">' +
+                        '<span class="text-[10px] font-bold uppercase tracking-wider text-rose-400">Fasilitas Inti:</span>' +
+                        '<ul class="text-[11px] text-rose-200/80 space-y-1">' +
+                          featsHtml +
+                        '</ul>' +
+                      '</div>'
+                    ) : '') +
+                  '</div>' +
+                '</div>' +
+                '<div class="p-5 pt-0 mt-4 flex items-center gap-2">' +
+                  '<a href="/paket/' + (pkg.categorySlug || cat.slug) + '/' + pkg.slug + '" class="flex-1 inline-flex items-center justify-center gap-1.5 py-2.5 px-2 rounded-md bg-brand-950/80 hover:bg-brand-900 text-amber-300 hover:text-white border border-amber-500/40 font-heading font-bold text-xs uppercase tracking-wider transition-all">' +
+                    '<i class="fas fa-eye text-[11px] text-amber-400"></i>' +
+                    '<span>Detail</span>' +
+                  '</a>' +
+                  '<a href="' + waLink + '" target="_blank" rel="noopener noreferrer" class="flex-1 inline-flex items-center justify-center gap-1.5 py-2.5 px-2 rounded-md bg-amber-500 hover:bg-amber-400 text-stone-950 font-heading font-black text-xs uppercase tracking-wider shadow-md hover:scale-[1.02] transition-all">' +
+                    '<i class="fab fa-whatsapp text-xs"></i>' +
+                    '<span>Konsultasi</span>' +
+                  '</a>' +
+                '</div>' +
+              '</div>'
+            );
+          }).join('');
+        });
+      } catch(e) {}
+    }
+
+    hydrateAllPackageGrids();
+    document.addEventListener('DOMContentLoaded', hydrateAllPackageGrids);
+    window.addEventListener('storage', function(e) {
+      if (e.key === 'vo_packages') hydrateAllPackageGrids();
+    });
+    window.addEventListener('vo_content_updated', function(e) {
+      if (!e.detail || e.detail.key === 'vo_packages') hydrateAllPackageGrids();
+    });
+    try {
+      var bc = new BroadcastChannel('vo_sync_channel');
+      bc.onmessage = function(e) {
+        if (!e.data || e.data.key === 'vo_packages') hydrateAllPackageGrids();
+      };
+    } catch(e) {}
+  })();
+</script>

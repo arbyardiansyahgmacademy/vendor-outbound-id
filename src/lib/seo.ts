@@ -13,6 +13,8 @@ export interface SEOProps {
   noindex?: boolean;
 }
 
+export const OFFICIAL_LOGO_URL = `${SITE_INFO.domain}/images/logo/logo-provider-outbound.webp`;
+
 export function formatSEOTitle(title: string): string {
   if (title.includes(SITE_INFO.brandName)) {
     return title;
@@ -20,18 +22,92 @@ export function formatSEOTitle(title: string): string {
   return `${title} | ${SITE_INFO.brandName} Batu - Malang`;
 }
 
+// GEO & AEO Local Business & Organization Schema
+export function generateLocalBusinessSchema() {
+  return {
+    '@context': 'https://schema.org',
+    '@type': ['LocalBusiness', 'TouristInformationCenter', 'SportsActivityLocation'],
+    '@id': `${SITE_INFO.domain}/#localbusiness`,
+    name: SITE_INFO.brandName,
+    legalName: 'Provider Outbound Indonesia',
+    url: SITE_INFO.domain,
+    logo: OFFICIAL_LOGO_URL,
+    image: `${SITE_INFO.domain}/images/hero/hero-outbound.webp`,
+    description: SITE_INFO.description,
+    telephone: SITE_INFO.whatsappDisplay,
+    email: 'info@provideroutbound.web.id',
+    priceRange: 'Rp 85.000 - Rp 450.000',
+    currenciesAccepted: 'IDR',
+    paymentAccepted: 'Cash, Bank Transfer',
+    openingHoursSpecification: [
+      {
+        '@type': 'OpeningHoursSpecification',
+        dayOfWeek: [
+          'Monday',
+          'Tuesday',
+          'Wednesday',
+          'Thursday',
+          'Friday',
+          'Saturday',
+          'Sunday'
+        ],
+        opens: '08:00',
+        closes: '21:00'
+      }
+    ],
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: 'Kawasan Wisata Songgoriti & Coban Rondo, Kec. Batu',
+      addressLocality: 'Kota Batu',
+      addressRegion: 'Jawa Timur',
+      postalCode: '65314',
+      addressCountry: 'ID'
+    },
+    geo: {
+      '@type': 'GeoCoordinates',
+      latitude: -7.8712,
+      longitude: 112.5270
+    },
+    areaServed: [
+      { '@type': 'AdministrativeArea', name: 'Kota Batu, Jawa Timur' },
+      { '@type': 'AdministrativeArea', name: 'Kota Malang, Jawa Timur' },
+      { '@type': 'AdministrativeArea', name: 'Kabupaten Malang, Jawa Timur' },
+      { '@type': 'AdministrativeArea', name: 'Jawa Timur, Indonesia' }
+    ],
+    hasMap: 'https://maps.google.com/?q=Kota+Batu+Malang',
+    knowsAbout: [
+      'Outbound Training Batu Malang',
+      'Team Building Perusahaan',
+      'Corporate Family Gathering Malang',
+      'LDKS Outbound Sekolah',
+      'Rafting Kasembon & Kaliwatu',
+      'Fun Offroad Jeep Batu 4x4',
+      'Experiential Learning Indonesia'
+    ],
+    slogan: SITE_INFO.tagline
+  };
+}
+
 export function generateWebSiteSchema() {
   return {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
+    '@id': `${SITE_INFO.domain}/#website`,
     name: SITE_INFO.brandName,
     url: SITE_INFO.domain,
     description: SITE_INFO.description,
+    publisher: {
+      '@type': 'Organization',
+      name: SITE_INFO.brandName,
+      url: SITE_INFO.domain,
+      logo: OFFICIAL_LOGO_URL
+    },
     potentialAction: {
       '@type': 'SearchAction',
       target: `${SITE_INFO.domain}/blog?q={search_term_string}`,
       'query-input': 'required name=search_term_string',
     },
+    inLanguage: 'id-ID'
   };
 }
 
@@ -57,6 +133,18 @@ export function generateServiceSchema(service: ServiceItem) {
       '@type': 'LocalBusiness',
       name: SITE_INFO.brandName,
       telephone: SITE_INFO.whatsappDisplay,
+      image: OFFICIAL_LOGO_URL,
+      address: {
+        '@type': 'PostalAddress',
+        addressLocality: 'Batu',
+        addressRegion: 'Jawa Timur',
+        addressCountry: 'ID'
+      },
+      geo: {
+        '@type': 'GeoCoordinates',
+        latitude: -7.8712,
+        longitude: 112.5270
+      },
       areaServed: [
         { '@type': 'AdministrativeArea', name: 'Kota Batu, Jawa Timur' },
         { '@type': 'AdministrativeArea', name: 'Kabupaten & Kota Malang, Jawa Timur' },
@@ -94,7 +182,7 @@ export function generateArticleSchema(article: BlogPostItem) {
       url: SITE_INFO.domain,
       logo: {
         '@type': 'ImageObject',
-        url: `${SITE_INFO.domain}/images/logo/logo-fix.webp`,
+        url: OFFICIAL_LOGO_URL,
       },
     },
   };

@@ -8,17 +8,25 @@ const breadcrumbs = [
 ---
 
 <PublicLayout
-  title="Syarat & Ketentuan | Vendor Outbound"
-  description="Ketentuan layanan dan konsultasi program outbound di Vendor Outbound."
+  title="Syarat & Ketentuan | Provider Outbound"
+  description="Ketentuan layanan dan konsultasi program outbound di Provider Outbound."
   breadcrumbs={breadcrumbs}
 >
   <div class="py-16 sm:py-20 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-left text-rose-100/90 leading-relaxed space-y-8">
     <div class="space-y-2 border-b border-rose-900/40 pb-6">
       <span class="text-xs font-bold uppercase tracking-widest text-amber-400">Ketentuan Layanan</span>
-      <h1 class="font-heading font-black text-3xl sm:text-4xl uppercase tracking-wider text-white">
+      <h1 class="font-heading font-black text-3xl sm:text-4xl uppercase tracking-wider text-white" id="syarat-h1">
         SYARAT &amp; KETENTUAN
       </h1>
-      <p class="text-xs text-rose-300/70">Terakhir diperbarui: 25 Oktober 2026</p>
+      <p class="text-xs text-rose-300/70" id="syarat-updated-date">Terakhir diperbarui: 25 Oktober 2026</p>
+    </div>
+
+    <!-- Live Custom Notice from Admin if updated -->
+    <div id="syarat-custom-box" class="hidden p-5 rounded-xl bg-amber-500/10 border border-amber-400/40 text-amber-200 text-sm leading-relaxed">
+      <div class="font-bold uppercase tracking-wider text-amber-300 text-xs mb-2 flex items-center gap-2">
+        <i class="fas fa-file-contract"></i> Klausul Ketentuan Khusus Penyelenggaraan
+      </div>
+      <p id="syarat-custom-text" class="whitespace-pre-line text-xs sm:text-sm text-rose-100/90"></p>
     </div>
 
     <section class="space-y-4">
@@ -59,4 +67,52 @@ const breadcrumbs = [
       </p>
     </section>
   </div>
+
+  <script is:inline>
+    (function() {
+      function hydrateSyarat() {
+        var raw = localStorage.getItem('vo_page_legal');
+        if (!raw) return;
+        try {
+          var d = JSON.parse(raw);
+          if (d.syaratTitle) {
+            var h1 = document.getElementById('syarat-h1');
+            if (h1) h1.textContent = d.syaratTitle;
+            document.title = d.syaratTitle + ' | Provider Outbound';
+          }
+          if (d.syaratContent) {
+            var box = document.getElementById('syarat-custom-box');
+            var txt = document.getElementById('syarat-custom-text');
+            if (box && txt) {
+              txt.textContent = d.syaratContent;
+              box.classList.remove('hidden');
+            }
+          }
+          if (d.updatedAt) {
+            var dt = document.getElementById('syarat-updated-date');
+            if (dt) dt.textContent = 'Terakhir diperbarui: ' + new Date(d.updatedAt).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
+          }
+        } catch (e) {
+          console.error('Hydrate syarat error:', e);
+        }
+      }
+
+      hydrateSyarat();
+      document.addEventListener('DOMContentLoaded', hydrateSyarat);
+      window.addEventListener('storage', function(e) {
+        if (e.key === 'vo_page_legal') hydrateSyarat();
+      });
+      window.addEventListener('vo_content_updated', function(e) {
+        if (!e.detail || e.detail.key === 'vo_page_legal') hydrateSyarat();
+      });
+      try {
+        var bc = new BroadcastChannel('vo_sync_channel');
+        bc.onmessage = function(e) {
+          if (!e.data || e.data.key === 'vo_page_legal') {
+            hydrateSyarat();
+          }
+        };
+      } catch (err) {}
+    })();
+  </script>
 </PublicLayout>

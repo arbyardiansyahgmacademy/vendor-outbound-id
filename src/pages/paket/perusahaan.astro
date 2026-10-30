@@ -2,6 +2,7 @@
 import PublicLayout from '../../layouts/PublicLayout.astro';
 import FAQAccordion from '../../components/sections/FAQAccordion.astro';
 import CTASection from '../../components/sections/CTASection.astro';
+import DestinationsSection from '../../components/sections/DestinationsSection.astro';
 import { PACKAGES } from '../../data/defaultContent';
 import { getWhatsAppUrl } from '../../lib/utils';
 
@@ -16,91 +17,171 @@ const breadcrumbs = [
 ---
 
 <PublicLayout
-  title={`Paket Outbound ${categoryName} Batu Malang | Vendor Outbound`}
-  description="Pilihan paket outbound perusahaan: Team Building, Fun Games, Leadership Camp, dan Corporate Gathering di Batu & Malang."
+  title={`Paket Outbound ${categoryName} Batu Malang | Provider Outbound`}
+  description="Pilihan paket outbound perusahaan dan gathering korporat terbaik di Batu Malang: Team Building, Fun Games, Leadership Camp, dan Corporate Gathering All-In."
   breadcrumbs={breadcrumbs}
 >
+  <!-- Hero Section -->
   <section class="py-16 sm:py-24 relative overflow-hidden">
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
       <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/15 border border-amber-400/30 text-amber-300 text-xs font-bold uppercase tracking-widest">
-        Kategori Paket 01
+        <i class="fas fa-building"></i>
+        <span>Kategori Paket 01</span>
       </div>
       <h1 class="font-heading font-black text-3xl sm:text-5xl uppercase tracking-[0.14em] text-white">
         PAKET OUTBOUND {categoryName.toUpperCase()}
       </h1>
       <p class="text-base sm:text-lg text-rose-100/85 max-w-3xl mx-auto leading-relaxed">
-        Dirancang khusus untuk menguatkan kerja sama tim, efektivitas komunikasi kerja, dan kepemimpinan adaptif di tengah lingkungan pegunungan Batu - Malang.
+        Solusi pengembangan sumber daya manusia (SDM) dan gathering korporat terpadu di kawasan pegunungan sejuk Batu Malang. Dirancang berbasis Experiential Learning untuk mengikis sekat komunikasi, meningkatkan loyalitas, dan menyelaraskan komitmen target perusahaan.
       </p>
     </div>
   </section>
 
+  <!-- Package Cards Grid -->
   <section class="py-12 border-t border-rose-900/40">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-        {packages.map((pkg) => {
-          const waUrl = getWhatsAppUrl(`Halo Vendor Outbound, saya ingin konsultasi paket ${pkg.title} (${categoryName}).`);
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div id="category-pkg-grid" data-category-slug={categorySlug} class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        {packages.map((pkg, idx) => {
+          const waUrl = getWhatsAppUrl(`Halo Provider Outbound, saya ingin konsultasi detail paket ${pkg.title} (${categoryName}) untuk rombongan kantor kami.`);
+          const letter = String.fromCharCode(97 + idx); // a, b, c, d
 
           return (
-            <div class="rounded-2xl bg-[#480308]/60 border border-rose-700/35 overflow-hidden flex flex-col justify-between hover:border-amber-400/50 transition-all duration-300 shadow-card group">
+            <div class="rounded-2xl bg-[#480308]/70 border border-rose-700/35 overflow-hidden flex flex-col justify-between hover:border-amber-400/50 transition-all duration-300 shadow-card group">
               <div>
-                <div class="aspect-16/9 w-full overflow-hidden bg-brand-950 relative">
+                <!-- Image Banner -->
+                <div class="w-full overflow-hidden bg-brand-950 relative shrink-0" style="aspect-ratio: 16 / 9;">
                   <img
                     src={pkg.imageUrl}
                     alt={pkg.title}
-                    width="600"
-                    height="350"
-                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    width="700"
+                    height="394"
+                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 block"
+                    loading="lazy"
                   />
-                  <div class="absolute bottom-3 left-3 px-3 py-1 rounded bg-stone-900/85 backdrop-blur-sm text-xs font-bold uppercase tracking-wider text-amber-400 border border-amber-400/30">
-                    Durasi: {pkg.duration}
-                  </div>
+                  <div class="absolute inset-0 bg-gradient-to-t from-stone-950/80 via-transparent to-transparent"></div>
+                  <span class="absolute top-3 left-3 px-3 py-1 rounded-md bg-stone-900/90 text-xs font-bold text-amber-400 border border-amber-400/30 uppercase tracking-wider">
+                    Paket {letter}.
+                  </span>
+                  <span class="absolute top-3 right-3 px-2.5 py-1 rounded-md bg-brand-900/90 text-xs font-semibold text-rose-200 border border-rose-700/40">
+                    <i class="far fa-clock text-amber-400 mr-1"></i> {pkg.duration}
+                  </span>
                 </div>
 
-                <div class="p-6 space-y-4 text-left">
-                  <h2 class="font-heading font-black text-xl sm:text-2xl uppercase tracking-wider text-white group-hover:text-amber-400 transition-colors">
-                    {pkg.title}
-                  </h2>
-                  <p class="text-sm text-rose-100/85 leading-relaxed">
-                    {pkg.excerpt}
+                <!-- Card Content -->
+                <div class="p-6 sm:p-8 space-y-6 text-left">
+                  <!-- Title & Category -->
+                  <div>
+                    <h2 class="font-heading font-black text-2xl uppercase tracking-wider text-white group-hover:text-amber-400 transition-colors">
+                      {pkg.title}
+                    </h2>
+                    <p class="text-xs font-semibold uppercase tracking-wider text-rose-300/80 mt-1">
+                      Kategori: {categoryName}
+                    </p>
+                  </div>
+
+                  <!-- In-Depth Description -->
+                  <p class="text-sm text-rose-100/90 leading-relaxed border-l-2 border-amber-400/60 pl-3.5 italic bg-brand-950/30 py-2 rounded-r">
+                    {pkg.description || pkg.excerpt}
                   </p>
 
-                  <div class="space-y-2 pt-2 border-t border-rose-900/30">
-                    <span class="text-xs font-bold uppercase tracking-wider text-amber-400">Rangkaian Aktivitas:</span>
-                    <ul class="grid grid-cols-1 sm:grid-cols-2 gap-1.5 text-xs text-rose-200/90">
-                      {pkg.activities.map((act) => (
-                        <li class="flex items-center gap-2">
-                          <span class="text-amber-400 font-bold">•</span>
-                          <span>{act}</span>
-                        </li>
-                      ))}
-                    </ul>
+                  <!-- 2-Column Grid: Activities & Features -->
+                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 pt-2 border-t border-rose-900/40">
+                    <!-- Activities -->
+                    <div class="space-y-2.5">
+                      <span class="text-xs font-heading font-black uppercase tracking-wider text-amber-400 flex items-center gap-1.5">
+                        <i class="fas fa-bullseye text-[11px]"></i> Modul &amp; Aktivitas:
+                      </span>
+                      <ul class="space-y-1.5 text-xs text-rose-100/85">
+                        {pkg.activities.map((act) => (
+                          <li class="flex items-start gap-2">
+                            <span class="text-amber-400 font-bold mt-0.5">✓</span>
+                            <span>{act}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    <!-- Included Features -->
+                    <div class="space-y-2.5">
+                      <span class="text-xs font-heading font-black uppercase tracking-wider text-amber-400 flex items-center gap-1.5">
+                        <i class="fas fa-gift text-[11px]"></i> Fasilitas Termasuk:
+                      </span>
+                      <ul class="space-y-1.5 text-xs text-rose-100/85">
+                        {pkg.features.map((feat) => (
+                          <li class="flex items-start gap-2">
+                            <span class="text-emerald-400 font-bold mt-0.5">•</span>
+                            <span>{feat}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
                   </div>
 
-                  <div class="space-y-2 pt-2 border-t border-rose-900/30">
-                    <span class="text-xs font-bold uppercase tracking-wider text-amber-400">Fasilitas Termasuk:</span>
-                    <ul class="grid grid-cols-1 sm:grid-cols-2 gap-1.5 text-xs text-rose-200/90">
-                      {pkg.features.map((feat) => (
-                        <li class="flex items-center gap-2">
-                          <span class="text-emerald-400 font-bold">✓</span>
-                          <span>{feat}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+                  <!-- Add-Ons Section -->
+                  {pkg.addons && pkg.addons.length > 0 && (
+                    <div class="pt-4 border-t border-rose-900/40 space-y-2.5">
+                      <span class="text-xs font-heading font-black uppercase tracking-wider text-amber-400 flex items-center gap-1.5">
+                        <i class="fas fa-plus-circle text-[11px]"></i> Pilihan Fasilitas Add-On:
+                      </span>
+                      <div class="flex flex-wrap gap-1.5">
+                        {pkg.addons.map((addon) => (
+                          <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded bg-[#2A0205] border border-rose-800/40 text-[11px] text-rose-200">
+                            <i class="fas fa-star text-[9px] text-amber-400"></i>
+                            <span>{addon}</span>
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  <!-- Rundown Acara Accordion / Timeline Box -->
+                  {pkg.rundown && pkg.rundown.length > 0 && (
+                    <div class="pt-4 border-t border-rose-900/40">
+                      <details class="group/rundown bg-stone-950/40 rounded-xl border border-rose-800/30 p-3.5 transition-colors">
+                        <summary class="flex items-center justify-between cursor-pointer list-none text-xs font-heading font-bold uppercase tracking-wider text-amber-300 select-none">
+                          <span class="flex items-center gap-2">
+                            <i class="fas fa-calendar-alt text-amber-400"></i>
+                            <span>Lihat Estimasi Rundown Acara ({pkg.duration})</span>
+                          </span>
+                          <i class="fas fa-chevron-down text-xs transition-transform group-open/rundown:rotate-180"></i>
+                        </summary>
+                        <div class="mt-3.5 space-y-2.5 pt-3 border-t border-rose-900/40">
+                          {pkg.rundown.map((item) => (
+                            <div class="flex items-start gap-3 text-xs">
+                              <span class="px-2 py-0.5 rounded bg-brand-900 text-amber-300 font-mono text-[10px] font-bold shrink-0 mt-0.5">
+                                {item.time}
+                              </span>
+                              <div>
+                                <strong class="text-white block font-heading">{item.activity}</strong>
+                                <span class="text-rose-200/75 text-[11px] leading-tight block">{item.desc}</span>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </details>
+                    </div>
+                  )}
+
                 </div>
               </div>
 
-              <div class="p-6 pt-0 mt-4">
+              <!-- Card Action Buttons (Detail Paket on the left of Konsultasi Paket) -->
+              <div class="p-6 sm:p-8 pt-0 flex flex-col sm:flex-row items-center gap-3">
+                <a
+                  href={`/paket/perusahaan/${pkg.slug}`}
+                  class="w-full sm:w-1/2 inline-flex items-center justify-center gap-2 py-3.5 px-4 rounded-xl bg-brand-950/80 hover:bg-brand-900 text-amber-300 hover:text-white border border-amber-500/40 font-heading font-bold text-xs uppercase tracking-wider transition-all hover:scale-[1.01]"
+                >
+                  <i class="fas fa-info-circle text-sm text-amber-400"></i>
+                  <span>Detail Paket</span>
+                </a>
                 <a
                   href={waUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="w-full inline-flex items-center justify-center gap-2.5 py-3.5 rounded-md bg-amber-500 hover:bg-amber-400 text-stone-950 font-heading font-black text-xs uppercase tracking-wider shadow-md hover:scale-[1.02] transition-all"
+                  class="w-full sm:w-1/2 inline-flex items-center justify-center gap-2 py-3.5 px-4 rounded-xl bg-amber-500 hover:bg-amber-400 text-stone-950 font-heading font-black text-xs uppercase tracking-wider shadow-md hover:scale-[1.01] transition-all"
                 >
-                  <span>Konsultasi Paket Ini</span>
-                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                  </svg>
+                  <i class="fab fa-whatsapp text-base"></i>
+                  <span>Konsultasi Paket</span>
                 </a>
               </div>
             </div>
@@ -110,10 +191,128 @@ const breadcrumbs = [
     </div>
   </section>
 
+  <!-- Recommended Official Destinations -->
+  <DestinationsSection
+    title="DESTINASI RESMI OUTBOUND PERUSAHAAN"
+    subtitle="Venue terpilih dengan kapasitas lapangan ratusan peserta, aula convention, dan fasilitas terlengkap di Batu Malang."
+    filterSlug={["coban-rondo","hotel-jambuluwuk-resort","coban-talun","coban-rais"]}
+  />
+
+  <!-- FAQ Section -->
   <FAQAccordion title={`FAQ SEPUTAR PAKET ${categoryName.toUpperCase()}`} />
 
+  <!-- Comprehensive SEO Guide Section (Artikel Mendalam & Optimasi SEO/AEO/GEO) -->
+  <section class="py-16 sm:py-24 border-t border-rose-900/40 relative">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12 text-left">
+      
+      <div class="text-center space-y-4 max-w-3xl mx-auto">
+        <span class="text-xs font-bold uppercase tracking-widest text-amber-400">
+          Panduan Komprehensif HRD &amp; Panitia Kantor
+        </span>
+        <h2 class="font-heading font-black text-2xl sm:text-4xl uppercase tracking-wider text-white">
+          PANDUAN LENGKAP OUTBOUND &amp; CORPORATE GATHERING DI BATU MALANG 2026
+        </h2>
+        <p class="text-sm sm:text-base text-rose-100/80 leading-relaxed">
+          Ketahui strategi perancangan program pengembangan SDM berbasis alam terbuka, perbandingan venue legendaris, standar keselamatan berlisensi BNSP, serta kiat efisiensi anggaran korporasi bersama Provider Outbound.
+        </p>
+      </div>
+
+      <!-- Chapter 1 -->
+      <article class="bg-[#3D0308]/60 border border-rose-800/35 rounded-2xl p-6 sm:p-10 space-y-4 shadow-card">
+        <h3 class="font-heading font-black text-xl sm:text-2xl text-white uppercase tracking-wide flex items-center gap-3">
+          <span class="w-8 h-8 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center text-sm font-bold">1</span>
+          <span>Mengapa Malang Raya Menjadi Episentrum Outbound Korporat &amp; BUMN?</span>
+        </h3>
+        <p class="text-sm text-rose-100/90 leading-relaxed">
+          Dalam lanskap manajemen sumber daya manusia modern, kejenuhan kerja (<em>work burnout</em>) dan sekat komunikasi antar divisi (<em>silo mentality</em>) merupakan dua tantangan kronis yang menghambat akselerasi kinerja perusahaan. Kota Wisata Batu dan Malang Raya menawarkan ekosistem geografis yang sempurna untuk merestorasi energi kolektif tersebut. Terletak di ketinggian 700 hingga 1.800 meter di atas permukaan laut dengan suhu rata-rata 18°C hingga 24°C, suasana sejuk pegunungan secara ilmiah terbukti menurunkan hormon kortisol pemicu stres, membuka pikiran peserta, serta mempermudah internalisasi nilai-nilai kerja sama tim.
+        </p>
+        <p class="text-sm text-rose-100/90 leading-relaxed">
+          Didukung konektivitas prima melalui Jalan Tol Trans Jawa (Ruas Pandaan - Malang) dan keberadaan Bandara Abdulrachman Saleh, mobilitas kontingen perusahaan skala ratusan hingga ribuan karyawan dapat terlaksana dengan cepat, efisien, dan nyaman tanpa melelahkan peserta di jalan.
+        </p>
+      </article>
+
+      <!-- Chapter 2 -->
+      <article class="bg-[#3D0308]/60 border border-rose-800/35 rounded-2xl p-6 sm:p-10 space-y-4 shadow-card">
+        <h3 class="font-heading font-black text-xl sm:text-2xl text-white uppercase tracking-wide flex items-center gap-3">
+          <span class="w-8 h-8 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center text-sm font-bold">2</span>
+          <span>Perbandingan Karakteristik Venue Outbound Perusahaan di Batu Malang</span>
+        </h3>
+        <p class="text-sm text-rose-100/90 leading-relaxed">
+          Kunci keberhasilan program korporat terletak pada ketepatan memilih venue yang selaras dengan profil audiens dan tujuan kegiatan:
+        </p>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
+          <div class="p-4 rounded-xl bg-stone-950/50 border border-rose-800/30 space-y-2">
+            <h4 class="font-heading font-bold text-base text-amber-300">Coban Rondo (Venue Legendaris)</h4>
+            <p class="text-xs text-rose-100/80 leading-relaxed">
+              Dikelilingi tegakan hutan pinus asri di ketinggian 1.135 mdpl. Memiliki ground rumput luas berkapasitas ribuan peserta, toilet banyak di berbagai titik, ground paintball khusus, camping area, serta akses jalan mulus yang ramah bus besar pariwisata.
+            </p>
+          </div>
+          <div class="p-4 rounded-xl bg-stone-950/50 border border-rose-800/30 space-y-2">
+            <h4 class="font-heading font-bold text-base text-amber-300">Hotel Jambuluwuk Resort (Executive Class)</h4>
+            <p class="text-xs text-rose-100/80 leading-relaxed">
+              Resort villa kayu eksklusif bintang 5 dengan panorama spektakuler Gunung Panderman. Dilengkapi convention hall megah untuk rapat kerja tahunan dan gala dinner, serta lapangan rumput privat asri untuk outbound team building berkelas.
+            </p>
+          </div>
+          <div class="p-4 rounded-xl bg-stone-950/50 border border-rose-800/30 space-y-2">
+            <h4 class="font-heading font-bold text-base text-amber-300">Coban Rais (Akses Bus Langsung)</h4>
+            <p class="text-xs text-rose-100/80 leading-relaxed">
+              Destinasi favorit lereng Panderman dengan keunggulan bus besar bisa langsung parkir di area venue tanpa perlu repot oper shuttle, memudahkan manajemen logistik bagi rombongan massal.
+            </p>
+          </div>
+          <div class="p-4 rounded-xl bg-stone-950/50 border border-rose-800/30 space-y-2">
+            <h4 class="font-heading font-bold text-base text-amber-300">Coban Talun &amp; Kaliwatu (Adventure Hub)</h4>
+            <p class="text-xs text-rose-100/80 leading-relaxed">
+              Markas utama komunitas offroad jeep 4x4 jalur lumpur menantang dan pusat arung jeram Kaliwatu Rafting Grade 2-3 untuk menguji keberanian dan mentalitas petarung tim penjualan/operasional.
+            </p>
+          </div>
+        </div>
+      </article>
+
+      <!-- Chapter 3 -->
+      <article class="bg-[#3D0308]/60 border border-rose-800/35 rounded-2xl p-6 sm:p-10 space-y-4 shadow-card">
+        <h3 class="font-heading font-black text-xl sm:text-2xl text-white uppercase tracking-wide flex items-center gap-3">
+          <span class="w-8 h-8 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center text-sm font-bold">3</span>
+          <span>Metodologi Experiential Learning: Mengapa Outbound Kami Memberikan Dampak Nyata?</span>
+        </h3>
+        <p class="text-sm text-rose-100/90 leading-relaxed">
+          Kami membedakan diri dari operator rekreasi biasa dengan menerapkan siklus <em>Experiential Learning</em> yang teruji secara akademis:
+        </p>
+        <ol class="space-y-2 text-xs sm:text-sm text-rose-100/85 pl-4 list-decimal">
+          <li><strong>Experiencing (Mengalami):</strong> Peserta dihadapkan pada simulasi rintangan fisik dan logika yang tidak dapat dipecahkan secara individual.</li>
+          <li><strong>Reflecting (Merenungkan):</strong> Melalui bimbingan fasilitator BNSP, peserta mengevaluasi apa yang terjadi, mengapa sempat gagal, dan bagaimana pola komunikasi yang terjadi saat krisis.</li>
+          <li><strong>Conceptualizing (Menyimpulkan):</strong> Peserta menarik benang merah persamaan antara rintangan di lapangan dengan dinamika kerja nyata di kantor.</li>
+          <li><strong>Applying (Menerapkan):</strong> Merumuskan komitmen aksi konkret (Action Plan) yang disepakati bersama untuk diterapkan begitu kembali ke ruang kerja.</li>
+        </ol>
+      </article>
+
+      <!-- Chapter 4 -->
+      <article class="bg-[#3D0308]/60 border border-rose-800/35 rounded-2xl p-6 sm:p-10 space-y-4 shadow-card">
+        <h3 class="font-heading font-black text-xl sm:text-2xl text-white uppercase tracking-wide flex items-center gap-3">
+          <span class="w-8 h-8 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center text-sm font-bold">4</span>
+          <span>Standar Keselamatan (SOP Safety) &amp; Sertifikasi Fasilitator BNSP</span>
+        </h3>
+        <p class="text-sm text-rose-100/90 leading-relaxed">
+          Bagi kami, keselamatan peserta adalah harga mati yang tidak dapat ditawar. Seluruh trainer utama kami mengantongi sertifikasi Fasilitator Kepanduan Luar Ruang dari Badan Nasional Sertifikasi Profesi (BNSP) dan menguasai teknik First Aid (P3K) standar internasional. Setiap peralatan game, tali kermantle, harness, helm, dan perahu arung jeram melalui inspeksi rutin berkala dan telah tersertifikasi standar uji kelayakan industri.
+        </p>
+      </article>
+
+      <!-- Chapter 5 -->
+      <article class="bg-[#3D0308]/60 border border-rose-800/35 rounded-2xl p-6 sm:p-10 space-y-4 shadow-card">
+        <h3 class="font-heading font-black text-xl sm:text-2xl text-white uppercase tracking-wide flex items-center gap-3">
+          <span class="w-8 h-8 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center text-sm font-bold">5</span>
+          <span>Simulasi Anggaran &amp; Tips Panitia Menyusun Proposal All-In</span>
+        </h3>
+        <p class="text-sm text-rose-100/90 leading-relaxed">
+          Untuk memaksimalkan Return on Investment (ROI) dari anggaran pengembangan SDM perusahaan Anda, pilihlah skema kerjasama All-In terpadu. Provider Outbound menyediakan paket menyeluruh mencakup penyewaan bus pariwisata eksekutif, akomodasi hotel/resort, perizinan venue, konsumsi prasmanan bernutrisi, seragam gathering, hingga dokumentasi foto dan drone video cinematic 4K. Hubungi konsultan kami untuk simulasi penawaran harga resmi hari ini.
+        </p>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- CTA Section -->
   <CTASection
-    title={`KONSULTASIKAN PAKET ${categoryName.toUpperCase()} BATU MALANG`}
-    customMessage={`Halo Vendor Outbound, saya ingin konsultasi paket outbound perusahaan di Batu Malang.`}
+    title={`KONSULTASIKAN ACARA ${categoryName.toUpperCase()} BATU MALANG`}
+    customMessage="Halo Provider Outbound, saya ingin konsultasi paket outbound perusahaan di Batu Malang untuk rombongan kantor kami."
   />
 </PublicLayout>

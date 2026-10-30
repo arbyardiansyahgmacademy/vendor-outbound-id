@@ -1,0 +1,33 @@
+---
+import PackageDetailView from '../../../components/packages/PackageDetailView.astro';
+import { PACKAGES } from '../../../data/defaultContent';
+import type { PackageItem } from '../../../data/defaultContent';
+
+export function getStaticPaths() {
+  const paths = PACKAGES.map((pkg) => ({
+    params: { category: pkg.categorySlug, slug: pkg.slug },
+    props: { pkg }
+  }));
+
+  // Also include alias for outbound-wisata
+  const wisataPkgs = PACKAGES.filter((p) => p.categorySlug === 'wisata-adventure');
+  wisataPkgs.forEach((pkg) => {
+    paths.push({
+      params: { category: 'outbound-wisata', slug: pkg.slug },
+      props: { pkg }
+    });
+  });
+
+  return paths;
+}
+
+interface Props {
+  pkg: PackageItem;
+}
+
+const { pkg } = Astro.props;
+const { category } = Astro.params;
+---
+
+<PackageDetailView pkg={pkg} currentCategorySlug={category} />
+

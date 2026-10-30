@@ -9,10 +9,10 @@ import { SERVICES } from '../../data/defaultContent';
     
     <!-- Title (Uppercase with wide tracking matching reference) -->
     <div class="text-center mb-10">
-      <h2 class="font-heading font-black text-2xl sm:text-3xl lg:text-4xl uppercase tracking-[0.18em] text-white">
+      <h2 class="font-heading font-black text-2xl sm:text-3xl lg:text-4xl uppercase tracking-[0.18em] text-white" id="categories-heading">
         CATEGORIES
       </h2>
-      <p class="text-xs uppercase tracking-widest text-amber-400 mt-2 font-semibold">
+      <p class="text-xs uppercase tracking-widest text-amber-400 mt-2 font-semibold" id="categories-subheading">
         4 Pilar Layanan Outbound di Batu &amp; Malang
       </p>
     </div>
@@ -46,11 +46,13 @@ import { SERVICES } from '../../data/defaultContent';
           <!-- Right Circular Photo Cutout (Matching the dish thumbnail style in reference image) -->
           <div class="relative w-28 h-28 sm:w-36 sm:h-36 rounded-full p-1.5 bg-gradient-to-tr from-brand-700 to-amber-500/40 border border-rose-400/30 shadow-lg flex-shrink-0 group-hover:rotate-6 transition-transform duration-500">
             <img
+              id={`cat-img-${service.slug}`}
+              data-slug={service.slug}
               src={service.imageUrl}
               alt={service.title}
               width="200"
               height="200"
-              class="w-full h-full object-cover rounded-full shadow-inner"
+              class="w-full h-full object-cover rounded-full shadow-inner category-showcase-img"
               loading="lazy"
             />
           </div>

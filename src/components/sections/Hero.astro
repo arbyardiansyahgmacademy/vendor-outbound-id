@@ -2,7 +2,7 @@
 import { SITE_INFO } from '../../data/defaultContent';
 import { getWhatsAppUrl } from '../../lib/utils';
 
-const waUrl = getWhatsAppUrl('Halo Vendor Outbound, saya ingin konsultasi kegiatan outbound/gathering di area Batu - Malang.');
+const waUrl = getWhatsAppUrl('Halo Provider Outbound, saya ingin konsultasi kegiatan outbound/gathering di area Batu - Malang.');
 ---
 
 <!-- LANDING HERO SECTION (CRIMSON GASTRONOMY LUXURY REFERENCE) -->
@@ -20,15 +20,15 @@ const waUrl = getWhatsAppUrl('Halo Vendor Outbound, saya ingin konsultasi kegiat
       
       <!-- Left Column: Copy & Actions -->
       <div class="lg:col-span-7 text-left">
-        <div class="hero-tagline-badge">
-          <i class="fas fa-crown me-2"></i> Rekomendasi Utama Outbound Batu &amp; Malang
+        <div class="hero-tagline-badge" id="hero-tagline-badge">
+          <i class="fas fa-crown me-2"></i> <span id="hero-eyebrow-text">Rekomendasi Utama Outbound Batu &amp; Malang</span>
         </div>
 
-        <h1 class="hero-main-title">
+        <h1 class="hero-main-title" id="hero-main-title">
           OUTBOUND &amp; TEAM BUILDING BATU MALANG
         </h1>
 
-        <p class="hero-main-desc">
+        <p class="hero-main-desc" id="hero-main-desc">
           Wujudkan kekompakan tim, kehangatan family gathering, serta petualangan seru rafting dan offroad 4x4 di kawasan pegunungan sejuk Kota Batu &amp; Malang bersama fasilitator tersertifikasi.
         </p>
 
@@ -36,14 +36,14 @@ const waUrl = getWhatsAppUrl('Halo Vendor Outbound, saya ingin konsultasi kegiat
           <a class="btn-hero-order" href="/paket">
             <span class="btn-icon-box"><i class="fas fa-box-open"></i></span>
             <span class="btn-text-box">
-              <span class="btn-text-main">Pilihan Paket Acara</span>
-              <span class="btn-text-sub">Corporate, Gathering &amp; Adventure</span>
+              <span class="btn-text-main" id="hero-btn-main-text">Pilihan Paket Acara</span>
+              <span class="btn-text-sub" id="hero-btn-sub-text">Corporate, Gathering &amp; Adventure</span>
             </span>
           </a>
 
           <a class="btn-hero-secondary" href="/layanan">
             <i class="fas fa-compass me-2"></i>
-            <span>Lihat Semua Layanan</span>
+            <span id="hero-btn-sec-text">Lihat Semua Layanan</span>
             <i class="fas fa-arrow-right ms-2"></i>
           </a>
         </div>
@@ -53,6 +53,7 @@ const waUrl = getWhatsAppUrl('Halo Vendor Outbound, saya ingin konsultasi kegiat
       <div class="lg:col-span-5">
         <div class="hero-dish-wrap">
           <img
+            id="hero-dish-img"
             alt="Kegiatan Outbound & Team Building di Kota Batu Malang"
             class="hero-dish-img"
             fetchpriority="high"
@@ -66,4 +67,67 @@ const waUrl = getWhatsAppUrl('Halo Vendor Outbound, saya ingin konsultasi kegiat
     </div>
   </div>
 </section>
+
+<script is:inline>
+  (function() {
+    function hydrateHeroContent() {
+      var raw = localStorage.getItem('vo_page_beranda') || localStorage.getItem('vo_page_content');
+      if (!raw) return;
+      try {
+        var data = JSON.parse(raw);
+        var eyebrowText = document.getElementById('hero-eyebrow-text');
+        var mainTitle = document.getElementById('hero-main-title');
+        var mainDesc = document.getElementById('hero-main-desc');
+        var btnMain = document.getElementById('hero-btn-main-text');
+        var btnSub = document.getElementById('hero-btn-sub-text');
+        var dishImg = document.getElementById('hero-dish-img');
+
+        if (data.heroEyebrow && eyebrowText) {
+          eyebrowText.textContent = data.heroEyebrow;
+        }
+        if (data.heroH1 && mainTitle) {
+          mainTitle.textContent = data.heroH1;
+        }
+        if (data.heroDesc && mainDesc) {
+          mainDesc.textContent = data.heroDesc;
+        }
+        if (data.heroCtaMain && btnMain) {
+          btnMain.textContent = data.heroCtaMain;
+        }
+        if (data.heroCtaSub && btnSub) {
+          btnSub.textContent = data.heroCtaSub;
+        }
+        if (data.heroImage && dishImg) {
+          dishImg.src = data.heroImage;
+        }
+      } catch (e) {
+        console.error('Error hydrating hero:', e);
+      }
+    }
+
+    // Hydrate immediately
+    hydrateHeroContent();
+    document.addEventListener('DOMContentLoaded', hydrateHeroContent);
+
+    // Cross-tab real-time sync
+    window.addEventListener('storage', function(e) {
+      if (e.key === 'vo_page_beranda' || e.key === 'vo_page_content') {
+        hydrateHeroContent();
+      }
+    });
+
+    // In-tab event
+    window.addEventListener('vo_content_updated', hydrateHeroContent);
+
+    // BroadcastChannel sync across tabs & windows
+    try {
+      var bc = new BroadcastChannel('vo_sync_channel');
+      bc.onmessage = function(e) {
+        if (!e.data || e.data.key === 'vo_page_beranda' || e.data.key === 'vo_page_content') {
+          hydrateHeroContent();
+        }
+      };
+    } catch(err) {}
+  })();
+</script>
 

@@ -30,11 +30,11 @@ const summaryPoints = article.summaryPoints || [
 // FAQs for article
 const faqs = article.faqs || [
   {
-    question: 'Berapa jumlah minimum dan maksimum peserta untuk gathering di Vendor Outbound?',
+    question: 'Berapa jumlah minimum dan maksimum peserta untuk gathering di Provider Outbound?',
     answer: 'Layanan kami fleksibel mulai dari rombongan skala kecil 20 peserta, medium 50-100 orang, hingga mega-gathering korporasi di atas 500 orang dengan manajemen logistik profesional.'
   },
   {
-    question: 'Apakah paket outbound Vendor Outbound sudah mencakup transportasi dan akomodasi all-in?',
+    question: 'Apakah paket outbound Provider Outbound sudah mencakup transportasi dan akomodasi all-in?',
     answer: 'Ya, kami menyediakan paket lengkap All-In mulai dari bus pariwisata eksekutif, rekomendasi hotel/resort/glamping, katering prasmanan, fasilitator berlisensi BNSP, sound system, perizinan, hingga dokumentasi foto dan video drone.'
   },
   {
@@ -44,7 +44,7 @@ const faqs = article.faqs || [
 ];
 
 // WhatsApp URL for CTA
-const ctaWaUrl = getWhatsAppUrl(`Halo Vendor Outbound, saya ingin konsultasi kegiatan gathering perusahaan setelah membaca artikel '${article.title}'.`);
+const ctaWaUrl = getWhatsAppUrl(`Halo Provider Outbound, saya ingin konsultasi kegiatan gathering perusahaan setelah membaca artikel '${article.title}'.`);
 
 // JSON-LD Structured Data (Article + Breadcrumb + FAQPage)
 const structuredData = {
@@ -70,7 +70,7 @@ const structuredData = {
         url: SITE_INFO.domain,
         logo: {
           '@type': 'ImageObject',
-          url: `${SITE_INFO.domain}/images/logo/logo-fix.webp`
+          url: `${SITE_INFO.domain}/images/logo/logo-provider-outbound.webp`
         }
       },
       image: article.thumbnailUrl.startsWith('http') ? article.thumbnailUrl : `${SITE_INFO.domain}${article.thumbnailUrl}`,
@@ -146,15 +146,16 @@ const structuredData = {
           
           <!-- Article Header -->
           <header class="article-header">
-            <span class="news-badge badge-primary">
+            <span class="news-badge badge-primary" id="art-category">
               <i class="fas fa-briefcase"></i> {article.category}
             </span>
             
-            <h1>{article.title}</h1>
+            <h1 id="art-title">{article.title}</h1>
             
             <div class="article-meta">
               <div class="author-avatar">
                 <img
+                  id="art-author-avatar"
                   src={authorAvatar}
                   alt={authorName}
                   width="48"
@@ -164,15 +165,15 @@ const structuredData = {
               </div>
               <div class="author-info">
                 <div class="author-name-row">
-                  <span class="author-name">{authorName}</span>
+                  <span class="author-name" id="art-author-name">{authorName}</span>
                   <span class="meta-verified-badge">
                     <i class="fas fa-certificate"></i> Verified
                   </span>
                 </div>
                 <div class="post-meta-details">
-                  <span><i class="far fa-calendar-alt"></i> {article.publishedAt}</span>
+                  <span><i class="far fa-calendar-alt"></i> <span id="art-published-at">{article.publishedAt}</span></span>
                   <span class="meta-separator">&bull;</span>
-                  <span><i class="far fa-clock"></i> {article.readingTimeMinutes} min baca</span>
+                  <span><i class="far fa-clock"></i> <span id="art-reading-time">{article.readingTimeMinutes}</span> min baca</span>
                 </div>
               </div>
             </div>
@@ -181,6 +182,7 @@ const structuredData = {
           <!-- Featured Hero Image -->
           <figure class="article-hero">
             <img
+              id="art-hero-img"
               src={article.thumbnailUrl}
               alt={article.imageAlt || article.title}
               width="1600"
@@ -218,21 +220,21 @@ const structuredData = {
           <div class="article-content" id="articleContent">
             
             <!-- Answer-First Callout Box -->
-            {article.answerFirst && (
-              <div class="answer-first-box callout-card-maroon">
-                <p class="text-slate-lead">
-                  <strong>Corporate gathering di Malang Raya</strong> {article.answerFirst}
-                </p>
-              </div>
-            )}
+            <div class={`answer-first-box callout-card-maroon ${article.answerFirst ? '' : 'hidden'}`} id="art-answer-box">
+              <p class="text-slate-lead">
+                <strong>Corporate gathering di Malang Raya</strong> <span id="art-answer-text">{article.answerFirst}</span>
+              </p>
+            </div>
 
             <!-- Injected Markdown Content Slot -->
-            <slot />
+            <div id="art-body-slot">
+              <slot />
+            </div>
 
             <!-- Call To Action Banner -->
             <div class="cta-band">
               <h3>Rencanakan Corporate Gathering Terbaik Kantor Anda Bersama Kami</h3>
-              <p>Konsultasikan kebutuhan tanggal, target program, dan estimasi bujet perusahaan Anda. Tim ahli Vendor Outbound siap menyusun proposal penawaran all-in terbaik hari ini.</p>
+              <p>Konsultasikan kebutuhan tanggal, target program, dan estimasi bujet perusahaan Anda. Tim ahli Provider Outbound siap menyusun proposal penawaran all-in terbaik hari ini.</p>
               <a href={ctaWaUrl} target="_blank" rel="noopener noreferrer" class="btn-wa">
                 <i class="fab fa-whatsapp"></i>
                 <span>Konsultasi Gratis via WhatsApp</span>
@@ -334,7 +336,7 @@ const structuredData = {
             <h4>Paket Gathering Kantor All-In Malang Raya</h4>
             <p>Dapatkan proposal lengkap, pilihan venue resort sejuk, dan susunan rundown custom sesuai target tim Anda.</p>
             <a
-              href={getWhatsAppUrl('Halo Vendor Outbound, saya tertarik dengan paket corporate gathering 2026.')}
+              href={getWhatsAppUrl('Halo Provider Outbound, saya tertarik dengan paket corporate gathering 2026.')}
               target="_blank"
               rel="noopener noreferrer"
               class="btn-cta-link"
@@ -353,7 +355,7 @@ const structuredData = {
               <div class="news-widget-video-wrap">
                 <img
                   src="/images/prog-offroad-jeep.webp"
-                  alt="Video Liputan Gathering Vendor Outbound"
+                  alt="Video Liputan Gathering Provider Outbound"
                   class="news-widget-video-thumb"
                   loading="lazy"
                 />
@@ -370,16 +372,16 @@ const structuredData = {
           </div>
 
           <!-- Free Consultation Box -->
-          <div class="sidebar-hero" style="background:#F0FDF4; border:1px solid #BBF7D0; color:var(--text-dark);">
-            <div class="hero-category" style="color:#15803D;">KONSULTASI GRATIS</div>
-            <h4 style="color:#166534;">Rencanakan Gathering Kantor</h4>
-            <p style="color:#4B5563;">Diskusikan jumlah peserta, tanggal kegiatan, preferensi lokasi, dan estimasi anggaran bersama konsultan kami.</p>
+          <div class="sidebar-hero" style="background: linear-gradient(135deg, rgba(11, 43, 38, 0.95) 0%, rgba(5, 31, 32, 0.98) 100%); border: 1px solid rgba(142, 182, 155, 0.45); color: #DAF1DE; box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);">
+            <div class="hero-category" style="color: #8EB69B; font-weight: 800; font-size: 0.72rem; letter-spacing: 0.08em;">KONSULTASI GRATIS</div>
+            <h4 style="color: #FFFFFF; font-size: 1.1rem; font-weight: 800; margin: 4px 0 8px 0;">Rencanakan Gathering Kantor</h4>
+            <p style="color: rgba(218, 241, 222, 0.85); font-size: 0.82rem; line-height: 1.5; margin: 0 0 16px 0;">Diskusikan jumlah peserta, tanggal kegiatan, preferensi lokasi, dan estimasi anggaran bersama konsultan kami.</p>
             <a
-              href={getWhatsAppUrl('Halo Vendor Outbound, saya ingin konsultasi gathering kantor.')}
+              href={getWhatsAppUrl('Halo Provider Outbound, saya ingin konsultasi gathering kantor.')}
               target="_blank"
               rel="noopener noreferrer"
               class="btn-cta-wa"
-              style="background:#16A34A; color:#FFFFFF;"
+              style="background: #10B981; color: #051F20; font-weight: 800;"
             >
               <i class="fab fa-whatsapp"></i> Chat WhatsApp
             </a>
@@ -392,11 +394,11 @@ const structuredData = {
   </main>
 
   <!-- Bottom Recommended Packages Strip -->
-  <section style="background:#FFFFFF; padding:60px 0; border-top:1px solid #E2E8F0; color:var(--text-dark);">
+  <section style="background: #250205; padding: 60px 0; border-top: 1px solid rgba(225, 29, 72, 0.35); color: #FFFFFF;">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div style="margin-bottom:32px;">
         <span class="news-badge badge-primary"><i class="fas fa-layer-group"></i> REKOMENDASI PROGRAM</span>
-        <h2 style="font-family:var(--font-heading); font-size:1.8rem; font-weight:800; color:var(--text-dark); margin:8px 0 0 0;">
+        <h2 style="font-family:var(--font-heading); font-size:1.8rem; font-weight:800; color:#FFFFFF; margin:8px 0 0 0;">
           Pilihan Program Gathering &amp; Outbound Terfavorit
         </h2>
       </div>
@@ -531,5 +533,118 @@ const structuredData = {
         });
       });
     });
+  </script>
+
+  <!-- Realtime Hydration for Single Article -->
+  <script is:inline>
+    (function() {
+      function formatSimpleMarkdown(body) {
+        if (!body) return '';
+        if (body.indexOf('<h2') !== -1 || body.indexOf('<div') !== -1 || body.indexOf('<figure') !== -1) {
+          return body;
+        }
+        var html = body;
+        html = html.replace(/^## (.*$)/gim, function(m, title) {
+          var id = title.trim().toLowerCase().replace(/[^\w\s-]/g, '').replace(/\s+/g, '-');
+          return '<h2 id="' + id + '">' + title + '</h2>';
+        });
+        html = html.replace(/^### (.*$)/gim, function(m, title) {
+          var id = title.trim().toLowerCase().replace(/[^\w\s-]/g, '').replace(/\s+/g, '-');
+          return '<h3 id="' + id + '">' + title + '</h3>';
+        });
+        return html.split('\n\n').map(function(p) {
+          p = p.trim();
+          if (!p) return '';
+          if (p.indexOf('<h2') === 0 || p.indexOf('<h3') === 0 || p.indexOf('<div') === 0 || p.indexOf('<ul') === 0 || p.indexOf('<ol') === 0) {
+            return p;
+          }
+          if (p.indexOf('- ') === 0 || p.indexOf('1. ') === 0) {
+            var items = p.split('\n').map(function(li) {
+              var clean = li.replace(/^[-*]|\d+\.\s*/, '').trim();
+              return '<li>' + clean + '</li>';
+            }).join('');
+            return '<ul>' + items + '</ul>';
+          }
+          return '<p>' + p.replace(/\n/g, '<br />') + '</p>';
+        }).join('\n');
+      }
+
+      function hydrateSingleArticle() {
+        var raw = localStorage.getItem('vo_blog') || localStorage.getItem('vo_blogs');
+        if (!raw) return;
+        try {
+          var list = JSON.parse(raw);
+          if (!Array.isArray(list) || list.length === 0) return;
+          var segments = window.location.pathname.split('/').filter(Boolean);
+          var currentSlug = segments[segments.length - 1];
+          if (!currentSlug) return;
+
+          var found = null;
+          for (var i = 0; i < list.length; i++) {
+            if (list[i].slug === currentSlug) {
+              found = list[i];
+              break;
+            }
+          }
+          if (!found) return;
+
+          if (found.title) {
+            var t = document.getElementById('art-title');
+            if (t) t.textContent = found.title;
+            document.title = found.title + ' | Provider Outbound';
+          }
+          if (found.category) {
+            var cat = document.getElementById('art-category');
+            if (cat) cat.innerHTML = '<i class="fas fa-briefcase"></i> ' + found.category;
+          }
+          if (found.authorName) {
+            var an = document.getElementById('art-author-name');
+            if (an) an.textContent = found.authorName;
+          }
+          if (found.readingTimeMinutes) {
+            var rt = document.getElementById('art-reading-time');
+            if (rt) rt.textContent = String(found.readingTimeMinutes);
+          }
+          if (found.thumbnailUrl) {
+            var img = document.getElementById('art-hero-img');
+            if (img) {
+              img.src = found.thumbnailUrl;
+              img.alt = found.title || '';
+            }
+          }
+          var ab = document.getElementById('art-answer-box');
+          var at = document.getElementById('art-answer-text');
+          if (found.answerFirst) {
+            if (ab) ab.classList.remove('hidden');
+            if (at) at.textContent = found.answerFirst;
+          } else if (ab && !found.answerFirst) {
+            ab.classList.add('hidden');
+          }
+          if (found.body) {
+            var slot = document.getElementById('art-body-slot');
+            if (slot) slot.innerHTML = formatSimpleMarkdown(found.body);
+          }
+        } catch (e) {
+          console.error('Hydrate article error:', e);
+        }
+      }
+
+      hydrateSingleArticle();
+      document.addEventListener('DOMContentLoaded', hydrateSingleArticle);
+      window.addEventListener('storage', function(e) {
+        if (e.key === 'vo_blog' || e.key === 'vo_blogs') hydrateSingleArticle();
+      });
+      window.addEventListener('vo_content_updated', function(e) {
+        if (!e.detail || e.detail.key === 'vo_blog' || e.detail.key === 'vo_blogs') hydrateSingleArticle();
+      });
+      try {
+        var bc = new BroadcastChannel('vo_sync_channel');
+        bc.onmessage = function(e) {
+          if (!e.data || e.data.key === 'vo_blog' || e.data.key === 'vo_blogs') {
+            hydrateSingleArticle();
+          }
+        };
+      } catch (err) {}
+    })();
   </script>
 </PublicLayout>

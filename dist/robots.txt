@@ -3,4 +3,4 @@ Disallow: /admin
 Disallow: /admin/
 Disallow: /api/
 
-Sitemap: https://vendoroutbound.id/sitemap.xml
+Sitemap: https://provideroutbound.web.id/sitemap.xml

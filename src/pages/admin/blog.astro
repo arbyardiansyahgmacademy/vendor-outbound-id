@@ -6,13 +6,13 @@ import { BLOG_POSTS } from '../../data/defaultContent';
 <AdminLayout title="Kelola Artikel Blog">
   <div class="space-y-6 text-left">
     
-    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-rose-900/40">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[#163832]">
       <div>
         <h1 class="font-heading font-black text-2xl uppercase tracking-wider text-white flex items-center gap-2.5">
-          <i class="fas fa-feather-alt text-amber-400"></i>
+          <i class="fas fa-feather-alt text-[#DAF1DE]"></i>
           <span>KELOLA ARTIKEL BLOG &amp; TIPS</span>
         </h1>
-        <p class="text-xs text-rose-300/80 mt-1">
+        <p class="text-xs text-[#8EB69B] mt-1">
           Tulis, edit, pratinjau cuplikan SEO, dan atur status Draft/Published artikel karya Arby Ardiansyah (PRD Section 11.11).
         </p>
       </div>
@@ -20,7 +20,7 @@ import { BLOG_POSTS } from '../../data/defaultContent';
       <button
         id="add-post-btn"
         type="button"
-        class="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-stone-950 font-bold text-xs uppercase tracking-wider shadow"
+        class="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-[#DAF1DE] hover:bg-white text-[#051F20] font-bold text-xs uppercase tracking-wider shadow-glow-mint transition-all"
       >
         <span>+ Tulis Artikel Baru</span>
       </button>
@@ -29,10 +29,10 @@ import { BLOG_POSTS } from '../../data/defaultContent';
     <div id="blog-alert" class="hidden p-3 rounded-lg text-xs font-bold"></div>
 
     <!-- Table -->
-    <div class="rounded-2xl bg-[#300205]/90 border border-rose-700/40 overflow-hidden shadow-2xl">
+    <div class="rounded-2xl bg-[#0B2B26] border border-[#235347] overflow-hidden shadow-2xl">
       <div class="overflow-x-auto">
         <table class="w-full text-xs text-left">
-          <thead class="bg-[#240104] text-[10px] uppercase font-bold text-rose-300/80 border-b border-rose-900/60">
+          <thead class="bg-[#072522] text-[10px] uppercase font-bold text-[#8EB69B] border-b border-[#163832]">
             <tr>
               <th class="py-3 px-4">Judul Artikel</th>
               <th class="py-3 px-4">Kategori</th>
@@ -42,7 +42,7 @@ import { BLOG_POSTS } from '../../data/defaultContent';
               <th class="py-3 px-4 text-right">Tindakan</th>
             </tr>
           </thead>
-          <tbody id="blog-tbody" class="divide-y divide-rose-900/30 text-rose-100">
+          <tbody id="blog-tbody" class="divide-y divide-[#163832] text-[#DAF1DE]/90">
             <!-- Populated via script -->
           </tbody>
         </table>
@@ -50,31 +50,31 @@ import { BLOG_POSTS } from '../../data/defaultContent';
     </div>
 
     <!-- Modal Form (Blog Editor) -->
-    <dialog id="blog-modal" class="backdrop:bg-stone-950/80 bg-transparent p-4 max-w-2xl w-full mx-auto my-auto text-white focus:outline-none">
-      <div class="rounded-2xl bg-[#330206] border border-rose-600/50 p-6 shadow-2xl space-y-4 text-left">
-        <div class="flex items-center justify-between border-b border-rose-900/50 pb-3">
+    <dialog id="blog-modal" class="backdrop:bg-[#051F20]/80 bg-transparent p-4 max-w-2xl w-full mx-auto my-auto text-white focus:outline-none">
+      <div class="rounded-2xl bg-[#163832] border border-[#235347] p-6 shadow-2xl space-y-4 text-left">
+        <div class="flex items-center justify-between border-b border-[#235347] pb-3">
           <h3 class="font-heading font-black text-lg text-white uppercase tracking-wider">
             Editor Artikel Blog
           </h3>
-          <button id="close-blog-modal-btn" type="button" class="text-rose-300 hover:text-white text-lg font-bold">✕</button>
+          <button id="close-blog-modal-btn" type="button" class="text-[#8EB69B] hover:text-white text-lg font-bold">✕</button>
         </div>
 
         <form id="blog-form" class="space-y-3.5">
           <input type="hidden" id="blog-idx" />
 
           <div>
-            <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200 mb-1">Judul Artikel</label>
-            <input type="text" id="b-title" required class="w-full px-3 py-2 rounded bg-stone-950/70 border border-rose-800 text-white text-xs focus:outline-none focus:border-amber-400" />
+            <label class="block text-[11px] font-bold uppercase tracking-wider text-[#DAF1DE] mb-1">Judul Artikel</label>
+            <input type="text" id="b-title" required class="w-full px-3 py-2 rounded bg-[#051F20]/90 border border-[#235347] text-white text-xs focus:outline-none focus:border-[#8EB69B]" />
           </div>
 
           <div class="grid grid-cols-2 gap-3">
             <div>
-              <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200 mb-1">Slug URL</label>
-              <input type="text" id="b-slug" required class="w-full px-3 py-2 rounded bg-stone-950/70 border border-rose-800 text-white text-xs focus:outline-none focus:border-amber-400" />
+              <label class="block text-[11px] font-bold uppercase tracking-wider text-[#DAF1DE] mb-1">Slug URL</label>
+              <input type="text" id="b-slug" required class="w-full px-3 py-2 rounded bg-[#051F20]/90 border border-[#235347] text-white text-xs focus:outline-none focus:border-[#8EB69B]" />
             </div>
             <div>
-              <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200 mb-1">Kategori</label>
-              <select id="b-category" required class="w-full px-3 py-2 rounded bg-stone-950/70 border border-rose-800 text-white text-xs">
+              <label class="block text-[11px] font-bold uppercase tracking-wider text-[#DAF1DE] mb-1">Kategori</label>
+              <select id="b-category" required class="w-full px-3 py-2 rounded bg-[#051F20]/90 border border-[#235347] text-white text-xs focus:outline-none focus:border-[#8EB69B]">
                 <option value="Panduan Outbound">Panduan Outbound</option>
                 <option value="Tips Gathering">Tips Gathering</option>
                 <option value="Info Lokasi">Info Lokasi</option>
@@ -82,35 +82,72 @@ import { BLOG_POSTS } from '../../data/defaultContent';
             </div>
           </div>
 
+          <!-- Featured Image Thumbnail Control -->
+          <div class="p-3 rounded-lg bg-[#051F20] border border-[#235347] space-y-2">
+            <div class="flex items-center justify-between">
+              <label class="block text-[11px] font-bold uppercase tracking-wider text-[#DAF1DE]">
+                Gambar Sampul / Thumbnail Artikel
+              </label>
+              <span class="text-[10px] text-[#8EB69B]">Upload / Preset</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <div class="w-16 h-12 rounded-lg bg-[#0B2B26] border border-[#235347] overflow-hidden flex-shrink-0 flex items-center justify-center">
+                <img id="b-thumb-preview" src="/images/hero-bromo-sunrise.webp" alt="Thumb Preview" class="w-full h-full object-cover" />
+              </div>
+              <div class="flex-1 space-y-1.5">
+                <div class="flex gap-2">
+                  <input
+                    type="text"
+                    id="b-thumb"
+                    class="flex-1 px-3 py-1.5 rounded-lg bg-[#0B2B26] border border-[#235347] text-white text-xs font-mono focus:outline-none focus:border-[#8EB69B]"
+                    value="/images/hero-bromo-sunrise.webp"
+                  />
+                  <label class="px-3 py-1.5 rounded-lg bg-[#163832] hover:bg-[#235347] text-[#DAF1DE] text-xs font-bold border border-[#235347] cursor-pointer flex items-center gap-1.5 transition-all">
+                    <i class="fas fa-upload text-[11px]"></i>
+                    <span>Upload</span>
+                    <input type="file" id="b-thumb-file" accept="image/*" class="hidden" />
+                  </label>
+                </div>
+                <div class="flex flex-wrap items-center gap-1.5 text-[10px]">
+                  <span class="text-[#8EB69B]">Preset:</span>
+                  <button type="button" class="btn-bthumb-preset px-2 py-0.5 rounded bg-[#0B2B26] hover:bg-[#163832] text-[#DAF1DE] border border-[#235347]" data-val="/images/hero-bromo-sunrise.webp">Bromo Sunrise</button>
+                  <button type="button" class="btn-bthumb-preset px-2 py-0.5 rounded bg-[#0B2B26] hover:bg-[#163832] text-[#DAF1DE] border border-[#235347]" data-val="/images/hero/hero-outbound.webp">Hero Outbound</button>
+                  <button type="button" class="btn-bthumb-preset px-2 py-0.5 rounded bg-[#0B2B26] hover:bg-[#163832] text-[#DAF1DE] border border-[#235347]" data-val="/images/about/team-fasilitator.webp">Tim Fasilitator</button>
+                  <button type="button" class="btn-bthumb-preset px-2 py-0.5 rounded bg-[#0B2B26] hover:bg-[#163832] text-[#DAF1DE] border border-[#235347]" data-val="/images/destinasi/coban-rondo.webp">Coban Rondo</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <div>
-            <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200 mb-1">
+            <label class="block text-[11px] font-bold uppercase tracking-wider text-[#DAF1DE] mb-1">
               Answer-First Box (Ringkasan Inti Jawaban Cepat)
             </label>
-            <textarea id="b-answer-first" rows="2" placeholder="Jawaban langsung terhadap pertanyaan utama (40-80 kata)..." class="w-full px-3 py-2 rounded bg-stone-950/70 border border-rose-800 text-white text-xs focus:outline-none focus:border-amber-400"></textarea>
+            <textarea id="b-answer-first" rows="2" placeholder="Jawaban langsung terhadap pertanyaan utama (40-80 kata)..." class="w-full px-3 py-2 rounded bg-[#051F20]/90 border border-[#235347] text-white text-xs focus:outline-none focus:border-[#8EB69B]"></textarea>
           </div>
 
           <div>
-            <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200 mb-1">Ringkasan / Excerpt</label>
-            <textarea id="b-excerpt" rows="2" required class="w-full px-3 py-2 rounded bg-stone-950/70 border border-rose-800 text-white text-xs focus:outline-none focus:border-amber-400"></textarea>
+            <label class="block text-[11px] font-bold uppercase tracking-wider text-[#DAF1DE] mb-1">Ringkasan / Excerpt</label>
+            <textarea id="b-excerpt" rows="2" required class="w-full px-3 py-2 rounded bg-[#051F20]/90 border border-[#235347] text-white text-xs focus:outline-none focus:border-[#8EB69B]"></textarea>
           </div>
 
           <div>
-            <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200 mb-1">Isi Konten (Format Markdown)</label>
-            <textarea id="b-body" rows="6" required class="w-full px-3 py-2 rounded bg-stone-950/70 border border-rose-800 text-white text-xs font-mono focus:outline-none focus:border-amber-400"></textarea>
+            <label class="block text-[11px] font-bold uppercase tracking-wider text-[#DAF1DE] mb-1">Isi Konten (Format Markdown)</label>
+            <textarea id="b-body" rows="6" required class="w-full px-3 py-2 rounded bg-[#051F20]/90 border border-[#235347] text-white text-xs font-mono focus:outline-none focus:border-[#8EB69B]"></textarea>
           </div>
 
-          <div class="flex items-center justify-between pt-3 border-t border-rose-900/50">
+          <div class="flex items-center justify-between pt-3 border-t border-[#235347]">
             <div class="flex items-center gap-2">
-              <label class="text-xs text-rose-300 font-bold">Status Publikasi:</label>
-              <select id="b-status" class="px-2 py-1 rounded bg-stone-950 border border-rose-800 text-amber-300 text-xs font-bold">
+              <label class="text-xs text-[#8EB69B] font-bold">Status Publikasi:</label>
+              <select id="b-status" class="px-2 py-1 rounded bg-[#051F20] border border-[#235347] text-[#DAF1DE] text-xs font-bold">
                 <option value="published">Published</option>
                 <option value="draft">Draft</option>
               </select>
             </div>
 
             <div class="flex items-center gap-3">
-              <button type="button" id="cancel-blog-btn" class="px-4 py-2 rounded bg-stone-900 text-rose-300 text-xs font-bold">Batal</button>
-              <button type="submit" class="px-5 py-2 rounded bg-amber-500 hover:bg-amber-400 text-stone-950 font-bold text-xs uppercase">Simpan Artikel</button>
+              <button type="button" id="cancel-blog-btn" class="px-4 py-2 rounded bg-[#0B2B26] hover:bg-[#163832] text-[#8EB69B] border border-[#235347] text-xs font-bold">Batal</button>
+              <button type="submit" class="px-5 py-2 rounded bg-[#DAF1DE] hover:bg-white text-[#051F20] font-bold text-xs uppercase shadow-glow-mint">Simpan Artikel</button>
             </div>
           </div>
         </form>
@@ -121,6 +158,7 @@ import { BLOG_POSTS } from '../../data/defaultContent';
 
   <script>
     import { BLOG_POSTS } from '../../data/defaultContent';
+    import { syncBlogPostToSupabase, deleteBlogPostFromSupabase } from '../../lib/supabaseSync';
 
     const tbody = document.getElementById('blog-tbody');
     const modal = document.getElementById('blog-modal') as HTMLDialogElement | null;
@@ -136,6 +174,13 @@ import { BLOG_POSTS } from '../../data/defaultContent';
 
     function savePosts(list: any[]) {
       localStorage.setItem('vo_blog', JSON.stringify(list));
+      localStorage.setItem('vo_blogs', JSON.stringify(list));
+      window.dispatchEvent(new CustomEvent('vo_content_updated', { detail: { key: 'vo_blog', data: list } }));
+      window.dispatchEvent(new Event('storage'));
+      try {
+        const bc = new BroadcastChannel('vo_sync_channel');
+        bc.postMessage({ type: 'VO_UPDATED', key: 'vo_blog', data: list });
+      } catch (e) {}
       renderTable();
     }
 
@@ -144,34 +189,70 @@ import { BLOG_POSTS } from '../../data/defaultContent';
       const list = getPosts();
 
       tbody.innerHTML = list.map((post: any, idx: number) => `
-        <tr class="hover:bg-rose-950/40 transition-colors">
+        <tr class="hover:bg-[#163832]/50 transition-colors">
           <td class="py-3 px-4 font-bold text-white max-w-sm">
-            <div class="truncate">${post.title}</div>
-            <div class="text-[10px] text-rose-300/70 font-mono">/blog/${post.slug}</div>
+            <div class="flex items-center gap-2.5">
+              <img src="${post.thumbnailUrl || '/images/hero-bromo-sunrise.webp'}" alt="${post.title}" class="w-10 h-8 rounded object-cover border border-[#235347] flex-shrink-0" />
+              <div class="min-w-0">
+                <div class="truncate">${post.title}</div>
+                <div class="text-[10px] text-[#8EB69B] font-mono">/blog/${post.slug}</div>
+              </div>
+            </div>
           </td>
-          <td class="py-3 px-4 text-amber-300 font-semibold">${post.category}</td>
-          <td class="py-3 px-4 text-rose-200/80">${post.authorName}</td>
-          <td class="py-3 px-4 text-rose-300/70">${post.readingTimeMinutes} mnt</td>
+          <td class="py-3 px-4 text-[#DAF1DE] font-semibold">${post.category}</td>
+          <td class="py-3 px-4 text-[#DAF1DE]/80">${post.authorName}</td>
+          <td class="py-3 px-4 text-[#8EB69B]">${post.readingTimeMinutes} mnt</td>
           <td class="py-3 px-4">
             <span class="px-2 py-0.5 rounded text-[10px] font-bold ${
-              post.status === 'draft' ? 'bg-stone-800 text-rose-300' : 'bg-emerald-500/20 text-emerald-300'
+              post.status === 'draft' ? 'bg-[#051F20] text-[#8EB69B] border border-[#235347]' : 'bg-[#235347]/60 text-[#DAF1DE] border border-[#8EB69B]/40'
             }">
               ${post.status === 'draft' ? 'Draft' : 'Published'}
             </span>
           </td>
           <td class="py-3 px-4 text-right space-x-2">
-            <a href="/blog/${post.slug}" target="_blank" class="px-2 py-1 rounded bg-stone-900 text-rose-200 text-[10px]">
+            <a href="/blog/${post.slug}" target="_blank" class="px-2 py-1 rounded bg-[#051F20] text-[#DAF1DE] text-[10px] border border-[#235347]">
               Lihat
             </a>
-            <button class="edit-b-btn px-2.5 py-1 rounded bg-amber-500/20 hover:bg-amber-500 hover:text-stone-950 text-amber-300 text-[10px] font-bold border border-amber-500/40" data-idx="${idx}">
+            <button class="edit-b-btn px-2.5 py-1 rounded bg-[#163832] hover:bg-[#235347] text-[#DAF1DE] text-[10px] font-bold border border-[#235347]" data-idx="${idx}">
               Edit
             </button>
-            <button class="del-b-btn px-2.5 py-1 rounded bg-rose-950 hover:bg-rose-900 text-rose-300 text-[10px] border border-rose-800/40" data-idx="${idx}">
+            <button class="del-b-btn px-2.5 py-1 rounded bg-[#051F20] hover:bg-rose-950 text-rose-300 text-[10px] border border-[#235347]" data-idx="${idx}">
               Hapus
             </button>
           </td>
         </tr>
       `).join('');
+
+      const thumbInput = document.getElementById('b-thumb') as HTMLInputElement | null;
+      const thumbPreview = document.getElementById('b-thumb-preview') as HTMLImageElement | null;
+      const thumbFile = document.getElementById('b-thumb-file') as HTMLInputElement | null;
+
+      thumbInput?.addEventListener('input', () => {
+        if (thumbPreview) thumbPreview.src = thumbInput.value || '';
+      });
+
+      document.querySelectorAll<HTMLButtonElement>('.btn-bthumb-preset').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const val = btn.getAttribute('data-val');
+          if (val) {
+            if (thumbInput) thumbInput.value = val;
+            if (thumbPreview) thumbPreview.src = val;
+          }
+        });
+      });
+
+      thumbFile?.addEventListener('change', () => {
+        const file = thumbFile.files?.[0];
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = (e) => {
+            const res = e.target?.result as string;
+            if (thumbInput) thumbInput.value = res;
+            if (thumbPreview) thumbPreview.src = res;
+          };
+          reader.readAsDataURL(file);
+        }
+      });
 
       document.querySelectorAll<HTMLButtonElement>('.edit-b-btn').forEach(btn => {
         btn.addEventListener('click', () => {
@@ -186,17 +267,26 @@ import { BLOG_POSTS } from '../../data/defaultContent';
             (document.getElementById('b-excerpt') as HTMLTextAreaElement).value = item.excerpt;
             (document.getElementById('b-body') as HTMLTextAreaElement).value = item.body;
             (document.getElementById('b-status') as HTMLSelectElement).value = item.status || 'published';
+
+            const th = item.thumbnailUrl || '/images/hero-bromo-sunrise.webp';
+            if (thumbInput) thumbInput.value = th;
+            if (thumbPreview) thumbPreview.src = th;
+
             modal.showModal();
           }
         });
       });
 
       document.querySelectorAll<HTMLButtonElement>('.del-b-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
+        btn.addEventListener('click', async () => {
           if (confirm('Hapus artikel ini?')) {
             const idx = Number(btn.dataset.idx);
+            const targetSlug = list[idx]?.slug;
             list.splice(idx, 1);
             savePosts(list);
+            if (targetSlug) {
+              await deleteBlogPostFromSupabase(targetSlug);
+            }
           }
         });
       });
@@ -215,13 +305,17 @@ import { BLOG_POSTS } from '../../data/defaultContent';
     document.getElementById('add-post-btn')?.addEventListener('click', () => {
       form?.reset();
       (document.getElementById('blog-idx') as HTMLInputElement).value = '-1';
+      const thInp = document.getElementById('b-thumb') as HTMLInputElement | null;
+      const thPrev = document.getElementById('b-thumb-preview') as HTMLImageElement | null;
+      if (thInp) thInp.value = '/images/hero-bromo-sunrise.webp';
+      if (thPrev) thPrev.src = '/images/hero-bromo-sunrise.webp';
       modal?.showModal();
     });
 
     document.getElementById('close-blog-modal-btn')?.addEventListener('click', () => modal?.close());
     document.getElementById('cancel-blog-btn')?.addEventListener('click', () => modal?.close());
 
-    form?.addEventListener('submit', (e) => {
+    form?.addEventListener('submit', async (e) => {
       e.preventDefault();
       const list = getPosts();
       const idx = Number((document.getElementById('blog-idx') as HTMLInputElement).value);
@@ -232,11 +326,14 @@ import { BLOG_POSTS } from '../../data/defaultContent';
       const excerpt = (document.getElementById('b-excerpt') as HTMLTextAreaElement).value;
       const body = (document.getElementById('b-body') as HTMLTextAreaElement).value;
       const status = (document.getElementById('b-status') as HTMLSelectElement).value;
+      const thumbnailUrl = (document.getElementById('b-thumb') as HTMLInputElement)?.value || '/images/hero-bromo-sunrise.webp';
 
+      let savedItem: any;
       if (idx >= 0) {
-        list[idx] = { ...list[idx], title, slug, category, answerFirst, excerpt, body, status };
+        list[idx] = { ...list[idx], title, slug, category, answerFirst, excerpt, body, status, thumbnailUrl };
+        savedItem = list[idx];
       } else {
-        list.unshift({
+        savedItem = {
           id: 'post-' + Date.now(),
           title,
           slug,
@@ -246,24 +343,28 @@ import { BLOG_POSTS } from '../../data/defaultContent';
           authorName: 'Arby Ardiansyah',
           authorAvatar: '/images/author-artikel/author-artikel-arby-ardiansyah.webp',
           authorBio: 'Lead Outbound Consultant & Fasilitator Tersertifikasi BNSP di Batu Malang.',
-          thumbnailUrl: '/images/blog/panduan-lengkap-corporate-gathering-malang.webp',
+          thumbnailUrl,
           imageAlt: title,
-          seoTitle: `${title} | Vendor Outbound`,
+          seoTitle: `${title} | Provider Outbound`,
           seoDescription: excerpt,
-          canonicalUrl: `https://vendoroutbound.id/blog/${slug}`,
+          canonicalUrl: `https://provideroutbound.web.id/blog/${slug}`,
           publishedAt: new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' }),
           readingTimeMinutes: Math.max(1, Math.ceil(body.split(' ').length / 200)),
           answerFirst,
           status
-        });
+        };
+        list.unshift(savedItem);
       }
 
       savePosts(list);
       modal?.close();
 
+      // Background Supabase Sync
+      syncBlogPostToSupabase(savedItem);
+
       if (alertBox) {
         alertBox.className = 'p-3 rounded-lg text-xs font-bold bg-emerald-950 text-emerald-200 border border-emerald-500 block';
-        alertBox.textContent = '✓ Artikel berhasil disimpan!';
+        alertBox.textContent = '✓ Artikel berhasil disimpan ke Front-End & Supabase!';
         setTimeout(() => alertBox.classList.add('hidden'), 2500);
       }
     });

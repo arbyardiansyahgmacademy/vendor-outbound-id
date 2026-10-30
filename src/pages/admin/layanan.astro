@@ -6,13 +6,13 @@ import { SERVICES } from '../../data/defaultContent';
 <AdminLayout title="Kelola Layanan Outbound">
   <div class="space-y-6 text-left">
     
-    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-rose-900/40">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[#163832]">
       <div>
         <h1 class="font-heading font-black text-2xl uppercase tracking-wider text-white flex items-center gap-2.5">
-          <i class="fas fa-briefcase text-amber-400"></i>
+          <i class="fas fa-briefcase text-[#DAF1DE]"></i>
           <span>KELOLA LAYANAN UTAMA</span>
         </h1>
-        <p class="text-xs text-rose-300/80 mt-1">
+        <p class="text-xs text-[#8EB69B] mt-1">
           Atur informasi 4 layanan utama, manfaat, dan daftar aktivitas (PRD Section 11.8).
         </p>
       </div>
@@ -20,7 +20,7 @@ import { SERVICES } from '../../data/defaultContent';
       <button
         id="add-service-btn"
         type="button"
-        class="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-stone-950 font-bold text-xs uppercase tracking-wider transition-all shadow"
+        class="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-[#DAF1DE] hover:bg-white text-[#051F20] font-bold text-xs uppercase tracking-wider transition-all shadow-glow-mint"
       >
         <span>+ Tambah Layanan</span>
       </button>
@@ -29,10 +29,10 @@ import { SERVICES } from '../../data/defaultContent';
     <div id="service-alert" class="hidden p-3 rounded-lg text-xs font-bold"></div>
 
     <!-- Services Table -->
-    <div class="rounded-2xl bg-[#300205]/90 border border-rose-700/40 overflow-hidden shadow-2xl">
+    <div class="rounded-2xl bg-[#0B2B26] border border-[#235347] overflow-hidden shadow-2xl">
       <div class="overflow-x-auto">
         <table class="w-full text-xs text-left">
-          <thead class="bg-[#240104] text-[10px] uppercase font-bold text-rose-300/80 border-b border-rose-900/60">
+          <thead class="bg-[#072522] text-[10px] uppercase font-bold text-[#8EB69B] border-b border-[#163832]">
             <tr>
               <th class="py-3 px-4">Urutan</th>
               <th class="py-3 px-4">Gambar</th>
@@ -43,7 +43,7 @@ import { SERVICES } from '../../data/defaultContent';
               <th class="py-3 px-4 text-right">Tindakan</th>
             </tr>
           </thead>
-          <tbody id="services-tbody" class="divide-y divide-rose-900/30 text-rose-100">
+          <tbody id="services-tbody" class="divide-y divide-[#163832] text-[#DAF1DE]/90">
             <!-- Populated via script -->
           </tbody>
         </table>
@@ -51,41 +51,73 @@ import { SERVICES } from '../../data/defaultContent';
     </div>
 
     <!-- Modal Form (Native HTML5 Dialog) -->
-    <dialog id="service-modal" class="backdrop:bg-stone-950/80 bg-transparent p-4 max-w-xl w-full mx-auto my-auto text-white focus:outline-none">
-      <div class="rounded-2xl bg-[#330206] border border-rose-600/50 p-6 shadow-2xl space-y-4">
-        <div class="flex items-center justify-between border-b border-rose-900/50 pb-3">
+    <dialog id="service-modal" class="backdrop:bg-[#051F20]/80 bg-transparent p-4 max-w-xl w-full mx-auto my-auto text-white focus:outline-none">
+      <div class="rounded-2xl bg-[#163832] border border-[#235347] p-6 shadow-2xl space-y-4">
+        <div class="flex items-center justify-between border-b border-[#235347] pb-3">
           <h3 id="modal-title" class="font-heading font-black text-lg text-white uppercase tracking-wider">
             Tambah / Edit Layanan
           </h3>
-          <button id="close-modal-btn" type="button" class="text-rose-300 hover:text-white text-lg font-bold">✕</button>
+          <button id="close-modal-btn" type="button" class="text-[#8EB69B] hover:text-white text-lg font-bold">✕</button>
         </div>
 
         <form id="service-form" class="space-y-3.5 text-left">
           <input type="hidden" id="service-id" />
 
           <div>
-            <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200 mb-1">Nama Layanan</label>
-            <input type="text" id="svc-title" required class="w-full px-3 py-2 rounded bg-stone-950/70 border border-rose-800 text-white text-xs focus:outline-none focus:border-amber-400" />
+            <label class="block text-[11px] font-bold uppercase tracking-wider text-[#DAF1DE] mb-1">Nama Layanan</label>
+            <input type="text" id="svc-title" required class="w-full px-3 py-2 rounded bg-[#051F20]/90 border border-[#235347] text-white text-xs focus:outline-none focus:border-[#8EB69B]" />
           </div>
 
           <div>
-            <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200 mb-1">Slug URL</label>
-            <input type="text" id="svc-slug" required class="w-full px-3 py-2 rounded bg-stone-950/70 border border-rose-800 text-white text-xs focus:outline-none focus:border-amber-400" />
+            <label class="block text-[11px] font-bold uppercase tracking-wider text-[#DAF1DE] mb-1">Slug URL</label>
+            <input type="text" id="svc-slug" required class="w-full px-3 py-2 rounded bg-[#051F20]/90 border border-[#235347] text-white text-xs focus:outline-none focus:border-[#8EB69B]" />
           </div>
 
           <div>
-            <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200 mb-1">Ringkasan Singkat</label>
-            <textarea id="svc-excerpt" rows="2" required class="w-full px-3 py-2 rounded bg-stone-950/70 border border-rose-800 text-white text-xs focus:outline-none focus:border-amber-400"></textarea>
+            <label class="block text-[11px] font-bold uppercase tracking-wider text-[#DAF1DE] mb-1">Ringkasan Singkat</label>
+            <textarea id="svc-excerpt" rows="2" required class="w-full px-3 py-2 rounded bg-[#051F20]/90 border border-[#235347] text-white text-xs focus:outline-none focus:border-[#8EB69B]"></textarea>
           </div>
 
           <div>
-            <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200 mb-1">Sasaran Peserta</label>
-            <input type="text" id="svc-target" class="w-full px-3 py-2 rounded bg-stone-950/70 border border-rose-800 text-white text-xs focus:outline-none focus:border-amber-400" />
+            <label class="block text-[11px] font-bold uppercase tracking-wider text-[#DAF1DE] mb-1">Sasaran Peserta</label>
+            <input type="text" id="svc-target" class="w-full px-3 py-2 rounded bg-[#051F20]/90 border border-[#235347] text-white text-xs focus:outline-none focus:border-[#8EB69B]" />
           </div>
 
-          <div class="flex items-center justify-end gap-3 pt-3 border-t border-rose-900/50">
-            <button type="button" id="cancel-btn" class="px-4 py-2 rounded bg-stone-900 text-rose-300 text-xs font-bold">Batal</button>
-            <button type="submit" class="px-5 py-2 rounded bg-amber-500 hover:bg-amber-400 text-stone-950 font-bold text-xs uppercase">Simpan Layanan</button>
+          <!-- Gambar Layanan Section -->
+          <div class="space-y-2 pt-1 border-t border-[#235347]/60">
+            <label class="block text-[11px] font-bold uppercase tracking-wider text-[#DAF1DE]">
+              Gambar / Foto Layanan
+            </label>
+            <div class="flex items-center gap-3">
+              <img id="svc-img-preview" src="/images/services/outbound-perusahaan.webp" alt="Pratinjau Layanan" class="w-16 h-12 object-cover rounded-lg border border-[#235347] bg-[#051F20]" />
+              <div class="flex-1 space-y-1.5">
+                <input
+                  type="text"
+                  id="svc-image"
+                  class="w-full px-3 py-1.5 rounded bg-[#051F20]/90 border border-[#235347] text-white text-xs font-mono focus:outline-none focus:border-[#8EB69B]"
+                  placeholder="/images/services/..."
+                />
+                <div class="flex items-center gap-2">
+                  <input type="file" id="svc-file-input" accept="image/*" class="hidden" />
+                  <button type="button" id="svc-upload-btn" class="px-2.5 py-1 rounded bg-[#0B2B26] hover:bg-[#235347] text-[#DAF1DE] text-[10px] font-bold border border-[#235347] flex items-center gap-1.5">
+                    <i class="fas fa-upload text-[10px]"></i>
+                    <span>Unggah File</span>
+                  </button>
+                  <span class="text-[10px] text-[#8EB69B]">atau pilih preset:</span>
+                  <div class="flex items-center gap-1">
+                    <button type="button" class="preset-svc-btn px-2 py-0.5 rounded text-[10px] bg-[#051F20] text-[#8EB69B] hover:text-white border border-[#235347]" data-src="/images/services/outbound-perusahaan.webp">Perusahaan</button>
+                    <button type="button" class="preset-svc-btn px-2 py-0.5 rounded text-[10px] bg-[#051F20] text-[#8EB69B] hover:text-white border border-[#235347]" data-src="/images/services/family-gathering.webp">Family</button>
+                    <button type="button" class="preset-svc-btn px-2 py-0.5 rounded text-[10px] bg-[#051F20] text-[#8EB69B] hover:text-white border border-[#235347]" data-src="/images/services/outbound-sekolah.webp">Sekolah</button>
+                    <button type="button" class="preset-svc-btn px-2 py-0.5 rounded text-[10px] bg-[#051F20] text-[#8EB69B] hover:text-white border border-[#235347]" data-src="/images/services/wisata-adventure.webp">Adventure</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex items-center justify-end gap-3 pt-3 border-t border-[#235347]">
+            <button type="button" id="cancel-btn" class="px-4 py-2 rounded bg-[#0B2B26] hover:bg-[#163832] text-[#8EB69B] border border-[#235347] text-xs font-bold">Batal</button>
+            <button type="submit" class="px-5 py-2 rounded bg-[#DAF1DE] hover:bg-white text-[#051F20] font-bold text-xs uppercase shadow-glow-mint">Simpan Layanan</button>
           </div>
         </form>
       </div>
@@ -95,6 +127,7 @@ import { SERVICES } from '../../data/defaultContent';
 
   <script>
     import { SERVICES } from '../../data/defaultContent';
+    import { syncServiceToSupabase, deleteServiceFromSupabase } from '../../lib/supabaseSync';
 
     const tbody = document.getElementById('services-tbody');
     const modal = document.getElementById('service-modal') as HTMLDialogElement | null;
@@ -108,6 +141,12 @@ import { SERVICES } from '../../data/defaultContent';
 
     function saveServices(list: any[]) {
       localStorage.setItem('vo_services', JSON.stringify(list));
+      window.dispatchEvent(new CustomEvent('vo_content_updated', { detail: { key: 'vo_services', data: list } }));
+      window.dispatchEvent(new Event('storage'));
+      try {
+        const bc = new BroadcastChannel('vo_sync_channel');
+        bc.postMessage({ type: 'VO_UPDATED', key: 'vo_services', data: list });
+      } catch (e) {}
       renderTable();
     }
 
@@ -116,22 +155,22 @@ import { SERVICES } from '../../data/defaultContent';
       const list = getServices();
 
       tbody.innerHTML = list.map((s: any, idx: number) => `
-        <tr class="hover:bg-rose-950/40 transition-colors">
-          <td class="py-3 px-4 font-bold text-amber-400">${idx + 1}</td>
+        <tr class="hover:bg-[#163832]/50 transition-colors">
+          <td class="py-3 px-4 font-bold text-[#DAF1DE]">${idx + 1}</td>
           <td class="py-3 px-4">
-            <img src="${s.imageUrl}" alt="${s.title}" class="w-12 h-8 object-cover rounded bg-stone-950" />
+            <img src="${s.imageUrl}" alt="${s.title}" class="w-12 h-8 object-cover rounded bg-[#051F20] border border-[#235347]" />
           </td>
           <td class="py-3 px-4 font-bold text-white">${s.title}</td>
-          <td class="py-3 px-4 text-rose-300 font-mono text-[11px]">/layanan/${s.slug}</td>
-          <td class="py-3 px-4 text-xs text-rose-200/80">${s.targetAudience || '-'}</td>
+          <td class="py-3 px-4 text-[#8EB69B] font-mono text-[11px]">/layanan/${s.slug}</td>
+          <td class="py-3 px-4 text-xs text-[#DAF1DE]/80">${s.targetAudience || '-'}</td>
           <td class="py-3 px-4">
-            <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/20 text-emerald-300">Published</span>
+            <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-[#235347]/60 text-[#DAF1DE] border border-[#8EB69B]/40">Published</span>
           </td>
           <td class="py-3 px-4 text-right space-x-2">
-            <button class="edit-svc-btn px-2.5 py-1 rounded bg-amber-500/20 hover:bg-amber-500 hover:text-stone-950 text-amber-300 text-[10px] font-bold border border-amber-500/40" data-idx="${idx}">
+            <button class="edit-svc-btn px-2.5 py-1 rounded bg-[#163832] hover:bg-[#235347] text-[#DAF1DE] text-[10px] font-bold border border-[#235347]" data-idx="${idx}">
               Edit
             </button>
-            <button class="del-svc-btn px-2.5 py-1 rounded bg-rose-950 hover:bg-rose-900 text-rose-300 text-[10px] border border-rose-800/40" data-idx="${idx}">
+            <button class="del-svc-btn px-2.5 py-1 rounded bg-[#051F20] hover:bg-rose-950 text-rose-300 text-[10px] border border-[#235347]" data-idx="${idx}">
               Hapus
             </button>
           </td>
@@ -149,6 +188,11 @@ import { SERVICES } from '../../data/defaultContent';
             (document.getElementById('svc-slug') as HTMLInputElement).value = item.slug;
             (document.getElementById('svc-excerpt') as HTMLTextAreaElement).value = item.excerpt;
             (document.getElementById('svc-target') as HTMLInputElement).value = item.targetAudience || '';
+            const imgInput = document.getElementById('svc-image') as HTMLInputElement;
+            const imgPreview = document.getElementById('svc-img-preview') as HTMLImageElement;
+            const imgUrl = item.imageUrl || '/images/services/outbound-perusahaan.webp';
+            if (imgInput) imgInput.value = imgUrl;
+            if (imgPreview) imgPreview.src = imgUrl;
             modal.showModal();
           }
         });
@@ -156,11 +200,15 @@ import { SERVICES } from '../../data/defaultContent';
 
       // Attach delete handlers
       document.querySelectorAll<HTMLButtonElement>('.del-svc-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
+        btn.addEventListener('click', async () => {
           if (confirm('Hapus item layanan ini?')) {
             const idx = Number(btn.dataset.idx);
+            const targetSlug = list[idx]?.slug;
             list.splice(idx, 1);
             saveServices(list);
+            if (targetSlug) {
+              await deleteServiceFromSupabase(targetSlug);
+            }
           }
         });
       });
@@ -171,13 +219,56 @@ import { SERVICES } from '../../data/defaultContent';
     document.getElementById('add-service-btn')?.addEventListener('click', () => {
       form?.reset();
       (document.getElementById('service-id') as HTMLInputElement).value = '-1';
+      const imgInput = document.getElementById('svc-image') as HTMLInputElement;
+      const imgPreview = document.getElementById('svc-img-preview') as HTMLImageElement;
+      if (imgInput) imgInput.value = '/images/services/outbound-perusahaan.webp';
+      if (imgPreview) imgPreview.src = '/images/services/outbound-perusahaan.webp';
       modal?.showModal();
     });
 
     document.getElementById('close-modal-btn')?.addEventListener('click', () => modal?.close());
     document.getElementById('cancel-btn')?.addEventListener('click', () => modal?.close());
 
-    form?.addEventListener('submit', (e) => {
+    // Image preview & upload listeners
+    const svcImageInput = document.getElementById('svc-image') as HTMLInputElement | null;
+    const svcImagePreview = document.getElementById('svc-img-preview') as HTMLImageElement | null;
+    const svcFileInput = document.getElementById('svc-file-input') as HTMLInputElement | null;
+    const svcUploadBtn = document.getElementById('svc-upload-btn');
+
+    svcImageInput?.addEventListener('input', () => {
+      if (svcImagePreview && svcImageInput.value) {
+        svcImagePreview.src = svcImageInput.value;
+      }
+    });
+
+    svcUploadBtn?.addEventListener('click', () => {
+      svcFileInput?.click();
+    });
+
+    svcFileInput?.addEventListener('change', () => {
+      const file = svcFileInput.files?.[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = (ev) => {
+          const res = ev.target?.result as string;
+          if (svcImageInput) svcImageInput.value = res;
+          if (svcImagePreview) svcImagePreview.src = res;
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+    document.querySelectorAll<HTMLButtonElement>('.preset-svc-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const src = btn.dataset.src;
+        if (src) {
+          if (svcImageInput) svcImageInput.value = src;
+          if (svcImagePreview) svcImagePreview.src = src;
+        }
+      });
+    });
+
+    form?.addEventListener('submit', async (e) => {
       e.preventDefault();
       const list = getServices();
       const idx = Number((document.getElementById('service-id') as HTMLInputElement).value);
@@ -185,11 +276,14 @@ import { SERVICES } from '../../data/defaultContent';
       const slug = (document.getElementById('svc-slug') as HTMLInputElement).value;
       const excerpt = (document.getElementById('svc-excerpt') as HTMLTextAreaElement).value;
       const targetAudience = (document.getElementById('svc-target') as HTMLInputElement).value;
+      const imageUrl = (document.getElementById('svc-image') as HTMLInputElement)?.value || '/images/services/outbound-perusahaan.webp';
 
+      let savedItem: any;
       if (idx >= 0) {
-        list[idx] = { ...list[idx], title, slug, excerpt, targetAudience };
+        list[idx] = { ...list[idx], title, slug, excerpt, targetAudience, imageUrl };
+        savedItem = list[idx];
       } else {
-        list.push({
+        savedItem = {
           id: 'svc-' + Date.now(),
           title,
           slug,
@@ -199,18 +293,22 @@ import { SERVICES } from '../../data/defaultContent';
           benefits: ['Kekompakan tim', 'Peningkatan komunikasi'],
           activities: ['Ice Breaking', 'Team Simulation'],
           locationNote: 'Kawasan Batu Malang',
-          imageUrl: '/images/services/outbound-perusahaan.webp',
+          imageUrl,
           featured: true,
           sortOrder: list.length + 1
-        });
+        };
+        list.push(savedItem);
       }
 
       saveServices(list);
       modal?.close();
 
+      // Background Supabase Sync
+      syncServiceToSupabase(savedItem);
+
       if (alertBox) {
         alertBox.className = 'p-3 rounded-lg text-xs font-bold bg-emerald-950 text-emerald-200 border border-emerald-500 block';
-        alertBox.textContent = '✓ Data layanan berhasil disimpan!';
+        alertBox.textContent = '✓ Data layanan berhasil disimpan ke Front-End & Supabase!';
         setTimeout(() => alertBox.classList.add('hidden'), 2500);
       }
     });

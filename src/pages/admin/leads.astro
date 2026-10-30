@@ -5,13 +5,13 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
 <AdminLayout title="Kelola Leads Masuk">
   <div class="space-y-6 text-left">
     
-    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-rose-900/40">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[#163832]">
       <div>
         <h1 class="font-heading font-black text-2xl uppercase tracking-wider text-white flex items-center gap-2.5">
-          <i class="fas fa-inbox text-amber-400"></i>
+          <i class="fas fa-inbox text-[#DAF1DE]"></i>
           <span>LEADS &amp; KONSULTASI MASUK</span>
         </h1>
-        <p class="text-xs text-rose-300/80 mt-1">
+        <p class="text-xs text-[#8EB69B] mt-1">
           Daftar seluruh calon pelanggan yang mengisi formulir konsultasi website.
         </p>
       </div>
@@ -21,11 +21,11 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
           type="text"
           id="lead-search-input"
           placeholder="Cari nama / WhatsApp..."
-          class="px-3.5 py-2 rounded-lg bg-stone-950/70 border border-rose-800/60 text-white placeholder-rose-400/50 text-xs focus:outline-none focus:border-amber-400"
+          class="px-3.5 py-2 rounded-lg bg-[#051F20]/90 border border-[#235347] text-[#DAF1DE] placeholder-[#8EB69B]/40 text-xs focus:outline-none focus:border-[#8EB69B]"
         />
         <select
           id="lead-status-filter"
-          class="px-3 py-2 rounded-lg bg-[#2D0206] border border-rose-800/60 text-white text-xs focus:outline-none focus:border-amber-400"
+          class="px-3 py-2 rounded-lg bg-[#0B2B26] border border-[#235347] text-[#DAF1DE] text-xs focus:outline-none focus:border-[#8EB69B]"
         >
           <option value="all">Semua Status</option>
           <option value="Baru">Baru</option>
@@ -38,10 +38,10 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
     </div>
 
     <!-- Leads Table Container -->
-    <div class="rounded-2xl bg-[#300205]/90 border border-rose-700/40 overflow-hidden shadow-2xl">
+    <div class="rounded-2xl bg-[#0B2B26] border border-[#235347] overflow-hidden shadow-2xl">
       <div class="overflow-x-auto">
         <table class="w-full text-xs text-left">
-          <thead class="bg-[#240104] text-[10px] uppercase font-bold text-rose-300/80 border-b border-rose-900/60">
+          <thead class="bg-[#072522] text-[10px] uppercase font-bold text-[#8EB69B] border-b border-[#163832]">
             <tr>
               <th class="py-3 px-4">Tanggal Masuk</th>
               <th class="py-3 px-4">Nama &amp; Instansi</th>
@@ -53,7 +53,7 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
               <th class="py-3 px-4 text-right">Tindakan</th>
             </tr>
           </thead>
-          <tbody id="leads-table-body" class="divide-y divide-rose-900/30 text-rose-100">
+          <tbody id="leads-table-body" class="divide-y divide-[#163832] text-[#DAF1DE]/90">
             <!-- Populated via script -->
           </tbody>
         </table>
@@ -99,41 +99,41 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
       }
 
       if (leads.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="8" class="py-8 text-center text-rose-400">Tidak ada leads yang sesuai filter.</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="8" class="py-8 text-center text-[#8EB69B]">Tidak ada leads yang sesuai filter.</td></tr>`;
         return;
       }
 
       tbody.innerHTML = leads.map((l: any, idx: number) => {
         const waClean = l.whatsapp.replace(/[^0-9]/g, '');
-        const waUrl = `https://wa.me/${waClean}?text=${encodeURIComponent(`Halo ${l.name}, kami dari tim Vendor Outbound Batu Malang ingin mengonfirmasi permintaan konsultasi program ${l.service_type}.`)}`;
+        const waUrl = `https://wa.me/${waClean}?text=${encodeURIComponent(`Halo ${l.name}, kami dari tim Provider Outbound Batu Malang ingin mengonfirmasi permintaan konsultasi program ${l.service_type}.`)}`;
 
         return `
-          <tr class="hover:bg-rose-950/40 transition-colors">
-            <td class="py-3.5 px-4 text-[11px] text-rose-300/70 whitespace-nowrap">
+          <tr class="hover:bg-[#163832]/50 transition-colors">
+            <td class="py-3.5 px-4 text-[11px] text-[#8EB69B]/70 whitespace-nowrap">
               ${new Date(l.created_at).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' })}
             </td>
             <td class="py-3.5 px-4">
               <div class="font-bold text-white text-xs">${l.name}</div>
-              <div class="text-[11px] text-rose-300/80">${l.organization || '-'}</div>
+              <div class="text-[11px] text-[#8EB69B]">${l.organization || '-'}</div>
             </td>
-            <td class="py-3.5 px-4 font-mono text-amber-300">
+            <td class="py-3.5 px-4 font-mono text-[#DAF1DE]">
               ${l.whatsapp}
             </td>
-            <td class="py-3.5 px-4 font-semibold text-rose-100">
+            <td class="py-3.5 px-4 font-semibold text-white">
               ${l.service_type}
             </td>
             <td class="py-3.5 px-4 text-[11px]">
               <div>${l.participant_count ? l.participant_count + ' Peserta' : '-'}</div>
-              <div class="text-rose-300/70">${l.preferred_location || 'Batu/Malang'}</div>
+              <div class="text-[#8EB69B]">${l.preferred_location || 'Batu/Malang'}</div>
             </td>
             <td class="py-3.5 px-4 max-w-xs">
-              <div class="text-xs text-rose-200/90 line-clamp-2" title="${l.message}">
+              <div class="text-xs text-[#DAF1DE]/80 line-clamp-2" title="${l.message}">
                 ${l.message}
               </div>
             </td>
             <td class="py-3.5 px-4 whitespace-nowrap">
               <select
-                class="status-changer px-2 py-1 rounded text-[11px] font-bold bg-[#1C0103] border border-rose-700/60 text-amber-300"
+                class="status-changer px-2 py-1 rounded text-[11px] font-bold bg-[#051F20] border border-[#235347] text-[#DAF1DE]"
                 data-lead-idx="${idx}"
               >
                 <option value="Baru" ${l.status === 'Baru' ? 'selected' : ''}>Baru</option>
@@ -153,7 +153,7 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
               </a>
               <button
                 type="button"
-                class="delete-lead-btn px-2 py-1.5 rounded bg-rose-950 hover:bg-rose-900 text-rose-300 text-[10px] border border-rose-800/40"
+                class="delete-lead-btn px-2 py-1.5 rounded bg-[#163832] hover:bg-rose-950 text-rose-300 text-[10px] border border-[#235347]"
                 data-lead-idx="${idx}"
               >
                 Hapus

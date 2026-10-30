@@ -1,0 +1,744 @@
+---
+import PublicLayout from '../../layouts/PublicLayout.astro';
+import FAQAccordion from '../sections/FAQAccordion.astro';
+import CTASection from '../sections/CTASection.astro';
+import { SERVICES, PACKAGES, DESTINATIONS, SITE_INFO } from '../../data/defaultContent';
+import { generateServiceSchema } from '../../lib/seo';
+import { getWhatsAppUrl } from '../../lib/utils';
+
+interface Props {
+  serviceSlug: string;
+}
+
+const { serviceSlug } = Astro.props;
+
+// Normalizing service slug
+const canonicalSlug = serviceSlug === 'outbound-wisata' ? 'wisata-adventure' : serviceSlug;
+const service = SERVICES.find(s => s.slug === canonicalSlug) || SERVICES[0];
+
+// Category slug mapping for packages
+const categorySlugMap: Record<string, string> = {
+  'outbound-perusahaan': 'perusahaan',
+  'family-gathering': 'family-gathering',
+  'outbound-sekolah': 'sekolah',
+  'wisata-adventure': 'wisata-adventure',
+  'outbound-wisata': 'wisata-adventure'
+};
+
+const pkgCategorySlug = categorySlugMap[serviceSlug] || 'perusahaan';
+const relatedPackages = PACKAGES.filter(p => p.categorySlug === pkgCategorySlug);
+
+// Other services for sidebar navigation
+const otherServices = SERVICES.filter(s => s.slug !== canonicalSlug);
+
+// Recommended destinations mapped by service
+const venueMap: Record<string, string[]> = {
+  'outbound-perusahaan': ["coban-rondo", "hotel-jambuluwuk-resort", "coban-talun", "coban-rais"],
+  'family-gathering': ["kusuma-agrowisata", "taman-rekreasi-selecta", "coban-rais", "tirta-nirwana-songgoriti"],
+  'outbound-sekolah': ["coban-rais", "coban-talun", "bumi-perkemahan-bedengan", "taman-rekreasi-selecta"],
+  'wisata-adventure': ["kaliwatu-rafting", "coban-talun", "coban-putri", "gunung-bromo"],
+  'outbound-wisata': ["kaliwatu-rafting", "coban-talun", "coban-putri", "gunung-bromo"]
+};
+
+const venueSlugs = venueMap[serviceSlug] || ["coban-rondo", "coban-talun", "coban-rais", "hotel-jambuluwuk-resort"];
+const recommendedDestinations = DESTINATIONS.filter(d => venueSlugs.includes(d.slug));
+
+// Service-specific custom metadata
+const serviceMetas: Record<string, {
+  badge: string;
+  subtitle: string;
+  capacityText: string;
+  formatText: string;
+  targetRole: string;
+  methodologyOverview: string;
+  frameworkSteps: { step: string; title: string; desc: string; icon: string }[];
+  faqs: { question: string; answer: string }[];
+}> = {
+  'outbound-perusahaan': {
+    badge: 'Pilar Solusi Korporat & BUMN',
+    subtitle: 'Program pengembangan kapasitas sumber daya manusia berbasis Experiential Learning Cycle untuk memperkuat sinergi tim, kepemimpinan adaptif, dan budaya kinerja unggul di alam sejuk Batu Malang.',
+    capacityText: '20 hingga 1.500+ Karyawan',
+    formatText: '1 Hari, 2D1N, hingga 3D2N Retret',
+    targetRole: 'Perusahaan Swasta, BUMN, Instansi Pemerintah & Lembaga Negara',
+    methodologyOverview: 'Pendekatan kami mengintegrasikan 4 siklus Experiential Learning (Do, Reflect, Conceptualize, Apply) yang menjamin setiap simulasi luar ruang memiliki korelasi langsung dengan tantangan nyata di lingkungan kerja kantor.',
+    frameworkSteps: [
+      {
+        step: '01',
+        title: 'Needs Assessment & Analisis Objektif',
+        desc: 'Wawancara pendahuluan dengan tim HR/Manajemen untuk memetakan pain point tim, kesenjangan komunikasi, dan target perilaku yang ingin diwujudkan paska kegiatan.',
+        icon: 'fas fa-search-dollar'
+      },
+      {
+        step: '02',
+        title: 'Desain Modul & Skenario Custom',
+        desc: 'Penyusunan modul simulasi problem solving dan team dynamic yang diselaraskan dengan core values perusahaan dan estimasi bujet yang dialokasikan.',
+        icon: 'fas fa-drafting-compass'
+      },
+      {
+        step: '03',
+        title: 'Eksekusi Lapangan Berstandar Zero Accident',
+        desc: 'Fasilitasi langsung oleh Master Trainer bersertifikasi BNSP RI dengan rasio fasilitator ideal, didukung SOP medis paramedis dan peralatan berstandar internasional.',
+        icon: 'fas fa-shield-alt'
+      },
+      {
+        step: '04',
+        title: 'Debriefing Filosofis & Executive Report',
+        desc: 'Sesi penarikan makna (insight sharing) di akhir sesi, penyerahan laporan evaluasi dinamika kelompok paska event, serta dokumentasi foto dan video reels 4K.',
+        icon: 'fas fa-clipboard-check'
+      }
+    ],
+    faqs: [
+      {
+        question: 'Berapa jumlah peserta minimal dan maksimal untuk program outbound perusahaan di Batu Malang?',
+        answer: 'Kami melayani rombongan mulai dari skala divisi kecil minimal 20 orang hingga korporasi besar berskala 1.500+ orang. Untuk peserta skala ratusan hingga ribuan, kegiatan diorganisir dengan sistem multi-cluster dan koordinasi sub-master trainer berpengalaman.'
+      },
+      {
+        question: 'Apakah tema dan games simulasi outbound bisa disesuaikan dengan nilai budaya perusahaan kami?',
+        answer: 'Sangat bisa. Kami menerapkan pendekatan customized program di mana jenis permainan, skenario simulasi, dan materi debriefing diselaraskan secara akurat dengan Core Values (seperti AKHLAK BUMN, Service Excellence, Leadership Agility, dll).'
+      },
+      {
+        question: 'Apakah Provider Outbound bisa memfasilitasi kebutuhan akomodasi resort bintang 5, meeting room, dan gala dinner?',
+        answer: 'Ya, kami menyediakan paket all-in terpadu mulai dari ground outbound, sewa ballroom hotel/resort bintang 5 di Batu Malang, konsumsi buffet, sound system, panggung megah, hingga hiburan live music untuk malam keakraban/gala dinner.'
+      },
+      {
+        question: 'Bagaimana prosedur administrasi, proposal penawaran, invoice, dan faktur pajak untuk instansi pemerintah atau korporasi?',
+        answer: 'Kami beroperasi dengan legalitas badan usaha resmi dan tertib administrasi. Kami siap menerbitkan proposal resmi, SPK, invoice bermaterai, kuitansi bermaterai, dan faktur pajak sesuai regulasi pengadaan barang/jasa perusahaan Anda.'
+      }
+    ]
+  },
+  'family-gathering': {
+    badge: 'Pilar Rekreasi Keluarga & Komunitas',
+    subtitle: 'Program kebersamaan hangat dan menyenangkan yang mempererat tali silaturahmi antar keluarga besar karyawan, komunitas, maupun ikatan alumni di lanskap pegunungan asri Kota Wisata Batu.',
+    capacityText: '30 hingga 2.000+ Peserta',
+    formatText: 'Half Day, 1 Hari Penuh, hingga 2D1N Menginap',
+    targetRole: 'Keluarga Besar Karyawan, Paguyuban, Komunitas Warga & Ikatan Alumni',
+    methodologyOverview: 'Dirancang dengan konsep inclusive fun games yang merangkul seluruh spektrum usia—mulai dari balita, anak-anak, remaja, dewasa hingga kakek-nenek—tanpa beban fisik berlebih dan mengutamakan sukacita kebersamaan.',
+    frameworkSteps: [
+      {
+        step: '01',
+        title: 'Pemetaan Komposisi Usia Rombongan',
+        desc: 'Mendata profil rombongan (jumlah anak-anak, lansia, dan pasangan) untuk memastikan seluruh rancangan aktivitas ramah dan aman bagi seluruh anggota keluarga.',
+        icon: 'fas fa-users'
+      },
+      {
+        step: '02',
+        title: 'Pemilihan Venue Ramah Keluarga',
+        desc: 'Memilih venue di Kota Batu dengan akses mudah tanpa tangga terjal, fasilitas toilet bersih melimpah, dan area rumput hijau teduh yang nyaman untuk bersantai.',
+        icon: 'fas fa-tree'
+      },
+      {
+        step: '03',
+        title: 'Penyelenggaraan Fun Games Multi-Generasi',
+        desc: 'Aktivitas interaktif seru seperti Kids Corner edukatif, Family Relay Games, dan ice breaking ceria yang dipandu fasilitator ramah keluarga.',
+        icon: 'fas fa-smile-beam'
+      },
+      {
+        step: '04',
+        title: 'Panggung Doorprize & Dokumentasi Keluarga',
+        desc: 'Pengundian doorprize meriah, makan bersama dengan menu nusantara lezat, serta sesi foto bersama per keluarga dan rombongan besar.',
+        icon: 'fas fa-gift'
+      }
+    ],
+    faqs: [
+      {
+        question: 'Apakah aktivitas family gathering aman untuk balita dan orang tua lansia?',
+        answer: 'Sangat aman. Program Family Gathering didesain khusus non-fisik berat. Kami menyediakan Kids Zone dengan permainan edukatif untuk anak-anak serta seating area teduh yang nyaman bagi orang tua lansia.'
+      },
+      {
+        question: 'Apakah bus pariwisata ukuran besar (SHD/HDD) bisa parkir langsung di lokasi kegiatan?',
+        answer: 'Ya, seluruh venue rekomendasi family gathering kami (seperti Selecta, Coban Rais, Kusuma Agrowisata) memiliki area parkir bus sangat luas dan akses jalan mulus tanpa perlu oper kendaraan kecil.'
+      },
+      {
+        question: 'Bisakah kami menambahkan agenda panggung hiburan, organ tunggal, dan pembagian doorprize?',
+        answer: 'Tentu bisa. Kami menyediakan paket lengkap panggung pementasan, MC profesional berbahasa santai komunikatif, sound system berdaya tinggi, serta teknisi multimedia untuk mendukung jalannya acara hiburan Anda.'
+      },
+      {
+        question: 'Bagaimana jika saat kegiatan berlangsung terjadi hujan di Kota Batu?',
+        answer: 'Seluruh venue resmi pilihan kami memiliki fasilitas aula pertemuan (indoor shelter / pendopo) berkapasitas besar. Jika cuaca hujan, rundown dialihkan secara mulus ke skenario indoor fun games tanpa mengurangi keceriaan.'
+      }
+    ]
+  },
+  'outbound-sekolah': {
+    badge: 'Pilar Edukasi Karakter & Generasi Muda',
+    subtitle: 'Program pendidikan luar ruang terpadu untuk membentuk kemandirian, kepemimpinan siswa (LDKS), kedisiplinan, dan kesadaran lingkungan bagi pelajar SD, SMP, SMA, hingga mahasiswa.',
+    capacityText: '30 hingga 1.200+ Siswa',
+    formatText: '1 Hari (Edukasi Karakter) atau 2D1N (Camping / LDKS)',
+    targetRole: 'Siswa SD, Pelajar SMP/SMA/SMK, Pengurus OSIS/MPK & Mahasiswa',
+    methodologyOverview: 'Menggabungkan metode Outdoor Experiential Education dengan penanaman nilai budi pekerti luhur, mengasah daya juang (adversity quotient), serta melatih kepekaan sosial kawan sebaya di alam terbuka.',
+    frameworkSteps: [
+      {
+        step: '01',
+        title: 'Sinkronisasi Kurikulum & Nilai Sekolah',
+        desc: 'Koordinasi bersama dewan guru dan kesiswaan untuk menyelaraskan modul outbound dengan tema Projek Penguatan Profil Pelajar Pancasila (P5) atau silabus LDKS.',
+        icon: 'fas fa-graduation-cap'
+      },
+      {
+        step: '02',
+        title: 'Manajemen Lokasi Bumi Perkemahan Terproteksi',
+        desc: 'Pemilihan camping ground aman dengan batas perimeter jelas, penerangan memadai, sumber air higienis, serta jauh dari tebing curam berbahaya.',
+        icon: 'fas fa-campground'
+      },
+      {
+        step: '03',
+        title: 'Simulasi Kepemimpinan & Ketangkasan',
+        desc: 'Rangkaian simulasi survival dasar, character building games, navigasi kelompok, dan uji kekompakan regu di bawah pengawasan instruktur bersertifikat.',
+        icon: 'fas fa-compass'
+      },
+      {
+        step: '04',
+        title: 'Refleksi Moral & Ikrar Siswa',
+        desc: 'Sesi perenungan malam atau penutupan untuk menumbuhkan rasa syukur, hormat kepada guru dan orang tua, serta komitmen menjadi pribadi berintegritas.',
+        icon: 'fas fa-heart'
+      }
+    ],
+    faqs: [
+      {
+        question: 'Apakah instruktur outbound sekolah bersertifikasi dan berpengalaman menangani pelajar?',
+        answer: 'Ya, seluruh trainer kami tersertifikasi BNSP RI di bidang kepanduan dan outbound training. Tim kami terlatih dalam psikologi perkembangan anak dan remaja, menciptakan suasana disiplin namun tetap bersahabat.'
+      },
+      {
+        question: 'Bagaimana rasio fasilitator pendamping terhadap jumlah murid?',
+        answer: 'Kami menerapkan rasio ketat yakni 1 fasilitator mendampingi 10 hingga 12 siswa. Hal ini memastikan setiap siswa termonitor keselamatannya secara penuh selama rangkaian kegiatan berlangsung.'
+      },
+      {
+        question: 'Apakah tersedia fasilitas camping dengan tenda, matras, dan katering yang higienis?',
+        answer: 'Ya, kami menyediakan tenda dome berkualitas waterproof lengkap dengan matras tebal, sleeping bag, penerangan ground, serta sajian makanan sehat bergizi yang disukai para pelajar.'
+      },
+      {
+        question: 'Apakah guru pendamping dan kepala sekolah dikenakan biaya yang sama dengan siswa?',
+        answer: 'Kami memberikan penawaran khusus dan fasilitas komplementer (FOC) bagi sejumlah guru pendamping sekolah sesuai dengan kuota rombongan siswa yang didaftarkan.'
+      }
+    ]
+  },
+  'wisata-adventure': {
+    badge: 'Pilar Petualangan & Adrenalin Alam',
+    subtitle: 'Sinergi paket outbound kreatif dengan eksplorasi wisata petualangan spektakuler: arung jeram Kaliwatu, safari jeep offroad 4x4, camping ground, dan eksplorasi alam Kota Batu & Malang Raya.',
+    capacityText: '15 hingga 800+ Petualang',
+    formatText: 'Full Day Adventure hingga 3D2N Overland Bromo',
+    targetRole: 'Komunitas Pecinta Alam, Perusahaan Progresif, Rombongan Wisatawan & Agen Wisata',
+    methodologyOverview: 'Mengintegrasikan sensasi pemacu adrenalin yang aman (safe adventure) dengan dinamika tim, melatih keberanian mengambil risiko terukur, dan menghadirkan kepuasan rekreasi yang tak terlupakan.',
+    frameworkSteps: [
+      {
+        step: '01',
+        title: 'Screening Kondisi Fisik & Safety Briefing',
+        desc: 'Pemeriksaan awal kesiapan peserta dan penjelasan komprehensif mengenai prosedur keselamatan di air (water rescue) maupun di medan offroad berlumpur.',
+        icon: 'fas fa-heartbeat'
+      },
+      {
+        step: '02',
+        title: 'Fitting Perlengkapan Bersertifikat CE/UIAA',
+        desc: 'Setiap peserta dilengkapi helm pelindung berstandar internasional, life jacket berdaya apung tinggi, dan didampingi skipper atau driver berpengalaman.',
+        icon: 'fas fa-vest'
+      },
+      {
+        step: '03',
+        title: 'Ekspedisi Petualangan Arung Jeram & Safari Jeep',
+        desc: 'Mengarungi jeram Kaliwatu atau melibas jalur ekstrem lereng Gunung Arjuno-Panderman dengan armada jeep 4x4 Land Rover terawat prima.',
+        icon: 'fas fa-water'
+      },
+      {
+        step: '04',
+        title: 'Pembersihan Diri, Sajian Kuliner & Dokumentasi Aksi',
+        desc: 'Bilas air hangat, menikmati sajian kuliner khas tradisional Batu (jagung bakar, kopi panas), serta penyerahan foto/video aksi saat menerjang rintangan.',
+        icon: 'fas fa-camera'
+      }
+    ],
+    faqs: [
+      {
+        question: 'Apakah aman bagi peserta yang tidak bisa berenang untuk ikut arung jeram Rafting Kaliwatu?',
+        answer: 'Sangat aman. Setiap peserta wajib mengenakan Life Jacket berkekuatan apung tinggi serta helm pengaman. Setiap perahu rafting dikemudikan oleh Guide/Skipper profesional bersertifikasi rescue air yang siap siaga.'
+      },
+      {
+        question: 'Berapa batas usia yang diperbolehkan untuk mengikuti kegiatan rafting dan offroad jeep 4x4?',
+        answer: 'Untuk rafting Kaliwatu, usia minimal adalah 7 tahun dan maksimal 65 tahun dalam kondisi sehat jasmani. Untuk offroad jeep, dapat diikuti mulai usia 5 tahun hingga lansia berjiwa muda.'
+      },
+      {
+        question: 'Apakah perlengkapan keselamatan offroad jeep memenuhi standar?',
+        answer: 'Ya, seluruh armada 4x4 kami dilengkapi roll bar pelindung kokoh, sabuk pengaman di setiap kursi, sopir berpengalaman medan terjal, serta asuransi resmi perlindungan penumpang.'
+      },
+      {
+        question: 'Apakah asuransi keselamatan sudah termasuk dalam paket outbound wisata adventure?',
+        answer: 'Seluruh paket petualangan Provider Outbound sudah mencakup perlindungan asuransi kecelakaan diri dari awal aktivitas penjemputan hingga rangkaian petualangan selesai.'
+      }
+    ]
+  }
+};
+
+const meta = serviceMetas[canonicalSlug] || serviceMetas['outbound-perusahaan'];
+const serviceSchema = generateServiceSchema(service);
+
+const breadcrumbs = [
+  { name: 'Layanan', url: '/layanan' },
+  { name: service.title }
+];
+
+const waConsultUrl = getWhatsAppUrl(
+  `Halo Provider Outbound, saya ingin konsultasi kebutuhan layanan "${service.title}" di Batu Malang untuk rombongan kami. Mohon info ketersediaan tanggal dan proposal penawarannya.`
+);
+---
+
+<PublicLayout
+  title={`${service.title} Batu Malang | Solusi Resmi Provider Outbound`}
+  description={`${service.excerpt} Dapatkan proposal resmi, fasilitator BNSP, jaminan zero accident, dan rekomendasi venue terbaik di Kota Batu Malang.`}
+  breadcrumbs={breadcrumbs}
+>
+  <!-- Schema.org Service Metadata -->
+  <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+
+  <!-- ========================================================================= -->
+  <!-- 1. HERO SECTION: Strategic Master Service Header (Clean & Tanpa Tombol WA) -->
+  <!-- ========================================================================= -->
+  <section class="py-14 sm:py-20 relative overflow-hidden border-b border-rose-900/50">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
+      
+      <!-- Eyebrow Badge -->
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/15 border border-amber-400/35 text-amber-300 text-xs font-bold uppercase tracking-wider">
+        <i class="fas fa-layer-group text-[11px]"></i>
+        <span>{meta.badge}</span>
+      </div>
+
+      <!-- Main Title -->
+      <h1 class="font-heading font-black text-3xl sm:text-5xl lg:text-6xl uppercase tracking-[0.12em] text-white leading-tight">
+        {service.title} <span class="text-amber-400">BATU MALANG</span>
+      </h1>
+
+      <!-- Executive Subtitle -->
+      <p class="text-base sm:text-lg text-rose-100/85 max-w-3xl mx-auto leading-relaxed font-sans">
+        {meta.subtitle}
+      </p>
+
+      <!-- 4 Strategic Specs Badges (Sleek, Clean, Tanpa Tombol Konsultasi) -->
+      <div class="pt-2 flex flex-wrap items-center justify-center gap-2.5 sm:gap-3 text-xs text-rose-200">
+        <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-stone-900/80 border border-rose-800/40">
+          <i class="fas fa-users text-amber-400 text-[11px]"></i>
+          <span>Kapasitas: <strong class="text-white">{meta.capacityText}</strong></span>
+        </span>
+        <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-stone-900/80 border border-rose-800/40">
+          <i class="fas fa-certificate text-amber-400 text-[11px]"></i>
+          <span>Instruktur: <strong class="text-white">BNSP RI</strong></span>
+        </span>
+        <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-stone-900/80 border border-rose-800/40">
+          <i class="fas fa-shield-alt text-amber-400 text-[11px]"></i>
+          <span>SOP: <strong class="text-white">Zero Accident</strong></span>
+        </span>
+        <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-stone-900/80 border border-rose-800/40">
+          <i class="fas fa-map-marker-alt text-amber-400 text-[11px]"></i>
+          <span>Area: <strong class="text-white">Batu &amp; Malang</strong></span>
+        </span>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- 2. MAIN CONTENT + SIDEBAR LAYOUT                                          -->
+  <!-- ========================================================================= -->
+  <section class="py-12 sm:py-16">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
+      
+      <!-- ===================================================================== -->
+      <!-- LEFT COLUMN: Master Service Architecture (8 COLS)                     -->
+      <!-- ===================================================================== -->
+      <div class="lg:col-span-8 space-y-12 text-left">
+        
+        <!-- Large Visual Banner Showcase (Single Heroic Frame, Distinct from 3-Mosaic) -->
+        <div class="relative rounded-2xl overflow-hidden aspect-16/9 bg-stone-950 border border-rose-700/40 shadow-2xl group">
+          <img
+            src={service.imageUrl}
+            alt={`${service.title} di Batu Malang`}
+            width="900"
+            height="500"
+            class="w-full h-full object-cover group-hover:scale-102 transition-transform duration-700"
+            loading="eager"
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-stone-950/90 via-stone-950/20 to-transparent"></div>
+          
+          <div class="absolute bottom-4 left-4 right-4 sm:bottom-6 sm:left-6 sm:right-6 flex flex-col sm:flex-row sm:items-end justify-between gap-2">
+            <div>
+              <span class="px-2.5 py-1 rounded bg-amber-500 text-stone-950 font-heading font-black text-[10px] uppercase tracking-wider">
+                Dokumentasi Kegiatan Resmi
+              </span>
+              <p class="text-white font-heading font-bold text-base sm:text-xl mt-1.5">
+                Pengalaman Nyata Berstandar Profesional di Kota Batu
+              </p>
+            </div>
+            <span class="inline-flex items-center gap-1.5 text-xs text-rose-200/90 font-medium sm:text-right">
+              <i class="fas fa-map-marker-alt text-amber-400 text-xs shrink-0"></i>
+              <span>{service.locationNote}</span>
+            </span>
+          </div>
+        </div>
+
+        <!-- Section A: Metodologi 4-Tahap Penyelenggaraan (Service Lifecycle) -->
+        <div class="rounded-2xl bg-[#480308]/60 border border-rose-700/35 p-6 sm:p-8 space-y-6 shadow-card">
+          <div class="space-y-2 border-b border-rose-800/40 pb-4">
+            <span class="text-xs font-bold uppercase tracking-widest text-amber-400">
+              Metodologi Penyelenggaraan Teruji
+            </span>
+            <h2 class="font-heading font-black text-2xl sm:text-3xl uppercase tracking-wider text-white">
+              ALUR 4 TAHAP PENYELENGGARAAN LAYANAN
+            </h2>
+            <p class="text-sm text-rose-100/80 leading-relaxed">
+              {meta.methodologyOverview}
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {meta.frameworkSteps.map((step) => (
+              <div class="p-4 sm:p-5 rounded-xl bg-stone-950/50 border border-rose-800/35 space-y-2.5 hover:border-amber-400/50 transition-colors">
+                <div class="flex items-center justify-between">
+                  <span class="w-8 h-8 rounded-lg bg-amber-500/20 border border-amber-400/30 text-amber-400 font-heading font-black text-xs flex items-center justify-center">
+                    {step.step}
+                  </span>
+                  <i class={`${step.icon} text-rose-400/70 text-sm`}></i>
+                </div>
+                <h3 class="font-heading font-bold text-base text-white uppercase">
+                  {step.title}
+                </h3>
+                <p class="text-xs text-rose-100/75 leading-relaxed">
+                  {step.desc}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <!-- Section B: Gambaran Solusi & Nilai Tambah Terukur -->
+        <div class="rounded-2xl bg-[#480308]/60 border border-rose-700/35 p-6 sm:p-8 space-y-6 shadow-card">
+          <div class="space-y-2 border-b border-rose-800/40 pb-4">
+            <span class="text-xs font-bold uppercase tracking-widest text-amber-400">
+              Solusi &amp; Objektif Program
+            </span>
+            <h2 class="font-heading font-black text-2xl uppercase tracking-wider text-white">
+              NILAI TAMBAH &amp; CAPAIAN STRATEGIS
+            </h2>
+          </div>
+
+          <p class="text-sm sm:text-base text-rose-100/85 leading-relaxed">
+            {service.overview}
+          </p>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+            {service.benefits.map((b) => (
+              <div class="p-3.5 rounded-xl bg-stone-950/40 border border-rose-800/30 flex items-start gap-3">
+                <span class="w-5 h-5 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xs flex-shrink-0 mt-0.5">
+                  <i class="fas fa-check text-[10px]"></i>
+                </span>
+                <span class="text-xs sm:text-sm text-rose-100/90 font-medium leading-relaxed">
+                  {b}
+                </span>
+              </div>
+            ))}
+          </div>
+
+          <!-- Standar Fasilitas Terpadu Box -->
+          <div class="p-5 rounded-xl bg-gradient-to-r from-stone-950/80 to-[#380105]/80 border border-amber-500/30 space-y-3">
+            <div class="flex items-center gap-2 text-amber-400 text-xs font-bold uppercase tracking-wider">
+              <i class="fas fa-medal"></i>
+              <span>Fasilitas Terpadu Sudah Termasuk di Seluruh Program:</span>
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 text-xs text-rose-200/80">
+              <span class="flex items-center gap-1.5"><i class="fas fa-check text-amber-400 text-[10px]"></i> Ground &amp; Lapangan Outbound</span>
+              <span class="flex items-center gap-1.5"><i class="fas fa-check text-amber-400 text-[10px]"></i> Fasilitator Bersertifikat BNSP</span>
+              <span class="flex items-center gap-1.5"><i class="fas fa-check text-amber-400 text-[10px]"></i> Sound System High Power</span>
+              <span class="flex items-center gap-1.5"><i class="fas fa-check text-amber-400 text-[10px]"></i> Banner Backdrop Kegiatan</span>
+              <span class="flex items-center gap-1.5"><i class="fas fa-check text-amber-400 text-[10px]"></i> Tim Medis &amp; Kotak P3K Standar</span>
+              <span class="flex items-center gap-1.5"><i class="fas fa-check text-amber-400 text-[10px]"></i> Asuransi Resmi Kegiatan</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section C: 4 Pilihan Paket Resmi di Bawah Layanan Ini -->
+        <div id="pilihan-paket-resmi" class="rounded-2xl bg-[#480308]/60 border border-rose-700/35 p-6 sm:p-8 space-y-6 shadow-card">
+          <div class="border-b border-rose-800/40 pb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+            <div>
+              <span class="text-xs font-bold uppercase tracking-widest text-amber-400">
+                Pilihan Format Paket
+              </span>
+              <h2 class="font-heading font-black text-2xl uppercase tracking-wider text-white mt-1">
+                4 PILIHAN PAKET RESMI TERSEDIA
+              </h2>
+            </div>
+            <span class="text-xs text-rose-300/80">
+              Dapat disesuaikan (Custom Bujet)
+            </span>
+          </div>
+
+          <p class="text-xs sm:text-sm text-rose-100/80">
+            Pilihlah paket yang paling sesuai dengan durasi dan target kegiatan Anda. Setiap paket dapat disesuaikan kembali berdasarkan jumlah peserta dan kebutuhan khusus institusi Anda:
+          </p>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {relatedPackages.map((pkg, idx) => {
+              const pkgWa = getWhatsAppUrl(`Halo Provider Outbound, saya ingin konsultasi detail paket "${pkg.title}" (${service.title}) di Batu Malang.`);
+              const letter = String.fromCharCode(65 + idx); // A, B, C, D
+              return (
+                <div class="p-5 sm:p-6 rounded-xl bg-stone-950/70 border border-rose-800/40 flex flex-col justify-between hover:border-amber-400/60 shadow-md transition-all group h-full">
+                  
+                  <!-- Top: Badges & Titles -->
+                  <div class="space-y-3">
+                    <div class="flex items-center justify-between gap-2 pb-3 border-b border-rose-800/30">
+                      <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-amber-500/15 border border-amber-400/30 text-amber-300 text-xs font-heading font-bold uppercase tracking-wider">
+                        <i class="fas fa-box text-[10px]"></i>
+                        <span>Paket {letter}</span>
+                      </span>
+                      <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-stone-900 border border-rose-800/40 text-xs font-medium text-rose-200">
+                        <i class="far fa-clock text-amber-400 text-xs"></i>
+                        <span>{pkg.duration}</span>
+                      </span>
+                    </div>
+
+                    <h3 class="font-heading font-black text-base sm:text-lg text-white uppercase group-hover:text-amber-300 transition-colors min-h-[2.75rem] flex items-center">
+                      {pkg.title}
+                    </h3>
+                    
+                    <p class="text-xs text-rose-100/75 leading-relaxed line-clamp-2 min-h-[2.5rem]">
+                      {pkg.excerpt}
+                    </p>
+
+                    <div class="pt-3 border-t border-rose-900/50 space-y-2">
+                      <span class="text-[10px] uppercase font-bold text-amber-400 tracking-wider flex items-center gap-1.5">
+                        <i class="fas fa-tasks text-[10px]"></i>
+                        <span>Rangkaian Fokus Modul:</span>
+                      </span>
+                      <ul class="space-y-1.5 text-xs text-rose-200/80">
+                        {pkg.activities.slice(0, 3).map((act) => (
+                          <li class="flex items-start gap-2">
+                            <i class="fas fa-check text-amber-400 text-[10px] mt-0.5 shrink-0"></i>
+                            <span class="line-clamp-1">{act}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+
+                  <!-- Dual Action Buttons: Detail Paket & Konsultasi -->
+                  <div class="flex items-center gap-2 pt-4 border-t border-rose-800/30 mt-5">
+                    <a
+                      href={`/paket/${pkgCategorySlug}/${pkg.slug}`}
+                      class="flex-1 inline-flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-lg bg-stone-900 hover:bg-stone-800 text-rose-100 hover:text-white border border-rose-700/50 font-heading font-bold text-xs uppercase tracking-wider transition-all"
+                    >
+                      <i class="fas fa-info-circle text-xs text-amber-400"></i>
+                      <span>Detail Paket</span>
+                    </a>
+                    <a
+                      href={pkgWa}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="flex-1 inline-flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-lg bg-amber-500 hover:bg-amber-400 text-stone-950 font-heading font-black text-xs uppercase tracking-wider shadow-sm transition-all hover:scale-102"
+                    >
+                      <i class="fab fa-whatsapp text-sm text-stone-950"></i>
+                      <span>Konsultasi</span>
+                    </a>
+                  </div>
+
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+        <!-- Section D: Rekomendasi Destinasi Resmi di Batu Malang -->
+        <div class="rounded-2xl bg-[#480308]/60 border border-rose-700/35 p-6 sm:p-8 space-y-6 shadow-card">
+          <div class="border-b border-rose-800/40 pb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+            <div>
+              <span class="text-xs font-bold uppercase tracking-widest text-amber-400">
+                Pilihan Lokasi Terbaik
+              </span>
+              <h2 class="font-heading font-black text-2xl uppercase tracking-wider text-white mt-1">
+                VENUE IDEAL UNTUK {service.title.toUpperCase()}
+              </h2>
+            </div>
+            <a
+              href="/layanan#destinasi-resmi"
+              class="text-xs font-bold text-amber-400 hover:text-amber-300 inline-flex items-center gap-1"
+            >
+              <span>Semua 9 Venue Resmi</span>
+              <i class="fas fa-arrow-right text-[10px]"></i>
+            </a>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {recommendedDestinations.map((dest) => {
+              const destWa = getWhatsAppUrl(`Halo Provider Outbound, saya tertarik menyelenggarakan ${service.title} di venue ${dest.name} Batu Malang.`);
+              return (
+                <div class="rounded-xl bg-stone-950/60 border border-rose-800/40 overflow-hidden flex flex-col justify-between group hover:border-amber-400/50 transition-colors">
+                  <div>
+                    <div class="w-full overflow-hidden bg-brand-950 relative" style="aspect-ratio: 750 / 560;">
+                      <img
+                        src={dest.imageUrl}
+                        alt={dest.name}
+                        width="750"
+                        height="560"
+                        class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500 block"
+                        loading="lazy"
+                      />
+                      <span class="absolute top-2.5 left-2.5 px-2.5 py-1 rounded bg-stone-950/85 backdrop-blur-sm text-xs font-bold text-amber-400 border border-amber-400/30">
+                        {dest.name}
+                      </span>
+                      {dest.elevation && (
+                        <span class="absolute top-2.5 right-2.5 px-2 py-0.5 rounded bg-emerald-950/85 text-[10px] font-bold text-emerald-300 border border-emerald-500/30">
+                          {dest.elevation}
+                        </span>
+                      )}
+                    </div>
+
+                    <div class="p-4 space-y-2.5 text-left">
+                      <p class="text-xs text-rose-100/80 line-clamp-2 leading-relaxed font-sans">
+                        {dest.overview}
+                      </p>
+                      <div class="flex flex-wrap gap-1.5">
+                        {dest.features.slice(0, 3).map((f) => (
+                          <span class="text-[10px] px-2 py-0.5 rounded bg-rose-950/70 border border-rose-800/40 text-rose-200">
+                            {f}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="p-4 pt-0">
+                    <a
+                      href={destWa}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="block text-center py-2 px-3 rounded-lg bg-stone-900 hover:bg-amber-500 hover:text-stone-950 text-amber-300 border border-amber-500/30 text-xs font-bold uppercase tracking-wider transition-all"
+                    >
+                      Pilih Venue {dest.name}
+                    </a>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ===================================================================== -->
+      <!-- RIGHT COLUMN: Sticky Executive Consultation & Cross Navigation (4 COLS) -->
+      <!-- ===================================================================== -->
+      <div class="lg:col-span-4 space-y-6">
+        
+        <!-- Sticky Container for Sidebar Cards -->
+        <div class="sticky top-24 space-y-6">
+          
+          <!-- Box 1: Executive Proposal & Custom Budget Request -->
+          <div class="rounded-2xl bg-gradient-to-br from-[#66050E] to-[#3B0206] border-2 border-amber-500/40 p-6 sm:p-7 space-y-5 shadow-2xl text-left">
+            <span class="inline-block px-3 py-1 rounded bg-amber-500/20 text-amber-300 text-[10px] font-black uppercase tracking-widest border border-amber-400/30">
+              KONSULTASI LANGSUNG
+            </span>
+            
+            <h3 class="font-heading font-black text-xl sm:text-2xl text-white uppercase tracking-wider leading-snug">
+              Rencanakan Agenda Anda Bersama Kami
+            </h3>
+
+            <p class="text-xs sm:text-sm text-rose-100/85 leading-relaxed">
+              Konsultasikan estimasi jumlah peserta, target tanggal, preferensi venue, dan kisaran bujet Anda. Tim kami akan menyiapkan proposal penawaran resmi dalam waktu singkat.
+            </p>
+
+            <div class="p-3.5 rounded-xl bg-stone-950/40 border border-rose-800/40 space-y-2 text-xs">
+              <div class="flex items-center gap-2 text-amber-300 font-semibold">
+                <i class="fas fa-bolt text-amber-400"></i>
+                <span>Fast Response WhatsApp:</span>
+              </div>
+              <p class="text-rose-100/80 text-[11px] leading-relaxed">
+                Langsung terhubung dengan konsultan outbound resmi Provider Outbound Batu Malang.
+              </p>
+            </div>
+
+            <a
+              href={waConsultUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="w-full flex items-center justify-center gap-2.5 py-3.5 px-4 rounded-xl bg-amber-500 hover:bg-amber-400 text-stone-950 font-heading font-black text-xs sm:text-sm uppercase tracking-wider shadow-glow-amber transition-all hover:scale-102 active:scale-95"
+            >
+              <i class="fab fa-whatsapp text-lg text-stone-950"></i>
+              <span>Hubungi via WhatsApp</span>
+            </a>
+
+            <div class="pt-2 text-center border-t border-rose-800/40 text-[11px] text-rose-300/80">
+              <i class="far fa-clock mr-1 text-amber-400"></i>
+              <span>Jam Layanan: {SITE_INFO.operatingHours}</span>
+            </div>
+          </div>
+
+          <!-- Box 2: Navigasi Cepat 3 Pilar Layanan Lainnya -->
+          <div class="rounded-2xl bg-[#480308]/60 border border-rose-700/35 p-6 space-y-4 shadow-card text-left">
+            <span class="text-[10px] font-bold uppercase tracking-widest text-amber-400">
+              Pilar Layanan Lainnya
+            </span>
+            <h4 class="font-heading font-black text-base text-white uppercase tracking-wider">
+              EKSPLORASI PROGRAM KAMI
+            </h4>
+
+            <div class="space-y-2.5">
+              {otherServices.map((other) => (
+                <a
+                  href={`/layanan/${other.slug}`}
+                  class="p-3 rounded-xl bg-stone-950/40 hover:bg-stone-950/80 border border-rose-800/30 hover:border-amber-400/50 flex items-center justify-between gap-3 group transition-all"
+                >
+                  <div>
+                    <h5 class="font-heading font-bold text-xs uppercase text-white group-hover:text-amber-300 transition-colors">
+                      {other.title}
+                    </h5>
+                    <p class="text-[11px] text-rose-200/70 line-clamp-1 mt-0.5">
+                      {other.excerpt}
+                    </p>
+                  </div>
+                  <i class="fas fa-chevron-right text-rose-400/60 group-hover:text-amber-400 group-hover:translate-x-0.5 transition-all text-xs"></i>
+                </a>
+              ))}
+            </div>
+          </div>
+
+          <!-- Box 3: Jaminan & Standar Mutu Provider Outbound -->
+          <div class="rounded-2xl bg-[#480308]/60 border border-rose-700/35 p-6 space-y-3.5 shadow-card text-left">
+            <span class="text-[10px] font-bold uppercase tracking-widest text-amber-400">
+              Keunggulan Provider Kami
+            </span>
+            <h4 class="font-heading font-black text-base text-white uppercase tracking-wider">
+              MENGAPA KAMI YANG TERBAIK?
+            </h4>
+            <ul class="space-y-2 text-xs text-rose-100/85">
+              <li class="flex items-start gap-2">
+                <i class="fas fa-check text-amber-400 mt-0.5"></i>
+                <span>Fasilitator &amp; Master Game Bersertifikat BNSP RI</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <i class="fas fa-check text-amber-400 mt-0.5"></i>
+                <span>Garansi SOP 100% Zero Accident &amp; Paramedis</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <i class="fas fa-check text-amber-400 mt-0.5"></i>
+                <span>Mitra Resmi 15+ Resort, Hotel &amp; Ground Batu Malang</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <i class="fas fa-check text-amber-400 mt-0.5"></i>
+                <span>Kelengkapan Legalitas Usaha &amp; Faktur Pajak Resmi</span>
+              </li>
+            </ul>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- 3. FAQ SECTION SPESIFIK LAYANAN                                           -->
+  <!-- ========================================================================= -->
+  <FAQAccordion
+    title={`FAQ SEPUTAR ${service.title.toUpperCase()}`}
+    faqs={meta.faqs}
+  />
+
+  <!-- ========================================================================= -->
+  <!-- 4. CTA GLOBAL SECTION                                                     -->
+  <!-- ========================================================================= -->
+  <CTASection />
+
+</PublicLayout>
+

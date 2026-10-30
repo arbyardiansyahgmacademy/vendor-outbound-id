@@ -8,7 +8,7 @@ const menuItems = [
     icons: ['fas fa-users', 'fas fa-trophy'],
     desc: 'Simulasi team building terstruktur, penguatan kepemimpinan, dan sinergi komunikasi lintas divisi di resort & pinus Batu.',
     link: '/layanan/outbound-perusahaan',
-    waText: 'Halo Vendor Outbound, saya ingin konsultasi Outbound Corporate Perusahaan.',
+    waText: 'Halo Provider Outbound, saya ingin konsultasi Outbound Corporate Perusahaan.',
     isActive: false,
   },
   {
@@ -17,7 +17,7 @@ const menuItems = [
     icons: ['fas fa-people-roof', 'fas fa-sun'],
     desc: 'Rekreasi kebersamaan ceria ramah anak hingga lansia dengan fun games menyenangkan dan jamuan hangat di alam terbuka.',
     link: '/layanan/family-gathering',
-    waText: 'Halo Vendor Outbound, saya ingin konsultasi Paket Family Gathering.',
+    waText: 'Halo Provider Outbound, saya ingin konsultasi Paket Family Gathering.',
     isActive: true, // Default active white pill card
   },
   {
@@ -26,16 +26,16 @@ const menuItems = [
     icons: ['fas fa-graduation-cap', 'fas fa-campground'],
     desc: 'Character building, kedisiplinan pelajar, kepemimpinan siswa, serta edukasi konservasi lingkungan alam pegunungan.',
     link: '/layanan/outbound-sekolah',
-    waText: 'Halo Vendor Outbound, saya ingin konsultasi Outbound Sekolah & LDKS.',
+    waText: 'Halo Provider Outbound, saya ingin konsultasi Outbound Sekolah & LDKS.',
     isActive: false,
   },
   {
     id: 4,
-    title: 'WISATA RAFTING & OFFROAD 4X4',
+    title: 'OUTBOUND WISATA (RAFTING & OFFROAD)',
     icons: ['fas fa-water', 'fas fa-truck-monster'],
-    desc: 'Pacu adrenalin mengarungi jeram sungai Kasembon/Kaliwatu serta jelajah alam lintasan berlumpur jeep offroad Kota Batu.',
+    desc: 'Kombinasi outbound dengan arung jeram Kaliwatu, safari offroad jeep 4x4, camping ground, dan wisata alam pegunungan.',
     link: '/layanan/wisata-adventure',
-    waText: 'Halo Vendor Outbound, saya ingin konsultasi Wisata Rafting & Offroad Batu.',
+    waText: 'Halo Provider Outbound, saya ingin konsultasi Outbound Wisata, Rafting & Offroad Batu.',
     isActive: false,
   }
 ];
@@ -46,8 +46,8 @@ const menuItems = [
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     
     <div class="section-title-wrap">
-      <h2 class="section-main-heading">OUR SERVICES</h2>
-      <p class="section-sub-heading">Pilihan paket outbound dan petualangan terfavorit di Kota Batu &amp; Malang</p>
+      <h2 class="section-main-heading" id="services-main-heading">OUR SERVICES</h2>
+      <p class="section-sub-heading" id="services-sub-heading">Pilihan paket outbound dan petualangan terfavorit di Kota Batu &amp; Malang</p>
     </div>
 
     <div class="menu-rows-container">
@@ -84,18 +84,77 @@ const menuItems = [
   </div>
 </section>
 
-<script>
-  // Interactive Active Menu Rows (Hover & Click Switch)
-  const menuRows = document.querySelectorAll('.menu-row-item');
-  menuRows.forEach((row) => {
-    row.addEventListener('mouseenter', () => {
-      menuRows.forEach((r) => r.classList.remove('active'));
-      row.classList.add('active');
+<script is:inline>
+  (function() {
+    // Interactive Active Menu Rows (Hover & Click Switch)
+    var menuRows = document.querySelectorAll('.menu-row-item');
+    menuRows.forEach(function(row) {
+      row.addEventListener('mouseenter', function() {
+        menuRows.forEach(function(r) { r.classList.remove('active'); });
+        row.classList.add('active');
+      });
+      row.addEventListener('click', function() {
+        menuRows.forEach(function(r) { r.classList.remove('active'); });
+        row.classList.add('active');
+      });
     });
-    row.addEventListener('click', () => {
-      menuRows.forEach((r) => r.classList.remove('active'));
-      row.classList.add('active');
+
+    function hydrateServicesSection() {
+      var raw = localStorage.getItem('vo_page_beranda');
+      if (raw) {
+        try {
+          var data = JSON.parse(raw);
+          var heading = document.getElementById('services-main-heading');
+          var subheading = document.getElementById('services-sub-heading');
+          if (data.servicesHeading && heading) heading.textContent = data.servicesHeading;
+          if (data.servicesSubheading && subheading) subheading.textContent = data.servicesSubheading;
+          if (data.servicesBtnText) {
+            document.querySelectorAll('.btn-row-action span').forEach(function(span) {
+              span.textContent = data.servicesBtnText;
+            });
+          }
+        } catch (e) {
+          console.error(e);
+        }
+      }
+
+      // Sync menu items from vo_services
+      var svcRaw = localStorage.getItem('vo_services');
+      if (svcRaw) {
+        try {
+          var svcList = JSON.parse(svcRaw);
+          if (Array.isArray(svcList)) {
+            var rows = document.querySelectorAll('.menu-row-item');
+            rows.forEach(function(row, idx) {
+              if (svcList[idx]) {
+                var nameEl = row.querySelector('.menu-row-name');
+                if (nameEl && svcList[idx].title) nameEl.textContent = svcList[idx].title;
+                var descEl = row.querySelector('.menu-row-desc');
+                if (descEl && (svcList[idx].excerpt || svcList[idx].overview)) {
+                  descEl.textContent = svcList[idx].excerpt || svcList[idx].overview;
+                }
+              }
+            });
+          }
+        } catch(e) {}
+      }
+    }
+
+    hydrateServicesSection();
+    document.addEventListener('DOMContentLoaded', hydrateServicesSection);
+    window.addEventListener('storage', function(e) {
+      if (e.key === 'vo_page_beranda' || e.key === 'vo_services') hydrateServicesSection();
     });
-  });
+    window.addEventListener('vo_content_updated', hydrateServicesSection);
+
+    try {
+      var bc = new BroadcastChannel('vo_sync_channel');
+      bc.onmessage = function(e) {
+        if (!e.data || e.data.key === 'vo_page_beranda' || e.data.key === 'vo_services') {
+          hydrateServicesSection();
+        }
+      };
+    } catch(err) {}
+  })();
 </script>
 

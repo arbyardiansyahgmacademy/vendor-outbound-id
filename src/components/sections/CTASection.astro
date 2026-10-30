@@ -11,9 +11,9 @@ interface Props {
 
 const {
   title = 'Siap Menghadirkan Momen Outbound Terbaik untuk Tim Anda?',
-  description = 'Diskusikan kebutuhan program outbound, family gathering, rafting, dan offroad di Batu & Malang bersama tim Vendor Outbound sekarang juga.',
+  description = 'Diskusikan kebutuhan program outbound, family gathering, rafting, dan offroad di Batu & Malang bersama tim Provider Outbound sekarang juga.',
   buttonText = 'Konsultasi via WhatsApp',
-  customMessage = 'Halo Vendor Outbound, saya ingin konsultasi pemesanan paket outbound & gathering.',
+  customMessage = 'Halo Provider Outbound, saya ingin konsultasi pemesanan paket outbound & gathering.',
 } = Astro.props;
 
 const waUrl = getWhatsAppUrl(customMessage);
@@ -24,11 +24,11 @@ const waUrl = getWhatsAppUrl(customMessage);
   <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
     
     <div class="card-cta-crimson">
-      <h2 style="font-family: var(--font-heading); font-size: clamp(1.8rem, 3.5vw, 2.5rem); font-weight: 800; color: #ffffff; margin-bottom: 14px;">
+      <h2 id="cta-banner-title" style="font-family: var(--font-heading); font-size: clamp(1.8rem, 3.5vw, 2.5rem); font-weight: 800; color: #ffffff; margin-bottom: 14px;">
         {title}
       </h2>
 
-      <p style="font-size: 1.05rem; color: rgba(255,255,255,0.85); max-width: 580px; margin: 0 auto 28px auto; line-height: 1.7;">
+      <p id="cta-banner-desc" style="font-size: 1.05rem; color: rgba(255,255,255,0.85); max-width: 580px; margin: 0 auto 28px auto; line-height: 1.7;">
         {description}
       </p>
 
@@ -41,7 +41,7 @@ const waUrl = getWhatsAppUrl(customMessage);
         >
           <span class="btn-icon-box"><i class="fab fa-whatsapp"></i></span>
           <span class="btn-text-box">
-            <span class="btn-text-main">{buttonText}</span>
+            <span class="btn-text-main" id="cta-banner-btn-text">{buttonText}</span>
             <span class="btn-text-sub">Bebas Tanya Jadwal &amp; Estimasi Peserta</span>
           </span>
         </a>

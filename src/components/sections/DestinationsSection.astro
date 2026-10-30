@@ -1,0 +1,137 @@
+---
+import { DESTINATIONS } from '../../data/defaultContent';
+import { getWhatsAppUrl } from '../../lib/utils';
+
+interface Props {
+  title?: string;
+  subtitle?: string;
+  filterSlug?: string[];
+  showAll?: boolean;
+}
+
+const {
+  title = '9 DESTINASI RESMI OUTBOUND & GATHERING',
+  subtitle = 'Pilihan venue legendaris, air terjun alami, petualangan sungai, lereng pegunungan, hingga resort bintang 5 di Batu Malang',
+  filterSlug,
+  showAll = true
+} = Astro.props;
+
+const destinations = filterSlug && filterSlug.length > 0
+  ? DESTINATIONS.filter(d => filterSlug.includes(d.slug))
+  : DESTINATIONS;
+---
+
+<section class="py-16 sm:py-24 relative overflow-hidden" id="destinasi-resmi">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <!-- Section Header -->
+    <div class="text-center max-w-3xl mx-auto mb-12 sm:mb-16 space-y-4">
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/15 border border-amber-400/30 text-amber-300 text-xs font-bold uppercase tracking-widest">
+        <i class="fas fa-location-dot"></i>
+        <span>Official Venues Batu Malang</span>
+      </div>
+      <h2 class="font-heading font-black text-2xl sm:text-4xl uppercase tracking-[0.14em] text-white">
+        {title}
+      </h2>
+      <p class="text-sm sm:text-base text-rose-100/80 leading-relaxed">
+        {subtitle}
+      </p>
+    </div>
+
+    <!-- 9 Destinations Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {destinations.map((dest, idx) => {
+        const destWaUrl = getWhatsAppUrl(`Halo Provider Outbound, saya ingin konsultasi paket kegiatan outbound di venue resmi ${dest.name} Batu Malang.`);
+        const numStr = (dest.sortOrder < 10 ? '0' : '') + dest.sortOrder;
+
+        return (
+          <div class="rounded-2xl bg-[#480308]/70 border border-rose-700/35 hover:border-amber-400/60 transition-all duration-300 flex flex-col justify-between shadow-card hover:-translate-y-1.5 group overflow-hidden h-full">
+            
+            <div>
+              <!-- Image Banner with Badge (Aligned to Coban Rondo 750:560 Aspect Ratio) -->
+              <div class="w-full overflow-hidden bg-brand-950 relative shrink-0" style="aspect-ratio: 750 / 560;">
+                <img
+                  src={dest.imageUrl}
+                  alt={dest.name}
+                  width="750"
+                  height="560"
+                  class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500 block"
+                  loading="lazy"
+                />
+                <div class="absolute inset-0 bg-gradient-to-t from-stone-950/85 via-transparent to-transparent"></div>
+                
+                <!-- Number & Elevation Pill -->
+                <div class="absolute top-3 left-3 flex items-center gap-1.5">
+                  <span class="px-2.5 py-1 rounded bg-stone-900/90 backdrop-blur-sm text-xs font-heading font-black text-amber-400 border border-amber-400/30">
+                    {numStr}
+                  </span>
+                  {dest.elevation && (
+                    <span class="px-2.5 py-1 rounded bg-emerald-950/85 backdrop-blur-sm text-[11px] font-bold text-emerald-300 border border-emerald-500/30 flex items-center gap-1">
+                      <i class="fas fa-mountain text-[10px]"></i>
+                      {dest.elevation}
+                    </span>
+                  )}
+                </div>
+
+                <!-- Location tag -->
+                <div class="absolute bottom-3 left-3 right-3 flex items-center justify-between text-xs text-rose-100 font-medium">
+                  <span class="flex items-center gap-1.5 truncate">
+                    <i class="fas fa-map-pin text-amber-400 text-[11px]"></i>
+                    <span class="truncate">{dest.location}</span>
+                  </span>
+                </div>
+              </div>
+
+              <!-- Body Content -->
+              <div class="p-6 space-y-4 text-left">
+                <div>
+                  <h3 class="font-heading font-black text-xl text-white uppercase tracking-wider group-hover:text-amber-300 transition-colors">
+                    {dest.name}
+                  </h3>
+                  <p class="text-xs font-semibold text-amber-400/90 mt-1 line-clamp-1">
+                    {dest.tagline}
+                  </p>
+                </div>
+
+                <p class="text-xs sm:text-sm text-rose-100/85 leading-relaxed">
+                  {dest.overview}
+                </p>
+
+                <!-- Features / Facility Badges -->
+                <div class="pt-2 border-t border-rose-900/40">
+                  <span class="text-[10px] font-bold uppercase tracking-wider text-amber-400/90 block mb-2">
+                    Fasilitas &amp; Keunggulan Venue:
+                  </span>
+                  <div class="flex flex-wrap gap-1.5">
+                    {dest.features.map((feat) => (
+                      <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-stone-900/60 border border-rose-800/40 text-[11px] text-rose-200">
+                        <i class="fas fa-check text-[9px] text-amber-400"></i>
+                        <span>{feat}</span>
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card Action Footer -->
+            <div class="p-6 pt-0">
+              <a
+                href={destWaUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="w-full inline-flex items-center justify-center gap-2 py-3 rounded-lg bg-amber-500 hover:bg-amber-400 text-stone-950 font-heading font-black text-xs uppercase tracking-wider shadow-md hover:scale-[1.02] transition-all"
+              >
+                <i class="fab fa-whatsapp text-sm"></i>
+                <span>Pilih Venue {dest.name}</span>
+              </a>
+            </div>
+
+          </div>
+        );
+      })}
+    </div>
+
+  </div>
+</section>
+

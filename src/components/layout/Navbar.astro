@@ -18,31 +18,32 @@ const navItems = [
   { label: 'Kontak', url: '/kontak' },
 ];
 
-const waUrl = getWhatsAppUrl('Halo Vendor Outbound, saya ingin tanya paket kegiatan outbound & gathering di Batu Malang.');
+const waUrl = getWhatsAppUrl('Halo Provider Outbound, saya ingin tanya paket kegiatan outbound & gathering di Batu Malang.');
 ---
 
 <!-- TOP NAVBAR (NAVBAR-NAVY REFERENCE STYLE) -->
 <nav class="navbar navbar-navy fixed-top w-full z-50 sticky top-0" id="mainNavbar">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex items-center justify-between h-16 sm:h-20">
+    <div class="flex items-center justify-between h-16 sm:h-18">
       
       <!-- Brand Logo & Typography -->
-      <a class="navbar-brand" href="/" aria-label="Vendor Outbound Beranda">
+      <a class="navbar-brand flex-shrink-0" href="/" aria-label="Provider Outbound Beranda">
         <img
-          alt="Logo Vendor Outbound"
+          id="navbar-brand-logo"
+          alt="Logo Provider Outbound"
           class="brand-logo-img"
-          height="44"
-          width="44"
-          src="/images/logo/logo-fix.webp"
+          height="40"
+          width="40"
+          src="/images/logo/logo-provider-outbound.webp"
         />
         <div class="brand-text">
-          <span class="brand-name">VENDOR OUTBOUND</span>
-          <span class="brand-tagline">Outbound & Gathering Batu Malang</span>
+          <span id="navbar-brand-name" class="brand-name">PROVIDER OUTBOUND</span>
+          <span id="navbar-brand-tagline" class="brand-tagline">Outbound & Gathering Batu Malang</span>
         </div>
       </a>
 
       <!-- Desktop Navigation Menu (Pill Links) -->
-      <div class="hidden lg:flex items-center mx-auto navbar-nav gap-1">
+      <div id="navbar-nav-links" class="hidden lg:flex items-center mx-auto navbar-nav gap-1.5">
         {navItems.map((item) => {
           const isActive = currentPath === item.url || (item.url !== '/' && currentPath.startsWith(item.url));
           return (
@@ -64,7 +65,7 @@ const waUrl = getWhatsAppUrl('Halo Vendor Outbound, saya ingin tanya paket kegia
           href={waUrl}
           rel="noopener noreferrer"
           target="_blank"
-          aria-label="Chat WhatsApp Vendor Outbound"
+          aria-label="Chat WhatsApp Provider Outbound"
         >
           <i class="fab fa-whatsapp text-lg"></i>
           <span>Chat WhatsApp</span>
@@ -89,7 +90,7 @@ const waUrl = getWhatsAppUrl('Halo Vendor Outbound, saya ingin tanya paket kegia
     id="navbarMainMobile"
     class="hidden lg:hidden border-t border-white/10 bg-[#350206] px-4 py-4 space-y-1 shadow-2xl transition-all"
   >
-    <div class="flex flex-col gap-1">
+    <div id="navbar-mobile-nav-links" class="flex flex-col gap-1">
       {navItems.map((item) => {
         const isActive = currentPath === item.url || (item.url !== '/' && currentPath.startsWith(item.url));
         return (

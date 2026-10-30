@@ -1,7 +1,7 @@
 // ============================================================================
 // Script: supabase-test-and-seed.mjs
 // Deskripsi: Skrip otomasi untuk memverifikasi koneksi, memeriksa tabel, dan
-// menguji integrasi backend Supabase untuk Vendor Outbound (vendoroutbound.id).
+// menguji integrasi backend Supabase untuk Provider Outbound (provideroutbound.web.id).
 // ============================================================================
 
 import { createClient } from '@supabase/supabase-js';
@@ -49,7 +49,7 @@ const supabaseKey = env.SUPABASE_SERVICE_ROLE_KEY || env.PUBLIC_SUPABASE_ANON_KE
 
 console.log('\n======================================================');
 console.log('  UJI KONEKSI & DIAGNOSTIK BACKEND SUPABASE');
-console.log('  Project: Vendor Outbound (vendoroutbound.id)');
+console.log('  Project: Provider Outbound (provideroutbound.web.id)');
 console.log('======================================================\n');
 
 console.log(`URL Supabase     : ${supabaseUrl || '(Belum disetel)'}`);
@@ -133,7 +133,7 @@ async function testConnection() {
     console.log('\nMenguji pengiriman leads via form kontak (RLS Public Insert)...');
     const testLead = {
       name: 'Uji Koneksi Sistem',
-      organization: 'Vendor Outbound Tester',
+      organization: 'Provider Outbound Tester',
       whatsapp: '082211221909',
       service_type: 'Outbound Perusahaan',
       message: 'Uji integrasi otomatis Supabase dari skrip diagnostik.',

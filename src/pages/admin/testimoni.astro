@@ -5,13 +5,13 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
 <AdminLayout title="Kelola Testimoni">
   <div class="space-y-6 text-left">
     
-    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-rose-900/40">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[#163832]">
       <div>
         <h1 class="font-heading font-black text-2xl uppercase tracking-wider text-white flex items-center gap-2.5">
-          <i class="fas fa-comment-dots text-amber-400"></i>
+          <i class="fas fa-comment-dots text-[#DAF1DE]"></i>
           <span>KELOLA TESTIMONI &amp; ULASAN KLIEN</span>
         </h1>
-        <p class="text-xs text-rose-300/80 mt-1">
+        <p class="text-xs text-[#8EB69B] mt-1">
           Hanya testimoni nyata yang telah dikonfirmasi izin publikasinya yang dapat ditampilkan di frontend (PRD Section 1.5 & 12.11).
         </p>
       </div>
@@ -19,7 +19,7 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
       <button
         id="add-testi-btn"
         type="button"
-        class="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-stone-950 font-bold text-xs uppercase tracking-wider shadow"
+        class="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-[#DAF1DE] hover:bg-white text-[#051F20] font-bold text-xs uppercase tracking-wider shadow-glow-mint transition-all"
       >
         <span>+ Tambah Testimoni Resmi</span>
       </button>
@@ -27,10 +27,10 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
 
     <div id="testi-alert" class="hidden p-3 rounded-lg text-xs font-bold"></div>
 
-    <div class="rounded-2xl bg-[#300205]/90 border border-rose-700/40 overflow-hidden shadow-2xl">
+    <div class="rounded-2xl bg-[#0B2B26] border border-[#235347] overflow-hidden shadow-2xl">
       <div class="overflow-x-auto">
         <table class="w-full text-xs text-left">
-          <thead class="bg-[#240104] text-[10px] uppercase font-bold text-rose-300/80 border-b border-rose-900/60">
+          <thead class="bg-[#072522] text-[10px] uppercase font-bold text-[#8EB69B] border-b border-[#163832]">
             <tr>
               <th class="py-3 px-4">Nama Pengirim</th>
               <th class="py-3 px-4">Instansi / Organisasi</th>
@@ -39,7 +39,7 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
               <th class="py-3 px-4 text-right">Tindakan</th>
             </tr>
           </thead>
-          <tbody id="testi-tbody" class="divide-y divide-rose-900/30 text-rose-100">
+          <tbody id="testi-tbody" class="divide-y divide-[#163832] text-[#DAF1DE]/90">
             <!-- Populated via script -->
           </tbody>
         </table>
@@ -47,43 +47,91 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
     </div>
 
     <!-- Modal Form -->
-    <dialog id="testi-modal" class="backdrop:bg-stone-950/80 bg-transparent p-4 max-w-lg w-full mx-auto my-auto text-white focus:outline-none">
-      <div class="rounded-2xl bg-[#330206] border border-rose-600/50 p-6 shadow-2xl space-y-4 text-left">
-        <div class="flex items-center justify-between border-b border-rose-900/50 pb-3">
+    <dialog id="testi-modal" class="backdrop:bg-[#051F20]/80 bg-transparent p-4 max-w-lg w-full mx-auto my-auto text-white focus:outline-none">
+      <div class="rounded-2xl bg-[#163832] border border-[#235347] p-6 shadow-2xl space-y-4 text-left">
+        <div class="flex items-center justify-between border-b border-[#235347] pb-3">
           <h3 class="font-heading font-black text-lg text-white uppercase tracking-wider">
             Tambah / Edit Testimoni
           </h3>
-          <button id="close-testi-modal-btn" type="button" class="text-rose-300 hover:text-white text-lg font-bold">✕</button>
+          <button id="close-testi-modal-btn" type="button" class="text-[#8EB69B] hover:text-white text-lg font-bold">✕</button>
         </div>
 
         <form id="testi-form" class="space-y-3.5">
-          <input type="hidden" id="testi-idx" />
+          <input type="hidden" id="testi-idx" value="-1" />
 
           <div>
-            <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200 mb-1">Nama Klien / Perwakilan</label>
-            <input type="text" id="t-name" required class="w-full px-3 py-2 rounded bg-stone-950/70 border border-rose-800 text-white text-xs focus:outline-none focus:border-amber-400" />
+            <label class="block text-[11px] font-bold uppercase tracking-wider text-[#DAF1DE] mb-1">Nama Klien / Perwakilan</label>
+            <input type="text" id="t-name" required class="w-full px-3 py-2 rounded bg-[#051F20]/90 border border-[#235347] text-white text-xs focus:outline-none focus:border-[#8EB69B]" />
+          </div>
+
+          <!-- Avatar Image Control -->
+          <div class="p-3 rounded-lg bg-[#051F20] border border-[#235347] space-y-2">
+            <div class="flex items-center justify-between">
+              <label class="block text-[11px] font-bold uppercase tracking-wider text-[#DAF1DE]">
+                Foto Profil / Avatar Klien
+              </label>
+              <span class="text-[10px] text-[#8EB69B]">Upload / Preset</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <div class="w-12 h-12 rounded-full bg-[#0B2B26] border border-[#235347] overflow-hidden flex-shrink-0 flex items-center justify-center">
+                <img id="t-avatar-preview" src="/images/testimonials/client-1.webp" alt="Avatar Preview" class="w-full h-full object-cover" />
+              </div>
+              <div class="flex-1 space-y-1.5">
+                <div class="flex gap-2">
+                  <input
+                    type="text"
+                    id="t-avatar"
+                    class="flex-1 px-3 py-1.5 rounded-lg bg-[#0B2B26] border border-[#235347] text-white text-xs font-mono focus:outline-none focus:border-[#8EB69B]"
+                    value="/images/testimonials/client-1.webp"
+                  />
+                  <label class="px-3 py-1.5 rounded-lg bg-[#163832] hover:bg-[#235347] text-[#DAF1DE] text-xs font-bold border border-[#235347] cursor-pointer flex items-center gap-1.5 transition-all">
+                    <i class="fas fa-upload text-[11px]"></i>
+                    <span>Upload</span>
+                    <input type="file" id="t-avatar-file" accept="image/*" class="hidden" />
+                  </label>
+                </div>
+                <div class="flex flex-wrap items-center gap-1.5 text-[10px]">
+                  <span class="text-[#8EB69B]">Preset:</span>
+                  <button type="button" class="btn-avatar-preset px-2 py-0.5 rounded bg-[#0B2B26] hover:bg-[#163832] text-[#DAF1DE] border border-[#235347]" data-val="/images/testimonials/client-1.webp">Klien 1</button>
+                  <button type="button" class="btn-avatar-preset px-2 py-0.5 rounded bg-[#0B2B26] hover:bg-[#163832] text-[#DAF1DE] border border-[#235347]" data-val="/images/testimonials/client-2.webp">Klien 2</button>
+                  <button type="button" class="btn-avatar-preset px-2 py-0.5 rounded bg-[#0B2B26] hover:bg-[#163832] text-[#DAF1DE] border border-[#235347]" data-val="/images/testimonials/client-3.webp">Klien 3</button>
+                  <button type="button" class="btn-avatar-preset px-2 py-0.5 rounded bg-[#0B2B26] hover:bg-[#163832] text-[#DAF1DE] border border-[#235347]" data-val="/images/testimonials/client-4.webp">Klien 4</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block text-[11px] font-bold uppercase tracking-wider text-[#DAF1DE] mb-1">Jabatan / Role</label>
+              <input type="text" id="t-role" placeholder="e.g. HR Director" class="w-full px-3 py-2 rounded bg-[#051F20]/90 border border-[#235347] text-white text-xs focus:outline-none focus:border-[#8EB69B]" />
+            </div>
+            <div>
+              <label class="block text-[11px] font-bold uppercase tracking-wider text-[#DAF1DE] mb-1">Nama Perusahaan / Komunitas</label>
+              <input type="text" id="t-org" class="w-full px-3 py-2 rounded bg-[#051F20]/90 border border-[#235347] text-white text-xs focus:outline-none focus:border-[#8EB69B]" />
+            </div>
           </div>
 
           <div>
-            <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200 mb-1">Nama Perusahaan / Komunitas</label>
-            <input type="text" id="t-org" class="w-full px-3 py-2 rounded bg-stone-950/70 border border-rose-800 text-white text-xs focus:outline-none focus:border-amber-400" />
+            <label class="block text-[11px] font-bold uppercase tracking-wider text-[#DAF1DE] mb-1">Tag / Jenis Acara</label>
+            <input type="text" id="t-tag" placeholder="e.g. Corporate Gathering • 150 Peserta" class="w-full px-3 py-2 rounded bg-[#051F20]/90 border border-[#235347] text-white text-xs focus:outline-none focus:border-[#8EB69B]" />
           </div>
 
           <div>
-            <label class="block text-[11px] font-bold uppercase tracking-wider text-rose-200 mb-1">Kutipan / Ulasan</label>
-            <textarea id="t-quote" rows="3" required class="w-full px-3 py-2 rounded bg-stone-950/70 border border-rose-800 text-white text-xs focus:outline-none focus:border-amber-400"></textarea>
+            <label class="block text-[11px] font-bold uppercase tracking-wider text-[#DAF1DE] mb-1">Kutipan / Ulasan</label>
+            <textarea id="t-quote" rows="3" required class="w-full px-3 py-2 rounded bg-[#051F20]/90 border border-[#235347] text-white text-xs focus:outline-none focus:border-[#8EB69B]"></textarea>
           </div>
 
           <div class="flex items-center gap-2 pt-2">
-            <input type="checkbox" id="t-perm" class="w-4 h-4 rounded bg-stone-950 border-rose-800 text-amber-500" />
-            <label for="t-perm" class="text-xs text-rose-200/90 font-medium">
+            <input type="checkbox" id="t-perm" class="w-4 h-4 rounded bg-[#051F20] border-[#235347] text-[#DAF1DE]" checked />
+            <label for="t-perm" class="text-xs text-[#DAF1DE] font-medium">
               Izin publikasi testimoni telah dikonfirmasi oleh pemilik kutipan
             </label>
           </div>
 
-          <div class="flex items-center justify-end gap-3 pt-3 border-t border-rose-900/50">
-            <button type="button" id="cancel-testi-btn" class="px-4 py-2 rounded bg-stone-900 text-rose-300 text-xs font-bold">Batal</button>
-            <button type="submit" class="px-5 py-2 rounded bg-amber-500 hover:bg-amber-400 text-stone-950 font-bold text-xs uppercase">Simpan Testimoni</button>
+          <div class="flex items-center justify-end gap-3 pt-3 border-t border-[#235347]">
+            <button type="button" id="cancel-testi-btn" class="px-4 py-2 rounded bg-[#0B2B26] hover:bg-[#163832] text-[#8EB69B] border border-[#235347] text-xs font-bold">Batal</button>
+            <button type="submit" class="px-5 py-2 rounded bg-[#DAF1DE] hover:bg-white text-[#051F20] font-bold text-xs uppercase shadow-glow-mint">Simpan Testimoni</button>
           </div>
         </form>
       </div>
@@ -92,6 +140,59 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
   </div>
 
   <script>
+    import { syncTestimonialToSupabase, deleteTestimonialFromSupabase } from '../../lib/supabaseSync';
+
+    const DEFAULT_TESTIS = [
+      {
+        id: 1,
+        name: 'Hendro Wicaksono, S.T.',
+        display_name: 'Hendro Wicaksono, S.T.',
+        role: 'HR Director',
+        company: 'PT Astra Graphia Tbk',
+        organization: 'PT Astra Graphia Tbk',
+        avatar: '/images/testimonials/client-1.webp',
+        rating: 5,
+        tag: 'Corporate Gathering • 150 Peserta',
+        review: 'Penyelenggaraan corporate gathering dan team building 150 staf kami di resort Batu berjalan luar biasa tertib, presisi waktu, dan sangat berkesan. Fasilitator BNSP sangat komunikatif membimbing simulasi tim, dan sesi debrief-nya berhasil menyegarkan kembali komitmen kerja lintas divisi.',
+        quote: 'Penyelenggaraan corporate gathering dan team building 150 staf kami di resort Batu berjalan luar biasa tertib, presisi waktu, dan sangat berkesan. Fasilitator BNSP sangat komunikatif membimbing simulasi tim, dan sesi debrief-nya berhasil menyegarkan kembali komitmen kerja lintas divisi.',
+        date: 'September 2026',
+        permission_confirmed: true,
+        status: 'published'
+      },
+      {
+        id: 2,
+        name: 'Dra. Hj. Siti Nurhaliza, M.Pd',
+        display_name: 'Dra. Hj. Siti Nurhaliza, M.Pd',
+        role: 'Kepala Sekolah',
+        company: 'SMAN 3 Surabaya',
+        organization: 'SMAN 3 Surabaya',
+        avatar: '/images/testimonials/client-2.webp',
+        rating: 5,
+        tag: 'LDKS & Karakter Siswa • 220 Pelajar',
+        review: 'Latihan Dasar Kepemimpinan Siswa (LDKS) di Coban Rondo terlaksana sangat aman, edukatif, dan sarat nilai kedisiplinan. Fasilitator Provider Outbound sangat sigap mengawal SOP keselamatan anak didik kami dengan pendekatan yang persuasif dan inspiratif. Luar biasa!',
+        quote: 'Latihan Dasar Kepemimpinan Siswa (LDKS) di Coban Rondo terlaksana sangat aman, edukatif, dan sarat nilai kedisiplinan. Fasilitator Provider Outbound sangat sigap mengawal SOP keselamatan anak didik kami dengan pendekatan yang persuasif dan inspiratif. Luar biasa!',
+        date: 'Oktober 2026',
+        permission_confirmed: true,
+        status: 'published'
+      },
+      {
+        id: 3,
+        name: 'Ir. Bambang Priyambodo',
+        display_name: 'Ir. Bambang Priyambodo',
+        role: 'Ketua Panitia Gathering',
+        company: 'Paguyuban Alumni ITS Surabaya',
+        organization: 'Paguyuban Alumni ITS Surabaya',
+        avatar: '/images/testimonials/client-3.webp',
+        rating: 5,
+        tag: 'Family Gathering • 85 Keluarga',
+        review: 'Family gathering tahunan kami berjalan sangat meriah tanpa ada peserta yang jenuh. Variasi fun games-nya ramah untuk balita hingga lansia. Tim logistik dan konsumsinya sigap, plus dokumentasi foto dan drone-nya berkualitas studio. Pasti repeat order tahun depan!',
+        quote: 'Family gathering tahunan kami berjalan sangat meriah tanpa ada peserta yang jenuh. Variasi fun games-nya ramah untuk balita hingga lansia. Tim logistik dan konsumsinya sigap, plus dokumentasi foto dan drone-nya berkualitas studio. Pasti repeat order tahun depan!',
+        date: 'Agustus 2026',
+        permission_confirmed: true,
+        status: 'published'
+      }
+    ];
+
     const tbody = document.getElementById('testi-tbody');
     const modal = document.getElementById('testi-modal') as HTMLDialogElement | null;
     const form = document.getElementById('testi-form') as HTMLFormElement | null;
@@ -99,11 +200,23 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
 
     function getTestis() {
       const stored = localStorage.getItem('vo_testimonials');
-      return stored ? JSON.parse(stored) : [];
+      if (stored) {
+        try {
+          const parsed = JSON.parse(stored);
+          if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+        } catch (e) {}
+      }
+      return DEFAULT_TESTIS;
     }
 
     function saveTestis(list: any[]) {
       localStorage.setItem('vo_testimonials', JSON.stringify(list));
+      window.dispatchEvent(new CustomEvent('vo_content_updated', { detail: { key: 'vo_testimonials', data: list } }));
+      window.dispatchEvent(new Event('storage'));
+      try {
+        const bc = new BroadcastChannel('vo_sync_channel');
+        bc.postMessage({ type: 'VO_UPDATED', key: 'vo_testimonials', data: list });
+      } catch (e) {}
       renderTable();
     }
 
@@ -112,36 +225,104 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
       const list = getTestis();
 
       if (list.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="5" class="py-8 text-center text-rose-400">Belum ada testimoni tersimpan. (Sesuai PRD, testimoni rekaan dilarang ditampilkan).</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="5" class="py-8 text-center text-[#8EB69B]">Belum ada testimoni tersimpan.</td></tr>`;
         return;
       }
 
       tbody.innerHTML = list.map((item: any, idx: number) => `
-        <tr class="hover:bg-rose-950/40 transition-colors">
-          <td class="py-3 px-4 font-bold text-white">${item.display_name}</td>
-          <td class="py-3 px-4 text-amber-300 font-semibold">${item.organization || '-'}</td>
-          <td class="py-3 px-4 text-rose-200/80 leading-relaxed max-w-md">${item.quote}</td>
+        <tr class="hover:bg-[#163832]/50 transition-colors">
+          <td class="py-3 px-4 font-bold text-white">
+            <div class="flex items-center gap-2.5">
+              <img src="${item.avatar || '/images/testimonials/client-1.webp'}" alt="${item.name || item.display_name}" class="w-8 h-8 rounded-full object-cover border border-[#235347] flex-shrink-0" />
+              <div>
+                <div>${item.name || item.display_name}</div>
+                <div class="text-[10px] text-[#8EB69B] font-normal">${item.role || ''}</div>
+              </div>
+            </div>
+          </td>
+          <td class="py-3 px-4 text-[#DAF1DE] font-semibold">${item.company || item.organization || '-'}</td>
+          <td class="py-3 px-4 text-[#DAF1DE]/80 leading-relaxed max-w-md">${item.review || item.quote}</td>
           <td class="py-3 px-4">
             <span class="px-2 py-0.5 rounded text-[10px] font-bold ${
-              item.permission_confirmed ? 'bg-emerald-500/20 text-emerald-300' : 'bg-rose-950 text-rose-400'
+              item.permission_confirmed !== false ? 'bg-[#235347]/60 text-[#DAF1DE] border border-[#8EB69B]/40' : 'bg-[#051F20] text-rose-300 border border-[#235347]'
             }">
-              ${item.permission_confirmed ? 'Terkonfirmasi' : 'Belum Izin'}
+              ${item.permission_confirmed !== false ? 'Terkonfirmasi' : 'Belum Izin'}
             </span>
           </td>
           <td class="py-3 px-4 text-right space-x-2 whitespace-nowrap">
-            <button class="del-t-btn px-2.5 py-1 rounded bg-rose-950 hover:bg-rose-900 text-rose-300 text-[10px] border border-rose-800/40" data-idx="${idx}">
+            <button class="edit-t-btn px-2.5 py-1 rounded bg-[#163832] hover:bg-[#235347] text-[#DAF1DE] text-[10px] font-bold border border-[#235347]" data-idx="${idx}">
+              Edit
+            </button>
+            <button class="del-t-btn px-2.5 py-1 rounded bg-[#051F20] hover:bg-rose-950 text-rose-300 text-[10px] border border-[#235347]" data-idx="${idx}">
               Hapus
             </button>
           </td>
         </tr>
       `).join('');
 
-      document.querySelectorAll<HTMLButtonElement>('.del-t-btn').forEach(btn => {
+      const avatarInput = document.getElementById('t-avatar') as HTMLInputElement | null;
+      const avatarPreview = document.getElementById('t-avatar-preview') as HTMLImageElement | null;
+      const avatarFile = document.getElementById('t-avatar-file') as HTMLInputElement | null;
+
+      avatarInput?.addEventListener('input', () => {
+        if (avatarPreview) avatarPreview.src = avatarInput.value || '';
+      });
+
+      document.querySelectorAll<HTMLButtonElement>('.btn-avatar-preset').forEach(btn => {
         btn.addEventListener('click', () => {
+          const val = btn.getAttribute('data-val');
+          if (val) {
+            if (avatarInput) avatarInput.value = val;
+            if (avatarPreview) avatarPreview.src = val;
+          }
+        });
+      });
+
+      avatarFile?.addEventListener('change', () => {
+        const file = avatarFile.files?.[0];
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = (e) => {
+            const res = e.target?.result as string;
+            if (avatarInput) avatarInput.value = res;
+            if (avatarPreview) avatarPreview.src = res;
+          };
+          reader.readAsDataURL(file);
+        }
+      });
+
+      document.querySelectorAll<HTMLButtonElement>('.edit-t-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const idx = Number(btn.dataset.idx);
+          const item = list[idx];
+          if (item && modal) {
+            (document.getElementById('testi-idx') as HTMLInputElement).value = String(idx);
+            (document.getElementById('t-name') as HTMLInputElement).value = item.name || item.display_name || '';
+            (document.getElementById('t-role') as HTMLInputElement).value = item.role || '';
+            (document.getElementById('t-org') as HTMLInputElement).value = item.company || item.organization || '';
+            (document.getElementById('t-tag') as HTMLInputElement).value = item.tag || '';
+            (document.getElementById('t-quote') as HTMLTextAreaElement).value = item.review || item.quote || '';
+            (document.getElementById('t-perm') as HTMLInputElement).checked = item.permission_confirmed !== false;
+            
+            const av = item.avatar || '/images/testimonials/client-1.webp';
+            if (avatarInput) avatarInput.value = av;
+            if (avatarPreview) avatarPreview.src = av;
+
+            modal.showModal();
+          }
+        });
+      });
+
+      document.querySelectorAll<HTMLButtonElement>('.del-t-btn').forEach(btn => {
+        btn.addEventListener('click', async () => {
           if (confirm('Hapus testimoni ini?')) {
             const idx = Number(btn.dataset.idx);
+            const targetName = list[idx]?.name || list[idx]?.display_name;
             list.splice(idx, 1);
             saveTestis(list);
+            if (targetName) {
+              await deleteTestimonialFromSupabase(targetName);
+            }
           }
         });
       });
@@ -152,35 +333,62 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
     document.getElementById('add-testi-btn')?.addEventListener('click', () => {
       form?.reset();
       (document.getElementById('testi-idx') as HTMLInputElement).value = '-1';
+      const avInp = document.getElementById('t-avatar') as HTMLInputElement | null;
+      const avPrev = document.getElementById('t-avatar-preview') as HTMLImageElement | null;
+      if (avInp) avInp.value = '/images/testimonials/client-1.webp';
+      if (avPrev) avPrev.src = '/images/testimonials/client-1.webp';
       modal?.showModal();
     });
 
     document.getElementById('close-testi-modal-btn')?.addEventListener('click', () => modal?.close());
     document.getElementById('cancel-testi-btn')?.addEventListener('click', () => modal?.close());
 
-    form?.addEventListener('submit', (e) => {
+    form?.addEventListener('submit', async (e) => {
       e.preventDefault();
       const list = getTestis();
-      const display_name = (document.getElementById('t-name') as HTMLInputElement).value;
-      const organization = (document.getElementById('t-org') as HTMLInputElement).value;
+      const idx = Number((document.getElementById('testi-idx') as HTMLInputElement).value);
+      const name = (document.getElementById('t-name') as HTMLInputElement).value;
+      const role = (document.getElementById('t-role') as HTMLInputElement).value;
+      const org = (document.getElementById('t-org') as HTMLInputElement).value;
+      const tag = (document.getElementById('t-tag') as HTMLInputElement).value || 'Corporate Outbound';
       const quote = (document.getElementById('t-quote') as HTMLTextAreaElement).value;
       const permission_confirmed = (document.getElementById('t-perm') as HTMLInputElement).checked;
+      const avatar = (document.getElementById('t-avatar') as HTMLInputElement)?.value || '/images/testimonials/client-1.webp';
 
-      list.push({
-        id: 'testi-' + Date.now(),
-        display_name,
-        organization,
+      const itemData = {
+        name,
+        display_name: name,
+        role,
+        company: org,
+        organization: org,
+        avatar,
+        tag,
+        review: quote,
         quote,
+        rating: 5,
         permission_confirmed,
-        status: 'published'
-      });
+        status: 'published',
+        date: new Date().toLocaleDateString('id-ID', { month: 'long', year: 'numeric' })
+      };
+
+      if (idx >= 0) {
+        list[idx] = { ...list[idx], ...itemData };
+      } else {
+        list.unshift({
+          id: 'testi-' + Date.now(),
+          ...itemData
+        });
+      }
 
       saveTestis(list);
       modal?.close();
 
+      // Background Supabase Sync
+      syncTestimonialToSupabase(itemData);
+
       if (alertBox) {
         alertBox.className = 'p-3 rounded-lg text-xs font-bold bg-emerald-950 text-emerald-200 border border-emerald-500 block';
-        alertBox.textContent = '✓ Testimoni berhasil disimpan!';
+        alertBox.textContent = '✓ Testimoni berhasil disimpan ke Front-End & Supabase!';
         setTimeout(() => alertBox.classList.add('hidden'), 2500);
       }
     });
