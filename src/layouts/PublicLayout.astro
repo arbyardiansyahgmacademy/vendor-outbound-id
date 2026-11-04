@@ -635,31 +635,6 @@ const localBusinessSchema = generateLocalBusinessSchema();
         } catch(err) {}
       })();
     </script>
-        }
-
-        // Execute immediately upon load
-        applyFrontendHydration();
-        document.addEventListener('DOMContentLoaded', applyFrontendHydration);
-
-        // Listen for changes from another tab (Admin Dashboard)
-        window.addEventListener('storage', function(e) {
-          if (!e.key || e.key.indexOf('vo_') === 0) {
-            applyFrontendHydration();
-          }
-        });
-
-        // Listen for custom in-tab updates
-        window.addEventListener('vo_content_updated', applyFrontendHydration);
-
-        // BroadcastChannel sync across tabs & windows
-        try {
-          var bc = new BroadcastChannel('vo_sync_channel');
-          bc.onmessage = function() {
-            applyFrontendHydration();
-          };
-        } catch(err) {}
-      })();
-    </script>
 
     <!-- Supabase Cloud Sync Engine (Bundled Vite Module) -->
     <script>
