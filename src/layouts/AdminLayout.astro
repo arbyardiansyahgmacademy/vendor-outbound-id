@@ -70,10 +70,10 @@ const navSections = [
     />
   </head>
 
-  <body class="admin-body bg-[#051F20] text-[#DAF1DE] font-sans min-h-screen flex flex-col antialiased">
+  <body class="admin-body bg-[#051F20] text-[#DAF1DE] font-sans h-screen flex flex-col antialiased overflow-hidden">
     
     <!-- Top Admin Bar (Pine & Sage Palette) -->
-    <header class="bg-[#0B2B26] border-b border-[#163832] sticky top-0 z-40 px-4 sm:px-6 py-2.5 flex items-center justify-between shadow-lg">
+    <header class="bg-[#0B2B26] border-b border-[#163832] h-14 flex-shrink-0 z-40 px-4 sm:px-6 flex items-center justify-between shadow-lg">
       <div class="flex items-center gap-3">
         <button
           id="admin-sidebar-toggle"
@@ -152,16 +152,19 @@ const navSections = [
       </div>
     </header>
 
-    <div class="flex flex-1">
+    <div class="flex flex-1 overflow-hidden relative">
       
-      <!-- Sidebar (Pine & Sage Palette) -->
+      <!-- Mobile Backdrop Overlay -->
+      <div id="admin-sidebar-backdrop" class="fixed inset-0 bg-black/60 z-30 hidden lg:hidden transition-opacity"></div>
+
+      <!-- Sidebar (Pine & Sage Palette - Fixed/Stuck, No Scrollbar) -->
       <aside
         id="admin-sidebar"
-        class="w-64 bg-[#0B2B26] border-r border-[#163832] p-4 space-y-4 hidden lg:block flex-shrink-0 max-h-[calc(100vh-61px)] overflow-y-auto"
+        class="w-64 bg-[#0B2B26] border-r border-[#163832] p-3 space-y-2 hidden lg:flex lg:flex-col flex-shrink-0 overflow-y-auto no-scrollbar fixed inset-y-14 left-0 z-40 lg:static lg:h-full shadow-2xl lg:shadow-none"
       >
         {navSections.map((sec) => (
-          <div class="space-y-1">
-            <div class="text-[10px] uppercase font-bold text-[#8EB69B]/70 px-3 py-1 tracking-widest">
+          <div class="space-y-0.5">
+            <div class="text-[9px] uppercase font-bold text-[#8EB69B]/75 px-2.5 py-0.5 tracking-wider">
               {sec.heading}
             </div>
 
@@ -173,7 +176,7 @@ const navSections = [
               return (
                 <a
                   href={item.url}
-                  class={`flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition-all ${
+                  class={`flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-xs font-bold uppercase tracking-wider transition-all ${
                     isActive
                       ? 'bg-[#DAF1DE] text-[#051F20] shadow-md translate-x-1 font-black'
                       : 'text-[#8EB69B] hover:bg-[#163832] hover:text-[#DAF1DE] hover:translate-x-0.5'
@@ -188,9 +191,11 @@ const navSections = [
         ))}
       </aside>
 
-      <!-- Main Content Area -->
-      <main class="flex-1 p-4 sm:p-6 lg:p-8 max-w-7xl overflow-x-hidden">
-        <slot />
+      <!-- Main Content Area (Independently Scrollable) -->
+      <main class="flex-1 overflow-y-auto overflow-x-hidden scroll-smooth p-4 sm:p-6 lg:p-8">
+        <div class="max-w-7xl mx-auto">
+          <slot />
+        </div>
       </main>
 
     </div>
@@ -198,14 +203,36 @@ const navSections = [
     <script>
       import { pullLatestFromSupabase } from '../lib/supabaseSync';
 
-      // Sidebar mobile toggle
+      // Sidebar mobile toggle & backdrop
       const toggle = document.getElementById('admin-sidebar-toggle');
       const sidebar = document.getElementById('admin-sidebar');
-      if (toggle && sidebar) {
-        toggle.addEventListener('click', () => {
-          sidebar.classList.toggle('hidden');
-        });
+      const backdrop = document.getElementById('admin-sidebar-backdrop');
+
+      function closeMobileSidebar() {
+        if (window.innerWidth < 1024 && sidebar) {
+          sidebar.classList.add('hidden');
+          backdrop?.classList.add('hidden');
+        }
       }
+
+      function toggleMobileSidebar() {
+        if (sidebar) {
+          const isHidden = sidebar.classList.toggle('hidden');
+          if (isHidden) {
+            backdrop?.classList.add('hidden');
+          } else {
+            backdrop?.classList.remove('hidden');
+          }
+        }
+      }
+
+      toggle?.addEventListener('click', toggleMobileSidebar);
+      backdrop?.addEventListener('click', closeMobileSidebar);
+
+      // Close mobile sidebar on link click
+      sidebar?.querySelectorAll('a').forEach((link) => {
+        link.addEventListener('click', closeMobileSidebar);
+      });
 
       // Load admin profile globally across all admin pages
       function updateTopbarProfile() {
